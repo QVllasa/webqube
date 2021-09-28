@@ -5,6 +5,7 @@ module.exports = {
       './src/**/*.{html,ts}'
     ]
   },
+  mode: 'jit',
   darkMode: false,
   important: ':root',
   separator: ':',
