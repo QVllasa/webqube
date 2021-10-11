@@ -21,7 +21,7 @@
     "enable": false
   },
   "fullScreen": {
-    "enable": true,
+    "enable": false,
     "zIndex": -1
   },
   "detectRetina": true,
@@ -38,7 +38,7 @@
         "selectors": [],
         "enable": false,
         "mode": [],
-        "type": "circle"
+        "type": "line"
       },
       "onHover": {
         "enable": false,
@@ -434,20 +434,20 @@
         "options": {}
       },
       "outModes": {
-        "default": "none",
-        "bottom": "none",
-        "left": "none",
-        "right": "none",
-        "top": "none"
+        "default": "out",
+        "bottom": "out",
+        "left": "out",
+        "right": "out",
+        "top": "out"
       },
       "random": false,
-      "size": false,
+      "size": true,
       "speed": 4,
       "spin": {
         "acceleration": 0,
         "enable": false
       },
-      "straight": false,
+      "straight": true,
       "trail": {
         "enable": false,
         "length": 10,
@@ -535,7 +535,7 @@
         "enable": false,
         "minimumValue": 0
       },
-      "value": 0,
+      "value": 90,
       "animation": {
         "enable": false,
         "speed": 0,
@@ -557,7 +557,7 @@
     },
     "shape": {
       "options": {},
-      "type": "circle"
+      "type": "line"
     },
     "size": {
       "random": {
@@ -579,7 +579,7 @@
       }
     },
     "stroke": {
-      "width": 0,
+      "width": 21,
       "color": {
         "value": "",
         "animation": {
@@ -649,8 +649,8 @@
       "velocityRate": 1
     }
   },
-  "pauseOnBlur": true,
-  "pauseOnOutsideViewport": true,
+  "pauseOnBlur": false,
+  "pauseOnOutsideViewport": false,
   "responsive": [],
   "themes": [],
   "zLayers": 100

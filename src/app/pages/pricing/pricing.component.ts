@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PricingComponent implements OnInit {
 
+  isMonthly: boolean = true;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  switchPlan(){
+    this.isMonthly = !this.isMonthly;
   }
 
 }
