@@ -23,6 +23,7 @@
     "@tailwindcss/aspect-ratio": "^0.3.0",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",
+    "ng-particles": "^2.18.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "tsparticles": "^1.35.4",
