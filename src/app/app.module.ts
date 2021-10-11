@@ -17,6 +17,9 @@ import { ProductsComponent } from './pages/products/products.component';
 import { GaleryComponent } from './pages/galery/galery.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import {NgParticlesModule} from "ng-particles";
+import { RegisterComponent } from '../@webqube/components/dialog/register/register.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {webqubeModule} from "../@webqube/webqube.module";
 
 @NgModule({
   declarations: [
@@ -25,13 +28,15 @@ import {NgParticlesModule} from "ng-particles";
     PricingComponent,
     ProductsComponent,
     GaleryComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    webqubeModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
@@ -39,6 +44,7 @@ import {NgParticlesModule} from "ng-particles";
     MatMenuModule,
     MatButtonModule,
     NgParticlesModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
