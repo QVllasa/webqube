@@ -16,6 +16,7 @@ import { PricingComponent } from './pages/pricing/pricing.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { GaleryComponent } from './pages/galery/galery.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
+import {NgParticlesModule} from "ng-particles";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
     MatRippleModule,
     MatMenuModule,
     MatButtonModule,
+    NgParticlesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
