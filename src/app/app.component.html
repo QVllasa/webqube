@@ -31,10 +31,11 @@
           <div class="hidden md:flex md:items-center md:space-x-6">
             <a *ngFor="let item of navigationItems" [routerLink]="[item.path]"
                class="text-base font-medium text-white hover:text-gray-300">{{item.label}}</a>
-            <button mat-ripple routerLink="https://www.notion.so/login"
+            <a mat-ripple href="https://webqube.notion.site"
+               target="_blank"
                     class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700">
               Login
-            </button>
+            </a>
           </div>
         </nav>
       </div>
