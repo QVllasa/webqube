@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "webqube-93ffb"
+  },
+  "targets": {
+    "webqube-93ffb": {
+      "hosting": {
+        "webqube": [
+          "webqube-93ffb"
+        ]
+      }
+    }
   }
 }

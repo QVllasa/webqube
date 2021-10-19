@@ -20,6 +20,12 @@ import {NgParticlesModule} from "ng-particles";
 import { RegisterComponent } from '../@webqube/components/dialog/register/register.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {webqubeModule} from "../@webqube/webqube.module";
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { provideFunctions,getFunctions } from '@angular/fire/functions';
+import {AngularFireFunctionsModule, USE_EMULATOR} from "@angular/fire/compat/functions";
+import {AngularFireModule} from "@angular/fire/compat";
 
 @NgModule({
   declarations: [
@@ -44,9 +50,16 @@ import {webqubeModule} from "../@webqube/webqube.module";
     MatMenuModule,
     MatButtonModule,
     NgParticlesModule,
-    MatDialogModule
+    MatDialogModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+    provideFunctions(() => getFunctions()),
+    AngularFireFunctionsModule,
   ],
-  providers: [],
+  providers: [
+    // { provide: USE_EMULATOR, useValue: ['localhost', 5001] }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

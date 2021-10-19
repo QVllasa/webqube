@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {AngularFireFunctions} from "@angular/fire/compat/functions";
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'webqube';
+  constructor(private fns: AngularFireFunctions) {
+  }
+
 
   navigationItems = [
     {path: '/', label:''},
@@ -16,4 +20,9 @@ export class AppComponent {
     {path:'about-us', label: 'Über Uns'}
   ]
 
+   onTestFunction() {
+
+    const callable = this.fns.httpsCallable('sayHello');
+    callable({name: "AAAAAA"}).toPromise().then(res => {console.log(res)});
+  }
 }
