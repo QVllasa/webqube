@@ -24,7 +24,11 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
-import {AngularFireFunctionsModule, USE_EMULATOR} from "@angular/fire/compat/functions";
+import {AngularFireFunctionsModule} from "@angular/fire/compat/functions";
+import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
+import { USE_EMULATOR as USE_DATABASE_EMULATOR } from '@angular/fire/compat/database';
+import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/compat/firestore';
+import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
 import {AngularFireModule} from "@angular/fire/compat";
 import {ReactiveFormsModule} from "@angular/forms";
 
@@ -60,7 +64,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     ReactiveFormsModule,
   ],
   providers: [
-    { provide: USE_EMULATOR, useValue: ['localhost', 5001] }
+    { provide: USE_FUNCTIONS_EMULATOR, useValue: ['localhost', 5001] },
+    { provide: USE_FIRESTORE_EMULATOR, useValue: ['localhost', 8080] },
   ],
   bootstrap: [AppComponent]
 })

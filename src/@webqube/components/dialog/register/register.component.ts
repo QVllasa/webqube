@@ -2,11 +2,13 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {AngularFireFunctions} from "@angular/fire/compat/functions";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 
 
-export interface DialogData {
-  animal: string;
-  name: string;
+interface IClient{
+  name: string,
+  email: string,
+  business:string,
 }
 
 @Component({
@@ -22,10 +24,11 @@ export class RegisterComponent implements OnInit {
     business: new FormControl(''),
   });
 
+  clientCollection: AngularFirestoreCollection<IClient>;
+
   constructor(
     public dialogRef: MatDialogRef<RegisterComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private fns: AngularFireFunctions, private fb: FormBuilder) {}
+    private fns: AngularFireFunctions,  private afs: AngularFirestore) {}
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -37,11 +40,13 @@ export class RegisterComponent implements OnInit {
       return;
     }
     console.log(this.registerForm.value)
-    // const callable = this.fns.httpsCallable('sayHello');
-    // callable({name: "AAAAAA"}).toPromise().then(res => {console.log(res)});
+    const callable = this.fns.httpsCallable('hello');
+    callable(this.registerForm.value).toPromise().then(res => {console.log(res); this.dialogRef.close();});
+    this.clientCollection.add(this.registerForm.value)
   }
 
   ngOnInit(): void {
+    this.clientCollection = this.afs.collection<IClient>('clients');
   }
 
   get f()
