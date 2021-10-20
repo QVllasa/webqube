@@ -26,6 +26,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
 import {AngularFireFunctionsModule, USE_EMULATOR} from "@angular/fire/compat/functions";
 import {AngularFireModule} from "@angular/fire/compat";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -56,9 +57,10 @@ import {AngularFireModule} from "@angular/fire/compat";
     provideFirestore(() => getFirestore()),
     provideFunctions(() => getFunctions()),
     AngularFireFunctionsModule,
+    ReactiveFormsModule,
   ],
   providers: [
-    // { provide: USE_EMULATOR, useValue: ['localhost', 5001] }
+    { provide: USE_EMULATOR, useValue: ['localhost', 5001] }
   ],
   bootstrap: [AppComponent]
 })

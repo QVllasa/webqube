@@ -1,10 +1,9 @@
-<div class="min-h-screen w-screen absolute ">
-  <ng-particles [id]="id" url="./assets/particles.json"></ng-particles>
+<div class="hidden sm:block min-h-screen w-screen absolute bg-gray-900 ">
+  <ng-particles id="tsparticles" url="./assets/particles.json"></ng-particles>
 </div>
 
-<div
-  class="relative min-h-screen flex items-center pt-10 bg-transparent sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden z-10">
-  <div class="m-auto max-w-7xl lg:px-8">
+<div class="bg-gray-900  relative min-h-screen flex items-center pt-10 sm:bg-transparent sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden z-10">
+  <div class="mt-16 m-auto max-w-7xl lg:px-8">
     <div class="lg:grid lg:grid-cols-2 lg:gap-8">
       <div
         class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 sm:text-center lg:px-0 lg:text-left lg:flex lg:items-center">
@@ -16,12 +15,12 @@
             <span class="block text-yellow-500">superschnelle</span>
             <span class="uppercase block text-yellow-500">webseiten</span>
           </h1>
-          <p class="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+          <p class="mt-3 text-base text-yellow-50 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
             Erhöhe deine Reichweite und die Verbundenheit zu deinen Nutzern mit einer Webseite, die deine Nutzer
             lieben, ohne dass du dich darum kümmern musst.
           </p>
           <div class="mt-10 sm:mt-12">
-            <div class="flex space-x-4 mt-3 sm:mt-0 ">
+            <div class=" grid grid-cols-1 sm:grid-cols-2 gap-4  mt-3 sm:mt-0  ">
               <button mat-ripple type="button" (click)="openDialog()"
                       class="block w-full py-3 px-4 rounded-md shadow bg-yellow-500 text-white font-medium hover:bg-yellow-600 focus:outline-none ">
                 Konstenlos Anmelden
@@ -195,7 +194,7 @@
 <div class="bg-gradient-to-r from-yellow-800 to-yellow-700">
   <div class="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:pt-24 lg:px-8">
     <h2 class="text-3xl font-extrabold text-white tracking-tight">
-      Wir wie arbeiten
+      Wie wir arbeiten
     </h2>
     <p class="mt-4 max-w-3xl text-lg text-yellow-50">
       Webqube ist ein umfassender Service, der alle Kernbestandteile einer erfolgreichen Webseite für dich abwickelt.
@@ -314,7 +313,7 @@
     <div class="text-center mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 ">
       <h2 class="text-base font-semibold text-yellow-50 tracking-wide uppercase">Agile Arbeitsweise</h2>
       <p class="mt-1 text-4xl font-extrabold text-yellow-50 sm:text-5xl sm:tracking-tight lg:text-6xl">Du hast die volle Kontrolle.</p>
-      <p class="max-w-xl mt-5 mx-auto text-xl text-gray-200">Nach Anmeldung erhältst du Zugang zu unserem Ticketsystem, wo du neue Wünsche und Änderungen eintragen kannst.</p>
+      <p class="max-w-xl mt-5 mx-auto text-xl text-yellow-50">Nach Anmeldung erhältst du Zugang zu unserem Ticketsystem, wo du neue Wünsche und Änderungen eintragen kannst.</p>
     </div>
 
 
@@ -330,7 +329,7 @@
     </h2>
     <div class="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
       <a href="#"
-         class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-yellow-800 bg-yellow-50 hover:bg-yellow-100">
+         class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md  text-yellow-800  hover:bg-yellow-100">
         Preise
       </a>
       <a href="#"

@@ -9,7 +9,7 @@ import {RegisterComponent} from "../../../@webqube/components/dialog/register/re
 })
 export class IndexComponent implements OnInit {
 
-  id = "tsparticles";
+
 
 
   constructor(public dialog: MatDialog) { }
