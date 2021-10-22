@@ -3,12 +3,13 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {AngularFireFunctions} from "@angular/fire/compat/functions";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
+import {doc, getDoc} from "firebase/firestore";
 
 
-interface IClient{
+interface IClient {
   name: string,
   email: string,
-  business:string,
+  business: string,
 }
 
 @Component({
@@ -19,40 +20,57 @@ interface IClient{
 export class RegisterComponent implements OnInit {
 
   registerForm = new FormGroup({
-    name: new FormControl('',[ Validators.required]),
-    email: new FormControl('',[ Validators.required, Validators.email]),
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     business: new FormControl(''),
   });
 
+  clientObj: IClient;
+
   clientCollection: AngularFirestoreCollection<IClient>;
+  emailExists: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<RegisterComponent>,
-    private fns: AngularFireFunctions,  private afs: AngularFirestore) {}
+    private fns: AngularFireFunctions, private afs: AngularFirestore) {
+  }
+
+  ngOnInit(): void {
+    this.clientCollection = this.afs.collection<IClient>('clients');
+    this.registerForm.valueChanges.subscribe((data)=>{
+      this.clientObj = data
+    })
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  onSend(){
-    if (!this.registerForm.valid){
+  onSend() {
+    if (!this.registerForm.valid) {
       console.log("not valid")
       return;
     }
-    console.log(this.registerForm.value)
-    const callable = this.fns.httpsCallable('hello');
-    callable(this.registerForm.value).toPromise().then(res => {console.log(res); this.dialogRef.close();});
-    this.clientCollection.add(this.registerForm.value)
+    console.log(this.clientObj)
+    this.clientCollection.ref.where('email', '==', this.clientObj.email).get()
+      .then((snapShot) => {
+        console.log(snapShot)
+        this.emailExists = !snapShot.empty;
+        console.log(this.emailExists, "if email exists")
+        if (!this.emailExists) {
+          this.clientCollection.add(this.clientObj)
+          this.dialogRef.close();
+        }else{
+          return;
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
-  ngOnInit(): void {
-    this.clientCollection = this.afs.collection<IClient>('clients');
-  }
-
-  get f()
-  {
+  get f() {
     return this.registerForm.controls;
   }
-
 
 }

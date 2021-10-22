@@ -1,8 +1,8 @@
 
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
     <img class="mx-auto h-12 w-auto" src="/assets/img/logo/webqube_icon.svg" alt="Workflow">
-    <h2 class="mt-6 text-center text-xl font-bold text-gray-500">
-      Melde dich kostenlos an. Du zahlst erst, wenn es mit dem Projekt losgeht.
+    <h2 class="mt-6 text-center text-lg font-extrabold text-gray-800">
+      Melde dich kostenlos an. <br/> Du zahlst erst, wenn es mit dem Projekt losgeht.
     </h2>
   </div>
 
@@ -36,6 +36,7 @@
                    class="block w-full pl-3 sm:text-sm  rounded-md" placeholder="Deine E-Mail">
           </div>
           <p *ngIf="f.email.invalid &&  f.email.touched" class="mt-1 text-xs text-red-600" id="email-error">Keine gültige E-Mail.</p>
+          <p *ngIf="emailExists" class="mt-1 text-xs text-red-600" id="email-exists">Diese E-Mail existiert bereits.</p>
         </div>
 
         <div>
