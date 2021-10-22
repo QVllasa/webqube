@@ -19,16 +19,20 @@ interface IClient {
 })
 export class RegisterComponent implements OnInit {
 
+  clientCollection: AngularFirestoreCollection<IClient>;
+  emailExists: boolean;
+  isLoading: boolean = true;
+  isSuccess: boolean = true;
+
   registerForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    business: new FormControl(''),
+    name: new FormControl({value:'', disabled: this.isLoading}, [Validators.required]),
+    email: new FormControl({value:'', disabled: this.isLoading}, [Validators.required, Validators.email]),
+    business: new FormControl({value:'', disabled: this.isLoading}),
   });
 
   clientObj: IClient;
 
-  clientCollection: AngularFirestoreCollection<IClient>;
-  emailExists: boolean;
+
 
   constructor(
     public dialogRef: MatDialogRef<RegisterComponent>,
@@ -47,6 +51,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSend() {
+    this.isLoading = true;
     if (!this.registerForm.valid) {
       console.log("not valid")
       return;
@@ -58,9 +63,13 @@ export class RegisterComponent implements OnInit {
         this.emailExists = !snapShot.empty;
         console.log(this.emailExists, "if email exists")
         if (!this.emailExists) {
-          this.clientCollection.add(this.clientObj)
-          this.dialogRef.close();
+          this.clientCollection.add(this.clientObj).then(res=>{
+            this.isLoading = false
+            this.isSuccess = true;
+          })
         }else{
+          this.isLoading = false
+          this.isSuccess = false;
           return;
         }
       })

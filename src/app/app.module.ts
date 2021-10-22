@@ -31,6 +31,7 @@ import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/compat/fir
 import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
 import {AngularFireModule} from "@angular/fire/compat";
 import {ReactiveFormsModule} from "@angular/forms";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     provideFunctions(() => getFunctions()),
     AngularFireFunctionsModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
   ],
   providers: [
     { provide: USE_FUNCTIONS_EMULATOR, useValue: ['localhost', 5001] },
