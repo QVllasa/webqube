@@ -1115,8 +1115,24 @@
     <h2 id="comparison-heading" class="sr-only">Feature comparison</h2>
 
     <div class="mt-24 max-w-7xl mx-auto px-8">
+
       <div class="w-full border-t border-gray-200 flex items-stretch">
-        <div class="-mt-px w-1/4 py-6 pr-4 flex items-end">
+        <div class="-mt-px w-1/4 py-6 pr-4 flex flex-col items-start justify-between ">
+          <div class="relative flex ">
+            <div class="bg-yellow-700 p-0.5 rounded-lg flex">
+              <button type="button" (click)="switchPlan()"
+                      [ngClass]="isMonthly ? 'bg-white border-yellow-700 shadow-sm text-yellow-700' : 'text-yellow-50 hover:bg-yellow-800'"
+                      class=" ml-0.5 relative py-1 px-4 border border-transparent rounded-md text-xs font-medium  whitespace-nowrap  focus:outline-none ">
+                Monatlich
+              </button>
+              <button type="button" (click)="switchPlan()"
+                      [ngClass]="!isMonthly ? 'bg-white border-yellow-700 shadow-sm text-yellow-700' : 'text-yellow-50 hover:bg-yellow-800'"
+                      class="relative  py-1 px-4  rounded-md shadow-sm text-xs font-medium  whitespace-nowrap  focus:outline-none ">
+                Einmalig
+              </button>
+
+            </div>
+          </div>
           <h3 class="mt-auto text-sm font-bold text-gray-900">Für welches Business</h3>
         </div>
 
@@ -1172,11 +1188,14 @@
           </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
-          <tr key="Mobile Responsive Design">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Mobile Responsive Design</th>
+          <ng-template [ngIf]="!isMonthly">
+            <tr *ngFor="let feature of featureComparisonOneTime">
+              <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">
+                {{feature.name}}
+              </th>
 
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
+              <td class="px-4 relative w-1/4 py-0 text-center">
+                    <span *ngIf="feature.starter && !feature.custom" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/check -->
                       <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -1186,10 +1205,23 @@
                       </svg>
                       <span class="sr-only">Yes</span>
                     </span>
-            </td>
+                <span *ngIf="!feature.starter" class="relative w-full h-full py-3">
+                      <!-- Heroicon name: solid/x -->
+                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                           fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"/>
+                      </svg>
+                      <span class="sr-only">No</span>
+                    </span>
+                <span *ngIf="feature.custom" class="relative w-full h-full py-3">
+                      <span class="text-gray-900 text-sm font-medium">{{feature.starterText}}</span>
+                    </span>
+              </td>
 
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
+              <td class="px-4 relative w-1/4 py-0 text-center">
+                    <span *ngIf="feature.professional && !feature.custom" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/check -->
                       <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -1199,10 +1231,23 @@
                       </svg>
                       <span class="sr-only">Yes</span>
                     </span>
-            </td>
+                <span *ngIf="!feature.professional" class="relative w-full h-full py-3">
+                      <!-- Heroicon name: solid/x -->
+                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                           fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"/>
+                      </svg>
+                      <span class="sr-only">No</span>
+                    </span>
+                <span *ngIf="feature.custom" class="relative w-full h-full py-3">
+                      <span class="text-yellow-600 text-sm font-medium">{{feature.professionalText}}</span>
+                    </span>
+              </td>
 
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
+              <td class="pl-4 relative w-1/4 py-0 text-center">
+                    <span *ngIf="feature.business && !feature.custom" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/check -->
                       <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -1212,8 +1257,110 @@
                       </svg>
                       <span class="sr-only">Yes</span>
                     </span>
-            </td>
-          </tr>
+                <span *ngIf="!feature.business" class="relative w-full h-full py-3">
+                      <!-- Heroicon name: solid/x -->
+                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                           fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"/>
+                      </svg>
+                      <span class="sr-only">No</span>
+                    </span>
+                <span *ngIf="feature.custom" class="relative w-full h-full py-3">
+                      <span class="text-gray-900 text-sm font-medium">{{feature.businessText}}</span>
+                    </span>
+              </td>
+            </tr>
+          </ng-template>
+
+
+          <ng-template [ngIf]="isMonthly">
+            <tr  *ngFor="let feature of featureComparisonMonthly">
+              <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">
+                {{feature.name}}
+              </th>
+
+              <td class="px-4 relative w-1/4 py-0 text-center">
+                    <span *ngIf="feature.starter && !feature.custom" class="relative w-full h-full py-3">
+                      <!-- Heroicon name: solid/check -->
+                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
+                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clip-rule="evenodd"/>
+                      </svg>
+                      <span class="sr-only">Yes</span>
+                    </span>
+                <span *ngIf="!feature.starter" class="relative w-full h-full py-3">
+                      <!-- Heroicon name: solid/x -->
+                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                           fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"/>
+                      </svg>
+                      <span class="sr-only">No</span>
+                    </span>
+                <span *ngIf="feature.custom" class="relative w-full h-full py-3">
+                      <span class="text-gray-900 text-sm font-medium">{{feature.starterText}}</span>
+                    </span>
+              </td>
+
+              <td class="px-4 relative w-1/4 py-0 text-center">
+                    <span *ngIf="feature.professional && !feature.custom" class="relative w-full h-full py-3">
+                      <!-- Heroicon name: solid/check -->
+                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
+                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clip-rule="evenodd"/>
+                      </svg>
+                      <span class="sr-only">Yes</span>
+                    </span>
+                <span *ngIf="!feature.professional" class="relative w-full h-full py-3">
+                      <!-- Heroicon name: solid/x -->
+                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                           fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"/>
+                      </svg>
+                      <span class="sr-only">No</span>
+                    </span>
+                <span *ngIf="feature.custom" class="relative w-full h-full py-3">
+                      <span class="text-yellow-600 text-sm font-medium">{{feature.professionalText}}</span>
+                    </span>
+              </td>
+
+              <td class="pl-4 relative w-1/4 py-0 text-center">
+                    <span *ngIf="feature.business && !feature.custom" class="relative w-full h-full py-3">
+                      <!-- Heroicon name: solid/check -->
+                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
+                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clip-rule="evenodd"/>
+                      </svg>
+                      <span class="sr-only">Yes</span>
+                    </span>
+                <span *ngIf="!feature.business" class="relative w-full h-full py-3">
+                      <!-- Heroicon name: solid/x -->
+                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                           fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd"
+                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                              clip-rule="evenodd"/>
+                      </svg>
+                      <span class="sr-only">No</span>
+                    </span>
+                <span *ngIf="feature.custom" class="relative w-full h-full py-3">
+                      <span class="text-gray-900 text-sm font-medium">{{feature.businessText}}</span>
+                    </span>
+              </td>
+            </tr>
+          </ng-template>
+
 
           <tr key="Datenschutzgerecht">
             <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Datenschutzgerecht

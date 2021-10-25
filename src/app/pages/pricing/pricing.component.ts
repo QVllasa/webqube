@@ -1,5 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 
+interface IFeature{
+  name: string,
+  starter:boolean,
+  professional: boolean,
+  business: boolean,
+  custom: boolean
+  starterText?: string,
+  professionalText?: string,
+  businessText?: string
+}
+
 @Component({
   selector: 'app-pricing',
   templateUrl: './pricing.component.html',
@@ -9,28 +20,86 @@ export class PricingComponent implements OnInit {
 
   columnsKeys = ['Feature','Starter','Professional','Business']
 
-  featureComparison = [
+  featureComparisonOneTime: IFeature[] = [
     {
-      name: 'tax savings',
-      included: ['starter', 'professional', 'business']
+      name: 'TAX savings',
+      starter: true,
+      professional: true,
+      business: true,
+      custom: false
     },
     {
       name: 'Easy to use accounting',
-      included: ['Starter','Professional','Business']
+      starter: true,
+      professional: true,
+      business: true,
+      custom: true,
+      starterText: '3 Accounts',
+      professionalText: '7 Accounts',
+      businessText: '15 Accounts'
     },
     {
       name: 'Multi-accounts',
-      included: ['Starter','Professional','Business']
+      starter: true,
+      professional: true,
+      business: true,
+      custom: false,
     },
     {
       name: 'Invoicing',
-      included: ['Starter','Professional','Business']
+      starter: true,
+      professional: true,
+      business: true,
+      custom: false
     },
     {
       name: 'Mobile and web access',
-      included: ['Starter','Professional','Business']
+      starter: true,
+      professional: true,
+      business: true,
+      custom: false
     }
+  ]
 
+  featureComparisonMonthly: IFeature[] = [
+    {
+      name: 'TAX savings',
+      starter: true,
+      professional: true,
+      business: true,
+      custom: false
+    },
+    {
+      name: 'Easy to use accounting',
+      starter: true,
+      professional: true,
+      business: true,
+      custom: true,
+      starterText: '3 Accounts',
+      professionalText: '10 Accounts',
+      businessText: '15 Accounts'
+    },
+    {
+      name: 'Multi-accounts',
+      starter: true,
+      professional: true,
+      business: true,
+      custom: false,
+    },
+    {
+      name: 'Invoicing',
+      starter: true,
+      professional: true,
+      business: true,
+      custom: false
+    },
+    {
+      name: 'Mobile and web access',
+      starter: true,
+      professional: true,
+      business: true,
+      custom: false
+    }
   ]
 
   isMonthly: boolean = true;
