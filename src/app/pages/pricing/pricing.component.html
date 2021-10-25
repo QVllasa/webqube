@@ -30,7 +30,7 @@
 
       </div>
       <p *ngIf="!isMonthly" class="mt-4 text-sm text-gray-500">Nach Abschluss gehört die Webseite voll und ganz dir.</p>
-              <p *ngIf="isMonthly" class="mt-4 text-sm text-gray-500">Die Webseite gehört dir solange das Abo aktiv ist.</p>
+      <p *ngIf="isMonthly" class="mt-4 text-sm text-gray-500">Die Webseite gehört dir solange das Abo aktiv ist.</p>
     </div>
 
 
@@ -114,7 +114,7 @@
                      viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
-                <span class="ml-3 text-gray-500">15 individuelle Seite</span>
+                <span class="ml-3 text-gray-500">15 individuelle Seiten</span>
               </li>
 
               <li class="flex">
@@ -1162,31 +1162,18 @@
         </div>
 
         <table class="relative w-full">
-          <caption class="sr-only">
-            Business feature comparison
+          <caption class="sr-only">Feature comparison
           </caption>
           <thead>
           <tr class="text-left">
-            <th scope="col">
-              <span class="sr-only">Feature</span>
-            </th>
-
-            <th scope="col">
-              <span class="sr-only">Starter plan</span>
-            </th>
-
-            <th scope="col">
-              <span class="sr-only">Scale plan</span>
-            </th>
-
-            <th scope="col">
-              <span class="sr-only">Growth plan</span>
+            <th *ngFor="let column of columnsKeys" scope="col">
+              <span class="sr-only">{{column}}</span>
             </th>
           </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
-          <tr key="Tax Savings">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Tax Savings</th>
+          <tr key="Mobile Responsive Design">
+            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Mobile Responsive Design</th>
 
             <td class="px-4 relative w-1/4 py-0 text-center">
                     <span class="relative w-full h-full py-3">
@@ -1228,8 +1215,8 @@
             </td>
           </tr>
 
-          <tr key="Easy to use accounting">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Easy to use accounting
+          <tr key="Datenschutzgerecht">
+            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Datenschutzgerecht
             </th>
 
             <td class="px-4 relative w-1/4 py-0 text-center">
@@ -1272,7 +1259,7 @@
             </td>
           </tr>
 
-          <tr key="Multi-accounts">
+          <tr key="Anzahl der Seiten">
             <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Multi-accounts</th>
 
             <td class="px-4 relative w-1/4 py-0 text-center">
@@ -1294,7 +1281,7 @@
             </td>
           </tr>
 
-          <tr key="Invoicing">
+          <tr key="Suchmaschinenoptimiert">
             <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Invoicing</th>
 
             <td class="px-4 relative w-1/4 py-0 text-center">
@@ -1359,7 +1346,7 @@
             </td>
           </tr>
 
-          <tr key="6 months free advisor">
+          <tr key="1 Jahr Hosting">
             <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">6 months free advisor
             </th>
 
@@ -1403,7 +1390,7 @@
             </td>
           </tr>
 
-          <tr key="Mobile and web access">
+          <tr key="Sicherheits-Updates">
             <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Mobile and web access
             </th>
 
@@ -1483,24 +1470,24 @@
 
         <table class="relative w-full">
           <caption class="sr-only">
-            Perk comparison
+            Feature comparison
           </caption>
           <thead>
           <tr class="text-left">
             <th scope="col">
-              <span class="sr-only">Perk</span>
+              <span class="sr-only">Features</span>
             </th>
 
             <th scope="col">
-              <span class="sr-only">Starter plan</span>
+              <span class="sr-only">Starter</span>
             </th>
 
             <th scope="col">
-              <span class="sr-only">Scale plan</span>
+              <span class="sr-only">Professional</span>
             </th>
 
             <th scope="col">
-              <span class="sr-only">Growth plan</span>
+              <span class="sr-only">Business</span>
             </th>
           </tr>
           </thead>
@@ -1827,6 +1814,22 @@
       </div>
     </div>
   </section>
+</div>
+
+<div class="bg-gradient-to-t from-yellow-50 via-white to-white">
+  <!-- Pricing section with single price and feature list -->
+  <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+    <div class="pb-16 items-center justify-center xl:flex ">
+      <div class="text-center">
+        <h1 class="text-6xl font-extrabold sm:text-5xl sm:tracking-tight">
+          <span class="text-gray-900">Nicht das richtige dabei? </span>
+        </h1>
+        <p class="mt-5 text-xl text-gray-500 ">Gerne erstellen wir dir ein individuelles Angebot.</p>
+        <a href="#"
+           class="mt-8 w-full bg-yellow-600 border border-transparent rounded-md py-3 px-5 inline-flex items-center justify-center text-base font-medium text-white hover:bg-yellow-700  sm:w-auto">Anfragen</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 
