@@ -28,3 +28,11 @@ export interface IFaq{
   question: string,
   answer:string
 }
+
+export interface ITeamMember{
+  role: string,
+  name: string,
+  description: string,
+  twitter: string,
+  linkedin: string
+}

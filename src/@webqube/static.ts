@@ -1,4 +1,4 @@
-import {IFaq, IFeature, IPriceCard} from "./models";
+import {IFaq, IFeature, IPriceCard, ITeamMember} from "./models";
 
 export const columnsKeys = ['Feature', 'Starter', 'Professional', 'Business']
 
@@ -280,4 +280,21 @@ export const faqs: IFaq[] = [
     question: 'Was passiert nach Abschluss bei einmaliger Zahlung?',
     answer: 'Das kannst du selbst entscheiden. Wir können deine Webseite gegen Gebühr für dich hosten oder dir helfen einen Hoster auszusuchen.'
   },
+]
+
+export const team: ITeamMember[] = [
+  {
+    name: 'Qendrim Vllasa',
+    role: 'Co-Founder',
+    description: 'Nulla quam felis, enim faucibus proin velit, ornare id pretium. Augue ultrices sed arcu condimentum vestibulum suspendisse. Volutpat eu faucibus vivamus eget bibendum cras.',
+    twitter:'/',
+    linkedin:'/'
+  },
+  {
+    name: 'Dominim Vllasa',
+    role: 'Co-Founder',
+    description: 'Nulla quam felis, enim faucibus proin velit, ornare id pretium. Augue ultrices sed arcu condimentum vestibulum suspendisse. Volutpat eu faucibus vivamus eget bibendum cras.',
+    twitter:'/',
+    linkedin:'/'
+  }
 ]
