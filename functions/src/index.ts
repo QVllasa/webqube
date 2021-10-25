@@ -8,6 +8,14 @@ const {Client, LogLevel} = require("@notionhq/client")
 
 admin.initializeApp();
 
+sgMail.setApiKey(process.env.SENDGRID_API_KEY ? process.env.SENDGRID_API_KEY : '')
+
+const notion = new Client({
+  auth: process.env.NOTION_API_KEY ? process.env.NOTION_API_KEY : '',
+  logLevel: LogLevel.DEBUG,
+})
+
+
 
 export interface IClient {
   name: string,
@@ -31,10 +39,7 @@ export const sendEmail = functions.firestore.document("/clients/{id}").onCreate(
 
 
 // Initializing a client
-  const notion = new Client({
-    auth: '',
-    logLevel: LogLevel.DEBUG,
-  })
+
   let response: any;
   (async () => {
     response = await notion.databases.create({
@@ -67,11 +72,30 @@ export const sendEmail = functions.firestore.document("/clients/{id}").onCreate(
     return response
 
   })().then(res => {
+
     if (!res) {
       return
     }
 
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY ? process.env.SENDGRID_API_KEY : '')
+    const internalMessage = {
+      to: `admin@webqube.de`,
+      from: 'hello@webqube.de', // Change to your verified sender
+      subject: `Neue Anmeldung von ${data.name}! 🚀`,
+      html: clientRegisterTemplate(data, response),
+    }
+
+    return sgMail
+      .send(internalMessage)
+      .then(() => {
+        console.log("internal message sent")
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+
+
+  }).then(()=>{
+
     const customerMessage = {
       to: `${data.email}`,
       from: 'hello@webqube.de', // Change to your verified sender
@@ -79,27 +103,14 @@ export const sendEmail = functions.firestore.document("/clients/{id}").onCreate(
       html: clientTemplate(data, response),
     }
 
-    const internalMessage = {
-      to: 'hello@webqube.de',
-      from: 'admin@webqube.de', // Change to your verified sender
-      subject: `Neue Anmeldung von ${data.name}! 🚀`,
-      html: clientRegisterTemplate(data, response),
-    }
-    sgMail
+    return sgMail
       .send(customerMessage)
       .then(() => {
-        sgMail
-          .send(internalMessage)
-          .then(() => {
-          })
-          .catch((error) => {
-            console.error(error)
-          })
+        console.log("customer message sent")
       })
       .catch((error) => {
         console.error(error)
       })
-
 
 
   });

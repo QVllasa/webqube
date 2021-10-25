@@ -12,7 +12,7 @@
   "engines": {
     "node": "16"
   },
-  "main": "lib/index.js",
+  "main": "lib/src/index.js",
   "dependencies": {
     "@notionhq/client": "^0.4.4",
     "@sendgrid/mail": "^7.5.0",

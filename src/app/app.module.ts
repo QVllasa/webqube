@@ -77,7 +77,8 @@ function mode() {
     ReactiveFormsModule,
     MatProgressSpinnerModule,
   ],
-  providers: [...mode()],
+  providers: [{provide: USE_FUNCTIONS_EMULATOR, useValue: ['localhost', 5001]},
+    {provide: USE_FIRESTORE_EMULATOR, useValue: ['localhost', 8080]},],
   bootstrap: [AppComponent]
 })
 export class AppModule {
