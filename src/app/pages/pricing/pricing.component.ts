@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {columnsKeys, featureComparison} from 'src/@webqube/static';
+import {columnsKeys, featureComparison, priceCards} from 'src/@webqube/static';
 
 
 
@@ -13,6 +13,7 @@ export class PricingComponent implements OnInit {
 
   columnsKeys = columnsKeys
   featureComparison = featureComparison
+  priceCards = priceCards;
 
   isMonthly: boolean = true;
 

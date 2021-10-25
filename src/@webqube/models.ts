@@ -14,3 +14,12 @@ export interface IFeature{
   professionalTextMonthly?: string,
   businessTextMonthly?: string
 }
+
+export interface IPriceCard{
+  monthlyPrice: number,
+  fixPrice: number,
+  features: string[],
+  description: string,
+  plan: string,
+  mostSelected: boolean,
+}

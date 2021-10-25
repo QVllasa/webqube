@@ -1,4 +1,4 @@
-import {IFeature} from "./models";
+import {IFeature, IPriceCard} from "./models";
 
 export const columnsKeys = ['Feature','Starter','Professional','Business']
 
@@ -14,7 +14,43 @@ export const featureComparison: IFeature[] = [
     custom: false,
   },
   {
-    name: 'Contentmanagement',
+    name: 'Google Analytics',
+    starterOneTime: true,
+    professionalOneTime: true,
+    businessOneTime: true,
+    starterMonthly: true,
+    professionalMonthly: true,
+    businessMonthly: true,
+    custom: false,
+  },
+  {
+    name: 'Domainverwaltung',
+    starterOneTime: true,
+    professionalOneTime: true,
+    businessOneTime: true,
+    starterMonthly: true,
+    professionalMonthly: true,
+    businessMonthly: true,
+    custom: false,
+  },
+  {
+    name: 'E-Mail Hosting und Einrichtung',
+    starterOneTime: true,
+    professionalOneTime: true,
+    businessOneTime: true,
+    starterMonthly: true,
+    professionalMonthly: true,
+    businessMonthly: true,
+    custom: false,
+    starterTextMonthly: 'Inklusive',
+    professionalTextMonthly: 'Inklusive',
+    businessTextMonthly: 'Inklusive',
+    starterTextOneTime: 'Nur Einrichtung',
+    professionalTextOneTime: 'Nur Einrichtung',
+    businessTextOneTime: 'Nur Einrichtung'
+  },
+  {
+    name: 'Content Management',
     starterOneTime: false,
     professionalOneTime: true,
     businessOneTime: true,
@@ -34,7 +70,10 @@ export const featureComparison: IFeature[] = [
     custom: true,
     starterTextOneTime:'5 Tage Antwortzeit',
     professionalTextOneTime:'3 Tage Antwortzeit',
-    businessTextOneTime:'1 Tag Antwortzeit '
+    businessTextOneTime:'1 Tag Antwortzeit ',
+    starterTextMonthly:'5 Tage Antwortzeit',
+    professionalTextMonthly:'3 Tage Antwortzeit',
+    businessTextMonthly:'1 Tag Antwortzeit '
   },
   {
     name: 'Refinements und Überarbeitungen',
@@ -187,4 +226,31 @@ export const featureComparison: IFeature[] = [
     businessMonthly: true,
     custom: false
   },
+]
+
+export const priceCards: IPriceCard[] = [
+  {
+    monthlyPrice: 79,
+    fixPrice: 899,
+    features: ['Eine Landingpage mit 8 Sections', 'Suchmaschinenoptimiert', 'Analytikfunktionen','1 Refinements', 'Webhosting'],
+    description: 'Eine starke Landingpage, die gewaltigen Eindruck hinterlässt.',
+    plan:'Starter',
+    mostSelected: false
+  },
+  {
+    monthlyPrice: 149,
+    fixPrice: 3899,
+    features: ['15 individuelle Seiten', 'Blog-Funktionen und User-Management','Fortgeschrittene Analysen', 'Mit Content Management', '4 Refinements',  'E-Mail Einrichtung'],
+    description: 'Bereit für Marketing Kampagnen',
+    plan:'Professional',
+    mostSelected: true
+  },
+  {
+    monthlyPrice: 349,
+    fixPrice: 7899,
+    features: ['40 individuelle Seiten','Schnelle Reaktionszeiten','Webhosting','E-Mail Einrichtung und Hosting','6 Refinements'],
+    description: 'Ein Plan der gemeinsam grenzenlos mit deinem Business wächst.',
+    plan:'Business',
+    mostSelected: false
+  }
 ]
