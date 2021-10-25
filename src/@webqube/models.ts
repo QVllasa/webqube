@@ -23,3 +23,8 @@ export interface IPriceCard{
   plan: string,
   mostSelected: boolean,
 }
+
+export interface IFaq{
+  question: string,
+  answer:string
+}

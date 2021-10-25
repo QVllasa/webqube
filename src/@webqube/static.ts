@@ -1,6 +1,6 @@
-import {IFeature, IPriceCard} from "./models";
+import {IFaq, IFeature, IPriceCard} from "./models";
 
-export const columnsKeys = ['Feature','Starter','Professional','Business']
+export const columnsKeys = ['Feature', 'Starter', 'Professional', 'Business']
 
 export const featureComparison: IFeature[] = [
   {
@@ -68,12 +68,12 @@ export const featureComparison: IFeature[] = [
     professionalMonthly: true,
     businessMonthly: true,
     custom: true,
-    starterTextOneTime:'5 Tage Antwortzeit',
-    professionalTextOneTime:'3 Tage Antwortzeit',
-    businessTextOneTime:'1 Tag Antwortzeit ',
-    starterTextMonthly:'5 Tage Antwortzeit',
-    professionalTextMonthly:'3 Tage Antwortzeit',
-    businessTextMonthly:'1 Tag Antwortzeit '
+    starterTextOneTime: '5 Tage Antwortzeit',
+    professionalTextOneTime: '3 Tage Antwortzeit',
+    businessTextOneTime: '1 Tag Antwortzeit ',
+    starterTextMonthly: '5 Tage Antwortzeit',
+    professionalTextMonthly: '3 Tage Antwortzeit',
+    businessTextMonthly: '1 Tag Antwortzeit '
   },
   {
     name: 'Refinements und Überarbeitungen',
@@ -84,12 +84,12 @@ export const featureComparison: IFeature[] = [
     professionalMonthly: true,
     businessMonthly: true,
     custom: true,
-    starterTextOneTime:'3',
-    professionalTextOneTime:'6',
-    businessTextOneTime:'10',
-    starterTextMonthly:'1',
-    professionalTextMonthly:'4',
-    businessTextMonthly:'6'
+    starterTextOneTime: '3',
+    professionalTextOneTime: '6',
+    businessTextOneTime: '10',
+    starterTextMonthly: '1',
+    professionalTextMonthly: '4',
+    businessTextMonthly: '6'
   },
   {
     name: 'Zugang zum Ticketsystem',
@@ -120,12 +120,12 @@ export const featureComparison: IFeature[] = [
     professionalMonthly: true,
     businessMonthly: true,
     custom: true,
-    starterTextOneTime:'1 Seite 8 Sections',
-    professionalTextOneTime:'15 Seiten',
-    businessTextOneTime:'40 Seiten',
-    starterTextMonthly:'1 Seite 8 Sections',
-    professionalTextMonthly:'15 Seiten',
-    businessTextMonthly:'40 Seiten'
+    starterTextOneTime: '1 Seite 8 Sections',
+    professionalTextOneTime: '15 Seiten',
+    businessTextOneTime: '40 Seiten',
+    starterTextMonthly: '1 Seite 8 Sections',
+    professionalTextMonthly: '15 Seiten',
+    businessTextMonthly: '40 Seiten'
   },
   {
     name: 'Suchmaschinenoptimiert',
@@ -147,10 +147,10 @@ export const featureComparison: IFeature[] = [
     businessMonthly: true,
     custom: true,
     starterTextOneTime: '6 Monate inkl.',
-    professionalTextOneTime:'12 Monate inkl.',
+    professionalTextOneTime: '12 Monate inkl.',
     businessTextOneTime: '18 Monate inkl.',
     starterTextMonthly: 'Inklusive',
-    professionalTextMonthly:'Inklusive',
+    professionalTextMonthly: 'Inklusive',
     businessTextMonthly: 'Inklusive'
   },
   {
@@ -173,10 +173,10 @@ export const featureComparison: IFeature[] = [
     professionalMonthly: true,
     businessMonthly: true,
     custom: true,
-    starterTextOneTime:'bis zu 4 Termin',
+    starterTextOneTime: 'bis zu 4 Termin',
     professionalTextOneTime: 'bis zu 12 Termine',
     businessTextOneTime: 'Unbegrenzt',
-    starterTextMonthly:'1 Termin',
+    starterTextMonthly: '1 Termin',
     professionalTextMonthly: '4 Termine',
     businessTextMonthly: 'Unbegrenzt'
   },
@@ -232,25 +232,52 @@ export const priceCards: IPriceCard[] = [
   {
     monthlyPrice: 79,
     fixPrice: 899,
-    features: ['Eine Landingpage mit 8 Sections', 'Suchmaschinenoptimiert', 'Analytikfunktionen','1 Refinements', 'Webhosting'],
+    features: ['Eine Landingpage mit 8 Sections', 'Suchmaschinenoptimiert', 'Analytikfunktionen', '1 Refinements', 'Webhosting'],
     description: 'Eine starke Landingpage, die gewaltigen Eindruck hinterlässt.',
-    plan:'Starter',
+    plan: 'Starter',
     mostSelected: false
   },
   {
     monthlyPrice: 149,
     fixPrice: 3899,
-    features: ['15 individuelle Seiten', 'Blog-Funktionen und User-Management','Fortgeschrittene Analysen', 'Mit Content Management', '4 Refinements',  'E-Mail Einrichtung'],
+    features: ['15 individuelle Seiten', 'Blog-Funktionen und User-Management', 'Fortgeschrittene Analysen', 'Mit Content Management', '4 Refinements', 'E-Mail Einrichtung'],
     description: 'Bereit für Marketing Kampagnen',
-    plan:'Professional',
+    plan: 'Professional',
     mostSelected: true
   },
   {
     monthlyPrice: 349,
     fixPrice: 7899,
-    features: ['40 individuelle Seiten','Schnelle Reaktionszeiten','Webhosting','E-Mail Einrichtung und Hosting','6 Refinements'],
+    features: ['40 individuelle Seiten', 'Schnelle Reaktionszeiten', 'Webhosting', 'E-Mail Einrichtung und Hosting', '6 Refinements'],
     description: 'Ein Plan der gemeinsam grenzenlos mit deinem Business wächst.',
-    plan:'Business',
+    plan: 'Business',
     mostSelected: false
   }
+]
+
+export const faqs: IFaq[] = [
+  {
+    question: 'Was versteht man unter einem Refinement?',
+    answer: 'Ein Refinement eine Überarbeitungsschleife bestimmter Bereiche der Webseite.'
+  },
+  {
+    question: 'Zählen Impressum und Datenschutz als eigene Seite?',
+    answer: 'Nein, jedes Projekt wird von Haus aus immer mit Impressum und Datenschutz geliefert.'
+  },
+  {
+    question: 'Wie lange geht ein Regeltermin?',
+    answer: 'Ein Regeltermin geht meist nicht länger als eine Stunde. Hier besprechen wir den aktuellen Stand und die nächsten Schritte sowie bestimmte Anforderungen.'
+  },
+  {
+    question: 'Gibt es eine Geld-Zurück-Garantie?',
+    answer: 'Ja, es gibt bis 14 Tage nach Projektstart die Möglichkeit das Projekt zurückzuziehen. Du erhältst den vollen Betrag zurück.'
+  },
+  {
+    question: 'Wie halten wir Regeltermine ab?',
+    answer: 'Das hängt auch von deiner Präferenz ab. In aller Regel verwenden wir hierfür aber Google Meet.'
+  },
+  {
+    question: 'Was passiert nach Abschluss bei einmaliger Zahlung?',
+    answer: 'Das kannst du selbst entscheiden. Wir können deine Webseite gegen Gebühr für dich hosten oder dir helfen einen Hoster auszusuchen.'
+  },
 ]
