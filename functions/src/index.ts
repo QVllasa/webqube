@@ -24,10 +24,6 @@ export interface IClient {
 // });
 
 
-export const hello = functions.https.onCall((data) => {
-  return "wuat hello! " + data.business;
-});
-
 export const sendEmail = functions.firestore.document("/clients/{id}").onCreate((snapshot, context) => {
 
   console.log(snapshot.data())
@@ -36,7 +32,7 @@ export const sendEmail = functions.firestore.document("/clients/{id}").onCreate(
 
 // Initializing a client
   const notion = new Client({
-    auth: 'secret_kM4RvFzmQHm2nyquvM0Qsqjye0LcO9DzMBdm3k9W35k',
+    auth: '',
     logLevel: LogLevel.DEBUG,
   })
   let response: any;

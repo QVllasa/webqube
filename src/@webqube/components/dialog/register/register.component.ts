@@ -21,8 +21,8 @@ export class RegisterComponent implements OnInit {
 
   clientCollection: AngularFirestoreCollection<IClient>;
   emailExists: boolean;
-  isLoading: boolean = true;
-  isSuccess: boolean = true;
+  isLoading: boolean = false;
+  isSuccess: boolean = false;
 
   registerForm = new FormGroup({
     name: new FormControl({value:'', disabled: this.isLoading}, [Validators.required]),
