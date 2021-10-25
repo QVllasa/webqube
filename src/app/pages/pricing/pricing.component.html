@@ -1189,13 +1189,13 @@
           </thead>
           <tbody class="divide-y divide-gray-100">
           <ng-template [ngIf]="!isMonthly">
-            <tr *ngFor="let feature of featureComparisonOneTime">
+            <tr *ngFor="let feature of featureComparison">
               <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">
                 {{feature.name}}
               </th>
 
               <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span *ngIf="feature.starter && !feature.custom" class="relative w-full h-full py-3">
+                    <span *ngIf="feature.starterOneTime && !feature.custom" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/check -->
                       <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -1205,7 +1205,7 @@
                       </svg>
                       <span class="sr-only">Yes</span>
                     </span>
-                <span *ngIf="!feature.starter" class="relative w-full h-full py-3">
+                <span *ngIf="!feature.starterOneTime" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/x -->
                       <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                            fill="currentColor" aria-hidden="true">
@@ -1216,12 +1216,12 @@
                       <span class="sr-only">No</span>
                     </span>
                 <span *ngIf="feature.custom" class="relative w-full h-full py-3">
-                      <span class="text-gray-900 text-sm font-medium">{{feature.starterText}}</span>
+                      <span class="text-gray-900 text-sm font-medium">{{feature.starterTextOneTime}}</span>
                     </span>
               </td>
 
               <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span *ngIf="feature.professional && !feature.custom" class="relative w-full h-full py-3">
+                    <span *ngIf="feature.professionalOneTime && !feature.custom" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/check -->
                       <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -1231,7 +1231,7 @@
                       </svg>
                       <span class="sr-only">Yes</span>
                     </span>
-                <span *ngIf="!feature.professional" class="relative w-full h-full py-3">
+                <span *ngIf="!feature.professionalOneTime" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/x -->
                       <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                            fill="currentColor" aria-hidden="true">
@@ -1242,12 +1242,12 @@
                       <span class="sr-only">No</span>
                     </span>
                 <span *ngIf="feature.custom" class="relative w-full h-full py-3">
-                      <span class="text-yellow-600 text-sm font-medium">{{feature.professionalText}}</span>
+                      <span class="text-yellow-600 text-sm font-medium">{{feature.professionalTextOneTime}}</span>
                     </span>
               </td>
 
               <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span *ngIf="feature.business && !feature.custom" class="relative w-full h-full py-3">
+                    <span *ngIf="feature.businessOneTime && !feature.custom" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/check -->
                       <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -1257,7 +1257,7 @@
                       </svg>
                       <span class="sr-only">Yes</span>
                     </span>
-                <span *ngIf="!feature.business" class="relative w-full h-full py-3">
+                <span *ngIf="!feature.businessOneTime" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/x -->
                       <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                            fill="currentColor" aria-hidden="true">
@@ -1268,7 +1268,7 @@
                       <span class="sr-only">No</span>
                     </span>
                 <span *ngIf="feature.custom" class="relative w-full h-full py-3">
-                      <span class="text-gray-900 text-sm font-medium">{{feature.businessText}}</span>
+                      <span class="text-gray-900 text-sm font-medium">{{feature.businessTextOneTime}}</span>
                     </span>
               </td>
             </tr>
@@ -1276,13 +1276,13 @@
 
 
           <ng-template [ngIf]="isMonthly">
-            <tr  *ngFor="let feature of featureComparisonMonthly">
+            <tr *ngFor="let feature of featureComparison">
               <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">
                 {{feature.name}}
               </th>
 
               <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span *ngIf="feature.starter && !feature.custom" class="relative w-full h-full py-3">
+                    <span *ngIf="feature.starterMonthly && !feature.custom" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/check -->
                       <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -1292,7 +1292,7 @@
                       </svg>
                       <span class="sr-only">Yes</span>
                     </span>
-                <span *ngIf="!feature.starter" class="relative w-full h-full py-3">
+                <span *ngIf="!feature.starterMonthly" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/x -->
                       <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                            fill="currentColor" aria-hidden="true">
@@ -1303,12 +1303,12 @@
                       <span class="sr-only">No</span>
                     </span>
                 <span *ngIf="feature.custom" class="relative w-full h-full py-3">
-                      <span class="text-gray-900 text-sm font-medium">{{feature.starterText}}</span>
+                      <span class="text-gray-900 text-sm font-medium">{{feature.starterTextMonthly}}</span>
                     </span>
               </td>
 
               <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span *ngIf="feature.professional && !feature.custom" class="relative w-full h-full py-3">
+                    <span *ngIf="feature.professionalMonthly && !feature.custom" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/check -->
                       <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -1318,7 +1318,7 @@
                       </svg>
                       <span class="sr-only">Yes</span>
                     </span>
-                <span *ngIf="!feature.professional" class="relative w-full h-full py-3">
+                <span *ngIf="!feature.professionalMonthly" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/x -->
                       <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                            fill="currentColor" aria-hidden="true">
@@ -1329,12 +1329,12 @@
                       <span class="sr-only">No</span>
                     </span>
                 <span *ngIf="feature.custom" class="relative w-full h-full py-3">
-                      <span class="text-yellow-600 text-sm font-medium">{{feature.professionalText}}</span>
+                      <span class="text-yellow-600 text-sm font-medium">{{feature.professionalTextMonthly}}</span>
                     </span>
               </td>
 
               <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span *ngIf="feature.business && !feature.custom" class="relative w-full h-full py-3">
+                    <span *ngIf="feature.businessMonthly && !feature.custom" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/check -->
                       <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
                            viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -1344,7 +1344,7 @@
                       </svg>
                       <span class="sr-only">Yes</span>
                     </span>
-                <span *ngIf="!feature.business" class="relative w-full h-full py-3">
+                <span *ngIf="!feature.businessMonthly" class="relative w-full h-full py-3">
                       <!-- Heroicon name: solid/x -->
                       <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                            fill="currentColor" aria-hidden="true">
@@ -1355,231 +1355,12 @@
                       <span class="sr-only">No</span>
                     </span>
                 <span *ngIf="feature.custom" class="relative w-full h-full py-3">
-                      <span class="text-gray-900 text-sm font-medium">{{feature.businessText}}</span>
+                      <span class="text-gray-900 text-sm font-medium">{{feature.businessTextMonthly}}</span>
                     </span>
               </td>
             </tr>
           </ng-template>
 
-
-          <tr key="Datenschutzgerecht">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Datenschutzgerecht
-            </th>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-          </tr>
-
-          <tr key="Anzahl der Seiten">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Multi-accounts</th>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <span class="text-gray-900 text-sm font-medium">3 accounts</span>
-                    </span>
-            </td>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <span class="text-yellow-600 text-sm font-medium">Unlimited accounts</span>
-                    </span>
-            </td>
-
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <span class="text-gray-900 text-sm font-medium">7 accounts</span>
-                    </span>
-            </td>
-          </tr>
-
-          <tr key="Suchmaschinenoptimiert">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Invoicing</th>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <span class="text-gray-900 text-sm font-medium">3 invoices</span>
-                    </span>
-            </td>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <span class="text-yellow-600 text-sm font-medium">Unlimited invoices</span>
-                    </span>
-            </td>
-
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <span class="text-gray-900 text-sm font-medium">10 invoices</span>
-                    </span>
-            </td>
-          </tr>
-
-          <tr key="Exclusive offers">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Exclusive offers</th>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/x -->
-                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                           fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">No</span>
-                    </span>
-            </td>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-          </tr>
-
-          <tr key="1 Jahr Hosting">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">6 months free advisor
-            </th>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/x -->
-                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                           fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">No</span>
-                    </span>
-            </td>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-          </tr>
-
-          <tr key="Sicherheits-Updates">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Mobile and web access
-            </th>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/x -->
-                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                           fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">No</span>
-                    </span>
-            </td>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/x -->
-                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                           fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">No</span>
-                    </span>
-            </td>
-          </tr>
           </tbody>
         </table>
 
@@ -1598,367 +1379,6 @@
         </div>
       </div>
 
-      <h3 class="mt-10 text-sm font-bold text-gray-900">Weitere Features</h3>
-
-      <div class="mt-6 relative">
-        <!-- Fake card backgrounds -->
-        <div class="absolute inset-0 flex items-stretch pointer-events-none" aria-hidden="true">
-          <div class="w-1/4 pr-4"></div>
-          <div class="w-1/4 px-4">
-            <div class="w-full h-full bg-white rounded-lg shadow"></div>
-          </div>
-          <div class="w-1/4 px-4">
-            <div class="w-full h-full bg-white rounded-lg shadow-md"></div>
-          </div>
-          <div class="w-1/4 pl-4">
-            <div class="w-full h-full bg-white rounded-lg shadow"></div>
-          </div>
-        </div>
-
-        <table class="relative w-full">
-          <caption class="sr-only">
-            Feature comparison
-          </caption>
-          <thead>
-          <tr class="text-left">
-            <th scope="col">
-              <span class="sr-only">Features</span>
-            </th>
-
-            <th scope="col">
-              <span class="sr-only">Starter</span>
-            </th>
-
-            <th scope="col">
-              <span class="sr-only">Professional</span>
-            </th>
-
-            <th scope="col">
-              <span class="sr-only">Business</span>
-            </th>
-          </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-100">
-          <tr key="24/7 customer support">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">24/7 customer support
-            </th>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-          </tr>
-
-          <tr key="Instant notifications">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Instant notifications
-            </th>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-          </tr>
-
-          <tr key="Budgeting tools">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Budgeting tools</th>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-          </tr>
-
-          <tr key="Digital receipts">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Digital receipts</th>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-          </tr>
-
-          <tr key="Pots to separate money">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Pots to separate money
-            </th>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/x -->
-                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                           fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">No</span>
-                    </span>
-            </td>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-          </tr>
-
-          <tr key="Free bank transfers">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Free bank transfers</th>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/x -->
-                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                           fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">No</span>
-                    </span>
-            </td>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/x -->
-                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                           fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">No</span>
-                    </span>
-            </td>
-          </tr>
-
-          <tr key="Business debit card">
-            <th scope="row" class="w-1/4 py-3 pr-4 text-left text-sm font-medium text-gray-600">Business debit card</th>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/x -->
-                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                           fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">No</span>
-                    </span>
-            </td>
-
-            <td class="px-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/check -->
-                      <svg class="mx-auto h-5 w-5 text-yellow-600" xmlns="http://www.w3.org/2000/svg"
-                           viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">Yes</span>
-                    </span>
-            </td>
-
-            <td class="pl-4 relative w-1/4 py-0 text-center">
-                    <span class="relative w-full h-full py-3">
-                      <!-- Heroicon name: solid/x -->
-                      <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                           fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd"
-                              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                              clip-rule="evenodd"/>
-                      </svg>
-                      <span class="sr-only">No</span>
-                    </span>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-
-        <!-- Fake card borders -->
-        <div class="absolute inset-0 flex items-stretch pointer-events-none" aria-hidden="true">
-          <div class="w-1/4 pr-4"></div>
-          <div class="w-1/4 px-4">
-            <div class="w-full h-full rounded-lg ring-1 ring-black ring-opacity-5"></div>
-          </div>
-          <div class="w-1/4 px-4">
-            <div class="w-full h-full rounded-lg ring-2 ring-yellow-600 ring-opacity-100"></div>
-          </div>
-          <div class="w-1/4 pl-4">
-            <div class="w-full h-full rounded-lg ring-1 ring-black ring-opacity-5"></div>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 </div>
