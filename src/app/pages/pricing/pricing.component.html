@@ -8,7 +8,7 @@
       <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-6xl">
         <span class="block lg:inline">Einfache Preise </span>
       </h1>
-      <p class="mt-4 text-xl text-gray-500">Entscheide selbst welcher Plan zu dir am besten passt. Du kannst jederzeit
+      <p class="mt-4 text-xl text-gray-400">Entscheide selbst welcher Plan zu dir am besten passt. Du kannst jederzeit
         upgraden.</p>
     </div>
 
@@ -18,19 +18,19 @@
     <div class="relative mt-12 flex flex-col items-center justify-center sm:mt-16">
       <div class="bg-yellow-700 p-0.5 rounded-lg flex">
         <button type="button" (click)="switchPlan()"
-                [ngClass]="isMonthly ? 'bg-white border-yellow-700 shadow-sm text-yellow-700' : 'text-yellow-50 hover:bg-yellow-800'"
+                [ngClass]="isMonthly ? 'bg-white border-yellow-700 shadow-sm text-yellow-700' : 'text-gray-400hover:bg-yellow-800'"
                 class=" ml-0.5 relative py-2 px-6 border border-transparent rounded-md text-sm font-medium  whitespace-nowrap  focus:outline-none ">
           Monatlich
         </button>
         <button type="button" (click)="switchPlan()"
-                [ngClass]="!isMonthly ? 'bg-white border-yellow-700 shadow-sm text-yellow-700' : 'text-yellow-50 hover:bg-yellow-800'"
+                [ngClass]="!isMonthly ? 'bg-white border-yellow-700 shadow-sm text-yellow-700' : 'text-gray-50 hover:bg-yellow-800'"
                 class="relative  py-2 px-6  rounded-md shadow-sm text-sm font-medium  whitespace-nowrap  focus:outline-none ">
           Einmalig
         </button>
 
       </div>
-      <p *ngIf="!isMonthly" class="mt-4 text-sm text-gray-500">Nach Abschluss gehört die Webseite voll und ganz dir.</p>
-      <p *ngIf="isMonthly" class="mt-4 text-sm text-gray-500">Die Webseite gehört dir solange das Abo aktiv ist.</p>
+      <p *ngIf="!isMonthly" class="mt-4 text-sm text-gray-400">Nach Abschluss gehört die Webseite voll und ganz dir.</p>
+      <p *ngIf="isMonthly" class="mt-4 text-sm text-gray-400">Die Webseite gehört dir solange das Abo aktiv ist.</p>
     </div>
 
 
@@ -804,7 +804,7 @@
                 Monatlich
               </button>
               <button type="button" (click)="switchPlan()"
-                      [ngClass]="!isMonthly ? 'bg-white border-yellow-700 shadow-sm text-yellow-700' : 'text-yellow-50 hover:bg-yellow-800'"
+                      [ngClass]="!isMonthly ? 'bg-white border-yellow-700 shadow-sm text-yellow-700' : 'text-yellow-50  hover:bg-yellow-800'"
                       class="relative  py-1 px-4  rounded-md shadow-sm text-xs font-medium  whitespace-nowrap  focus:outline-none ">
                 Einmalig
               </button>
@@ -1080,7 +1080,7 @@
 
 <!-- FAQs -->
 
-  <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+<div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
     <h2 class="text-3xl font-extrabold text-gray-900 text-center">
       Frequently asked questions
     </h2>
