@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {IProject} from "../../../@webqube/models";
+import {projects} from "../../../@webqube/static";
 
 @Component({
   selector: 'app-galery',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./our-work.component.css']
 })
 export class OurWorkComponent implements OnInit {
+  projects = projects;
 
   constructor() { }
 

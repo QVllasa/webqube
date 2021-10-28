@@ -1,4 +1,4 @@
-import {IFaq, IFeature, IPriceCard, ITeamMember} from "./models";
+import {IFaq, IFeature, IPriceCard, IProject, ITeamMember} from "./models";
 
 export const columnsKeys = ['Feature', 'Starter', 'Professional', 'Business']
 
@@ -297,4 +297,32 @@ export const team: ITeamMember[] = [
     twitter:'/',
     linkedin:'/'
   }
+]
+
+export const projects: IProject[] =[
+  {
+    name: 'newboxes',
+    link: 'https://newboxes.com',
+    year: '2021',
+    img:'',
+  },
+  {
+    name: 'webqube',
+    link: 'https://webqube.de',
+    year: '2021',
+    img:'',
+  },
+  {
+    name: 'Heat & Power',
+    link: 'https://hp-heizungsbau.de',
+    year: '2020',
+    img:'',
+  },
+  {
+    name: 'Personal Homepage',
+    link: 'https://qendrimvllasa.com',
+    year: '2019',
+    img:'',
+  },
+
 ]

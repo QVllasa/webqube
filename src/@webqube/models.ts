@@ -50,3 +50,11 @@ export interface IMessage {
   phone: number,
   message: string,
 }
+
+export interface IProject{
+  name:string,
+  link: string,
+  year:string,
+  img:string,
+
+}
