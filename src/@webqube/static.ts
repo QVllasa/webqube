@@ -286,9 +286,9 @@ export const team: ITeamMember[] = [
   {
     name: 'Qendrim Vllasa',
     role: 'Co-Founder',
-    description: 'Nulla quam felis, enim faucibus proin velit, ornare id pretium. Augue ultrices sed arcu condimentum vestibulum suspendisse. Volutpat eu faucibus vivamus eget bibendum cras.',
-    twitter:'/',
-    linkedin:'/'
+    description: 'Ich liebe es Dinge zu erschaffen und zu kreieren. Um meiner Fantasie keine Grenzen zu setzen, habe ich mich dem Coding gewidmet und lasse dadurch Kreativität, Faszination und Spaß an logischen Problemen verschmelzen.',
+    twitter:'https://twitter.com/qvllasa92',
+    linkedin:'https://www.linkedin.com/in/qendrim-vllasa/'
   },
   {
     name: 'Dominim Vllasa',

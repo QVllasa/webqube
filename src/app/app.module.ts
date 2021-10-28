@@ -14,7 +14,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
 import { PricingComponent } from './pages/pricing/pricing.component';
 import { ProductsComponent } from './pages/products/products.component';
-import { GaleryComponent } from './pages/galery/galery.component';
+import { OurWorkComponent } from './pages/our-work/our-work.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import {NgParticlesModule} from "ng-particles";
 import { RegisterComponent } from '../@webqube/components/dialog/register/register.component';
@@ -49,7 +49,7 @@ function mode(){
     IndexComponent,
     PricingComponent,
     ProductsComponent,
-    GaleryComponent,
+    OurWorkComponent,
     AboutUsComponent,
     RegisterComponent
   ],

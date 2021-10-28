@@ -78,21 +78,21 @@ export const sendEmail = functions.firestore.document("/clients/{id}").onCreate(
     }
 
     const internalMessage = {
-      to: `admin@webqube.de`,
-      from: 'hello@webqube.de', // Change to your verified sender
+      to: ['admin@webqube.de','qendrim.vllasa@gmail.com'],
+      from: 'admin@webqube.de', // Change to your verified sender
       subject: `Neue Anmeldung von ${data.name}! 🚀`,
       html: clientRegisterTemplate(data, response),
     }
 
     return sgMail
       .send(internalMessage)
-      .then(() => {
-        console.log("internal message sent")
+      .then((res) => {
+        console.log("res",res)
+        console.log("internal message")
       })
       .catch((error) => {
         console.error(error)
       })
-
 
   }).then(()=>{
 
@@ -111,7 +111,5 @@ export const sendEmail = functions.firestore.document("/clients/{id}").onCreate(
       .catch((error) => {
         console.error(error)
       })
-
-
   });
 });

@@ -14,8 +14,8 @@ export class AppComponent {
 
   navigationItems = [
     {path: '/', label:''},
-    {path:'galery', label: 'Galerie'},
-    {path:'products', label: 'Products'},
+    {path:'our-work', label: 'Werke'},
+    {path:'products', label: 'Tech'},
     {path:'pricing', label: 'Preise'},
     {path:'about-us', label: 'Über Uns'}
   ]

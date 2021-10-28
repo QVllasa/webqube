@@ -4,7 +4,7 @@ import {IndexComponent} from './pages/index/index.component';
 import {PricingComponent} from "./pages/pricing/pricing.component";
 import {AboutUsComponent} from "./pages/about-us/about-us.component";
 import {ProductsComponent} from "./pages/products/products.component";
-import {GaleryComponent} from "./pages/galery/galery.component";
+import {OurWorkComponent} from "./pages/our-work/our-work.component";
 
 const routes: Routes = [
   {
@@ -28,8 +28,8 @@ const routes: Routes = [
     children: []
   },
   {
-    path: 'galery',
-    component: GaleryComponent,
+    path: 'our-work',
+    component: OurWorkComponent,
     children: []
   }
 ];

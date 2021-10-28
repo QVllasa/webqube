@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<RegisterComponent>,
-    private fns: AngularFireFunctions, private afs: AngularFirestore) {
+    private afs: AngularFirestore) {
   }
 
   ngOnInit(): void {
