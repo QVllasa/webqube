@@ -15,7 +15,9 @@
     <div class="space-y-12 lg:grid lg:grid-cols-3 lg:gap-8 lg:space-y-0">
       <div class="space-y-5 sm:space-y-4">
         <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl text-white">Das sind wir.</h2>
-        <p class="text-xl text-gray-400">Unterschiedlichste Interessen und Hobbies helfen uns die digitale Welt ganzheitlich zu verstehen. Das Resultat sind zwei Brüder mit Erfahrungen von der Softwareentwicklung über das Ingenieurwesen bis hin zur Gestaltungs- und Medientechnik.</p>
+        <p class="text-xl text-gray-400">Unterschiedlichste Interessen und Hobbies helfen uns die digitale Welt
+          ganzheitlich zu verstehen. Das Resultat sind zwei Brüder mit Erfahrungen von der Softwareentwicklung über das
+          Ingenieurwesen bis hin zur Gestaltungs- und Medientechnik.</p>
       </div>
       <div class="lg:col-span-2">
         <ul role="list" class="space-y-12 sm:divide-y sm:divide-gray-200 sm:space-y-0 sm:-mt-8 lg:gap-x-8 lg:space-y-0">
@@ -129,42 +131,85 @@
 
       </div>
     </div>
-    <div class="bg-white py-16 px-4 sm:px-6 lg:col-span-3 lg:py-24 lg:px-8 xl:pl-12">
-      <div class="max-w-lg mx-auto lg:max-w-none">
-        <form class="grid grid-cols-1 gap-y-6">
+    <div class="bg-white py-16 px-4 sm:px-6 lg:col-span-3 lg:py-24 lg:px-8 xl:pl-12 text-center">
+
+      <ng-template [ngIf]="!isSuccess">
+        <div class="max-w-lg mx-auto lg:max-w-none">
+          <form class="grid grid-cols-1 gap-y-6 text-left" [formGroup]="form" (ngSubmit)="onSend()">
+            <div>
+              <label for="full-name" class="sr-only">Dein Name</label>
+              <input type="text" name="full-name" id="full-name" autocomplete="name"
+                     formControlName="name"
+                     [ngClass]="f.name.invalid &&  f.name.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-yellow-500 focus:border-yellow-500 border-gray-300'"
+                     class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border-gray-300 rounded-md"
+                     placeholder="Dein Name">
+              <p *ngIf="f.name.invalid &&  f.name.touched" class="mt-1 text-xs text-red-600" id="name-error">Bitte gib
+                eine kurze Nachricht ein.</p>
+            </div>
+
+            <div>
+              <label for="email" class="sr-only">Deine E-Mail</label>
+              <input id="email" name="email" type="email" autocomplete="email"
+                     formControlName="email"
+                     [ngClass]="f.email.invalid &&  f.email.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-yellow-500 focus:border-yellow-500 border-gray-300'"
+                     class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border-gray-300 rounded-md"
+                     placeholder="Deine E-Mail">
+              <p *ngIf="f.email.invalid &&  f.email.touched" class="mt-1 text-xs text-red-600" id="email-error">Bitte gib
+                eine kurze Nachricht ein.</p>
+            </div>
+
+            <div>
+              <label for="phone" class="sr-only">Deine Telefonnumer</label>
+              <input type="text" name="phone" id="phone" autocomplete="tel"
+                     formControlName="phone"
+                     class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border-gray-300 rounded-md"
+                     placeholder="Deine Telefonnummer">
+            </div>
+
+            <div>
+              <label for="message" class="sr-only">Nachricht</label>
+              <textarea id="message" name="message" rows="4"
+                        formControlName="message"
+                        [ngClass]="f.message.invalid &&  f.message.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-yellow-500 focus:border-yellow-500 border-gray-300'"
+                        class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border border-gray-300 rounded-md"
+                        placeholder="Deine Nachricht"></textarea>
+              <p *ngIf="f.message.invalid &&  f.message.touched" class="mt-1 text-xs text-red-600" id="message-error">
+                Bitte gib eine kurze Nachricht ein.</p>
+            </div>
+            <div>
+              <button mat-ripple type="submit"
+                      [disabled]="isLoading"
+                      class="disabled:bg-yellow-700 w-24 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                <ng-template [ngIf]="!isLoading">Senden</ng-template>
+                <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>
+              </button>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+
+      <ng-template [ngIf]="isSuccess">
+        <!-- This example requires Tailwind CSS v2.0+ -->
+        <div class="inline-block align-bottom   px-4 pt-5 pb-4 text-left   transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
           <div>
-            <label for="full-name" class="sr-only">Dein Name</label>
-            <input type="text" name="full-name" id="full-name" autocomplete="name"
-                   class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border-gray-300 rounded-md"
-                   placeholder="Dein Name">
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100">
+              <!-- Heroicon name: outline/check -->
+              <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                   stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <div class="mt-3 text-center sm:mt-5">
+              <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                Danke für deine Nachricht! Wir werden uns sehr bald bei dir melden. <span class="text-2xl">✌️️</span>
+              </h3>
+            </div>
           </div>
-          <div>
-            <label for="email" class="sr-only">Deine E-Mail</label>
-            <input id="email" name="email" type="email" autocomplete="email"
-                   class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border-gray-300 rounded-md"
-                   placeholder="Deine E-Mail">
-          </div>
-          <div>
-            <label for="phone" class="sr-only">Deine Telefonnumer</label>
-            <input type="text" name="phone" id="phone" autocomplete="tel"
-                   class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border-gray-300 rounded-md"
-                   placeholder="Deine Telefonnummer">
-          </div>
-          <div>
-            <label for="message" class="sr-only">Nachricht</label>
-            <textarea id="message" name="message" rows="4"
-                      class="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-yellow-500 focus:border-yellow-500 border border-gray-300 rounded-md"
-                      placeholder="Deine Nachricht"></textarea>
-          </div>
-          <div>
-            <button type="submit"
-                    class="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
-              Senden
-            </button>
-          </div>
-        </form>
-      </div>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>
+
+
 

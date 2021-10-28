@@ -4,13 +4,10 @@ import {AngularFireFunctions} from "@angular/fire/compat/functions";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {doc, getDoc} from "firebase/firestore";
+import {IClient} from "../../../models";
 
 
-interface IClient {
-  name: string,
-  email: string,
-  business: string,
-}
+
 
 @Component({
   selector: 'app-register',

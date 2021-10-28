@@ -36,3 +36,17 @@ export interface ITeamMember{
   twitter: string,
   linkedin: string
 }
+
+
+export interface IClient {
+  name: string,
+  email: string,
+  business: string,
+}
+
+export interface IMessage {
+  name: string,
+  email: string,
+  phone: number,
+  message: string,
+}
