@@ -5,33 +5,34 @@ import {PricingComponent} from "./pages/pricing/pricing.component";
 import {AboutUsComponent} from "./pages/about-us/about-us.component";
 import {ProductsComponent} from "./pages/products/products.component";
 import {OurWorkComponent} from "./pages/our-work/our-work.component";
+import {WorkDetailsComponent} from "./pages/our-work/work-details/work-details.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: IndexComponent,
-    children: []
+    component: IndexComponent
   },
   {
     path: 'pricing',
-    component: PricingComponent,
-    children: []
+    component: PricingComponent
   },
   {
     path: 'about-us',
-    component: AboutUsComponent,
-    children: []
+    component: AboutUsComponent
   },
   {
     path: 'products',
-    component: ProductsComponent,
-    children: []
+    component: ProductsComponent
   },
   {
     path: 'our-work',
-    component: OurWorkComponent,
-    children: []
+    component: OurWorkComponent
+  },
+  {
+    path: 'work-details/:id',
+    component: WorkDetailsComponent
   }
+
 ];
 
 @NgModule({

@@ -301,25 +301,29 @@ export const team: ITeamMember[] = [
 
 export const projects: IProject[] =[
   {
+    id: '1',
     name: 'newboxes',
     link: 'https://newboxes.com',
     year: '2021',
     img:'',
   },
   {
+    id: '2',
     name: 'webqube',
     link: 'https://webqube.de',
     year: '2021',
     img:'',
   },
   {
+    id: '3',
     name: 'Heat & Power',
     link: 'https://hp-heizungsbau.de',
     year: '2020',
     img:'',
   },
   {
-    name: 'Personal Homepage',
+    id: '4',
+    name: 'Homepage',
     link: 'https://qendrimvllasa.com',
     year: '2019',
     img:'',

@@ -33,6 +33,7 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {process} from "@angular/compiler-cli/ngcc";
+import { WorkDetailsComponent } from './pages/our-work/work-details/work-details.component';
 
 
 function mode(){
@@ -51,7 +52,8 @@ function mode(){
     ProductsComponent,
     OurWorkComponent,
     AboutUsComponent,
-    RegisterComponent
+    RegisterComponent,
+    WorkDetailsComponent
   ],
   imports: [
     BrowserModule,

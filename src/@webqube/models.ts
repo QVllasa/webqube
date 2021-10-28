@@ -52,6 +52,7 @@ export interface IMessage {
 }
 
 export interface IProject{
+  id: string,
   name:string,
   link: string,
   year:string,
