@@ -2,15 +2,19 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions} from '@angular/material/form-field';
+import { FooterComponent } from './components/footer/footer.component';
+import {RouterModule} from "@angular/router";
 
 
 
 
 @NgModule({
-    imports: [
-        CommonModule,
-    ],
+  imports: [
+    CommonModule,
+    RouterModule,
+  ],
     exports: [
+        FooterComponent
     ],
     providers: [
         {
@@ -20,7 +24,9 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions} from '@angul
             } as MatFormFieldDefaultOptions
         }
     ],
-    declarations: []
+    declarations: [
+    FooterComponent
+  ]
 })
 export class webqubeModule {
 }

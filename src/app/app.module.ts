@@ -35,7 +35,11 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {process} from "@angular/compiler-cli/ngcc";
 import { WorkDetailsComponent } from './pages/our-work/work-details/work-details.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
-import { ImprintComponent } from './pages/imprint/imprint.component';
+import { LegalComponent } from './pages/legal/legal.component';
+import { JobsComponent } from './pages/jobs/jobs.component';
+
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
 
 
 function mode(){
@@ -44,6 +48,10 @@ function mode(){
   }
   return [{ provide: USE_FUNCTIONS_EMULATOR, useValue: ['localhost', 5001] },
     { provide: USE_FIRESTORE_EMULATOR, useValue: ['localhost', 8080] },]
+}
+
+export function playerFactory() {
+  return player;
 }
 
 @NgModule({
@@ -57,7 +65,8 @@ function mode(){
     RegisterComponent,
     WorkDetailsComponent,
     PrivacyComponent,
-    ImprintComponent
+    LegalComponent,
+    JobsComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +89,7 @@ function mode(){
     AngularFireFunctionsModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
+    LottieModule.forRoot({ player: playerFactory })
   ],
   providers: [...mode()],
   bootstrap: [AppComponent]

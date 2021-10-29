@@ -15,14 +15,9 @@ export class AppComponent {
   navigationItems = [
     {path: '/', label:''},
     {path:'our-work', label: 'Werke'},
-    {path:'products', label: 'Tech'},
+    {path:'products', label: 'Tech-Blog'},
     {path:'pricing', label: 'Preise'},
     {path:'about-us', label: 'Über Uns'}
   ]
 
-   onTestFunction() {
-
-    const callable = this.fns.httpsCallable('sayHello');
-    callable({name: "AAAAAA"}).toPromise().then(res => {console.log(res)});
-  }
 }
