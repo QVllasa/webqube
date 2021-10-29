@@ -34,6 +34,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {process} from "@angular/compiler-cli/ngcc";
 import { WorkDetailsComponent } from './pages/our-work/work-details/work-details.component';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
+import { ImprintComponent } from './pages/imprint/imprint.component';
 
 
 function mode(){
@@ -53,7 +55,9 @@ function mode(){
     OurWorkComponent,
     AboutUsComponent,
     RegisterComponent,
-    WorkDetailsComponent
+    WorkDetailsComponent,
+    PrivacyComponent,
+    ImprintComponent
   ],
   imports: [
     BrowserModule,

@@ -287,23 +287,23 @@ export const team: ITeamMember[] = [
     name: 'Qendrim Vllasa',
     role: 'Co-Founder',
     description: 'Ich liebe es Dinge zu erschaffen und zu kreieren. Um meiner Fantasie keine Grenzen zu setzen, habe ich mich dem Coding gewidmet und lasse dadurch Kreativität, Faszination und Spaß an logischen Problemen verschmelzen.',
-    twitter:'https://twitter.com/qvllasa92',
-    linkedin:'https://www.linkedin.com/in/qendrim-vllasa/'
+    twitter: 'https://twitter.com/qvllasa92',
+    linkedin: 'https://www.linkedin.com/in/qendrim-vllasa/'
   },
   {
     name: 'Dominim Vllasa',
     role: 'Co-Founder',
     description: 'Nulla quam felis, enim faucibus proin velit, ornare id pretium. Augue ultrices sed arcu condimentum vestibulum suspendisse. Volutpat eu faucibus vivamus eget bibendum cras.',
-    twitter:'/',
-    linkedin:'/'
+    twitter: '/',
+    linkedin: '/'
   }
 ]
 
-export const projects: IProject[] =[
+export const projects: IProject[] = [
   {
     id: '1',
     name: 'newboxes',
-    subtitle:'Webseite mit Contentmanagement-System',
+    subtitle: 'Webseite mit Contentmanagement-System',
     description: 'Es wurde eine vollständige webbasierte Unternehmenspräsenz aufgebaut, welche die Kompetenzen und Geschäftsfelder wiederspiegelt.',
     technologies: 'Die Webseite wurde mit dem Code-Editor Webflow entwickelt. Darüber hinaus wurden manuelle Ergänzungen und Anpassungen mit Javascript, CSS und HTML gemacht.',
     features: 'Die Webseite verfügt über ein CMS, so dass neben Blog-Einträgen und Blog-Seiten auch Kategorien, FAQs und andere Bereiche der Seite sehr nutzerfreundlich vom Nutzer manuell angepasst werden können.',
@@ -312,12 +312,12 @@ export const projects: IProject[] =[
     accessibility: 94,
     link: 'https://newboxes.com',
     year: '2021',
-    img:'assets/img/projects/newboxes.com.png',
+    img: 'assets/img/projects/newboxes.png',
   },
   {
     id: '2',
     name: 'webqube',
-    subtitle:'Cloudbasierte serverless Webseite mit CMS',
+    subtitle: 'Cloudbasierte serverless Webseite mit CMS',
     description: 'Die erste offizielle Unternehmenspräsenz für unseren Service.',
     technologies: 'Die Webseite wurde mit dem Javascript-Framework Angular entwickelt und wird auf Google Firebase gehostet.',
     features: 'Die Architektur hinter der Webseite wird als Serverless bezeichnet. Es gibt also kein eigenes Backend. Alle Funktionen werden in der Google Cloud ausgeführt. Content-Anpassungen werden mit Google Firestore verwaltet.',
@@ -326,28 +326,34 @@ export const projects: IProject[] =[
     accessibility: 94,
     link: 'https://webqube.de',
     year: '2021',
-    img:'',
+    img: 'assets/img/projects/webqube.png',
   },
-  // {
-  //   id: '2',
-  //   name: 'webqube',
-  //   link: 'https://webqube.de',
-  //   year: '2021',
-  //   img:'',
-  // },
-  // {
-  //   id: '3',
-  //   name: 'Heat & Power',
-  //   link: 'https://hp-heizungsbau.de',
-  //   year: '2020',
-  //   img:'',
-  // },
-  // {
-  //   id: '4',
-  //   name: 'Homepage',
-  //   link: 'https://qendrimvllasa.com',
-  //   year: '2019',
-  //   img:'',
-  // },
-
+  {
+    id: '3',
+    name: 'Heat & Power',
+    subtitle: 'Cloudbasierte serverless Webseite mit CMS',
+    description: 'Die erste offizielle Unternehmenspräsenz für unseren Service.',
+    technologies: 'Die Webseite wurde mit dem Javascript-Framework Angular entwickelt und wird auf Google Firebase gehostet.',
+    features: 'Die Architektur hinter der Webseite wird als Serverless bezeichnet. Es gibt also kein eigenes Backend. Alle Funktionen werden in der Google Cloud ausgeführt. Content-Anpassungen werden mit Google Firestore verwaltet.',
+    seo: 97,
+    performance: 93,
+    accessibility: 95,
+    link: 'https://hp-heizungsbau.de',
+    year: '2020',
+    img: 'assets/img/projects/hp-heizungsbau.png',
+  },
+  {
+    id: '4',
+    name: 'Homepage',
+    subtitle: 'Die persönliche Homepage von Co-Founder Qendrim.',
+    description: 'Ohne den Fokus auf SEO zu legen, stellt er hier seine Skills und seine Erfahrung vor.',
+    technologies: 'Die Webseite wird in Docker Container in der Cloud gehostet basiert im Backend auf der Symfony API Platform inkl. CMS und im Frontend auf Angular.',
+    features: 'Bis auf ein paar nette Animationen und ein einfaches CMS bietet die Webseite keine besonderen Features, da sie rein als persönlicher Blog fungiert.',
+    seo: 91,
+    performance: 97,
+    accessibility: 95,
+    link: 'https://qendrimvllasa.com',
+    year: '2019',
+    img: 'assets/img/projects/homepage.png',
+  },
 ]
