@@ -54,6 +54,13 @@ export interface IMessage {
 export interface IProject{
   id: string,
   name:string,
+  subtitle: string,
+  description:string,
+  technologies: string,
+  features: string,
+  performance: number,
+  accessibility: number,
+  seo: number,
   link: string,
   year:string,
   img:string,
