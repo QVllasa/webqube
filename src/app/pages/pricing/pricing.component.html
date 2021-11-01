@@ -18,7 +18,7 @@
     <div class="relative mt-12 flex flex-col items-center justify-center sm:mt-16">
       <div class="bg-yellow-700 p-0.5 rounded-lg flex">
         <button type="button" (click)="switchPlan()"
-                [ngClass]="isMonthly ? 'bg-white border-yellow-700 shadow-sm text-yellow-700' : 'text-gray-400hover:bg-yellow-800'"
+                [ngClass]="isMonthly ? 'bg-white border-yellow-700 shadow-sm text-yellow-700' : 'text-gray-50 hover:bg-yellow-800'"
                 class=" ml-0.5 relative py-2 px-6 border border-transparent rounded-md text-sm font-medium  whitespace-nowrap  focus:outline-none ">
           Monatlich
         </button>
@@ -48,7 +48,7 @@
               meist gekauft</p>
             <p class="mt-4 flex items-baseline text-gray-900">
               <span class="text-5xl font-extrabold tracking-tight">{{priceCard.fixPrice+'€'}}</span>
-              <!--              <span class="ml-1 text-xl font-semibold">/month</span>-->
+                            <span class="ml-1 text-xl font-medium text-gray-600">/Projekt</span>
             </p>
             <p class="mt-6 text-gray-500">{{priceCard.description}}</p>
 
@@ -79,7 +79,7 @@
               meist gekauft</p>
             <p class="mt-4 flex items-baseline text-gray-900">
               <span class="text-5xl font-extrabold tracking-tight">{{priceCard.monthlyPrice+'€'}}<span
-                class="font-medium text-gray-600">/monat</span></span>
+                class="ml-1 text-xl font-medium text-gray-600">/Monat</span></span>
               <!--              <span class="ml-1 text-xl font-semibold">/month</span>-->
             </p>
             <p class="mt-6 text-gray-500">{{priceCard.description}}</p>
