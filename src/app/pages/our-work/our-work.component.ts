@@ -9,6 +9,7 @@ import {projects} from "../../../@webqube/static";
 })
 export class OurWorkComponent implements OnInit {
   projects = projects;
+  featuredProject = projects.find(obj => obj.featured)
 
   constructor() { }
 

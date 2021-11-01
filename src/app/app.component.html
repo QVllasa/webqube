@@ -28,12 +28,21 @@
             </div>
           </div>
 
-          <div class="hidden md:flex md:items-center md:space-x-6">
-            <a *ngFor="let item of navigationItems" [routerLink]="[item.path]"
-               class="text-base font-medium text-white hover:text-gray-300">{{item.label}}</a>
+          <div class="hidden md:flex md:items-center md:space-x-8">
+            <ng-container *ngFor="let item of navigationItems">
+              <a *ngIf="!item.badge" [routerLink]="[item.path]"
+                 class=" text-base font-medium text-white hover:text-gray-300">{{item.label}}
+              </a>
+              <div *ngIf="item.badge"
+                   class=" text-base font-medium text-gray-400 ">{{item.label}}
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800 uppercase">{{item.badge}}</span>
+              </div>
+            </ng-container>
+
+
             <a mat-ripple href="https://webqube.notion.site"
                target="_blank"
-                    class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700">
+               class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700">
               Login
             </a>
           </div>

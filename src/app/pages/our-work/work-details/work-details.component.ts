@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {projects} from "../../../../@webqube/static";
 import {ActivatedRoute} from "@angular/router";
 import {IProject} from "../../../../@webqube/models";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({
   selector: 'app-work-details',
@@ -11,12 +12,17 @@ import {IProject} from "../../../../@webqube/models";
 export class WorkDetailsComponent implements OnInit {
 
   projects = projects;
-  project: IProject | undefined;
+  project$ = new BehaviorSubject<IProject | undefined>(undefined);
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
-  this.project = this.projects.find(obj => obj.id === this.route.snapshot.paramMap.get('id'))
+    this.route.params.subscribe((params) => {
+      this.project$.next(this.projects.find(obj => obj.id ===  params.id+''))
+    })
+
   }
+
 
 }

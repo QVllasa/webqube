@@ -14,10 +14,10 @@ export class AppComponent {
 
   navigationItems = [
     {path: '/', label:''},
-    {path:'our-work', label: 'Werke'},
-    {path:'products', label: 'Tech-Blog'},
-    {path:'pricing', label: 'Preise'},
-    {path:'about-us', label: 'Über Uns'}
+    {path:'our-work', label: 'Werke', badge:''},
+    {path:'tech-blog', label: 'Tech-Blog', badge:'coming soon'},
+    {path:'pricing', label: 'Preise', badge:''},
+    {path:'about-us', label: 'Über Uns', badge:''}
   ]
 
 }

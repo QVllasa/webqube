@@ -302,7 +302,7 @@ export const team: ITeamMember[] = [
 export const projects: IProject[] = [
   {
     id: '1',
-    name: 'newboxes',
+    title: 'newboxes',
     subtitle: 'Webseite mit Contentmanagement-System',
     description: 'Es wurde eine vollständige webbasierte Unternehmenspräsenz aufgebaut, welche die Kompetenzen und Geschäftsfelder wiederspiegelt.',
     technologies: 'Die Webseite wurde mit dem Code-Editor Webflow entwickelt. Darüber hinaus wurden manuelle Ergänzungen und Anpassungen mit Javascript, CSS und HTML gemacht.',
@@ -313,10 +313,11 @@ export const projects: IProject[] = [
     link: 'https://newboxes.com',
     year: '2021',
     img: 'assets/img/projects/newboxes.png',
+    featured: true,
   },
   {
     id: '2',
-    name: 'webqube',
+    title: 'webqube',
     subtitle: 'Cloudbasierte serverless Webseite mit CMS',
     description: 'Die erste offizielle Unternehmenspräsenz für unseren Service.',
     technologies: 'Die Webseite wurde mit dem Javascript-Framework Angular entwickelt und wird auf Google Firebase gehostet.',
@@ -327,10 +328,11 @@ export const projects: IProject[] = [
     link: 'https://webqube.de',
     year: '2021',
     img: 'assets/img/projects/webqube.png',
+    featured: false,
   },
   {
     id: '3',
-    name: 'Heat & Power',
+    title: 'Heat & Power',
     subtitle: 'Cloudbasierte serverless Webseite mit CMS',
     description: 'Die erste offizielle Unternehmenspräsenz für unseren Service.',
     technologies: 'Die Webseite wurde mit dem Javascript-Framework Angular entwickelt und wird auf Google Firebase gehostet.',
@@ -341,10 +343,11 @@ export const projects: IProject[] = [
     link: 'https://hp-heizungsbau.de',
     year: '2020',
     img: 'assets/img/projects/hp-heizungsbau.png',
+    featured: false,
   },
   {
     id: '4',
-    name: 'Homepage',
+    title: 'Homepage',
     subtitle: 'Die persönliche Homepage von Co-Founder Qendrim.',
     description: 'Ohne den Fokus auf SEO zu legen, stellt er hier seine Skills und seine Erfahrung vor.',
     technologies: 'Die Webseite wird in Docker Container in der Cloud gehostet basiert im Backend auf der Symfony API Platform inkl. CMS und im Frontend auf Angular.',
@@ -355,5 +358,6 @@ export const projects: IProject[] = [
     link: 'https://qendrimvllasa.com',
     year: '2019',
     img: 'assets/img/projects/homepage.png',
+    featured: false
   },
 ]

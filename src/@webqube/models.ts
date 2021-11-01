@@ -1,9 +1,9 @@
-export interface IFeature{
+export interface IFeature {
   name: string,
-  starterOneTime:boolean,
+  starterOneTime: boolean,
   professionalOneTime: boolean,
   businessOneTime: boolean,
-  starterMonthly:boolean,
+  starterMonthly: boolean,
   professionalMonthly: boolean,
   businessMonthly: boolean,
   custom: boolean,
@@ -15,7 +15,7 @@ export interface IFeature{
   businessTextMonthly?: string
 }
 
-export interface IPriceCard{
+export interface IPriceCard {
   monthlyPrice: number,
   fixPrice: number,
   features: string[],
@@ -24,12 +24,12 @@ export interface IPriceCard{
   mostSelected: boolean,
 }
 
-export interface IFaq{
+export interface IFaq {
   question: string,
-  answer:string
+  answer: string
 }
 
-export interface ITeamMember{
+export interface ITeamMember {
   role: string,
   name: string,
   description: string,
@@ -51,18 +51,19 @@ export interface IMessage {
   message: string,
 }
 
-export interface IProject{
+export interface IProject {
   id: string,
-  name:string,
+  title: string,
   subtitle: string,
-  description:string,
+  description: string,
   technologies: string,
   features: string,
   performance: number,
   accessibility: number,
   seo: number,
   link: string,
-  year:string,
-  img:string,
-
+  year: string,
+  img: string,
+  featured: boolean,
+  tags?: string[],
 }

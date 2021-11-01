@@ -24,7 +24,7 @@ const routes: Routes = [
     component: AboutUsComponent
   },
   {
-    path: 'products',
+    path: 'tech-blog',
     component: ProductsComponent
   },
   {
