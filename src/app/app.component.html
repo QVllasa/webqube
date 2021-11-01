@@ -35,7 +35,8 @@
               </a>
               <div *ngIf="item.badge"
                    class=" text-base font-medium text-gray-400 ">{{item.label}}
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800 uppercase">{{item.badge}}</span>
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800 uppercase">{{item.badge}}</span>
               </div>
             </ng-container>
 
@@ -60,14 +61,16 @@
             <span class="block bg-gradient-to-r from-yellow-600 to-yellow-600 bg-clip-text text-transparent">Dann melde dich an.</span>
           </h2>
           <div class="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
-            <a routerLink="/pricing"
-               class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md  text-yellow-800  hover:bg-yellow-100">
+            <button routerLink="/pricing"
+                    mat-ripple
+                    class="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md  text-yellow-800  hover:bg-yellow-100">
               Preise
-            </a>
-            <a href="#"
-               class="flex items-center justify-center bg-gradient-to-r from-yellow-600 to-yellow-600 bg-origin-border px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white hover:from-yellow-700 hover:to-yellow-700">
+            </button>
+            <button mat-ripple
+                    (click)="openDialog()"
+                    class="flex items-center justify-center bg-gradient-to-r from-yellow-600 to-yellow-600 bg-origin-border px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white hover:from-yellow-700 hover:to-yellow-700">
               Kostenlos Anmelden
-            </a>
+            </button>
           </div>
         </div>
       </div>

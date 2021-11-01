@@ -62,7 +62,6 @@ export function playerFactory() {
     ProductsComponent,
     OurWorkComponent,
     AboutUsComponent,
-    RegisterComponent,
     WorkDetailsComponent,
     PrivacyComponent,
     LegalComponent,
