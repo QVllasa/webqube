@@ -44,6 +44,10 @@ export interface IClient {
   business: string,
 }
 
+export interface IIndividualRequest extends IClient {
+  message: string,
+}
+
 export interface IMessage {
   name: string,
   email: string,

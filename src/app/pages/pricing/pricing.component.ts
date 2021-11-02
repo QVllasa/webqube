@@ -1,5 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {columnsKeys, faqs, featureComparison, priceCards} from 'src/@webqube/static';
+import {RegisterComponent} from "../../../@webqube/components/dialog/register/register.component";
+import {MatDialog} from "@angular/material/dialog";
+import {IndividualRequestComponent} from "../../../@webqube/components/dialog/individual-request/individual-request.component";
 
 
 
@@ -18,7 +21,7 @@ export class PricingComponent implements OnInit {
 
   isMonthly: boolean = true;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -26,6 +29,15 @@ export class PricingComponent implements OnInit {
 
   switchPlan() {
     this.isMonthly = !this.isMonthly;
+  }
+
+
+  openIndividualRequestDialog(): void {
+    const dialogRef = this.dialog.open(IndividualRequestComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }

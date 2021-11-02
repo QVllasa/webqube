@@ -1,12 +1,8 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {AngularFireFunctions} from "@angular/fire/compat/functions";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from "@angular/material/dialog";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
-import {doc, getDoc} from "firebase/firestore";
-import {IClient} from "../../../models";
-
-
+import {IIndividualRequest} from "../../../models";
 
 
 @Component({
@@ -16,20 +12,18 @@ import {IClient} from "../../../models";
 })
 export class IndividualRequestComponent implements OnInit {
 
-  clientCollection: AngularFirestoreCollection<IClient>;
-  emailExists: boolean;
+  individualRequestCollection: AngularFirestoreCollection<IIndividualRequest>;
   isLoading: boolean = false;
   isSuccess: boolean = false;
 
-  registerForm = new FormGroup({
+  individualRequestForm = new FormGroup({
     name: new FormControl({value:'', disabled: this.isLoading}, [Validators.required]),
     email: new FormControl({value:'', disabled: this.isLoading}, [Validators.required, Validators.email]),
     business: new FormControl({value:'', disabled: this.isLoading}),
+    message: new FormControl({value:'', disabled: this.isLoading}, [Validators.required]),
   });
 
-  clientObj: IClient;
-
-
+  individualRequestObj: IIndividualRequest;
 
   constructor(
     public dialogRef: MatDialogRef<IndividualRequestComponent>,
@@ -37,9 +31,9 @@ export class IndividualRequestComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.clientCollection = this.afs.collection<IClient>('clients');
-    this.registerForm.valueChanges.subscribe((data)=>{
-      this.clientObj = data
+    this.individualRequestCollection = this.afs.collection<IIndividualRequest>('individualRequests');
+    this.individualRequestForm.valueChanges.subscribe((data)=>{
+      this.individualRequestObj = data
     })
   }
 
@@ -49,34 +43,22 @@ export class IndividualRequestComponent implements OnInit {
 
   onSend() {
     this.isLoading = true;
-    if (!this.registerForm.valid) {
+    if (!this.individualRequestForm.valid) {
       console.log("not valid")
       return;
     }
-    console.log(this.clientObj)
-    this.clientCollection.ref.where('email', '==', this.clientObj.email).get()
-      .then((snapShot) => {
-        console.log(snapShot)
-        this.emailExists = !snapShot.empty;
-        console.log(this.emailExists, "if email exists")
-        if (!this.emailExists) {
-          this.clientCollection.add(this.clientObj).then(res=>{
-            this.isLoading = false
-            this.isSuccess = true;
-          })
-        }else{
-          this.isLoading = false
-          this.isSuccess = false;
-          return;
-        }
-      })
+    console.log(this.individualRequestObj)
+    this.individualRequestCollection.add(this.individualRequestObj).then(res=>{
+      this.isLoading = false
+      this.isSuccess = true;
+    })
       .catch((err) => {
         console.log(err)
       })
   }
 
   get f() {
-    return this.registerForm.controls;
+    return this.individualRequestForm.controls;
   }
 
 }
