@@ -293,7 +293,7 @@ export const team: ITeamMember[] = [
   {
     name: 'Dominim Vllasa',
     role: 'Co-Founder',
-    description: 'Nulla quam felis, enim faucibus proin velit, ornare id pretium. Augue ultrices sed arcu condimentum vestibulum suspendisse. Volutpat eu faucibus vivamus eget bibendum cras.',
+    description: 'Meine Leidenschaft ist es Lösungsorientierte Wege für Probleme zu finden. Im Bereich der Softwareentwicklung sehe ich das Potenzial mein Hobby zum Beruf zu machen, wodurch es in meinem Job nie langweilig wird!',
     twitter: '/',
     linkedin: '/'
   }
