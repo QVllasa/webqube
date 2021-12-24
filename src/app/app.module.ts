@@ -43,7 +43,6 @@ import player from 'lottie-web';
 import { ProjectsComponent } from './dashboard/projects/projects.component';
 import { PagesLayoutComponent } from './pages/pages-layout/pages-layout.component';
 import { AppLayoutComponent } from './dashboard/app-layout/app-layout.component';
-import { TestComponent } from './dashboard/test/test.component';
 import { AccountComponent } from './dashboard/account/account.component';
 
 
@@ -74,7 +73,6 @@ export function playerFactory() {
     ProjectsComponent,
     PagesLayoutComponent,
     AppLayoutComponent,
-    TestComponent,
     AccountComponent
   ],
   imports: [
