@@ -2,14 +2,10 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   prefix: '',
-  mode: 'jit',
   important: true,
-  purge: {
-    content: [
-      './src/**/*.{html,ts}',
-    ]
-  },
-  darkMode: 'class', // or 'media' or 'class'
+  content: [
+    './src/**/*.{html,ts}',
+  ],
   theme: {
     extend: {
       colors: {
@@ -18,8 +14,5 @@ module.exports = {
       },
     },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [require('@tailwindcss/forms'),require('@tailwindcss/typography'),require('@tailwindcss/aspect-ratio')],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography'), require('@tailwindcss/aspect-ratio')],
 };

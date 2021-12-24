@@ -3,6 +3,8 @@ import {columnsKeys, faqs, featureComparison, priceCards} from 'src/@webqube/sta
 import {RegisterComponent} from "../../../@webqube/components/dialog/register/register.component";
 import {MatDialog} from "@angular/material/dialog";
 import {IndividualRequestComponent} from "../../../@webqube/components/dialog/individual-request/individual-request.component";
+import {RequestComponent} from "../../../@webqube/components/dialog/request/request.component";
+import {IPriceCard} from "../../../@webqube/models";
 
 
 
@@ -34,6 +36,14 @@ export class PricingComponent implements OnInit {
 
   openIndividualRequestDialog(): void {
     const dialogRef = this.dialog.open(IndividualRequestComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openRequestDialog(priceCard: IPriceCard): void {
+    const dialogRef = this.dialog.open(RequestComponent, {data: priceCard});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');

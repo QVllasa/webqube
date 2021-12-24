@@ -226,6 +226,22 @@ export const featureComparison: IFeature[] = [
     businessMonthly: true,
     custom: false
   },
+  {
+    name: 'GO-Live in',
+    starterOneTime: true,
+    professionalOneTime: true,
+    businessOneTime: true,
+    starterMonthly: true,
+    professionalMonthly: true,
+    businessMonthly: true,
+    custom: true,
+    starterTextOneTime: '1 Monat',
+    professionalTextOneTime: '3 Monate',
+    businessTextOneTime: '3 Monate',
+    starterTextMonthly: '1 Monat',
+    professionalTextMonthly: '5 Monate',
+    businessTextMonthly: '6 Monate'
+  },
 ]
 
 export const priceCards: IPriceCard[] = [
@@ -235,6 +251,7 @@ export const priceCards: IPriceCard[] = [
     features: ['Eine Landingpage mit 8 Sections', 'Suchmaschinenoptimiert', 'Analytikfunktionen', '1 Refinements', 'Webhosting'],
     description: 'Eine starke Landingpage, die gewaltigen Eindruck hinterlässt.',
     plan: 'Starter',
+    icon: '🛫',
     mostSelected: false
   },
   {
@@ -243,7 +260,8 @@ export const priceCards: IPriceCard[] = [
     features: ['15 individuelle Seiten', 'Blog-Funktionen und User-Management', 'Fortgeschrittene Analysen', 'Mit Content Management', '4 Refinements', 'E-Mail Einrichtung'],
     description: 'Bereit für Marketing Kampagnen',
     plan: 'Professional',
-    mostSelected: true
+    mostSelected: true,
+    icon: '🛫',
   },
   {
     monthlyPrice: 349,
@@ -251,7 +269,8 @@ export const priceCards: IPriceCard[] = [
     features: ['40 individuelle Seiten', 'Schnelle Reaktionszeiten', 'Webhosting', 'E-Mail Einrichtung und Hosting', '6 Refinements'],
     description: 'Ein Plan der gemeinsam grenzenlos mit deinem Business wächst.',
     plan: 'Business',
-    mostSelected: false
+    mostSelected: false,
+    icon: '🛫',
   }
 ]
 

@@ -1,81 +1,81 @@
 <ng-template [ngIf]="!isSuccess">
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
-    <img class="mx-auto h-12 w-auto" src="/assets/img/logo/webqube_icon.svg" alt="Workflow">
-    <h2 class="mt-6 text-center text-lg font-extrabold text-gray-800">
-      Bevor wir dir ein individuelles Angebot erstellen sollten wir uns vorher kurz austauschen, um dich kennenzulernen.
+    <h2 class="mt-6 text-center text-6xl font-extrabold text-gray-800">
+      Dein Plan.
     </h2>
   </div>
-  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-    <div class="bg-white py-8 px-4 sm:px-10">
-      <form class="space-y-6" [formGroup]="registerForm" (ngSubmit)="onSend()">
+  <div class="grid grid-cols-2">
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div class="bg-white py-8 px-4 sm:px-10">
+        <form class="space-y-6">
+          <div class="relative p-8 bg-white  flex flex-col">
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold text-gray-900">{{priceCard.plan}}</h3>
+              <p class="mt-4 flex items-baseline text-gray-900">
+                <span class="text-5xl font-extrabold tracking-tight">{{priceCard.fixPrice + '€'}}</span>
+                <span class="ml-1 text-xl font-medium text-gray-600">/Projekt</span>
+              </p>
+              <p class="mt-6 text-gray-500">{{priceCard.description}}</p>
 
+              <!-- Feature list -->
+              <ul role="list" class="mt-6 divide-y divide-solid">
+                <li *ngFor="let feature of priceCard.features" class="flex py-4">
+                  <!-- Heroicon name: outline/check -->
+                  <svg class="flex-shrink-0 w-6 h-6 text-yellow-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                       viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span class="ml-3 text-gray-500">{{feature}} </span>
+                </li>
 
-        <div>
-          <label for="name" class="sr-only text-sm font-medium text-gray-700">Deine Vor- und Nachname</label>
-          <div class=" relative rounded-md shadow-sm">
-            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <span class="text-xl">💁</span>
+              </ul>
             </div>
-            <input formControlName="name" type="text" name="name" id="name"
-                   [ngClass]="f.name.invalid &&  f.name.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-yellow-500 focus:border-yellow-500 border-gray-300'"
-                   class="focus:ring-yellow-500 focus:border-yellow-500 block w-full pl-3 sm:text-sm border-gray-300 rounded-md"
-                   placeholder="Dein Vor- und Nachname">
           </div>
-          <p *ngIf="f.name.invalid &&  f.name.touched" class="mt-1 text-xs text-red-600" id="name-error">Bitte gib
-            deinen
-            Namen ein.</p>
-        </div>
-
-
-        <div>
-          <label for="email" class="sr-only text-sm font-medium text-gray-700">Deine E-Mail</label>
-          <div class="relative rounded-md shadow-sm">
-            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <span class="text-xl">️✉️</span>
-            </div>
-            <input formControlName="email" type="text" name="email" id="email"
-                   [ngClass]="f.email.invalid &&  f.email.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-yellow-500 focus:border-yellow-500 border-gray-300'"
-                   class="block w-full pl-3 sm:text-sm  rounded-md" placeholder="Deine E-Mail">
-          </div>
-          <p *ngIf="f.email.invalid &&  f.email.touched" class="mt-1 text-xs text-red-600" id="email-error">Keine
-            gültige
-            E-Mail.</p>
-          <p *ngIf="emailExists" class="mt-1 text-xs text-red-600" id="email-exists">Diese E-Mail existiert bereits.</p>
-        </div>
-
-        <div>
-          <label for="business" class="sr-only text-sm font-medium text-gray-700">Dein Business</label>
-          <div class=" relative rounded-md shadow-sm">
-            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <span class="text-xl">🚀</span>
-            </div>
-            <input formControlName="business" type="text" name="business" id="business"
-                   [disabled]="!isLoading"
-                   class="focus:ring-yellow-500 focus:border-yellow-500 block w-full pl-3 sm:text-sm border-gray-300 rounded-md"
-                   placeholder="Dein Business oder Projekt">
-          </div>
-        </div>
-
-        <div class="flex flex-col items-stretch justify-between space-y-4">
-          <div>
-
-
-            <button mat-ripple type="submit"
-                    [disabled]="isLoading"
-                    class="disabled:bg-yellow-700 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
-              <ng-template [ngIf]="!isLoading">Kostenlos Anmelden</ng-template>
-              <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>
-            </button>
-          </div>
-          <div class="text-sm w-full text-center">
-            <a matDialogClose routerLink="/privacy" class="font-medium text-yellow-600 hover:text-yellow-500">
-              Datenschutz
-            </a>
-          </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <div class="mt-8">
+      <div class="px-4 py-5 sm:px-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+         In 3 Schritten zum GO-Live
+        </h3>
+        <p class="mt-1 max-w-2xl text-sm text-gray-500">
+        Bezahlt wird erst, wenn ein Schritt abgeschlossen ist.
+        </p>
+      </div>
+      <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+        <dl class="sm:divide-y sm:divide-gray-200">
+          <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">
+              Erstellung von Content und Design Vorschlägen
+            </dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+              Margot Foster
+            </dd>
+          </div>
+          <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">
+              Entwicklung der Entwürfe
+            </dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+              Backend Developer
+            </dd>
+          </div>
+          <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            <dt class="text-sm font-medium text-gray-500">
+              GO-Live
+            </dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+              margotfoster@example.com
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
   </div>
+
 </ng-template>
 <ng-template [ngIf]="isSuccess">
   <!-- This example requires Tailwind CSS v2.0+ -->

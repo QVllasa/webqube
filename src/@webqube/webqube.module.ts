@@ -10,6 +10,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatRippleModule} from "@angular/material/core";
 import {MatDialogModule} from "@angular/material/dialog";
+import {RequestComponent} from "./components/dialog/request/request.component";
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {MatDialogModule} from "@angular/material/dialog";
   exports: [
     FooterComponent,
     IndividualRequestComponent,
-    RegisterComponent
+    RegisterComponent,
+    RequestComponent
   ],
   providers: [
     {
@@ -37,7 +39,8 @@ import {MatDialogModule} from "@angular/material/dialog";
   declarations: [
     FooterComponent,
     IndividualRequestComponent,
-    RegisterComponent
+    RegisterComponent,
+    RequestComponent
   ]
 })
 export class webqubeModule {

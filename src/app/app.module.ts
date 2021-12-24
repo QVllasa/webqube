@@ -40,6 +40,10 @@ import { JobsComponent } from './pages/jobs/jobs.component';
 
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { ProjectsComponent } from './dashboard/projects/projects.component';
+import { PagesLayoutComponent } from './pages/pages-layout/pages-layout.component';
+import { AppLayoutComponent } from './dashboard/app-layout/app-layout.component';
+import { TestComponent } from './dashboard/test/test.component';
 
 
 function mode(){
@@ -65,7 +69,11 @@ export function playerFactory() {
     WorkDetailsComponent,
     PrivacyComponent,
     LegalComponent,
-    JobsComponent
+    JobsComponent,
+    ProjectsComponent,
+    PagesLayoutComponent,
+    AppLayoutComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

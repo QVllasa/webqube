@@ -66,8 +66,8 @@
             </ul>
           </div>
 
-          <a href="#" [ngClass]="priceCard.mostSelected ? 'bg-yellow-500 text-yellow-50 hover:bg-yellow-700':'bg-yellow-50 text-yellow-700 hover:bg-yellow-100'"
-             class="   mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium">Anfragen</a>
+          <button mat-ripple (click)="openRequestDialog(priceCard)" [ngClass]="priceCard.mostSelected ? 'bg-yellow-500 text-yellow-50 hover:bg-yellow-700':'bg-yellow-50 text-yellow-700 hover:bg-yellow-100'"
+             class="   mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium">Anfragen</button>
         </div>
       </div>
       <div *ngIf="isMonthly"
@@ -96,8 +96,8 @@
               </li>
             </ul>
           </div>
-          <a href="#" [ngClass]="priceCard.mostSelected ? 'bg-yellow-500 text-yellow-50 hover:bg-yellow-700':'bg-yellow-50 text-yellow-700 hover:bg-yellow-100'"
-             class=" mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium">Anfragen</a>
+          <button mat-ripple (click)="openRequestDialog(priceCard)" [ngClass]="priceCard.mostSelected ? 'bg-yellow-500 text-yellow-50 hover:bg-yellow-700':'bg-yellow-50 text-yellow-700 hover:bg-yellow-100'"
+             class=" mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium">Anfragen</button>
         </div>
       </div>
     </section>

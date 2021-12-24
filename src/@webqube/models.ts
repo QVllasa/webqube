@@ -22,6 +22,7 @@ export interface IPriceCard {
   description: string,
   plan: string,
   mostSelected: boolean,
+  icon: string,
 }
 
 export interface IFaq {
