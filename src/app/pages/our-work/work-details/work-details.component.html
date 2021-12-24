@@ -33,7 +33,7 @@
         <dl class="mt-10 space-y-10">
           <div class="relative">
             <dt>
-              <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-yellow-500 text-white">
+              <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-amber-500 text-white">
                 <!-- Heroicon name: outline/globe-alt -->
                 <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor" aria-hidden="true">
@@ -50,7 +50,7 @@
 
           <div class="relative">
             <dt>
-              <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-yellow-500 text-white">
+              <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-amber-500 text-white">
                 <!-- Heroicon name: outline/scale -->
                 <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor" aria-hidden="true">
@@ -67,7 +67,7 @@
 
           <div class="relative">
             <dt>
-              <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-yellow-500 text-white">
+              <div class="absolute flex items-center justify-center h-12 w-12 rounded-md bg-amber-500 text-white">
                 <!-- Heroicon name: outline/lightning-bolt -->
                 <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                      stroke="currentColor" aria-hidden="true">
@@ -83,7 +83,7 @@
                     <dt class="order-2 text-base font-medium text-gray-400">
                       Performance
                     </dt>
-                    <dd class="order-1 text-2xl font-extrabold text-yellow-600 sm:text-3xl">
+                    <dd class="order-1 text-2xl font-extrabold text-amber-600 sm:text-3xl">
                       {{project.performance}}
                     </dd>
                   </div>
@@ -91,7 +91,7 @@
                     <dt class="order-2 text-base font-medium text-gray-400">
                       Accessibility
                     </dt>
-                    <dd class="order-1 text-2xl font-extrabold text-yellow-600 sm:text-3xl">
+                    <dd class="order-1 text-2xl font-extrabold text-amber-600 sm:text-3xl">
                       {{project.accessibility}}
                     </dd>
                   </div>
@@ -99,7 +99,7 @@
                     <dt class="order-2 text-base font-medium text-gray-400">
                       SEO
                     </dt>
-                    <dd class="order-1 text-2xl font-extrabold text-yellow-600 sm:text-3xl">
+                    <dd class="order-1 text-2xl font-extrabold text-amber-600 sm:text-3xl">
                       {{project.seo}}
                     </dd>
                   </div>
@@ -112,7 +112,7 @@
 
       <a class="mt-10 -mx-4 relative lg:mt-0 w-full h-full " aria-hidden="true" [href]="project.link">
         <img
-          class="object-cover hover:opacity-75 w-full rounded-xl  border border-yellow-500 ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
+          class="object-cover hover:opacity-75 w-full rounded-xl  border border-amber-500 ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
           [src]="project.img" alt="Inbox user interface">
       </a>
     </div>
@@ -126,9 +126,9 @@
     </div>
     <ul role="list"
         class="mt-12 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
-      <li *ngFor="let project of projects" class="relative text-left border border-yellow-500 rounded-lg">
+      <li *ngFor="let project of projects" class="relative text-left border border-amber-500 rounded-lg">
         <div
-          class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-yellow-500 overflow-hidden">
+          class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-amber-500 overflow-hidden">
           <img
             [src]="project.img"
             alt="" class="object-cover pointer-events-none group-hover:opacity-75">
@@ -139,12 +139,12 @@
         <div class="grid grid-cols-2 items-center mt-4 px-3 pb-3">
           <div class="col-1">
             <p class="mt-2 block text-sm font-bold text-white truncate pointer-events-none ">{{project.title}}</p>
-            <a [href]="project.link" class="mt-2 block text-sm font-medium text-gray-500 hover:text-yellow-500">Zur
+            <a [href]="project.link" class="mt-2 block text-sm font-medium text-gray-500 hover:text-amber-500">Zur
               Webseite</a>
           </div>
           <button mat-ripple type="button"
                   [routerLink]="['/work-details/'+project.id]"
-                  class="ml-auto w-24  py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                  class="ml-auto w-24  py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
             Details
           </button>
         </div>

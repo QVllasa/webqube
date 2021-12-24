@@ -44,6 +44,7 @@ import { ProjectsComponent } from './dashboard/projects/projects.component';
 import { PagesLayoutComponent } from './pages/pages-layout/pages-layout.component';
 import { AppLayoutComponent } from './dashboard/app-layout/app-layout.component';
 import { TestComponent } from './dashboard/test/test.component';
+import { AccountComponent } from './dashboard/account/account.component';
 
 
 function mode(){
@@ -73,7 +74,8 @@ export function playerFactory() {
     ProjectsComponent,
     PagesLayoutComponent,
     AppLayoutComponent,
-    TestComponent
+    TestComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,7 @@ import {ProjectsComponent} from "./dashboard/projects/projects.component";
 import {PagesLayoutComponent} from "./pages/pages-layout/pages-layout.component";
 import {AppLayoutComponent} from "./dashboard/app-layout/app-layout.component";
 import {TestComponent} from "./dashboard/test/test.component";
+import {AccountComponent} from "./dashboard/account/account.component";
 
 const routes: Routes = [
   {
@@ -36,8 +37,9 @@ const routes: Routes = [
     component: AppLayoutComponent,
     children: [
       {path: '', redirectTo: 'projects', pathMatch:'full'},
-      {path: 'projects', component: ProjectsComponent, data: {title: 'Deine Projekte'}},
-      {path:'test', component: TestComponent,  data: {title:'Test'}}
+      {path: 'projects', component: ProjectsComponent, data: {title: 'Meine Projekte'}},
+      {path:'test', component: TestComponent,  data: {title:'Test'}},
+      {path:'account', component: AccountComponent,  data: {title:'Mein Account'}}
     ]
   },
 
