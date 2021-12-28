@@ -43,6 +43,7 @@ export interface IClient {
   name: string,
   email: string,
   business: string,
+  password: string,
 }
 
 export interface IIndividualRequest extends IClient {

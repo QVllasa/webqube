@@ -5,8 +5,10 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {doc, getDoc} from "firebase/firestore";
 import {IClient} from "../../../models";
-
-
+import {AngularFireAuth} from "@angular/fire/compat/auth";
+import firebase from "firebase/compat";
+import FirebaseError = firebase.FirebaseError;
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -22,23 +24,25 @@ export class RegisterComponent implements OnInit {
   isSuccess: boolean = false;
 
   registerForm = new FormGroup({
-    name: new FormControl({value:'', disabled: this.isLoading}, [Validators.required]),
-    email: new FormControl({value:'', disabled: this.isLoading}, [Validators.required, Validators.email]),
-    business: new FormControl({value:'', disabled: this.isLoading}),
+    name: new FormControl({value: '', disabled: this.isLoading}, [Validators.required]),
+    email: new FormControl({value: '', disabled: this.isLoading}, [Validators.required, Validators.email]),
+    business: new FormControl({value: '', disabled: this.isLoading}),
+    password: new FormControl({value: '', disabled: this.isLoading}, [Validators.required, Validators.minLength(8)])
   });
 
   clientObj: IClient;
 
 
-
   constructor(
     public dialogRef: MatDialogRef<RegisterComponent>,
+    public auth: AngularFireAuth,
+    private router: Router,
     private afs: AngularFirestore) {
   }
 
   ngOnInit(): void {
     this.clientCollection = this.afs.collection<IClient>('clients');
-    this.registerForm.valueChanges.subscribe((data)=>{
+    this.registerForm.valueChanges.subscribe((data) => {
       this.clientObj = data
     })
   }
@@ -49,30 +53,35 @@ export class RegisterComponent implements OnInit {
 
   onSend() {
     this.isLoading = true;
+    this.emailExists = false;
+
+
     if (!this.registerForm.valid) {
       console.log("not valid")
+      this.isLoading = false;
       return;
     }
-    console.log(this.clientObj)
-    this.clientCollection.ref.where('email', '==', this.clientObj.email).get()
-      .then((snapShot) => {
-        console.log(snapShot)
-        this.emailExists = !snapShot.empty;
-        console.log(this.emailExists, "if email exists")
-        if (!this.emailExists) {
-          this.clientCollection.add(this.clientObj).then(res=>{
-            this.isLoading = false
-            this.isSuccess = true;
-          })
-        }else{
-          this.isLoading = false
-          this.isSuccess = false;
-          return;
-        }
+
+
+    this.auth.createUserWithEmailAndPassword(this.clientObj.email, this.clientObj.password)
+      .then((res) => {
+        console.log(res);
+        this.isLoading = false
+        this.isSuccess = true;
       })
-      .catch((err) => {
-        console.log(err)
+      .then(()=>{
+        this.auth.signInWithEmailAndPassword(this.clientObj.email, this.clientObj.password).then((res)=>{
+          console.log(res)
+          this.router.navigate(['/dashboard'])
+        })
       })
+      .catch((err: FirebaseError) => {
+        this.emailExists = err.code === 'auth/email-already-in-use'
+        this.isLoading = false
+        this.isSuccess = false;
+        return;
+      })
+
   }
 
   get f() {
