@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {AngularFireAuth} from "@angular/fire/compat/auth";
 
 @Component({
   selector: 'app-app-layout',
@@ -13,11 +14,16 @@ export class AppLayoutComponent implements OnInit {
     {path: 'test', label: 'test', badge: ''},
   ]
 
+  user:any ;
+
   routeTitle: string = '';
 
-  constructor(public route: ActivatedRoute, private router: Router) {
+  constructor(public route: ActivatedRoute, private router: Router, private auth: AngularFireAuth) {
     this.router.events.subscribe(() => {
       this.routeTitle = this.route.firstChild?.snapshot.data.title;
+    })
+    this.auth.user.subscribe((user)=>{
+      this.user =  user;
     })
   }
 

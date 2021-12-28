@@ -68,6 +68,7 @@ export class RegisterComponent implements OnInit {
         console.log(res);
         this.isLoading = false
         this.isSuccess = true;
+        return res.user?.updateProfile({displayName: this.clientObj.name});
       })
       .then(()=>{
         this.auth.signInWithEmailAndPassword(this.clientObj.email, this.clientObj.password).then((res)=>{
