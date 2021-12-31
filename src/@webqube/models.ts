@@ -1,3 +1,7 @@
+import firebase from "firebase/compat";
+import UserMetadata = firebase.auth.UserMetadata;
+import UserInfo = firebase.UserInfo;
+
 export interface IFeature {
   name: string,
   starterOneTime: boolean,
@@ -15,7 +19,8 @@ export interface IFeature {
   businessTextMonthly?: string
 }
 
-export interface IPriceCard {
+export interface ITier {
+  id: string
   monthlyPrice: number,
   fixPrice: number,
   features: string[],
@@ -58,6 +63,19 @@ export interface IMessage {
 }
 
 export interface IProject {
+  title: string,
+  date: string,
+  tier: ITier,
+  milestone: IMilestone
+}
+
+export interface IMilestone{
+
+}
+
+
+
+export interface IWork {
   id: string,
   title: string,
   subtitle: string,
@@ -73,3 +91,6 @@ export interface IProject {
   featured: boolean,
   tags?: string[],
 }
+
+
+export interface IUser extends UserInfo{}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {IProject} from "../../../@webqube/models";
+import {IWork} from "../../../@webqube/models";
 import {projects} from "../../../@webqube/static";
 
 @Component({

@@ -1,16 +1,22 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions} from '@angular/material/form-field';
+import {
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+  MatFormFieldDefaultOptions,
+  MatFormFieldModule
+} from '@angular/material/form-field';
 import {FooterComponent} from './components/footer/footer.component';
 import {RouterModule} from "@angular/router";
 import {IndividualRequestComponent} from "./components/dialog/individual-request/individual-request.component";
 import {RegisterComponent} from "./components/dialog/register/register.component";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {MatRippleModule} from "@angular/material/core";
+import {MatOptionModule, MatRippleModule} from "@angular/material/core";
 import {MatDialogModule} from "@angular/material/dialog";
 import {RequestComponent} from "./components/dialog/request/request.component";
+import {AddProjectComponent} from "./components/dialog/add-project/add-project.component";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -21,6 +27,10 @@ import {RequestComponent} from "./components/dialog/request/request.component";
     MatProgressSpinnerModule,
     MatRippleModule,
     MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    FormsModule,
   ],
   exports: [
     FooterComponent,
@@ -40,7 +50,8 @@ import {RequestComponent} from "./components/dialog/request/request.component";
     FooterComponent,
     IndividualRequestComponent,
     RegisterComponent,
-    RequestComponent
+    RequestComponent,
+    AddProjectComponent
   ]
 })
 export class webqubeModule {

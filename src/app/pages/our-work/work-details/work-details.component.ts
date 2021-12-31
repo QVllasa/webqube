@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {projects} from "../../../../@webqube/static";
 import {ActivatedRoute} from "@angular/router";
-import {IProject} from "../../../../@webqube/models";
+import {IWork} from "../../../../@webqube/models";
 import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({
@@ -12,7 +12,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 export class WorkDetailsComponent implements OnInit {
 
   projects = projects;
-  project$ = new BehaviorSubject<IProject | undefined>(undefined);
+  project$ = new BehaviorSubject<IWork | undefined>(undefined);
 
   constructor(private route: ActivatedRoute) {
   }

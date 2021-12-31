@@ -1,4 +1,4 @@
-import {IFaq, IFeature, IPriceCard, IProject, ITeamMember} from "./models";
+import {IFaq, IFeature, ITier, IWork, ITeamMember} from "./models";
 
 export const columnsKeys = ['Feature', 'Starter', 'Professional', 'Business']
 
@@ -244,8 +244,9 @@ export const featureComparison: IFeature[] = [
   },
 ]
 
-export const priceCards: IPriceCard[] = [
+export const Tiers: ITier[] = [
   {
+    id: '1',
     monthlyPrice: 79,
     fixPrice: 899,
     features: ['Eine Landingpage mit 8 Sections', 'Suchmaschinenoptimiert', 'Analytikfunktionen', '1 Refinements', 'Webhosting'],
@@ -255,6 +256,7 @@ export const priceCards: IPriceCard[] = [
     mostSelected: false
   },
   {
+    id: '2',
     monthlyPrice: 149,
     fixPrice: 3899,
     features: ['15 individuelle Seiten', 'Blog-Funktionen und User-Management', 'Fortgeschrittene Analysen', 'Mit Content Management', '4 Refinements', 'E-Mail Einrichtung'],
@@ -264,6 +266,7 @@ export const priceCards: IPriceCard[] = [
     icon: '🛫',
   },
   {
+    id: '3',
     monthlyPrice: 349,
     fixPrice: 7899,
     features: ['40 individuelle Seiten', 'Schnelle Reaktionszeiten', 'Webhosting', 'E-Mail Einrichtung und Hosting', '6 Refinements'],
@@ -318,7 +321,7 @@ export const team: ITeamMember[] = [
   }
 ]
 
-export const projects: IProject[] = [
+export const projects: IWork[] = [
   {
     id: '1',
     title: 'newboxes',

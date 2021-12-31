@@ -1,3 +1,5 @@
+import { NgDompurifySanitizer } from "@tinkoff/ng-dompurify";
+import { TuiRootModule, TuiDialogModule, TuiNotificationsModule, TUI_SANITIZER } from "@taiga-ui/core";
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -96,9 +98,12 @@ export function playerFactory() {
     AngularFireFunctionsModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    LottieModule.forRoot({ player: playerFactory })
-  ],
-  providers: [...mode()],
+    LottieModule.forRoot({ player: playerFactory }),
+      TuiRootModule,
+      TuiDialogModule,
+      TuiNotificationsModule
+],
+  providers: [...mode(), {provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

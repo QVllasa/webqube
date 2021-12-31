@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {columnsKeys, faqs, featureComparison, priceCards} from 'src/@webqube/static';
+import {columnsKeys, faqs, featureComparison, Tiers} from 'src/@webqube/static';
 import {RegisterComponent} from "../../../@webqube/components/dialog/register/register.component";
 import {MatDialog} from "@angular/material/dialog";
 import {IndividualRequestComponent} from "../../../@webqube/components/dialog/individual-request/individual-request.component";
 import {RequestComponent} from "../../../@webqube/components/dialog/request/request.component";
-import {IPriceCard} from "../../../@webqube/models";
+import {ITier} from "../../../@webqube/models";
 
 
 
@@ -18,7 +18,7 @@ export class PricingComponent implements OnInit {
 
   columnsKeys = columnsKeys
   featureComparison = featureComparison
-  priceCards = priceCards;
+  priceCards = Tiers;
   faqs = faqs
 
   isMonthly: boolean = true;
@@ -42,7 +42,7 @@ export class PricingComponent implements OnInit {
     });
   }
 
-  openRequestDialog(priceCard: IPriceCard): void {
+  openRequestDialog(priceCard: ITier): void {
     const dialogRef = this.dialog.open(RequestComponent, {data: priceCard});
 
     dialogRef.afterClosed().subscribe(result => {
