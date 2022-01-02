@@ -17,14 +17,14 @@ export class AccountComponent implements OnInit {
   userForm = new FormGroup({
     email: new FormControl({value: '', disabled: true}, [Validators.required, Validators.email]),
     displayName: new FormControl({value: '', disabled: true}, [Validators.required]),
-    phoneNumber: new FormControl({value: '', disabled: true}),
+    // phoneNumber: new FormControl({value: '', disabled: true}),
   });
 
   constructor(private auth: AngularFireAuth) {
     this.auth.user.subscribe(user => {
       this.userForm.patchValue({
         displayName: user?.displayName,
-        phoneNumber: user?.phoneNumber,
+        // phoneNumber: user?.phoneNumber,
         email: user?.email,
       });
     })
@@ -32,6 +32,9 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userForm.valueChanges.subscribe(data => {
+      this.user = data;
+    })
   }
 
   onResetPassword() {
@@ -45,17 +48,32 @@ export class AccountComponent implements OnInit {
     })
   }
 
-  toggleEdit(type: string) {
-    if (this.userForm.get(type)?.enabled) {
-      this.userForm.get(type)?.disable();
+  editEmail() {
+    if (this.userForm.get('email')?.disabled) {
+      this.userForm.get('email')?.enable();
       return;
     }
-
-    console.log(type);
-    // this.isEditMode = type;
-    // this.userForm.get(type)?.enable();
-    // this.auth.user.subscribe(user => {
-    //
-    // })
+    this.auth.currentUser
+      .then(user => {
+        return user?.updateEmail(<string>this.user?.email)
+      })
+      .then(() => {
+        this.userForm.get('email')?.disable();
+      })
   }
+
+  editDisplayName() {
+    if (this.userForm.get('displayName')?.disabled) {
+      this.userForm.get('displayName')?.enable();
+      return;
+    }
+    this.auth.currentUser
+      .then(user => {
+        return user?.updateProfile({displayName: this.user?.displayName})
+      })
+      .then(() => {
+        this.userForm.get('displayName')?.disable();
+      })
+  }
+
 }
