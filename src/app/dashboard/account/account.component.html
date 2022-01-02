@@ -15,7 +15,7 @@
                        [ngClass]="!userForm.get('displayName')?.disabled ? 'font-semibold':''"
                        class="disabled:text-gray-500 focus:ring-amber-500 focus:border-amber-500 block w-full rounded-none rounded-l-md  sm:text-sm border-gray-300">
               </div>
-              <button (click)="editDisplayName()" type="button"
+              <button (click)="onEdit('displayName')" type="button"
                       [ngClass]="!userForm.get('displayName')?.disabled ? 'bg-amber-500 hover:bg-amber-600 ':'bg-gray-50 hover:bg-gray-100'"
                       class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700   focus:outline-none ">
                 <svg *ngIf="userForm.get('displayName')?.disabled" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400"
@@ -44,7 +44,7 @@
                        [ngClass]="!userForm.get('email')?.disabled ? 'font-semibold':''"
                        class="disabled:text-gray-500 focus:ring-amber-500 focus:border-amber-500 block w-full rounded-none rounded-l-md  sm:text-sm border-gray-300">
               </div>
-              <button (click)="editEmail()" type="button"
+              <button (click)="onEdit('email')" type="button"
                       [ngClass]="!userForm.get('email')?.disabled  ? 'bg-amber-500 hover:bg-amber-600':'bg-gray-50 hover:bg-gray-100'"
                       class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700   focus:outline-none">
                 <svg *ngIf="userForm.get('email')?.disabled " xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400"

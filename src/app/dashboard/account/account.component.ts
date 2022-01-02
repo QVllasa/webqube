@@ -49,10 +49,6 @@ export class AccountComponent implements OnInit {
   }
 
   editEmail() {
-    if (this.userForm.get('email')?.disabled) {
-      this.userForm.get('email')?.enable();
-      return;
-    }
     this.auth.currentUser
       .then(user => {
         return user?.updateEmail(<string>this.user?.email)
@@ -63,10 +59,6 @@ export class AccountComponent implements OnInit {
   }
 
   editDisplayName() {
-    if (this.userForm.get('displayName')?.disabled) {
-      this.userForm.get('displayName')?.enable();
-      return;
-    }
     this.auth.currentUser
       .then(user => {
         return user?.updateProfile({displayName: this.user?.displayName})
@@ -74,6 +66,23 @@ export class AccountComponent implements OnInit {
       .then(() => {
         this.userForm.get('displayName')?.disable();
       })
+  }
+
+  onEdit(control: string) {
+    if (this.userForm.get(control)?.disabled) {
+      this.userForm.get(control)?.enable();
+      return;
+    }
+    switch (control) {
+      case 'displayName': {
+        this.editDisplayName();
+        break;
+      }
+      case 'email': {
+        this.editEmail();
+        break;
+      }
+    }
   }
 
 }
