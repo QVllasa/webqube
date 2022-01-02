@@ -1,55 +1,106 @@
 <form>
-<!--  TODO finish edit form -->
+  <!--  TODO finish edit form -->
   <div class="shadow overflow-hidden sm:rounded-md bg-gray-100">
     <div class="px-4 py-5 bg-white sm:p-6">
       <div class="grid grid-cols-6  gap-6">
 
         <div class="col-span-3 ">
-          <label for="first-name" class="block text-sm font-medium text-gray-700">Vorname</label>
-          <input type="text" name="first-name" id="first-name" autocomplete="given-name"
-                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+          <div>
+            <label for="first-name" class="block text-sm font-medium text-gray-700">Vorname und Nachname</label>
+            <div class="mt-1 flex rounded-md shadow-sm">
+              <div class="relative flex items-stretch flex-grow focus-within:z-10">
+                <input  [value]="user?.displayName" [disabled]="isEditMode !== 'name'" type="text" name="first-name" id="first-name" class="disabled:text-gray-500 focus:ring-amber-500 focus:border-amber-500 block w-full rounded-none rounded-l-md  sm:text-sm border-gray-300">
+              </div>
+              <button (click)="toggleEdit('name')" type="button" class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500">
+                <svg *ngIf="isEditMode !== 'name'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                <svg *ngIf="isEditMode === 'name'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="col-span-3 ">
+          <div>
+            <label for="phone" class="block text-sm font-medium text-gray-700 ">Mobilfunknummer</label>
+            <div class="mt-1 flex rounded-md shadow-sm">
+              <div class="relative flex items-stretch flex-grow focus-within:z-10">
+                <input [disabled]="isEditMode !== 'phone'" type="tel" name="phone" id="phone" class="focus:ring-amber-500 focus:border-amber-500 block w-full rounded-none rounded-l-md  sm:text-sm border-gray-300">
+              </div>
+              <button (click)="toggleEdit('phone')" type="button" class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500">
+                <svg *ngIf="isEditMode !== 'phone'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                <svg *ngIf="isEditMode === 'phone'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
 
         <div class="col-span-3 ">
-          <label for="last-name" class="block text-sm font-medium text-gray-700">Nachname</label>
-          <input type="text" name="last-name" id="last-name" autocomplete="family-name"
-                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+          <div>
+            <label for="company" class="block text-sm font-medium text-gray-700">Unternehmen</label>
+            <div class="mt-1 flex rounded-md shadow-sm">
+              <div class="relative flex items-stretch flex-grow focus-within:z-10">
+                <input [disabled]="isEditMode !== 'company'"  type="text" name="company" id="company" class="disabled:text-gray-500 focus:ring-amber-500 focus:border-amber-500 block w-full rounded-none rounded-l-md  sm:text-sm border-gray-300">
+              </div>
+              <button (click)="toggleEdit('company')" type="button" class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500">
+                <svg *ngIf="isEditMode !== 'company'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                <svg *ngIf="isEditMode === 'company'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div class="col-span-3 ">
-          <label for="phone" class="block text-sm font-medium text-gray-700 ">Mobilfunknummer: </label>
-          <input type="text" name="phone" id="phone" autocomplete="family-name"
-                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-
-        <div class="col-span-2 ">
-          <label for="company" class="block text-sm font-medium text-gray-700">Unternehmen</label>
-          <input type="text" name="company" id="company" autocomplete="family-name"
-                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-        </div>
-
-        <div class="col-span-5 ">
-          <label for="email-address" class="block text-sm font-medium text-gray-700">Email-Adresse</label>
-          <input type="text" name="email-address" id="email-address" autocomplete="email"
-                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+        <div class="col-span-3 relative ">
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">E-Mail Adresse</label>
+            <div class="mt-1 flex rounded-md shadow-sm">
+              <div class="relative flex items-stretch flex-grow focus-within:z-10">
+                <input [disabled]="isEditMode !== 'email'" [value]="user?.email" type="email" name="email" id="email" class="disabled:text-gray-500 focus:ring-amber-500 focus:border-amber-500 block w-full rounded-none rounded-l-md  sm:text-sm border-gray-300">
+              </div>
+              <button (click)="toggleEdit('email')" type="button" class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-amber-500 focus:border-amber-500">
+                <svg *ngIf="isEditMode !== 'email'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                <svg *ngIf="isEditMode === 'email'" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
 
         <div class="col-span-5">
-          <label for="street-address" class="block text-sm font-medium text-gray-700">Passwort</label>
-          <input type="text" name="street-address" id="street-address" autocomplete="street-address"
-                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+          <button *ngIf="!isSuccess" (click)="onResetPassword()"
+                  class="w-48 justify-center inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500"
+                  type="button">
+            <ng-template [ngIf]="!isLoading"> Passwort zurücksetzen</ng-template>
+            <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>
+          </button>
+
+          <div *ngIf="isSuccess" (click)="onResetPassword()"
+               class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-green-800 bg-green-300"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            Wir haben dir eine E-Mail mit einem Reset Link zugeschickt.
+          </div>
         </div>
       </div>
-    </div>
-    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-      <button mat-ripple type="submit"
-              class="inline-flex justify-center py-2 px-4 mr-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-700 focus:outline-none">
-        Abbrechen
-      </button>
-      <button mat-ripple type="submit"
-              class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700 focus:outline-none">
-        Speichern
-      </button>
     </div>
   </div>
 </form>

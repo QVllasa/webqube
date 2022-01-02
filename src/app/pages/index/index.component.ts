@@ -13,7 +13,7 @@ export class IndexComponent implements OnInit {
 
 
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public auth: AngularFireAuth) { }
 
   ngOnInit(): void {
 
