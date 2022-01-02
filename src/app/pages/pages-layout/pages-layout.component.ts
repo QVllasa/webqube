@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {RegisterComponent} from "../../../@webqube/components/dialog/register/register.component";
 import {AngularFireFunctions} from "@angular/fire/compat/functions";
 import {MatDialog} from "@angular/material/dialog";
+import {AuthComponent} from "../../../@webqube/components/dialog/auth/auth.component";
+import {AngularFireAuth} from "@angular/fire/compat/auth";
 
 @Component({
   selector: 'app-layout',
@@ -10,7 +12,7 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class PagesLayoutComponent implements OnInit {
 
-  constructor(private fns: AngularFireFunctions,public dialog: MatDialog) { }
+  constructor(private fns: AngularFireFunctions,public dialog: MatDialog, public auth: AngularFireAuth) { }
 
   ngOnInit(): void {
   }
@@ -31,4 +33,11 @@ export class PagesLayoutComponent implements OnInit {
     });
   }
 
+  onLogin() {
+    const dialogRef = this.dialog.open(AuthComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }

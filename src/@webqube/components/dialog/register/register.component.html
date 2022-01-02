@@ -1,12 +1,13 @@
 <ng-template [ngIf]="!isSuccess">
   <div class="sm:mx-auto sm:w-full sm:max-w-md">
     <img class="mx-auto h-12 w-auto" src="/assets/img/logo/webqube_icon.svg" alt="Workflow">
-    <h2 class="mt-6 text-center text-lg font-extrabold text-gray-800">
-      Melde dich kostenlos an. <br/> Du zahlst erst, wenn es mit dem Projekt losgeht.
+    <h2 class="mt-6 text-center text-lg font-extrabold text-gray-800 break-words">
+      Melde dich kostenlos an. <br/>
+      <span class="text-gray-500 font-medium text-sm">Du zahlst erst, wenn es mit dem Projekt losgeht.</span>
     </h2>
   </div>
   <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-    <div class="bg-white py-8 px-4 sm:px-10">
+    <div class="bg-white">
       <form class="space-y-6" [formGroup]="registerForm" (ngSubmit)="onSend()">
 
 
@@ -22,8 +23,7 @@
                    placeholder="Dein Vor- und Nachname">
           </div>
           <p *ngIf="f.name.invalid &&  f.name.touched" class="mt-1 text-xs text-red-600" id="name-error">Bitte gib
-            deinen
-            Namen ein.</p>
+            deinen Namen ein.</p>
         </div>
 
 
@@ -54,9 +54,9 @@
                    [ngClass]="f.password.invalid &&  f.password.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-amber-500 focus:border-amber-500 border-gray-300'"
                    class="block w-full pl-3 sm:text-sm  rounded-md" placeholder="Dein Passwort">
           </div>
-          <p *ngIf="f.password.invalid &&  f.password.touched" class="mt-1 text-xs text-red-600" id="password-error">Bitte mindestens 8 Zeichen.</p>
+          <p *ngIf="f.password.invalid &&  f.password.touched" class="mt-1 text-xs text-red-600" id="password-error">
+            Bitte mindestens 8 Zeichen.</p>
         </div>
-
 
 
         <div class="flex flex-col items-stretch justify-between space-y-4">

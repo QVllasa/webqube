@@ -40,12 +40,18 @@
               </div>
             </ng-container>
 
+            <button *ngIf="auth.user | async as user$; else login" mat-ripple routerLink="/dashboard"
+                    class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700">
+              Dashboard
+            </button>
 
-            <a mat-ripple href="https://webqube.notion.site"
-               target="_blank"
-               class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700">
-              Login
-            </a>
+            <ng-template #login>
+              <button  mat-ripple (click)="onLogin()"
+                      class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700">
+                Login
+              </button>
+            </ng-template>
+
           </div>
         </nav>
       </div>
