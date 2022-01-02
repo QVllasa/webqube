@@ -13,6 +13,10 @@ import {ProjectsComponent} from "./dashboard/projects/projects.component";
 import {PagesLayoutComponent} from "./pages/pages-layout/pages-layout.component";
 import {AppLayoutComponent} from "./dashboard/app-layout/app-layout.component";
 import {AccountComponent} from "./dashboard/account/account.component";
+import {AngularFireAuthGuard} from "@angular/fire/compat/auth-guard";
+import {redirectUnauthorizedTo} from "@angular/fire/auth-guard";
+
+const redirectUnauthorizedToHome = () => redirectUnauthorizedTo(['/']);
 
 const routes: Routes = [
   {
@@ -34,6 +38,8 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: AppLayoutComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToHome },
     children: [
       {path: '', redirectTo: 'projects', pathMatch:'full'},
       {path: 'projects', component: ProjectsComponent, data: {title: 'Meine Projekte'}},
