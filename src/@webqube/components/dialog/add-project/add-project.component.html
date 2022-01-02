@@ -1,8 +1,11 @@
 <ng-template [ngIf]="!isSuccess">
-  <div class="sm:mx-auto sm:w-full sm:max-w-md">
+  <div class="relative sm:mx-auto sm:w-full sm:max-w-md">
     <h2 class="mt-6 text-left text-lg font-extrabold text-gray-800">
       {{projectObj?.title ? projectObj.title : 'Neues Projekt'}}
     </h2>
+    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+      <span class="text-3xl">🧑‍💻</span>
+    </div>
   </div>
   <div class="sm:mx-auto w-80">
     <div class="bg-white py-4">
@@ -11,19 +14,16 @@
           <label for="title" class="sr-only text-sm font-medium text-gray-700">Dein Projekttitel</label>
           <div class=" relative rounded-md shadow-sm">
             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <span class="text-xl">🚀</span>
+              <span class="text-xl">✍️</span>
             </div>
             <input formControlName="title" type="text" name="title" id="title"
                    [ngClass]="f.title.invalid &&  f.title.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-amber-500 focus:border-amber-500 border-gray-300'"
                    class="focus:ring-amber-500 focus:border-amber-500 block w-full pl-3 sm:text-sm border-gray-300 rounded-md"
                    placeholder="Dein Projekttitel">
           </div>
-          <p *ngIf="f.title.invalid &&  f.title.touched" class="mt-1 text-xs text-red-600" id="name-error">Bitte gib einen
+          <p *ngIf="f.title.invalid &&  f.title.touched" class="mt-1 text-xs text-red-600" id="name-error">Bitte gib
+            einen
             Title für dein Projekt ein.</p>
-        </div>
-
-        <div>
-
         </div>
 
 

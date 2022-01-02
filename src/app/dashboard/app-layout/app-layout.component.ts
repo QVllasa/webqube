@@ -30,4 +30,9 @@ export class AppLayoutComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logout() {
+    this.auth.signOut().then(()=>{
+      this.router.navigate(['/']).then()
+    })
+  }
 }

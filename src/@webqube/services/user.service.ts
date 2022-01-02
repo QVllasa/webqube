@@ -9,7 +9,6 @@ import {IUser} from "../models";
 })
 export class UserService {
 
-  // user$: BehaviorSubject<IUser> = new BehaviorSubject<IUser>(null);
 
   constructor() { }
 }

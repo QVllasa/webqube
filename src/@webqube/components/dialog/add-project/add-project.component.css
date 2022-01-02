@@ -3,3 +3,11 @@
 :host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
   stroke: #FEFCFA;
 }
+
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: rgba(217 ,119 ,6, 0.4) ;
+}
+
+:host ::ng-deep  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color:rgb(217, 119, 6) ;
+}

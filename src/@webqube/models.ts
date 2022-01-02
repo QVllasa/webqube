@@ -63,10 +63,11 @@ export interface IMessage {
 }
 
 export interface IProject {
+  userID: string,
   title: string,
-  date: string,
-  tier: ITier,
-  milestone: IMilestone
+  date?: string,
+  tier?: ITier,
+  milestone?: IMilestone
 }
 
 export interface IMilestone{
@@ -93,4 +94,4 @@ export interface IWork {
 }
 
 
-export interface IUser extends UserInfo{}
+export interface IUser extends firebase.User{}

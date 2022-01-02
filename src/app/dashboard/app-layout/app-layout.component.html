@@ -39,16 +39,16 @@
                             mat-button [matMenuTriggerFor]="menu"
                             class="hover:bg-gray-900  bg-gray-800 p-2 rounded-md text-sm focus:outline-none"
                             id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                      <div class="flex items-center">
+                      <div class="flex items-center justify-center">
                         <span class="sr-only">Open user menu</span>
-                        <div class="mr-3">
+                        <div class="mr-3 flex justify-center items-center">
                           <p class="text-sm font-medium text-gray-100 group-hover:text-gray-900">
                             {{this.user?.displayName}}
                           </p>
 
                         </div>
                         <div class=" flex h-8 w-8 rounded-full justify-center items-center bg-gray-200">
-                          <span class="text-lg">A</span>
+                          <span class="text-lg"> {{this.user?.displayName.split('')[0]}}</span>
                         </div>
                       </div>
                     </button>
@@ -153,5 +153,5 @@
 
 <mat-menu #menu="matMenu">
   <button mat-menu-item routerLink="account">Account</button>
-  <button mat-menu-item>Logout</button>
+  <button (click)="logout()" mat-menu-item>Logout</button>
 </mat-menu>
