@@ -69,11 +69,20 @@ export class RegisterComponent implements OnInit {
         this.isSuccess = true;
         return res.user?.updateProfile({displayName: this.clientObj.name});
       })
-      .then(()=>{
-        this.auth.signInWithEmailAndPassword(this.clientObj.email, this.clientObj.password).then((res)=>{
-          console.log(res)
-          this.router.navigate(['/dashboard'])
-        })
+      .then(() => {
+        return this.auth.signInWithEmailAndPassword(this.clientObj.email, this.clientObj.password)
+      })
+      .then(() => {
+        return this.auth.currentUser
+      })
+      .then(user => {
+        if (user) {
+          return user.sendEmailVerification()
+        }
+        return;
+      })
+      .then((res) => {
+        this.router.navigate(['/dashboard'])
       })
       .catch((err: FirebaseError) => {
         this.emailExists = err.code === 'auth/email-already-in-use'

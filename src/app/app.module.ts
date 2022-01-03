@@ -27,7 +27,7 @@ import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
 import {AngularFireFunctionsModule} from "@angular/fire/compat/functions";
-import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
+import {AngularFireAuth, AngularFireAuthModule, USE_EMULATOR as USE_AUTH_EMULATOR} from '@angular/fire/compat/auth';
 import { USE_EMULATOR as USE_DATABASE_EMULATOR } from '@angular/fire/compat/database';
 import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/compat/firestore';
 import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
@@ -53,7 +53,9 @@ function mode(){
     return[];
   }
   return [{ provide: USE_FUNCTIONS_EMULATOR, useValue: ['localhost', 5001] },
-    { provide: USE_FIRESTORE_EMULATOR, useValue: ['localhost', 8080] },]
+    { provide: USE_FIRESTORE_EMULATOR, useValue: ['localhost', 8080] },
+    {provide: USE_AUTH_EMULATOR, useValue: ['http://localhost:9099']}
+  ]
 }
 
 export function playerFactory() {
@@ -96,6 +98,7 @@ export function playerFactory() {
     provideFirestore(() => getFirestore()),
     provideFunctions(() => getFunctions()),
     AngularFireFunctionsModule,
+    AngularFireAuthModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     LottieModule.forRoot({ player: playerFactory }),
