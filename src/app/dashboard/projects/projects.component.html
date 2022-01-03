@@ -3,16 +3,45 @@
     <!-- This example requires Tailwind CSS v2.0+ -->
     <!-- This example requires Tailwind CSS v2.0+ -->
     <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <li *ngFor="let project of projects | async" class="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
-        <button type="button"
-                mat-ripple
-                class="relative block w-full h-full rounded-lg p-12 text-center focus:outline-none ">
-
-          <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
-          </svg>
-          <span class="mt-2 block text-sm font-medium text-gray-900">{{project.title}}</span>
-        </button>
+      <li *ngFor="let project of projects | async" class="col-span-1 bg-gradient-to-br from-amber-600 via-amber-500 to-amber-300 rounded-md shadow divide-y divide-gray-200">
+        <div class="relative h-full w-full">
+          <button type="button"
+                  mat-ripple
+                  class="relative flex items-start w-full h-full p-4 text-left focus:outline-none ">
+            <div class="flex justify-between items-center w-full">
+              <span class="block text-xl font-semibold text-white">{{project.title}}</span>
+            </div>
+          </button>
+          <div class="absolute bottom-0 w-full bg-white rounded-b-md">
+            <div class="-mt-px flex divide-x divide-gray-200">
+              <div class="w-0 flex-1 flex">
+                <a href="mailto:janecooper@example.com" class="relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-2 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500">
+                  <!-- Heroicon name: solid/mail -->
+                  <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                </a>
+              </div>
+              <div class="-ml-px w-0 flex-1 flex">
+                <a href="tel:+1-202-555-0170" class="relative w-0 flex-1 inline-flex items-center justify-center py-2 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
+                  <!-- Heroicon name: solid/phone -->
+                  <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  </svg>
+                </a>
+              </div>
+              <div class="-ml-px w-0 flex-1 flex">
+                <a href="tel:+1-202-555-0170" class="relative w-0 flex-1 inline-flex items-center justify-center py-2 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500">
+                  <!-- Heroicon name: solid/phone -->
+                  <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </li>
       <li class="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
@@ -21,8 +50,10 @@
                 (click)="openDialog()"
                 class="relative block w-full h-full rounded-lg p-12 text-center focus:outline-none ">
 
-          <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
+          <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-400" fill="none"
+               viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z"/>
           </svg>
           <span class="mt-2 block text-sm font-medium text-gray-900">Neues Projekt erstellen</span>
         </button>

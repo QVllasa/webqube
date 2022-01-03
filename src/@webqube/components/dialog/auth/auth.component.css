@@ -1,3 +1,7 @@
 :host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
   stroke: #FEFCFA;
 }
+
+.mat-simple-snackbar-action{
+  color: #ffffff !important;
+}
