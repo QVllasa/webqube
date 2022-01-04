@@ -15,6 +15,7 @@ import {AppLayoutComponent} from "./dashboard/app-layout/app-layout.component";
 import {AccountComponent} from "./dashboard/account/account.component";
 import {AngularFireAuthGuard} from "@angular/fire/compat/auth-guard";
 import {redirectUnauthorizedTo} from "@angular/fire/auth-guard";
+import {ProjectsDetailsComponent} from "./dashboard/projects/projects-details/projects-details.component";
 
 const redirectUnauthorizedToHome = () => redirectUnauthorizedTo(['/']);
 
@@ -43,6 +44,7 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'projects', pathMatch:'full'},
       {path: 'projects', component: ProjectsComponent, data: {title: 'Meine Projekte'}},
+      {path: 'project/:id', component: ProjectsDetailsComponent, data: {title: 'Meine Projekte'}},
       {path:'account', component: AccountComponent,  data: {title:'Mein Account'}}
     ]
   },

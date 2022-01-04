@@ -1,4 +1,4 @@
-import {IFaq, IFeature, ITier, IWork, ITeamMember} from "./models";
+import {IFaq, IFeature, ITier, IWork, ITeamMember, IMilestone} from "./models";
 
 export const columnsKeys = ['Feature', 'Starter', 'Professional', 'Business']
 
@@ -382,4 +382,36 @@ export const projects: IWork[] = [
     img: 'assets/img/projects/homepage.png',
     featured: false
   },
+]
+
+export const Milestones: IMilestone[] = [
+  {
+    paid: false,
+    step: 'Design und Content',
+    description: 'In dieser Phase haben wir bereits genug ' +
+      'Input von dir erhalten, um uns selbständig an ' +
+      'Designvorschlägen zu machen und uns ' +
+      'deinen Content genauer anzuschauen bzw. zu überarbeiten',
+    state: 'waiting',
+    icon: 'sparkles',
+  },
+  {
+    paid: false,
+    step: 'Entwicklung und Konfiguration',
+    description: 'In dieser Phase entwickeln ' +
+      'wir die Konzepte, setzen den Server ' +
+      'auf und lassen dich erstmals deine Webseite online sehen.',
+    state: 'waiting',
+    icon: 'sparkles',
+  },
+  {
+    paid: false,
+    step: 'Überarbeitung, Abschluss und GO-Live',
+    description: 'In dieser Phase machen ' +
+      'wir den Feinschliff und gehen ' +
+      'gemeinsam mit dir Online!',
+    state: 'waiting',
+    icon: 'sparkles',
+  },
+
 ]

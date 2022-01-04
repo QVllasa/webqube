@@ -6,6 +6,7 @@ import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat
 import {IProject} from "../../../@webqube/models";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {Observable} from "rxjs";
+import {ActivatedRoute, ActivatedRouteSnapshot, Router} from "@angular/router";
 
 @Component({
   selector: 'app-projects',
@@ -17,16 +18,19 @@ export class ProjectsComponent implements OnInit {
   projects: Observable<IProject[]>;
 
   constructor(public dialog: MatDialog,
+              private router: Router,
+              private route: ActivatedRoute,
               private afs: AngularFirestore,
               private auth: AngularFireAuth) {
   }
 
   ngOnInit(): void {
     this.auth.user.subscribe((user) => {
-      console.log(user?.uid)
       this.projects = this.afs.collection<IProject>('projects',
-        ref => ref.where('userID','==', user?.uid )).valueChanges()
+        ref => ref.where('userID','==', user?.uid )).valueChanges({idField: 'uid'})
     })
+
+
 
   }
 
@@ -38,4 +42,9 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
+
+
+  goToProject(project: IProject) {
+    this.router.navigate(['project',project.uid], {relativeTo: this.route.parent})
+  }
 }

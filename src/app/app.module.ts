@@ -46,6 +46,8 @@ import { ProjectsComponent } from './dashboard/projects/projects.component';
 import { PagesLayoutComponent } from './pages/pages-layout/pages-layout.component';
 import { AppLayoutComponent } from './dashboard/app-layout/app-layout.component';
 import { AccountComponent } from './dashboard/account/account.component';
+import { ProjectsDetailsComponent } from './dashboard/projects/projects-details/projects-details.component';
+import {HttpClientModule} from "@angular/common/http";
 
 
 function mode(){
@@ -77,10 +79,12 @@ export function playerFactory() {
     ProjectsComponent,
     PagesLayoutComponent,
     AppLayoutComponent,
-    AccountComponent
+    AccountComponent,
+    ProjectsDetailsComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule,
     AppRoutingModule,
     BrowserAnimationsModule,

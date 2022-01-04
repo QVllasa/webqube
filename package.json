@@ -43,6 +43,7 @@
     "lottie-web": "^5.7.14",
     "ng-particles": "^2.18.4",
     "ngx-lottie": "^7.0.4",
+    "ngx-paypal": "^9.0.0",
     "rxfire": "^6.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",

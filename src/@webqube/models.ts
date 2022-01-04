@@ -63,18 +63,28 @@ export interface IMessage {
 }
 
 export interface IProject {
+  uid: string,
   userID: string,
   title: string,
   date?: string,
   tier?: ITier,
-  milestone?: IMilestone
+  milestones?: IMilestone[],
+  domain:string,
 }
 
 export interface IMilestone{
-
+  paid: boolean,
+  step: string,
+  description: string,
+  icon: string,
+  state: 'progressing' | 'pausing' | 'waiting',
+  tasks?: ITask[],
 }
 
-
+export interface ITask {
+  title:string,
+  description: string,
+}
 
 export interface IWork {
   id: string,
