@@ -7,7 +7,7 @@ import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Tiers} from "../../../../@webqube/static";
+import {Milestones, Tiers} from "../../../../@webqube/static";
 
 @Component({
   selector: 'app-projects-details',
@@ -17,6 +17,7 @@ import {Tiers} from "../../../../@webqube/static";
 export class ProjectsDetailsComponent {
 
   tiers = Tiers.map(obj => ({...obj, selected: false}));
+  milestones = Milestones;
 
   project: Observable<IProject | undefined>;
   user: Observable<IUser | null>;

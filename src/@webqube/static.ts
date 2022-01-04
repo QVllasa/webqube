@@ -387,7 +387,7 @@ export const projects: IWork[] = [
 export const Milestones: IMilestone[] = [
   {
     paid: false,
-    step: 'Design und Content',
+    step: '1. Design und Content',
     description: 'In dieser Phase haben wir bereits genug ' +
       'Input von dir erhalten, um uns selbständig an ' +
       'Designvorschlägen zu machen und uns ' +
@@ -397,7 +397,7 @@ export const Milestones: IMilestone[] = [
   },
   {
     paid: false,
-    step: 'Entwicklung und Konfiguration',
+    step: '2. Entwicklung und Konfiguration',
     description: 'In dieser Phase entwickeln ' +
       'wir die Konzepte, setzen den Server ' +
       'auf und lassen dich erstmals deine Webseite online sehen.',
@@ -406,7 +406,7 @@ export const Milestones: IMilestone[] = [
   },
   {
     paid: false,
-    step: 'Überarbeitung, Abschluss und GO-Live',
+    step: '3. Überarbeitung, Abschluss und GO-Live',
     description: 'In dieser Phase machen ' +
       'wir den Feinschliff und gehen ' +
       'gemeinsam mit dir Online!',
