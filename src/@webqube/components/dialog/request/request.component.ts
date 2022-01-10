@@ -4,7 +4,7 @@ import {AngularFireFunctions} from "@angular/fire/compat/functions";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {doc, getDoc} from "firebase/firestore";
-import {IClient, ITier} from "../../../models";
+import {IClient, ITier} from "../../../models/models";
 
 
 @Component({

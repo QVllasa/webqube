@@ -48,6 +48,13 @@ import { AppLayoutComponent } from './dashboard/app-layout/app-layout.component'
 import { AccountComponent } from './dashboard/account/account.component';
 import { ProjectsDetailsComponent } from './dashboard/projects/projects-details/projects-details.component';
 import {HttpClientModule} from "@angular/common/http";
+import {
+  ScrumboardDialogComponent
+} from "./dashboard/projects/projects-details/scrumboard/components/scrumboard-dialog/scrumboard-dialog.component";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {ScrumboardComponent} from "./dashboard/projects/projects-details/scrumboard/scrumboard.component";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 
 function mode(){
@@ -80,7 +87,9 @@ export function playerFactory() {
     PagesLayoutComponent,
     AppLayoutComponent,
     AccountComponent,
-    ProjectsDetailsComponent
+    ProjectsDetailsComponent,
+    ScrumboardDialogComponent,
+    ScrumboardComponent
   ],
   imports: [
     BrowserModule,
@@ -105,11 +114,14 @@ export function playerFactory() {
     AngularFireAuthModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
-    LottieModule.forRoot({ player: playerFactory }),
-      TuiRootModule,
-      TuiDialogModule,
-      TuiNotificationsModule
-],
+    LottieModule.forRoot({player: playerFactory}),
+    TuiRootModule,
+    TuiDialogModule,
+    TuiNotificationsModule,
+    FlexLayoutModule,
+    MatTooltipModule,
+    DragDropModule,
+  ],
   providers: [...mode(), {provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   bootstrap: [AppComponent]
 })

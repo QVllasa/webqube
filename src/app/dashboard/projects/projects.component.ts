@@ -3,7 +3,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {RegisterComponent} from "../../../@webqube/components/dialog/register/register.component";
 import {AddProjectComponent} from "../../../@webqube/components/dialog/add-project/add-project.component";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
-import {IProject} from "../../../@webqube/models";
+import {IProject} from "../../../@webqube/models/models";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {Observable} from "rxjs";
 import {ActivatedRoute, ActivatedRouteSnapshot, Router} from "@angular/router";

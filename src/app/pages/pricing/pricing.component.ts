@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {columnsKeys, faqs, featureComparison, Tiers} from 'src/@webqube/static';
+import {columnsKeys, faqs, featureComparison, Tiers} from 'src/@webqube/static/static';
 import {RegisterComponent} from "../../../@webqube/components/dialog/register/register.component";
 import {MatDialog} from "@angular/material/dialog";
 import {IndividualRequestComponent} from "../../../@webqube/components/dialog/individual-request/individual-request.component";
 import {RequestComponent} from "../../../@webqube/components/dialog/request/request.component";
-import {ITier} from "../../../@webqube/models";
+import {ITier} from "../../../@webqube/models/models";
 
 
 

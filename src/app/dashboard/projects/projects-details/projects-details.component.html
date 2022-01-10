@@ -95,14 +95,14 @@
         </div>
 
       </div>
-      <h2  class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+      <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
         <span class="block mt-8 text-lg font-medium text-gray-500">oder gleich loslegen.
           <br>
           Wähle dazu einfach einen Plan aus.
         </span>
       </h2>
       <!-- This example requires Tailwind CSS v2.0+ -->
-      <fieldset >
+      <fieldset>
         <div class="relative mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
           <!--
             Checked: "border-transparent", Not Checked: "border-gray-300"
@@ -133,7 +133,8 @@
 
               Heroicon name: solid/check-circle
             -->
-            <svg [ngClass]="tier.selected ? '':'invisible'" class="h-5 w-5 text-amber-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+            <svg [ngClass]="tier.selected ? '':'invisible'" class="h-5 w-5 text-amber-600"
+                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                  fill="currentColor" aria-hidden="true">
               <path fill-rule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -143,13 +144,15 @@
               Active: "border", Not Active: "border-2"
               Checked: "border-amber-500", Not Checked: "border-transparent"
             -->
-            <div [ngClass]="tier.selected ? 'border border-amber-500':'border-2 border-transparent'" class="absolute -inset-px rounded-lg border-2 pointer-events-none" aria-hidden="true"></div>
+            <div [ngClass]="tier.selected ? 'border border-amber-500':'border-2 border-transparent'"
+                 class="absolute -inset-px rounded-lg border-2 pointer-events-none" aria-hidden="true"></div>
           </label>
-          <div *ngIf="isSavingTier" class="absolute top-0 left-0 right-0 bottom-0 bg-gray-50 opacity-30 rounded-lg"></div>
+          <div *ngIf="isSavingTier"
+               class="absolute top-0 left-0 right-0 bottom-0 bg-gray-50 opacity-30 rounded-lg"></div>
           <button [disabled]="isSavingTier" (click)="onUpdateProject()" *ngIf="isSelected()"
-             class="col-start-2 col-end-3 mt-6 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700">
+                  class="col-start-2 col-end-3 mt-6 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700">
             <span *ngIf="!isSavingTier">Weiter</span>
-              <mat-spinner *ngIf="isSavingTier" [diameter]="20"></mat-spinner>
+            <mat-spinner *ngIf="isSavingTier" [diameter]="20"></mat-spinner>
           </button>
 
 
@@ -161,17 +164,19 @@
     <div class="max-w-7xl mx-auto text-center py-8 px-4 sm:px-6 lg:py-16 lg:px-8">
       <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
         <span class="block">Verfolge jeden Fortschritt.</span>
-        <span class="block mt-4 text-lg font-medium text-gray-500">Hier kannst du in jeder Phase deine Wünsche und Anforderungen präzise aufschreiben.</span>
+        <span class="block mt-4 text-lg font-medium text-gray-500">Hier kannst du in jeder Phase deine Wünsche und
+          Anforderungen präzise aufschreiben.</span>
       </h2>
       <div class="mt-8" *ngIf="project$.tier">
         <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
-          <div *ngFor="let milestone of milestones" class="border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-6 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-inset focus-within:ring-amber-500">
+          <div (click)="onSelectPhase(milestone)" *ngFor="let milestone of milestones"
+               [ngClass]="milestone.selected ? 'border-amber-500 ': 'border-gray-300'"
+               class="border border-2  hover:border-amber-500  rounded-lg  relative group bg-white p-6">
             <div>
-              <span class="rounded-lg inline-flex p-3 bg-teal-50 text-teal-700 ring-4 ring-white">
-                <!-- Heroicon name: outline/clock -->
-                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+              <span [ngClass]="milestone.icon_classes" class="rounded-lg inline-flex p-3  ring-4 ring-white">
+                <mat-icon class="material-icons-round">
+                  {{milestone.icon}}
+                </mat-icon>
               </span>
             </div>
             <div class="mt-8">
@@ -184,19 +189,22 @@
               </h3>
               <p class="mt-2 text-sm text-gray-500">
                 {{milestone.description}}
-                </p>
+              </p>
             </div>
-            <span class="pointer-events-none absolute top-6 right-6 text-gray-300 group-hover:text-amber-500" aria-hidden="true">
-              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
-              </svg>
+            <span *ngIf="milestone.selected" class="pointer-events-none absolute top-6 right-6 text-amber-500"
+                  aria-hidden="true">
+              <mat-icon class="material-icons-round">check_circle_outlined</mat-icon>
             </span>
           </div>
 
         </div>
 
       </div>
+      <div>
+        <vex-scrumboard [board]="board" [boardTitle]="getBoardTitle()" ></vex-scrumboard>
+      </div>
     </div>
+
   </div>
 
 

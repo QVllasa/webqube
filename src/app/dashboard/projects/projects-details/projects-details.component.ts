@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {IProject, IUser} from "../../../../@webqube/models";
+import {IMilestone, IProject, IUser} from "../../../../@webqube/models/models";
 import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
@@ -7,7 +7,8 @@ import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Milestones, Tiers} from "../../../../@webqube/static";
+import {Milestones, Tiers} from "../../../../@webqube/static/static";
+import {scrumboard} from "../../../../@webqube/static/scrumboard";
 
 @Component({
   selector: 'app-projects-details',
@@ -17,7 +18,9 @@ import {Milestones, Tiers} from "../../../../@webqube/static";
 export class ProjectsDetailsComponent {
 
   tiers = Tiers.map(obj => ({...obj, selected: false}));
-  milestones = Milestones;
+
+  milestones: IMilestone[] = Milestones.map(obj => ({...obj, selected: false}));
+  board = scrumboard;
 
   project: Observable<IProject | undefined>;
   user: Observable<IUser | null>;
@@ -38,6 +41,8 @@ export class ProjectsDetailsComponent {
               private _snackBar: MatSnackBar,
               private http: HttpClient,
               private auth: AngularFireAuth) {
+
+    this.milestones[0].selected = true;
     let id = this.route.snapshot.params['id'];
     this.projectDoc = this.afs.doc<IProject>('projects/' + id);
     this.project = this.projectDoc.valueChanges();
@@ -101,8 +106,8 @@ export class ProjectsDetailsComponent {
     // @ts-ignore
     this.tiers.find(obj => obj === tier).selected = !tier.selected;
     this.tiers.filter(obj => obj !== tier).map(obj => obj.selected = false);
-    console.log(this.tiers);
   }
+
 
   isSelected() {
     return this.tiers.some(obj => obj.selected)
@@ -110,11 +115,28 @@ export class ProjectsDetailsComponent {
 
   onUpdateProject() {
     this.isSavingTier = true;
+    this.milestones.forEach((obj) => {
+      obj.board = this.board;
+      delete obj.selected;
+    });
     let selectedTier = this.tiers.filter(obj => obj.selected)[0]
-    this.projectDoc.update({tier: selectedTier})
+    this.projectDoc.update({
+      tier: selectedTier,
+      milestones: this.milestones,
+    })
       .then(res => {
         console.log(res);
         this.isSavingTier = false;
       });
+  }
+
+  onSelectPhase(milestone: { paid: boolean; icon: string; description: string; step: string; state: "progressing" | "pausing" | "waiting"; selected?: boolean }) {
+    // @ts-ignore
+    this.milestones.find(obj => obj === milestone).selected = !milestone.selected;
+    this.milestones.filter(obj => obj !== milestone).map(obj => obj.selected = false);
+  }
+
+  getBoardTitle() {
+    return this.milestones.find(obj => obj.selected).step
   }
 }

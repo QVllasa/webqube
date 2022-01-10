@@ -4,7 +4,7 @@ import {AngularFireFunctions} from "@angular/fire/compat/functions";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {doc, getDoc} from "firebase/firestore";
-import {IClient} from "../../../models";
+import {IClient} from "../../../models/models";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import firebase from "firebase/compat";
 import FirebaseError = firebase.FirebaseError;
@@ -76,10 +76,7 @@ export class RegisterComponent implements OnInit {
         return this.auth.currentUser
       })
       .then(user => {
-        if (user) {
-          return user.sendEmailVerification()
-        }
-        return;
+        return user.sendEmailVerification()
       })
       .then((res) => {
         this.router.navigate(['/dashboard'])

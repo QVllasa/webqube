@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {projects} from "../../../../@webqube/static";
+import {projects} from "../../../../@webqube/static/static";
 import {ActivatedRoute} from "@angular/router";
-import {IWork} from "../../../../@webqube/models";
+import {IWork} from "../../../../@webqube/models/models";
 import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({

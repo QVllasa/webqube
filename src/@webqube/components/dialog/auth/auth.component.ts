@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {IUser} from "../../../models";
+import {IUser} from "../../../models/models";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {MatDialogRef} from "@angular/material/dialog";
 import firebase from "firebase/compat";

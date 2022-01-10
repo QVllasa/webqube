@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {IWork} from "../../../@webqube/models";
-import {projects} from "../../../@webqube/static";
+import {IWork} from "../../../@webqube/models/models";
+import {projects} from "../../../@webqube/static/static";
 
 @Component({
   selector: 'app-galery',

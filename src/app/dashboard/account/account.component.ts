@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFireAuth} from "@angular/fire/compat/auth";
-import {IUser} from "../../../@webqube/models";
+import {IUser} from "../../../@webqube/models/models";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({

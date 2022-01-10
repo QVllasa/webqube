@@ -1,6 +1,7 @@
 import firebase from "firebase/compat";
 import UserMetadata = firebase.auth.UserMetadata;
 import UserInfo = firebase.UserInfo;
+import {IScrumboard} from "./scrumboard.interface";
 
 export interface IFeature {
   name: string,
@@ -73,12 +74,16 @@ export interface IProject {
 }
 
 export interface IMilestone{
+  uid: string,
   paid: boolean,
   step: string,
   description: string,
   icon: string,
+  icon_classes:string[],
   state: 'progressing' | 'pausing' | 'waiting',
   tasks?: ITask[],
+  board?: IScrumboard;
+  selected?: boolean;
 }
 
 export interface ITask {

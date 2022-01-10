@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {team} from "../../../@webqube/static";
+import {team} from "../../../@webqube/static/static";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
-import {IClient, IMessage} from "../../../@webqube/models";
+import {IClient, IMessage} from "../../../@webqube/models/models";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
