@@ -64,17 +64,19 @@ export interface IMessage {
 }
 
 export interface IProject {
-  uid: string,
+  id: string,
   userID: string,
   title: string,
   date?: string,
   tier?: ITier,
+  tierID?: ITier['id'],
+  milestonesIDs?: IMilestone['id'][],
   milestones?: IMilestone[],
   domain:string,
 }
 
 export interface IMilestone{
-  uid: string,
+  id: string,
   paid: boolean,
   step: string,
   description: string,

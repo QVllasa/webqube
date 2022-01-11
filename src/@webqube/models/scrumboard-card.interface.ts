@@ -9,7 +9,7 @@ export interface ScrumboardCard {
   title: string;
   description?: string;
   dueDate?: {
-    date: DateTime;
+    date: Date;
     done: boolean;
   };
   comments?: ScrumboardComment[];

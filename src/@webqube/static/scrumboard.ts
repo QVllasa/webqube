@@ -3,7 +3,7 @@ import {ScrumboardUser} from "../models/scrumboard-user.interface";
 import {ScrumboardComment} from "../models/scrumboard-comment.interface";
 import {ScrumboardLabel} from "../models/scrumboard-label.interface";
 import {IScrumboard} from "../models/scrumboard.interface";
-import {DateTime} from "luxon";
+
 
 export const scrumboardAttachments: ScrumboardAttachment[] = [
   {
@@ -98,27 +98,27 @@ export const scrumboardUsers: ScrumboardUser[] = [
 export const scrumboardComments: ScrumboardComment[] = [
   {
     from: scrumboardUsers[0],
-    date: DateTime.local().minus({days: 2, minutes: 43}),
+    date: new Date(),
     message: 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.'
   },
   {
     from: scrumboardUsers[1],
-    date: DateTime.local().minus({days: 4, minutes: 43}),
+    date: new Date(),
     message: 'A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.'
   },
   {
     from: scrumboardUsers[2],
-    date: DateTime.local().minus({days: 1, minutes: 43}),
+    date: new Date(),
     message: 'Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.'
   },
   {
     from: scrumboardUsers[3],
-    date: DateTime.local().minus({days: 0, minutes: 27}),
+    date: new Date(),
     message: 'The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen.'
   },
   {
     from: scrumboardUsers[4],
-    date: DateTime.local().minus({hour: 2, minutes: 4}),
+    date: new Date(),
     message: 'When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane.'
   }
 ];
@@ -165,7 +165,7 @@ export const scrumboard: IScrumboard =
             title: 'Fix Issue #332',
             description: 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.',
             dueDate: {
-              date: DateTime.local().plus({days: 5}),
+              date: new Date(),
               done: true
             },
             attachments: [
@@ -276,7 +276,7 @@ export const scrumboard: IScrumboard =
             id: 22,
             title: 'Add Forgot Password functionality',
             dueDate: {
-              date: DateTime.local().plus({days: 2}),
+              date:  new Date(),
               done: false
             },
             attachments: [
@@ -300,7 +300,7 @@ export const scrumboard: IScrumboard =
             id: 24,
             title: 'Create new Design Prototypes',
             dueDate: {
-              date: DateTime.local().plus({days: 7}),
+              date: new Date(),
               done: true
             },
             labels: [
@@ -353,7 +353,7 @@ export const scrumboard: IScrumboard =
             id: 33,
             title: 'Use Google Fonts',
             dueDate: {
-              date: DateTime.local().plus({days: 2}),
+              date: new Date(),
               done: false
             },
             labels: [

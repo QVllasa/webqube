@@ -82,7 +82,7 @@ export class ScrumboardDialogComponent implements OnInit {
         imageSrc: 'assets/img/avatars/1.jpg'
       },
       message: this.commentCtrl.value,
-      date: DateTime.local().minus({ seconds: 1 })
+      date: new Date()
     } as ScrumboardComment));
 
     this.commentCtrl.setValue(null);

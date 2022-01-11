@@ -76,6 +76,14 @@
           Nicht begonnen
         </dd>
       </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Design
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          -
+        </dd>
+      </div>
     </dl>
   </form>
 
@@ -168,8 +176,8 @@
           Anforderungen präzise aufschreiben.</span>
       </h2>
       <div class="mt-8" *ngIf="project$.tier">
-        <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
-          <div (click)="onSelectPhase(milestone)" *ngFor="let milestone of milestones"
+        <div *ngIf="!isSelecting" class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
+          <div (click)="onSelectMilestone(milestone)" *ngFor="let milestone of project$.milestones"
                [ngClass]="milestone.selected ? 'border-amber-500 ': 'border-gray-300'"
                class="border border-2  hover:border-amber-500  rounded-lg  relative group bg-white p-6">
             <div>
@@ -198,16 +206,13 @@
           </div>
 
         </div>
-
+        <div *ngIf="isSelecting">is selecting...</div>
       </div>
       <div>
-        <vex-scrumboard [board]="board" [boardTitle]="getBoardTitle()" ></vex-scrumboard>
+<!--        <vex-scrumboard [board]="board" [boardTitle]="getBoardTitle()" ></vex-scrumboard>-->
       </div>
     </div>
-
   </div>
-
-
 </div>
 
 

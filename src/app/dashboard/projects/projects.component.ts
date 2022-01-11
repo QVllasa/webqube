@@ -27,7 +27,7 @@ export class ProjectsComponent implements OnInit {
   ngOnInit(): void {
     this.auth.user.subscribe((user) => {
       this.projects = this.afs.collection<IProject>('projects',
-        ref => ref.where('userID','==', user?.uid )).valueChanges({idField: 'uid'})
+        ref => ref.where('userID','==', user?.uid )).valueChanges({idField: 'id'})
     })
 
 
@@ -45,6 +45,6 @@ export class ProjectsComponent implements OnInit {
 
 
   goToProject(project: IProject) {
-    this.router.navigate(['project',project.uid], {relativeTo: this.route.parent})
+    this.router.navigate(['project',project.id], {relativeTo: this.route.parent})
   }
 }

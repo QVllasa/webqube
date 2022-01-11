@@ -386,7 +386,7 @@ export const projects: IWork[] = [
 
 export const Milestones: IMilestone[] = [
   {
-    uid:'1',
+    id:'1',
     paid: false,
     step: '1. Design und Content',
     description: 'In dieser Phase haben wir bereits genug ' +
@@ -398,7 +398,7 @@ export const Milestones: IMilestone[] = [
     icon_classes:['bg-teal-50 text-teal-700']
   },
   {
-    uid:'2',
+    id:'2',
     paid: false,
     step: '2. Entwicklung und Konfiguration',
     description: 'In dieser Phase entwickeln ' +
@@ -409,7 +409,7 @@ export const Milestones: IMilestone[] = [
     icon_classes:['bg-blue-50 text-blue-700']
   },
   {
-    uid:'3',
+    id:'3',
     paid: false,
     step: '3. Überarbeitung, Abschluss und GO-Live',
     description: 'In dieser Phase machen ' +
