@@ -55,6 +55,8 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {ScrumboardComponent} from "./dashboard/projects/projects-details/scrumboard/scrumboard.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {DragDropModule} from "@angular/cdk/drag-drop";
+import {MatSelectModule} from "@angular/material/select";
+import {MatDividerModule} from "@angular/material/divider";
 
 
 function mode(){
@@ -121,6 +123,8 @@ export function playerFactory() {
     FlexLayoutModule,
     MatTooltipModule,
     DragDropModule,
+    MatSelectModule,
+    MatDividerModule,
   ],
   providers: [...mode(), {provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   bootstrap: [AppComponent]
