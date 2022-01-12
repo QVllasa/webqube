@@ -61,10 +61,14 @@ export class AddProjectComponent implements OnInit {
 
     this.projectCollection = this.afs.collection<IProject>('projects');
     this.projectCollection.add(this.projectObj).then((res) => {
-      this.isLoading = false;
-      console.log(res)
-      this.dialogRef.close()
+      return res.id
+    }).then((id)=>{
+      return this.afs.doc<IProject>('projects/'+id).update({id: id})
     })
+      .then(()=>{
+        this.isLoading = false;
+        this.dialogRef.close()
+      })
   }
 
   get f() {

@@ -9,6 +9,8 @@ import {ActivatedRoute} from '@angular/router';
 import {IScrumboard} from '../../../../../@webqube/models/scrumboard.interface';
 import {FormControl} from '@angular/forms';
 import {scrumboard, scrumboardUsers} from "../../../../../@webqube/static/scrumboard";
+import {BehaviorSubject} from "rxjs";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 
 @Component({
@@ -18,8 +20,8 @@ import {scrumboard, scrumboardUsers} from "../../../../../@webqube/static/scrumb
 })
 export class ScrumboardComponent implements OnInit {
 
-  @Input() boardTitle: string;
-  @Input() board: IScrumboard;
+
+  @Input() board: BehaviorSubject<IScrumboard>;
 
   static nextId = 100;
 
@@ -32,10 +34,12 @@ export class ScrumboardComponent implements OnInit {
   scrumboardUsers = scrumboardUsers;
 
   constructor(private dialog: MatDialog,
+              private afs:AngularFirestore,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+
   }
 
   open(board: IScrumboard, list: ScrumboardList, card: ScrumboardCard) {
@@ -58,6 +62,7 @@ export class ScrumboardComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<ScrumboardCard[]>) {
+    console.log(event)
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -65,19 +70,21 @@ export class ScrumboardComponent implements OnInit {
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+      this.afs.doc<IScrumboard>('boards/'+this.board.value.id).update(this.board.value)
     }
   }
 
-  dropList(event: CdkDragDrop<ScrumboardList[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
-  }
+  // dropList(event: CdkDragDrop<ScrumboardList[]>) {
+  //   console.log(event)
+  //   if (event.previousContainer === event.container) {
+  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  //   } else {
+  //     transferArrayItem(event.previousContainer.data,
+  //       event.container.data,
+  //       event.previousIndex,
+  //       event.currentIndex);
+  //   }
+  // }
 
   getConnectedList(board: IScrumboard) {
     return board.children.map(x => `${x.id}`);

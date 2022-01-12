@@ -12,7 +12,7 @@
     </div>
     <div>
       <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800">
-        {{project$?.tier?.plan ? project$?.tier?.plan : 'Kein Plan ausgewählt'}}
+<!--        {{project$?.tierID ? project$?.tier?.plan : 'Kein Plan ausgewählt'}}-->
       </span>
     </div>
 
@@ -88,7 +88,7 @@
   </form>
 
   <!-- This example requires Tailwind CSS v2.0+ -->
-  <div *ngIf="!project$.tier" class="bg-white">
+  <div *ngIf="!project$.tierID" class="bg-white">
     <div class="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
       <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
         <span class="block">Bereit loszulegen?</span>
@@ -168,48 +168,50 @@
       </fieldset>
     </div>
   </div>
-  <div *ngIf="project$.tier" class="bg-white">
+  <div *ngIf="project$.tierID" class="bg-white">
     <div class="max-w-7xl mx-auto text-center py-8 px-4 sm:px-6 lg:py-16 lg:px-8">
       <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
         <span class="block">Verfolge jeden Fortschritt.</span>
         <span class="block mt-4 text-lg font-medium text-gray-500">Hier kannst du in jeder Phase deine Wünsche und
           Anforderungen präzise aufschreiben.</span>
       </h2>
-      <div class="mt-8" *ngIf="project$.tier">
-        <div *ngIf="!isSelecting" class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
-          <div (click)="onSelectMilestone(milestone)" *ngFor="let milestone of project$.milestones"
-               [ngClass]="milestone.selected ? 'border-amber-500 ': 'border-gray-300'"
-               class="border border-2  hover:border-amber-500  rounded-lg  relative group bg-white p-6">
-            <div>
-              <span [ngClass]="milestone.icon_classes" class="rounded-lg inline-flex p-3  ring-4 ring-white">
-                <mat-icon class="material-icons-round">
-                  {{milestone.icon}}
-                </mat-icon>
+
+        <div class="mt-8" *ngIf="project$.tierID && (milestones | async) as milestones$">
+          <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
+            <div (click)="onSelectMilestone(milestone)" *ngFor="let milestone of sortByOrder(milestones$)"
+                 [ngClass]="activeMilestone.value === milestone ? 'border-amber-500 ': 'border-gray-300'"
+                 class="border border-2  hover:border-amber-500  rounded-lg  relative group bg-white p-6">
+              <div>
+                <span [ngClass]="milestone.icon_classes" class="rounded-lg inline-flex p-3  ring-4 ring-white">
+                  <mat-icon class="material-icons-round">
+                    {{milestone.icon}}
+                  </mat-icon>
+                </span>
+              </div>
+              <div class="mt-8">
+                <h3 class="text-lg font-medium text-left">
+                  <button class="flex justify-start">
+                    <span class="text-left">{{milestone.label}}</span>
+                    <span class="text-left absolute inset-0" aria-hidden="true"></span>
+                  </button>
+                </h3>
+                <p class="mt-2 text-sm text-gray-500">
+                  {{milestone.description}}
+                </p>
+              </div>
+              <span *ngIf="activeMilestone.value === milestone" class="pointer-events-none absolute top-6 right-6 text-amber-500"
+                    aria-hidden="true">
+                <mat-icon class="material-icons-round">check_circle_outlined</mat-icon>
               </span>
             </div>
-            <div class="mt-8">
-              <h3 class="text-lg font-medium text-left">
-                <button class="flex justify-start">
-                  <span class="text-left">{{milestone.step}}</span>
-                  <span class="text-left absolute inset-0" aria-hidden="true"></span>
 
-                </button>
-              </h3>
-              <p class="mt-2 text-sm text-gray-500">
-                {{milestone.description}}
-              </p>
-            </div>
-            <span *ngIf="milestone.selected" class="pointer-events-none absolute top-6 right-6 text-amber-500"
-                  aria-hidden="true">
-              <mat-icon class="material-icons-round">check_circle_outlined</mat-icon>
-            </span>
           </div>
-
+          <div *ngIf="isSelecting">is selecting...</div>
         </div>
-        <div *ngIf="isSelecting">is selecting...</div>
-      </div>
+
+
       <div>
-<!--        <vex-scrumboard [board]="board" [boardTitle]="getBoardTitle()" ></vex-scrumboard>-->
+        <vex-scrumboard [board]="activeBoard"  ></vex-scrumboard>
       </div>
     </div>
   </div>

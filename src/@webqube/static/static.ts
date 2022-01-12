@@ -388,7 +388,8 @@ export const Milestones: IMilestone[] = [
   {
     id:'1',
     paid: false,
-    step: '1. Design und Content',
+    order: 1,
+    label: '1. Design und Content',
     description: 'In dieser Phase haben wir bereits genug ' +
       'Input von dir erhalten, um uns selbständig an ' +
       'Designvorschlägen zu machen und uns ' +
@@ -400,7 +401,8 @@ export const Milestones: IMilestone[] = [
   {
     id:'2',
     paid: false,
-    step: '2. Entwicklung und Konfiguration',
+    order: 2,
+    label: '2. Entwicklung und Konfiguration',
     description: 'In dieser Phase entwickeln ' +
       'wir die Konzepte, setzen den Server ' +
       'auf und lassen dich erstmals deine Webseite online sehen.',
@@ -411,7 +413,8 @@ export const Milestones: IMilestone[] = [
   {
     id:'3',
     paid: false,
-    step: '3. Überarbeitung, Abschluss und GO-Live',
+    order: 3,
+    label: '3. Überarbeitung, Abschluss und GO-Live',
     description: 'In dieser Phase machen ' +
       'wir den Feinschliff und gehen ' +
       'gemeinsam mit dir Online!',

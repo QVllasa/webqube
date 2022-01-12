@@ -1,8 +1,10 @@
 import { ScrumboardList } from './scrumboard-list.interface';
+import {IMilestone} from "./models";
 
 export interface IScrumboard {
-  id: number;
+  id: string;
   label: string;
   children: ScrumboardList[];
   starred?: boolean;
+  milestoneID?: IMilestone['id'];
 }

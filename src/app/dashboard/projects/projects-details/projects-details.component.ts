@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IMilestone, IProject, ITier, IUser} from "../../../../@webqube/models/models";
 import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -21,14 +21,21 @@ export class ProjectsDetailsComponent {
 
   tiers = Tiers.map(obj => ({...obj, selected: false}));
 
-  milestones: IMilestone[] = Milestones.map(obj => ({...obj, selected: false}));
-  board = scrumboard;
+  baseMilestones = Milestones.map(obj => ({...obj, selected: false}));
+  baseBoard = scrumboard;
 
   project: Observable<IProject | undefined>;
+  milestones: Observable<IMilestone[] | undefined>;
+  boards: Observable<IScrumboard[] | undefined>;
+  currentProject: IProject;
+  activeMilestone = new BehaviorSubject<IMilestone>(null);
+  activeBoard = new BehaviorSubject<IScrumboard>(null);
+
   user: Observable<IUser | null>;
   private projectDoc: AngularFirestoreDocument<IProject>;
   private boardDoc: AngularFirestoreDocument<IScrumboard>;
   private tierDoc: AngularFirestoreDocument<ITier>;
+  private milestoneDoc: AngularFirestoreDocument<IMilestone>;
 
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   form = new FormGroup({
@@ -47,15 +54,23 @@ export class ProjectsDetailsComponent {
               private http: HttpClient,
               private auth: AngularFireAuth) {
 
-    this.milestones[0].selected = true;
     let id = this.route.snapshot.params['id'];
 
     this.projectDoc = this.afs.doc<IProject>('projects/' + id);
 
+
+
+
     this.project = this.projectDoc.valueChanges();
     this.project.subscribe(prj => {
+      this.currentProject = prj;
       this.form.get('domainName')?.patchValue(prj?.domain);
     })
+
+    this.milestones = this.afs.collection<IMilestone>('milestones',
+      ref => ref.where('projectID', '==', id)).valueChanges({idField: 'id'})
+
+
     this.user = this.auth.user;
   }
 
@@ -117,40 +132,45 @@ export class ProjectsDetailsComponent {
     return this.tiers.some(obj => obj.selected)
   }
 
-  onUpdateProject() {
+  async onUpdateProject() {
     this.isSavingTier = true;
-    this.milestones.forEach((obj) => {
-      obj.board = this.board;
-    });
-    let selectedTier = this.tiers.filter(obj => obj.selected)[0]
-    this.projectDoc.update({
-      tierID: selectedTier.id,
-      tier: selectedTier,
-      milestones: this.milestones,
-      milestonesIDs: this.milestones.map(obj => obj.id)
-    })
-      .then(res => {
-        console.log("res", res);
-        this.isSavingTier = false;
+
+    for await (const milestone of this.baseMilestones) {
+      console.log('start')
+      milestone.projectID = this.currentProject.id;
+      await this.afs.collection<IMilestone>('milestones').add(milestone).then(value => {
+        this.baseBoard.milestoneID = value.id;
+        return this.afs.doc<IMilestone>('milestones/'+value.id).update({id:value.id}) ;
       });
+
+      this.baseBoard.label = milestone.label
+      await this.afs.collection<IScrumboard>('boards').add(this.baseBoard).then(value => {
+        return this.afs.doc<IScrumboard>('boards/'+value.id).update({id:value.id}) ;
+      });
+    }
+
+    let selectedTier = this.tiers.filter(obj => obj.selected)[0]
+    const fsProject = await this.projectDoc.update({tierID: selectedTier.id,});
+    console.log("res", fsProject);
+    this.isSavingTier = false;
   }
 
-  onSelectMilestone(milestone: { paid: boolean; icon: string; description: string; step: string; state: "progressing" | "pausing" | "waiting"; selected?: boolean }) {
+  onSelectMilestone(milestone: IMilestone) {
     // @ts-ignore
-    this.isSelecting = true;
-    this.project.pipe(take(1), map(prj => {
-      console.log(prj)
-      prj.milestones.find(obj => obj === milestone).selected = !milestone.selected;
-      prj.milestones.filter(obj => obj !== milestone).map(obj => obj.selected = false);
-      return this.projectDoc.update(prj)
-    })).subscribe(()=>{this.isSelecting = false;})
+    this.activeMilestone.next(milestone)
+    this.boards = this.afs.collection<IScrumboard>('boards',
+      ref => ref.where('milestoneID', '==', milestone.id)).valueChanges()
+
+    this.boards.subscribe(value => {
+      this.activeBoard.next(value[0])
+    })
+
   }
 
-  //TODO define get milestones and get boards in model
-
-  getBoardTitle() {
-    return this.milestones.find(obj => obj.selected).step
+  sortByOrder(milestones: IMilestone[]): IMilestone[]{
+    return milestones.sort((a,b)=> (a.order < b.order ? -1 : 1))
   }
+
 
 
 }

@@ -153,7 +153,7 @@ export const scrumboardLabels: ScrumboardLabel[] = [
 
 export const scrumboard: IScrumboard =
   {
-    id: 1,
+    id: '1',
     label: 'Tech Startup Board',
     children: [
       {

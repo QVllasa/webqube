@@ -68,24 +68,22 @@ export interface IProject {
   userID: string,
   title: string,
   date?: string,
-  tier?: ITier,
   tierID?: ITier['id'],
-  milestonesIDs?: IMilestone['id'][],
-  milestones?: IMilestone[],
   domain:string,
 }
 
 export interface IMilestone{
   id: string,
   paid: boolean,
-  step: string,
+  order: number,
+  label: string,
   description: string,
   icon: string,
   icon_classes:string[],
   state: 'progressing' | 'pausing' | 'waiting',
   tasks?: ITask[],
   board?: IScrumboard;
-  selected?: boolean;
+  projectID?: IProject['id']
 }
 
 export interface ITask {
