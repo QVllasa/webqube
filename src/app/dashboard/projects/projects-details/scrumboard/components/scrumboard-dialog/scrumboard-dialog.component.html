@@ -1,14 +1,20 @@
 <form (ngSubmit)="save()" [formGroup]="form">
   <div class="mb-0 body-1" mat-dialog-title>
-    <div>
+    <div class="flex justify-between">
+      <h2 class="font-semibold text-xl text-gray-700 m-0" fxLayout="row" fxLayoutAlign="start center">
+
+        <div class="mt-1">
+          <input type="email" [class.empty]="!form.get('title').value"
+                 formControlName="title"
+                 fxFlex="auto" name="email" id="email"
+                 class="w-full shadow-sm focus:ring-amber-500 focus:border-amber-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                 placeholder="you@example.com">
+        </div>
+
+      </h2>
       <div class="text-sm text-gray-500 mb-3 " fxLayout="row" fxLayoutAlign="start center">
         <span>{{ list?.label }}</span>
       </div>
-      <h2 class="title m-0" fxLayout="row" fxLayoutAlign="start center">
-        <input [class.empty]="!form.get('title').value"
-               formControlName="title"
-               fxFlex="auto">
-      </h2>
     </div>
 
     <div class="mt-3 ltr:ml-10 rtl:mr-10" fxLayout="row wrap" fxLayoutAlign="space-between start">
@@ -21,7 +27,7 @@
 
     <h2 class="text-base font-medium m-0 mt-6 text-gray-500" fxLayout="row" fxLayoutAlign="start center">
 
-      <span class="uppercase">Beschreibung</span>
+      <span class="font-semibold">Beschreibung</span>
     </h2>
 
     <div class="mt-3" fxLayout="column">
