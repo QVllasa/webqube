@@ -4,8 +4,8 @@ import { ScrumboardComment } from './scrumboard-comment.interface';
 import { ScrumboardUser } from './scrumboard-user.interface';
 import { ScrumboardLabel } from './scrumboard-label.interface';
 
-export interface ScrumboardCard {
-  id: number;
+export interface IScrumboardCard {
+  id: string;
   title: string;
   description?: string;
   dueDate?: {

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit, TemplateRef} from '@angular/core';
-import {ScrumboardList} from '../../../../../@webqube/models/scrumboard-list.interface';
+import {IScrumboardList} from '../../../../../@webqube/models/scrumboard-list.interface';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {ScrumboardCard} from '../../../../../@webqube/models/scrumboard-card.interface';
+import {IScrumboardCard} from '../../../../../@webqube/models/scrumboard-card.interface';
 import {MatDialog} from '@angular/material/dialog';
 import {ScrumboardDialogComponent} from './components/scrumboard-dialog/scrumboard-dialog.component';
 import {filter, map} from 'rxjs/operators';
@@ -11,6 +11,7 @@ import {FormControl} from '@angular/forms';
 import {scrumboard, scrumboardUsers} from "../../../../../@webqube/static/scrumboard";
 import {BehaviorSubject} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
+import * as uuid from 'uuid';
 
 
 @Component({
@@ -26,15 +27,13 @@ export class ScrumboardComponent implements OnInit {
   static nextId = 100;
 
 
-
-
   addCardCtrl = new FormControl();
   addListCtrl = new FormControl();
 
   scrumboardUsers = scrumboardUsers;
 
   constructor(private dialog: MatDialog,
-              private afs:AngularFirestore,
+              private afs: AngularFirestore,
               private route: ActivatedRoute) {
   }
 
@@ -42,7 +41,7 @@ export class ScrumboardComponent implements OnInit {
 
   }
 
-  open(board: IScrumboard, list: ScrumboardList, card: ScrumboardCard) {
+  open(board: IScrumboard, list: IScrumboardList, card: IScrumboardCard) {
     this.addCardCtrl.setValue(null);
 
     this.dialog.open(ScrumboardDialogComponent, {
@@ -51,7 +50,7 @@ export class ScrumboardComponent implements OnInit {
       maxWidth: '100%',
       disableClose: true
     }).beforeClosed().pipe(
-      filter<ScrumboardCard>(Boolean)
+      filter<IScrumboardCard>(Boolean)
     ).subscribe(value => {
       console.log(value);
       const index = list.children.findIndex(child => child.id === card.id);
@@ -61,7 +60,7 @@ export class ScrumboardComponent implements OnInit {
     });
   }
 
-  drop(event: CdkDragDrop<ScrumboardCard[]>) {
+  drop(event: CdkDragDrop<IScrumboardCard[]>) {
     console.log(event)
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
@@ -70,7 +69,7 @@ export class ScrumboardComponent implements OnInit {
         event.container.data,
         event.previousIndex,
         event.currentIndex);
-      this.afs.doc<IScrumboard>('boards/'+this.board.value.id).update(this.board.value)
+      this.afs.doc<IScrumboard>('boards/' + this.board.value.id).update(this.board.value)
     }
   }
 
@@ -90,24 +89,23 @@ export class ScrumboardComponent implements OnInit {
     return board.children.map(x => `${x.id}`);
   }
 
-  openAddCard(list: ScrumboardList, content: TemplateRef<any>, origin: HTMLElement) {
-    // this.popover.open({
-    //   content,
-    //   origin,
-    //   position: [
-    //     {
-    //       originX: 'center',
-    //       originY: 'bottom',
-    //       overlayX: 'center',
-    //       overlayY: 'bottom'
-    //     },
-    //     {
-    //       originX: 'center',
-    //       originY: 'bottom',
-    //       overlayX: 'center',
-    //       overlayY: 'top',
-    //     },
-    //   ]
+  openAddCard(list: IScrumboardList, board: IScrumboard) {
+    console.log(list, board)
+    let card: IScrumboardCard = {id: uuid.v4(), title: 'Neue Aufgabe', description: ''}
+    this.dialog.open(ScrumboardDialogComponent, {
+      data: {card, list, board},
+      width: '400px',
+      maxWidth: '100%',
+      disableClose: true
+    });
+    //   .beforeClosed().pipe(
+    //   filter<ScrumboardCard>(Boolean)
+    // ).subscribe(value => {
+    //   console.log(value);
+    //   const index = list.children.findIndex(child => child.id === card.id);
+    //   if (index > -1) {
+    //     list.children[index] = value;
+    //   }
     // });
   }
 
@@ -132,13 +130,13 @@ export class ScrumboardComponent implements OnInit {
     // });
   }
 
-  createCard(list: ScrumboardList, close: () => void) {
+  createCard(list: IScrumboardList, close: () => void) {
     if (!this.addCardCtrl.value) {
       return;
     }
 
     list.children.push({
-      id: ScrumboardComponent.nextId++,
+      id: ''+ScrumboardComponent.nextId++,
       title: this.addCardCtrl.value
     });
 
@@ -153,7 +151,7 @@ export class ScrumboardComponent implements OnInit {
     }
 
     board.children.push({
-      id: ScrumboardComponent.nextId++,
+      id: ''+ScrumboardComponent.nextId++,
       label: this.addListCtrl.value,
       children: []
     });

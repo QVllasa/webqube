@@ -157,224 +157,71 @@ export const scrumboard: IScrumboard =
     label: 'Tech Startup Board',
     children: [
       {
-        id: 1,
+        id: '1',
         label: 'Geplant',
         children: [
           {
-            id: 11,
+            id: '11',
             title: 'Fix Issue #332',
             description: 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.',
-            dueDate: {
-              date: new Date(),
-              done: true
-            },
-            attachments: [
-              scrumboardAttachments[0],
-              scrumboardAttachments[1],
-              scrumboardAttachments[2],
-            ],
-            comments: [
-              scrumboardComments[0],
-              scrumboardComments[1],
-              scrumboardComments[2],
-            ],
-            users: [
-              scrumboardUsers[0],
-              scrumboardUsers[1],
-              scrumboardUsers[2],
-            ],
-            labels: [
-              scrumboardLabels[0],
-              scrumboardLabels[1],
-            ],
-            cover: scrumboardAttachments[0]
           },
           {
-            id: 12,
+            id: '12',
             title: 'Create new User Profiles',
-            comments: [
-              scrumboardComments[4],
-              scrumboardComments[3]
-            ],
-            users: [
-              scrumboardUsers[1],
-            ]
           },
           {
-            id: 13,
+            id: '13',
             title: 'Add Dashboard',
             description: '',
-            attachments: [
-              scrumboardAttachments[2],
-              scrumboardAttachments[3]
-            ],
-            users: [
-              scrumboardUsers[2],
-              scrumboardUsers[3],
-            ],
-            labels: [
-              scrumboardLabels[3]
-            ],
-            comments: [
-              scrumboardComments[0]
-            ],
-            cover: scrumboardAttachments[2]
           },
           {
-            id: 14,
+            id: '14',
             title: 'Improve User Onboarding',
-            labels: [
-              scrumboardLabels[0],
-              scrumboardLabels[2]
-            ]
           },
           {
-            id: 5,
+            id: '5',
             title: 'Create new All-In-One Widget',
             description: 'This widget has superpowers and can display all the great things you love and want in life.',
-            attachments: [
-              scrumboardAttachments[4],
-              scrumboardAttachments[1]
-            ],
-            users: [
-              scrumboardUsers[5],
-              scrumboardUsers[4],
-            ],
-            labels: [
-              scrumboardLabels[4],
-              scrumboardLabels[0],
-              scrumboardLabels[2]
-            ],
-            cover: scrumboardAttachments[1]
           },
         ]
       },
       {
-        id: 2,
+        id: '2',
         label: 'In Bearbeitung',
         children: [
           {
-            id: 21,
+            id: '21',
             title: 'Create Support Center',
-            comments: [
-              scrumboardComments[4],
-              scrumboardComments[2],
-              scrumboardComments[1],
-              scrumboardComments[0]
-            ],
-            labels: [
-              scrumboardLabels[0],
-              scrumboardLabels[3]
-            ],
-            users: [
-              scrumboardUsers[1],
-              scrumboardUsers[0],
-              scrumboardUsers[2]
-            ]
           },
           {
-            id: 22,
+            id: '22',
             title: 'Add Forgot Password functionality',
-            dueDate: {
-              date:  new Date(),
-              done: false
-            },
-            attachments: [
-              scrumboardAttachments[1],
-              scrumboardAttachments[3],
-            ],
-            users: [
-              scrumboardUsers[0],
-              scrumboardUsers[3]
-            ],
-            cover: scrumboardAttachments[3]
           },
           {
-            id: 23,
+            id: '23',
             title: 'Make America Great Again',
-            labels: [
-              scrumboardLabels[1]
-            ]
           },
           {
-            id: 24,
+            id: '24',
             title: 'Create new Design Prototypes',
-            dueDate: {
-              date: new Date(),
-              done: true
-            },
-            labels: [
-              scrumboardLabels[0],
-              scrumboardLabels[3]
-            ],
-            users: [
-              scrumboardUsers[4],
-              scrumboardUsers[1]
-            ],
-            attachments: [
-              scrumboardAttachments[4],
-              scrumboardAttachments[0]
-            ],
-            cover: scrumboardAttachments[4]
           }
         ]
       },
       {
-        id: 3,
+        id: '3',
         label: 'Erledigt',
         children: [
           {
-            id: 31,
-            title: 'Add new Material Design 2 Icons',
-            attachments: [
-              scrumboardAttachments[1],
-              scrumboardAttachments[0],
-              scrumboardAttachments[6],
-              scrumboardAttachments[2]
-            ],
-            comments: [
-              scrumboardComments[0],
-            ],
-            cover: scrumboardAttachments[6]
+            id: '31',
+            title: 'Add new Material Design 2 Icons'
           },
           {
-            id: 32,
+            id: '32',
             title: 'Improve Dashboard Grid',
-            comments: [
-              scrumboardComments[4],
-            ],
-            users: [
-              scrumboardUsers[2],
-              scrumboardUsers[1],
-              scrumboardUsers[0]
-            ]
           },
           {
-            id: 33,
+            id: '33',
             title: 'Use Google Fonts',
-            dueDate: {
-              date: new Date(),
-              done: false
-            },
-            labels: [
-              scrumboardLabels[3]
-            ],
-            attachments: [
-              scrumboardAttachments[1],
-              scrumboardAttachments[5],
-              scrumboardAttachments[2]
-            ],
-            comments: [
-              scrumboardComments[0],
-              scrumboardComments[4],
-              scrumboardComments[2],
-            ],
-            users: [
-              scrumboardUsers[0],
-              scrumboardUsers[3],
-              scrumboardUsers[2]
-            ],
-            cover: scrumboardAttachments[5]
           }
         ]
       }

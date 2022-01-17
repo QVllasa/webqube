@@ -1,7 +1,7 @@
-import { ScrumboardCard } from './scrumboard-card.interface';
+import { IScrumboardCard } from './scrumboard-card.interface';
 
-export interface ScrumboardList {
-  id: number;
+export interface IScrumboardList {
+  id: string;
   label: string;
-  children: ScrumboardCard[];
+  children: IScrumboardCard[];
 }
