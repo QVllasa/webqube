@@ -14,5 +14,15 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography'), require('@tailwindcss/aspect-ratio')],
+  variants: {
+    textColor: [
+      // …
+      'selection',
+    ],
+    backgroundColor: [
+      // …
+      'selection',
+    ],
+  },
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography'), require('@tailwindcss/aspect-ratio'), require("tailwindcss-selection-variant")],
 };

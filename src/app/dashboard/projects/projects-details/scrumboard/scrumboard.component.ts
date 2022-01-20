@@ -46,17 +46,20 @@ export class ScrumboardComponent implements OnInit {
 
     this.dialog.open(ScrumboardDialogComponent, {
       data: {card, list, board},
-      width: '700px',
+      width: '400px',
       maxWidth: '100%',
-      disableClose: true
-    }).beforeClosed().pipe(
-      filter<IScrumboardCard>(Boolean)
-    ).subscribe(value => {
-      console.log(value);
-      const index = list.children.findIndex(child => child.id === card.id);
-      if (index > -1) {
-        list.children[index] = value;
-      }
+      disableClose: false
+    }).beforeClosed()
+      .subscribe(value => {
+        if (!value){
+          return;
+        }
+        const index = list.children.findIndex(child => child.id === card.id);
+        if (index > -1) {
+          list.children[index] = value;
+        }
+        this.update();
+
     });
   }
 
@@ -69,21 +72,9 @@ export class ScrumboardComponent implements OnInit {
         event.container.data,
         event.previousIndex,
         event.currentIndex);
-      this.afs.doc<IScrumboard>('boards/' + this.board.value.id).update(this.board.value)
+      this.update();
     }
   }
-
-  // dropList(event: CdkDragDrop<ScrumboardList[]>) {
-  //   console.log(event)
-  //   if (event.previousContainer === event.container) {
-  //     moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-  //   } else {
-  //     transferArrayItem(event.previousContainer.data,
-  //       event.container.data,
-  //       event.previousIndex,
-  //       event.currentIndex);
-  //   }
-  // }
 
   getConnectedList(board: IScrumboard) {
     return board.children.map(x => `${x.id}`);
@@ -96,72 +87,22 @@ export class ScrumboardComponent implements OnInit {
       data: {card, list, board},
       width: '400px',
       maxWidth: '100%',
-      disableClose: true
+      disableClose: false
+    }).afterClosed()
+      .subscribe(value => {
+        console.log("no changes",value);
+        if(value === card){
+          console.log("no changes",value);
+        }else {
+          list.children.push(value);
+          this.update();
+        }
+
     });
-    //   .beforeClosed().pipe(
-    //   filter<ScrumboardCard>(Boolean)
-    // ).subscribe(value => {
-    //   console.log(value);
-    //   const index = list.children.findIndex(child => child.id === card.id);
-    //   if (index > -1) {
-    //     list.children[index] = value;
-    //   }
-    // });
   }
 
-  openAddList(board: IScrumboard, content: TemplateRef<any>, origin: HTMLElement) {
-    // this.popover.open({
-    //   content,
-    //   origin,
-    //   position: [
-    //     {
-    //       originX: 'center',
-    //       originY: 'bottom',
-    //       overlayX: 'center',
-    //       overlayY: 'top'
-    //     },
-    //     {
-    //       originX: 'center',
-    //       originY: 'bottom',
-    //       overlayX: 'center',
-    //       overlayY: 'top',
-    //     },
-    //   ]
-    // });
+  update(){
+    this.afs.doc<IScrumboard>('boards/' + this.board.value.id).update(this.board.value)
   }
 
-  createCard(list: IScrumboardList, close: () => void) {
-    if (!this.addCardCtrl.value) {
-      return;
-    }
-
-    list.children.push({
-      id: ''+ScrumboardComponent.nextId++,
-      title: this.addCardCtrl.value
-    });
-
-    close();
-
-    this.addCardCtrl.setValue(null);
-  }
-
-  createList(board: IScrumboard, close: () => void) {
-    if (!this.addListCtrl.value) {
-      return;
-    }
-
-    board.children.push({
-      id: ''+ScrumboardComponent.nextId++,
-      label: this.addListCtrl.value,
-      children: []
-    });
-
-    close();
-
-    this.addListCtrl.setValue(null);
-  }
-
-  toggleStar(board: IScrumboard) {
-    board.starred = !board.starred;
-  }
 }

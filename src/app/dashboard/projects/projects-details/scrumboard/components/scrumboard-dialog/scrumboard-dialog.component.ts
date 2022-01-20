@@ -39,8 +39,6 @@ export class ScrumboardDialogComponent implements OnInit {
     this.board = this.data.board;
     const card = this.data.card;
 
-    this.form.valueChanges.subscribe(console.log);
-
     this.form.patchValue({
       title: card.title,
       description: card.description
@@ -50,6 +48,10 @@ export class ScrumboardDialogComponent implements OnInit {
 
   save() {
     this.dialogRef.close(this.form.value);
+  }
+
+  onCancel(){
+    this.dialogRef.close();
   }
 
 }
