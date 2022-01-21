@@ -48,7 +48,7 @@ export class ScrumboardComponent implements OnInit {
       data: {card, list, board},
       width: '400px',
       maxWidth: '100%',
-      disableClose: false
+      disableClose: true
     }).beforeClosed()
       .subscribe(value => {
         if (!value){
@@ -87,10 +87,12 @@ export class ScrumboardComponent implements OnInit {
       data: {card, list, board},
       width: '400px',
       maxWidth: '100%',
-      disableClose: false
+      disableClose: true
     }).afterClosed()
       .subscribe(value => {
-        console.log("no changes",value);
+        if(!value){
+          return;
+        }
         if(value === card){
           console.log("no changes",value);
         }else {

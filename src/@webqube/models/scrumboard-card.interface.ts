@@ -7,6 +7,7 @@ import { ScrumboardLabel } from './scrumboard-label.interface';
 export interface IScrumboardCard {
   id: string;
   title: string;
+  link?: string;
   description?: string;
   dueDate?: {
     date: Date;

@@ -39,7 +39,8 @@ export class ProjectsDetailsComponent {
 
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   form = new FormGroup({
-    domainName: new FormControl('', [Validators.required, Validators.pattern(this.urlRegex)])
+    domainName: new FormControl('', [Validators.required, Validators.pattern(this.urlRegex)]),
+    title: new FormControl('', [Validators.required])
   });
   isLoading: boolean = false;
   isSaving: boolean = false;
@@ -58,13 +59,10 @@ export class ProjectsDetailsComponent {
 
     this.projectDoc = this.afs.doc<IProject>('projects/' + id);
 
-
-
-
     this.project = this.projectDoc.valueChanges();
     this.project.subscribe(prj => {
       this.currentProject = prj;
-      this.form.get('domainName')?.patchValue(prj?.domain);
+      this.form.patchValue({domain: prj.domain, title: prj.title});
     })
 
     this.milestones = this.afs.collection<IMilestone>('milestones',
@@ -74,44 +72,61 @@ export class ProjectsDetailsComponent {
     this.user = this.auth.user;
   }
 
+  isValid(message: string, control: string): boolean {
+    if (!this.form.get(control).valid) {
+      this._snackBar.open(message, '',
+        {
+          duration: 2000,
+          verticalPosition: 'top',
+          horizontalPosition: 'end',
+          panelClass: ['bg-red-500', 'text-white']
+        });
+      this.form.patchValue(this.currentProject)
+      return false;
+    }
+    return true;
+  }
+
   checkDomain() {
     this.isLoading = true;
-    if (!this.form.valid) {
-      console.log("not valid")
-      this.isLoading = false;
+    if (!this.isValid('Keine echte url!', 'domainName')) {
       return;
-    } else {
-
     }
-    this.http.get('https://domain-availability.whoisxmlapi.com/api/v1?apiKey=at_Rrtx7WJLgsD8nX0uoAkzdgGNsIJcN&domainName=' + this.form.get('domainName')?.value)
-      .subscribe(
-        (res: any) => {
-          console.log(res);
-          if (res.DomainInfo.domainAvailability === 'AVAILABLE') {
-            this._snackBar.open('Verfügbar!️ 😃 ', '',
-              {
-                duration: 2000,
-                verticalPosition: 'top',
-                horizontalPosition: 'end',
-                panelClass: ['bg-green-500', 'text-white']
-              });
-            this.isLoading = false;
-          } else {
-            this._snackBar.open('Nicht verfügbar!️ 😔', '',
-              {
-                duration: 2000,
-                verticalPosition: 'top',
-                horizontalPosition: 'end',
-                panelClass: ['bg-red-500', 'text-white']
-              });
-            this.form.get('domainName')?.patchValue('')
-            this.isLoading = false;
-          }
 
-        },
-        err => console.log('HTTP Error', err),
-        () => console.log('HTTP request completed.')
-      )
+    this.http.get('https://domain-availability.whoisxmlapi.com/api/v1?apiKey=at_Rrtx7WJLgsD8nX0uoAkzdgGNsIJcN&domainName=' + this.form.get('domainName')?.value)
+      .pipe(
+        take(1),
+        tap(
+          (res: any) => {
+            console.log(res);
+            if (res.DomainInfo.domainAvailability === 'AVAILABLE') {
+              this._snackBar.open('Verfügbar!️ 😃 ', '',
+                {
+                  duration: 2000,
+                  verticalPosition: 'top',
+                  horizontalPosition: 'end',
+                  panelClass: ['bg-green-500', 'text-white']
+                });
+              this.isLoading = false;
+            } else {
+              this._snackBar.open('Nicht verfügbar!️ 😔', '',
+                {
+                  duration: 2000,
+                  verticalPosition: 'top',
+                  horizontalPosition: 'end',
+                  panelClass: ['bg-red-500', 'text-white']
+                });
+              this.form.get('domainName')?.patchValue('')
+              this.isLoading = false;
+            }
+
+          },
+          err => console.log('HTTP Error', err),
+          () => {
+            return this.projectDoc.update(this.form.value)
+          }))
+      .subscribe()
+
   }
 
   saveDomain() {
@@ -140,12 +155,12 @@ export class ProjectsDetailsComponent {
       milestone.projectID = this.currentProject.id;
       await this.afs.collection<IMilestone>('milestones').add(milestone).then(value => {
         this.baseBoard.milestoneID = value.id;
-        return this.afs.doc<IMilestone>('milestones/'+value.id).update({id:value.id}) ;
+        return this.afs.doc<IMilestone>('milestones/' + value.id).update({id: value.id});
       });
 
       this.baseBoard.label = milestone.label
       await this.afs.collection<IScrumboard>('boards').add(this.baseBoard).then(value => {
-        return this.afs.doc<IScrumboard>('boards/'+value.id).update({id:value.id}) ;
+        return this.afs.doc<IScrumboard>('boards/' + value.id).update({id: value.id});
       });
     }
 
@@ -153,6 +168,13 @@ export class ProjectsDetailsComponent {
     const fsProject = await this.projectDoc.update({tierID: selectedTier.id,});
     console.log("res", fsProject);
     this.isSavingTier = false;
+  }
+
+  updateTitle() {
+    if (!this.isValid('Titel darf nicht leer sein!', 'title')) {
+      return;
+    }
+    this.projectDoc.update(this.form.value)
   }
 
   onSelectMilestone(milestone: IMilestone) {
@@ -167,10 +189,9 @@ export class ProjectsDetailsComponent {
 
   }
 
-  sortByOrder(milestones: IMilestone[]): IMilestone[]{
-    return milestones.sort((a,b)=> (a.order < b.order ? -1 : 1))
+  sortByOrder(milestones: IMilestone[]): IMilestone[] {
+    return milestones.sort((a, b) => (a.order < b.order ? -1 : 1))
   }
-
 
 
 }

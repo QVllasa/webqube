@@ -1,24 +1,27 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 
 <div *ngIf="(project | async) as project$" class="bg-white shadow overflow-hidden sm:rounded-lg">
-  <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
-    <div>
-      <h3 class="text-lg leading-6 font-medium text-gray-900">
-        {{project$.title}}
-      </h3>
-      <!--      <p class="mt-1 max-w-2xl text-sm text-gray-500">-->
-      <!--        Personal details and application.-->
-      <!--      </p>-->
-    </div>
-    <div>
-      <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800">
-<!--        {{project$?.tierID ? project$?.tier?.plan : 'Kein Plan ausgewählt'}}-->
-      </span>
-    </div>
 
-
-  </div>
   <form [formGroup]="form" *ngIf="(user | async) as user$" class="border-t border-gray-200 px-4 py-5 sm:p-0">
+    <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+      <div>
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+          <input type="text"
+                 formControlName="title"
+                 (focusout)="updateTitle()"
+                 name="title" id="title"
+                 class="-pl-1 flex-auto cursor-pointer text-lg text-gray-600 font-normal focus:text-sm focus:font-normal  focus:cursor-text focus:bg-white hover:bg-gray-100 w-full border-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block  rounded-md"
+                 placeholder="Aufgabentitel">
+        </h3>
+      </div>
+      <div>
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800">
+          <!--        {{project$?.tierID ? project$?.tier?.plan : 'Kein Plan ausgewählt'}}-->
+        </span>
+      </div>
+
+
+    </div>
     <dl class="sm:divide-y sm:divide-gray-200">
       <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt class="text-sm font-medium text-gray-500">
@@ -43,25 +46,26 @@
                 http://
               </span>
               <input formControlName="domainName" type="text" name="domain" id="domain"
+                     (focusout)="checkDomain()"
                      class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-amber-500 focus:border-amber-500 sm:text-sm border-gray-300"
                      placeholder="www.example.com">
-              <button *ngIf="!isSaving" (click)="checkDomain()" mat-ripple type="button"
-                      class="ml-3 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none">
-                <span *ngIf="!isLoading">Verfügbarkeit prüfen</span>
-                <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>
-              </button>
+<!--              <button *ngIf="!isSaving"  mat-ripple type="button"-->
+<!--                      class="ml-3 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none">-->
+<!--                <span *ngIf="!isLoading">Verfügbarkeit prüfen</span>-->
+<!--                <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>-->
+<!--              </button>-->
 
-              <button (click)="saveDomain()" mat-ripple type="button"
-                      class="ml-3 inline-flex items-center px-3 py-2  text-sm leading-4 font-medium rounded-md shadow-sm text-white  bg-amber-600 focus:outline-none">
-                <span *ngIf="!isLoading && !isSaving">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                       stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
-                </span>
-                <mat-spinner [diameter]="20" *ngIf="isSaving"></mat-spinner>
-              </button>
+<!--              <button (click)="saveDomain()" mat-ripple type="button"-->
+<!--                      class="ml-3 inline-flex items-center px-3 py-2  text-sm leading-4 font-medium rounded-md shadow-sm text-white  bg-amber-600 focus:outline-none">-->
+<!--                <span *ngIf="!isLoading && !isSaving">-->
+<!--                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"-->
+<!--                       stroke="currentColor">-->
+<!--                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"-->
+<!--                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>-->
+<!--                  </svg>-->
+<!--                </span>-->
+<!--                <mat-spinner [diameter]="20" *ngIf="isSaving"></mat-spinner>-->
+<!--              </button>-->
 
             </div>
 

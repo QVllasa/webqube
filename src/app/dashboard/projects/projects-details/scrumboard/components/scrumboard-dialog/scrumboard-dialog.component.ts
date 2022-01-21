@@ -19,6 +19,7 @@ export class ScrumboardDialogComponent implements OnInit {
   form = this.fb.group({
     title: null,
     description: null,
+    link: null,
   });
 
 
@@ -41,7 +42,8 @@ export class ScrumboardDialogComponent implements OnInit {
 
     this.form.patchValue({
       title: card.title,
-      description: card.description
+      description: card.description,
+      link: card.link,
     });
 
   }
