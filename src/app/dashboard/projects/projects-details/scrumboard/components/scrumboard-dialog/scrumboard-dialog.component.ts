@@ -26,12 +26,14 @@ export class ScrumboardDialogComponent implements OnInit {
 
   list: IScrumboardList;
   board: IScrumboard;
+  action: string;
 
   constructor(private dialogRef: MatDialogRef<ScrumboardDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: {
                 card: IScrumboardCard;
                 list: IScrumboardList;
                 board: IScrumboard;
+                action: string;
               },
               private fb: FormBuilder) { }
 
@@ -39,6 +41,8 @@ export class ScrumboardDialogComponent implements OnInit {
     this.list = this.data.list;
     this.board = this.data.board;
     const card = this.data.card;
+     this.action = this.data.action;
+
 
     this.form.patchValue({
       title: card.title,
@@ -49,11 +53,14 @@ export class ScrumboardDialogComponent implements OnInit {
   }
 
   save() {
-    this.dialogRef.close(this.form.value);
+    this.dialogRef.close({data: this.form.value, action: 'add'});
   }
 
   onCancel(){
     this.dialogRef.close();
   }
 
+  onDeleteCard() {
+    this.dialogRef.close({data: this.form.value, action: 'remove'});
+  }
 }

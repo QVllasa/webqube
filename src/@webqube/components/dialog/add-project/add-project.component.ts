@@ -37,6 +37,7 @@ export class AddProjectComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddProjectComponent>,
+    private fns: AngularFireFunctions,
     @Inject(MAT_DIALOG_DATA) public data: ITier,
     private auth: AngularFireAuth,
     private afs: AngularFirestore) {
@@ -64,6 +65,8 @@ export class AddProjectComponent implements OnInit {
       return res.id
     }).then((id)=>{
       return this.afs.doc<IProject>('projects/'+id).update({id: id})
+    }).then(()=>{
+      return this.fns.httpsCallable('sendEmail')
     })
       .then(()=>{
         this.isLoading = false;

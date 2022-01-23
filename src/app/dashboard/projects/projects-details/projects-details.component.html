@@ -45,28 +45,10 @@
                 class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
                 http://
               </span>
-              <input formControlName="domainName" type="text" name="domain" id="domain"
+              <input formControlName="domain" type="text" name="domain" id="domain"
                      (focusout)="checkDomain()"
                      class="flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md focus:ring-amber-500 focus:border-amber-500 sm:text-sm border-gray-300"
                      placeholder="www.example.com">
-<!--              <button *ngIf="!isSaving"  mat-ripple type="button"-->
-<!--                      class="ml-3 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none">-->
-<!--                <span *ngIf="!isLoading">Verfügbarkeit prüfen</span>-->
-<!--                <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>-->
-<!--              </button>-->
-
-<!--              <button (click)="saveDomain()" mat-ripple type="button"-->
-<!--                      class="ml-3 inline-flex items-center px-3 py-2  text-sm leading-4 font-medium rounded-md shadow-sm text-white  bg-amber-600 focus:outline-none">-->
-<!--                <span *ngIf="!isLoading && !isSaving">-->
-<!--                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"-->
-<!--                       stroke="currentColor">-->
-<!--                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"-->
-<!--                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>-->
-<!--                  </svg>-->
-<!--                </span>-->
-<!--                <mat-spinner [diameter]="20" *ngIf="isSaving"></mat-spinner>-->
-<!--              </button>-->
-
             </div>
 
           </div>

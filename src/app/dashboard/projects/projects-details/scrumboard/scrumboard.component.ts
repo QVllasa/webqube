@@ -41,7 +41,7 @@ export class ScrumboardComponent implements OnInit {
 
   }
 
-  open(board: IScrumboard, list: IScrumboardList, card: IScrumboardCard) {
+  openCard(board: IScrumboard, list: IScrumboardList, card: IScrumboardCard) {
     this.addCardCtrl.setValue(null);
 
     this.dialog.open(ScrumboardDialogComponent, {
@@ -50,17 +50,30 @@ export class ScrumboardComponent implements OnInit {
       maxWidth: '100%',
       disableClose: true
     }).beforeClosed()
-      .subscribe(value => {
-        if (!value){
+      .subscribe((value: { data: IScrumboardCard, action: string }) => {
+        console.log(value)
+        if (!value) {
           return;
         }
-        const index = list.children.findIndex(child => child.id === card.id);
-        if (index > -1) {
-          list.children[index] = value;
+        switch (value.action) {
+          case 'add':{
+            const index = list.children.findIndex(child => child.id === card.id);
+            if (index > -1) {
+              list.children[index] = value.data;
+            }
+            this.update();
+            break;
+          }
+          case 'remove':{
+            const index = list.children.findIndex(child => child.id === card.id);
+            if (index > -1) {
+              list.children.splice(index, 1);
+            }
+            this.update();
+            break;
+          }
         }
-        this.update();
-
-    });
+      });
   }
 
   drop(event: CdkDragDrop<IScrumboardCard[]>) {
@@ -80,30 +93,30 @@ export class ScrumboardComponent implements OnInit {
     return board.children.map(x => `${x.id}`);
   }
 
-  openAddCard(list: IScrumboardList, board: IScrumboard) {
-    console.log(list, board)
+  addCard(list: IScrumboardList, board: IScrumboard) {
     let card: IScrumboardCard = {id: uuid.v4(), title: 'Neue Aufgabe', description: ''}
+    let action = 'add';
     this.dialog.open(ScrumboardDialogComponent, {
-      data: {card, list, board},
+      data: {card, list, board, action},
       width: '400px',
       maxWidth: '100%',
       disableClose: true
     }).afterClosed()
       .subscribe(value => {
-        if(!value){
+        if (!value) {
           return;
         }
-        if(value === card){
-          console.log("no changes",value);
-        }else {
+        if (value === card) {
+          console.log("no changes", value);
+        } else {
           list.children.push(value);
           this.update();
         }
 
-    });
+      });
   }
 
-  update(){
+  update() {
     this.afs.doc<IScrumboard>('boards/' + this.board.value.id).update(this.board.value)
   }
 

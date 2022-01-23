@@ -1,10 +1,22 @@
-<form  [formGroup]="form" class="flex-col justify-between h-full">
+<form [formGroup]="form" class="flex-col justify-between h-full">
   <div class="mb-0 body-1" mat-dialog-title>
     <div class="flex-col gap-4">
-      <div class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800" fxLayout="row" fxLayoutAlign="start center">
-        <span>{{ list?.label }}</span>
+      <div class="flex justify-between">
+        <div class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800"
+             fxLayout="row" fxLayoutAlign="start center">
+          <span>{{ list?.label }}</span>
+        </div>
+        <button
+          *ngIf="action !== 'add'"
+          [matMenuTriggerFor]="menu"
+          class="material-icons-round text-gray-700 rounded-full p-1 hover:bg-gray-100">
+          more_vert
+        </button>
+
+
       </div>
-      <h2 class="flex-auto font-normal text-xl text-gray-700 m-0">
+
+      <h2 class="mt-3 flex-auto font-normal text-xl text-gray-700 m-0">
         <div class="mt-1">
           <input type="text" [class.empty]="!form.get('title').value"
                  formControlName="title"
@@ -49,3 +61,8 @@
   </mat-dialog-actions>
 </form>
 
+
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="onDeleteCard()">Löschen</button>
+</mat-menu>

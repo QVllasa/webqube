@@ -16,7 +16,7 @@
       <div cdkDragHandle class="p-4 cursor-pointer flex justify-between items-center text-gray-600" fxFlex="none">
         <h2 class=" text-base font-semibold m-0 select-none" fxFlex="none">{{ list.label }}</h2>
 
-        <button (click)="openAddCard(list, board$ )" mat-ripple type="button"
+        <button (click)="addCard(list, board$ )" mat-ripple type="button"
                 class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none">
           Neu
         </button>
@@ -29,7 +29,7 @@
              cdkDropList
              class="px-4 pb-4"
              id="{{ list.id }}">
-          <div (click)="open(board$, list, card)"
+          <div (click)="openCard(board$, list, card)"
                *ngFor="let card of list.children"
                [cdkDragData]="card"
                cdkDrag

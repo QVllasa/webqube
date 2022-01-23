@@ -39,7 +39,7 @@ export class ProjectsDetailsComponent {
 
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   form = new FormGroup({
-    domainName: new FormControl('', [Validators.required, Validators.pattern(this.urlRegex)]),
+    domain: new FormControl('', [Validators.required, Validators.pattern(this.urlRegex)]),
     title: new FormControl('', [Validators.required])
   });
   isLoading: boolean = false;
@@ -61,8 +61,11 @@ export class ProjectsDetailsComponent {
 
     this.project = this.projectDoc.valueChanges();
     this.project.subscribe(prj => {
+      console.log("prj",prj)
+
       this.currentProject = prj;
       this.form.patchValue({domain: prj.domain, title: prj.title});
+      console.log("form",this.form.value);
     })
 
     this.milestones = this.afs.collection<IMilestone>('milestones',
@@ -89,11 +92,11 @@ export class ProjectsDetailsComponent {
 
   checkDomain() {
     this.isLoading = true;
-    if (!this.isValid('Keine echte url!', 'domainName')) {
+    if (!this.isValid('Keine echte url!', 'domain')) {
       return;
     }
 
-    this.http.get('https://domain-availability.whoisxmlapi.com/api/v1?apiKey=at_Rrtx7WJLgsD8nX0uoAkzdgGNsIJcN&domainName=' + this.form.get('domainName')?.value)
+    this.http.get('https://domain-availability.whoisxmlapi.com/api/v1?apiKey=at_Rrtx7WJLgsD8nX0uoAkzdgGNsIJcN&domainName=' + this.form.get('domain')?.value)
       .pipe(
         take(1),
         tap(
@@ -116,7 +119,7 @@ export class ProjectsDetailsComponent {
                   horizontalPosition: 'end',
                   panelClass: ['bg-red-500', 'text-white']
                 });
-              this.form.get('domainName')?.patchValue('')
+              this.form.get('domain')?.patchValue('')
               this.isLoading = false;
             }
 
@@ -131,7 +134,7 @@ export class ProjectsDetailsComponent {
 
   saveDomain() {
     this.isSaving = true
-    this.projectDoc.update({domain: this.form.get('domainName')?.value})
+    this.projectDoc.update({domain: this.form.get('domain')?.value})
       .then(res => {
         console.log(res);
         this.isSaving = false;

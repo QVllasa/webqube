@@ -1,6 +1,4 @@
 import firebase from "firebase/compat";
-import UserMetadata = firebase.auth.UserMetadata;
-import UserInfo = firebase.UserInfo;
 import {IScrumboard} from "./scrumboard.interface";
 
 export interface IFeature {

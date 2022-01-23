@@ -1,5 +1,4 @@
 import { ScrumboardAttachment } from './scrumboard-attachment.interface';
-import { DateTime } from 'luxon';
 import { ScrumboardComment } from './scrumboard-comment.interface';
 import { ScrumboardUser } from './scrumboard-user.interface';
 import { ScrumboardLabel } from './scrumboard-label.interface';
