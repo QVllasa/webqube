@@ -2,6 +2,7 @@ import * as functions from "firebase-functions";
 import * as sgMail from "@sendgrid/mail";
 import * as admin from "firebase-admin";
 import {IProject} from "../../src/@webqube/models/models";
+import {clientRegisterTemplate} from "../components/email-templates";
 
 
 require('dotenv').config()
@@ -17,10 +18,10 @@ export const sendEmail = functions.firestore.document("/projects/{id}").onCreate
   const data: IProject = <IProject>snapshot.data();
 
   const internalMessage = {
-    to: ['admin@webqube.de'],
+    to: 'qendrim.vllasa@gmail.com',
     from: 'admin@webqube.de',
-    subject: `Neues Projekt von ${data.title}! 🚀`,
-    html: 'clientRegisterTemplate(data),'
+    subject: `Neues Projekt angelegt ${data.title}! 🚀`,
+    html: clientRegisterTemplate(data)
   }
 
   sgMail.send(internalMessage).then().catch((error) => {
