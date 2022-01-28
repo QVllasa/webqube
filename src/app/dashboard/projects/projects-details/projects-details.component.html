@@ -1,6 +1,6 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 
-<div *ngIf="(project | async) as project$" class="bg-white shadow overflow-hidden sm:rounded-lg">
+<div *ngIf="project && milestones" class="bg-white shadow overflow-hidden sm:rounded-lg">
 
   <form [formGroup]="form" *ngIf="(user | async) as user$" class="border-t border-gray-200 px-4 py-5 sm:p-0">
     <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
@@ -74,7 +74,7 @@
   </form>
 
   <!-- This example requires Tailwind CSS v2.0+ -->
-  <div *ngIf="!project$.tierID" class="bg-white">
+  <div *ngIf="!project.tierID" class="bg-white">
     <div class="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
       <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
         <span class="block">Bereit loszulegen?</span>
@@ -132,7 +132,7 @@
                  fill="currentColor" aria-hidden="true">
               <path fill-rule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clip-rule="evenodd"/>
+                    clip-rule="evenodd"></path>
             </svg>
             <!--
               Active: "border", Not Active: "border-2"
@@ -143,7 +143,7 @@
           </label>
           <div *ngIf="isSavingTier"
                class="absolute top-0 left-0 right-0 bottom-0 bg-gray-50 opacity-30 rounded-lg"></div>
-          <button [disabled]="isSavingTier" (click)="onUpdateProject()" *ngIf="isSelected()"
+          <button [disabled]="isSavingTier" (click)="initProject()" *ngIf="isSelected()"
                   class="col-start-2 col-end-3 mt-6 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700">
             <span *ngIf="!isSavingTier">Weiter</span>
             <mat-spinner *ngIf="isSavingTier" [diameter]="20"></mat-spinner>
@@ -154,7 +154,7 @@
       </fieldset>
     </div>
   </div>
-  <div *ngIf="project$.tierID" class="bg-white">
+  <div *ngIf="project.tierID" class="bg-white">
     <div class="max-w-7xl mx-auto text-center py-8 px-4 sm:px-6 lg:py-16 lg:px-8">
       <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
         <span class="block">Verfolge jeden Fortschritt.</span>
@@ -162,42 +162,41 @@
           Anforderungen präzise aufschreiben.</span>
       </h2>
 
-        <div class="mt-8" *ngIf="project$.tierID && (milestones | async) as milestones$">
-          <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
-            <div (click)="onSelectMilestone(milestone)" *ngFor="let milestone of sortByOrder(milestones$)"
-                 [ngClass]="activeMilestone.value === milestone ? 'border-amber-500 ': 'border-gray-300'"
-                 class="border border-2  hover:border-amber-500  rounded-lg  relative group bg-white p-6">
-              <div>
-                <span [ngClass]="milestone.icon_classes" class="rounded-lg inline-flex p-3  ring-4 ring-white">
-                  <mat-icon class="material-icons-round">
-                    {{milestone.icon}}
-                  </mat-icon>
-                </span>
-              </div>
-              <div class="mt-8">
-                <h3 class="text-lg font-medium text-left">
-                  <button class="flex justify-start">
-                    <span class="text-left">{{milestone.label}}</span>
-                    <span class="text-left absolute inset-0" aria-hidden="true"></span>
-                  </button>
-                </h3>
-                <p class="mt-2 text-sm text-gray-500">
-                  {{milestone.description}}
-                </p>
-              </div>
-              <span *ngIf="activeMilestone.value === milestone" class="pointer-events-none absolute top-6 right-6 text-amber-500"
-                    aria-hidden="true">
-                <mat-icon class="material-icons-round">check_circle_outlined</mat-icon>
+      <div class="mt-8">
+        <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
+          <div (click)="onSelectBoard(board)" *ngFor="let board of boards"
+               [ngClass]="isSelectedBoard(board)? 'border-amber-500 ': 'border-gray-300'"
+               class="border border-2  hover:border-amber-500  rounded-lg  relative group bg-white p-6">
+            <div>
+              <span [ngClass]="board.icon_classes" class="rounded-lg inline-flex p-3  ring-4 ring-white">
+                <mat-icon class="material-icons-round">
+                  {{board.icon}}
+                </mat-icon>
               </span>
             </div>
-
+            <div class="mt-8">
+              <h3 class="text-lg font-medium text-left">
+                <button class="flex justify-start">
+                  <span class="text-left">{{board.label}}</span>
+                  <span class="text-left absolute inset-0" aria-hidden="true"></span>
+                </button>
+              </h3>
+              <p class="mt-2 text-sm text-gray-500">
+                {{board.description}}
+              </p>
+            </div>
+            <span *ngIf="isSelectedBoard(board)" class="pointer-events-none absolute top-6 right-6 text-amber-500"
+                  aria-hidden="true">
+              <mat-icon class="material-icons-round">check_circle_outlined</mat-icon>
+            </span>
           </div>
-          <div *ngIf="isSelecting">is selecting...</div>
         </div>
+        <div *ngIf="isSelecting">is selecting...</div>
+      </div>
 
 
       <div>
-        <vex-scrumboard [board]="activeBoard"  ></vex-scrumboard>
+        <vex-scrumboard [board]="activeBoard"></vex-scrumboard>
       </div>
     </div>
   </div>

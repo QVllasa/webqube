@@ -1,15 +1,11 @@
-import {ChangeDetectionStrategy, Component, Inject, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {AngularFireFunctions} from "@angular/fire/compat/functions";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
-import {doc, getDoc} from "firebase/firestore";
-import {IClient, IProject, ITier, IWork} from "../../../models/models";
-import {Tiers} from "../../../static/static";
-import {TUI_CHECKBOX_DEFAULT_OPTIONS, TUI_CHECKBOX_OPTIONS, TUI_TEXTFIELD_APPEARANCE} from "@taiga-ui/core";
+import {IProject, ITier} from "../../../models/models";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import firebase from "firebase/compat";
-import UserInfo = firebase.UserInfo;
 
 
 @Component({
@@ -20,7 +16,7 @@ import UserInfo = firebase.UserInfo;
 })
 export class AddProjectComponent implements OnInit {
 
-  tiers = Tiers;
+  tiers:ITier[];
   selectedTier: ITier;
 
   isLoading: boolean = false;
@@ -50,6 +46,9 @@ export class AddProjectComponent implements OnInit {
     this.projectForm.valueChanges.subscribe((data) => {
       this.projectObj = {...data, userID: this.user?.uid}
     })
+    this.afs.collection<ITier>('tiers').valueChanges().subscribe(tiers=> {
+      this.tiers = tiers;
+    })
   }
 
   onSend() {
@@ -63,8 +62,6 @@ export class AddProjectComponent implements OnInit {
     this.projectCollection = this.afs.collection<IProject>('projects');
     this.projectCollection.add(this.projectObj).then((res) => {
       return res.id
-    }).then((id)=>{
-      return this.afs.doc<IProject>('projects/'+id).update({id: id})
     }).then(()=>{
       return this.fns.httpsCallable('sendEmail')
     })

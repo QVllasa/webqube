@@ -9,7 +9,7 @@
        fxLayout="row"
        fxLayoutAlign="start start"
        fxLayoutGap="24px">
-    <div *ngFor="let list of board$.children"
+    <div *ngFor="let list of board$.list"
          class="rounded bg-gray-50 overflow-hidden max-h-full col-span-1 cursor-none"
          fxFlex="none"
          fxLayout="column">
@@ -25,12 +25,12 @@
       <div class="flex-auto">
         <div (cdkDropListDropped)="drop($event)"
              [cdkDropListConnectedTo]="getConnectedList(board$)"
-             [cdkDropListData]="list.children"
+             [cdkDropListData]="list.cards"
              cdkDropList
              class="px-4 pb-4"
              id="{{ list.id }}">
           <div (click)="openCard(board$, list, card)"
-               *ngFor="let card of list.children"
+               *ngFor="let card of list.cards"
                [cdkDragData]="card"
                cdkDrag
                class="my-2 bg-white shadow rounded-lg cursor-pointer ">

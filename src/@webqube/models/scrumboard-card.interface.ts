@@ -4,7 +4,7 @@ import { ScrumboardUser } from './scrumboard-user.interface';
 import { ScrumboardLabel } from './scrumboard-label.interface';
 
 export interface IScrumboardCard {
-  id: string;
+  id?: string;
   title: string;
   link?: string;
   description?: string;

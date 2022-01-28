@@ -1,17 +1,18 @@
-import {Component, Input, OnInit, TemplateRef} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {IScrumboardList} from '../../../../../@webqube/models/scrumboard-list.interface';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {IScrumboardCard} from '../../../../../@webqube/models/scrumboard-card.interface';
 import {MatDialog} from '@angular/material/dialog';
 import {ScrumboardDialogComponent} from './components/scrumboard-dialog/scrumboard-dialog.component';
-import {filter, map} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {IScrumboard} from '../../../../../@webqube/models/scrumboard.interface';
 import {FormControl} from '@angular/forms';
-import {scrumboard, scrumboardUsers} from "../../../../../@webqube/static/scrumboard";
+import {scrumboardUsers} from "../../../../../@webqube/static/scrumboard";
 import {BehaviorSubject} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import * as uuid from 'uuid';
+import {IBoard} from "../../../../../@webqube/models/models";
+import {map, tap} from "rxjs/operators";
 
 
 @Component({
@@ -22,7 +23,7 @@ import * as uuid from 'uuid';
 export class ScrumboardComponent implements OnInit {
 
 
-  @Input() board: BehaviorSubject<IScrumboard>;
+  @Input() board: BehaviorSubject<IBoard>;
 
   static nextId = 100;
 
@@ -30,7 +31,6 @@ export class ScrumboardComponent implements OnInit {
   addCardCtrl = new FormControl();
   addListCtrl = new FormControl();
 
-  scrumboardUsers = scrumboardUsers;
 
   constructor(private dialog: MatDialog,
               private afs: AngularFirestore,
@@ -38,6 +38,19 @@ export class ScrumboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.board.pipe(map((value) => {
+      if (!value) {
+        return value
+      }
+      return this.afs.doc<IScrumboard>('boards/' + value.id).collection<IScrumboardList>('list')
+        .valueChanges({idField: 'id'})
+        .pipe(map((list)=>{
+          return list
+        }))
+    })).subscribe(val => {
+      console.log("lists: ", val)
+    })
+
 
   }
 
@@ -56,18 +69,18 @@ export class ScrumboardComponent implements OnInit {
           return;
         }
         switch (value.action) {
-          case 'add':{
-            const index = list.children.findIndex(child => child.id === card.id);
+          case 'add': {
+            const index = list.cards.findIndex(child => child.id === card.id);
             if (index > -1) {
-              list.children[index] = value.data;
+              list.cards[index] = value.data;
             }
             this.update();
             break;
           }
-          case 'remove':{
-            const index = list.children.findIndex(child => child.id === card.id);
+          case 'remove': {
+            const index = list.cards.findIndex(child => child.id === card.id);
             if (index > -1) {
-              list.children.splice(index, 1);
+              list.cards.splice(index, 1);
             }
             this.update();
             break;
@@ -90,7 +103,7 @@ export class ScrumboardComponent implements OnInit {
   }
 
   getConnectedList(board: IScrumboard) {
-    return board.children.map(x => `${x.id}`);
+    return board.list.map(x => `${x.id}`);
   }
 
   addCard(list: IScrumboardList, board: IScrumboard) {
@@ -109,7 +122,7 @@ export class ScrumboardComponent implements OnInit {
         if (value === card) {
           console.log("no changes", value);
         } else {
-          list.children.push(value);
+          list.cards.push(value);
           this.update();
         }
 

@@ -27,6 +27,7 @@ export interface ITier {
   plan: string,
   mostSelected: boolean,
   icon: string,
+  selected: boolean,
 }
 
 export interface IFaq {
@@ -67,25 +68,24 @@ export interface IProject {
   title: string,
   date?: string,
   tierID?: ITier['id'],
-  domain:string,
+  domain: string,
+  boards: IScrumboard['id'][];
 }
 
-export interface IMilestone{
-  id: string,
-  paid: boolean,
+export interface IMilestone {
+  id?: string,
   order: number,
   label: string,
   description: string,
   icon: string,
-  icon_classes:string[],
-  state: 'progressing' | 'pausing' | 'waiting',
-  tasks?: ITask[],
-  board?: IScrumboard;
-  projectID?: IProject['id']
+  icon_classes: string,
+}
+
+export interface IBoard extends IScrumboard, IMilestone {
 }
 
 export interface ITask {
-  title:string,
+  title: string,
   description: string,
 }
 
@@ -107,4 +107,5 @@ export interface IWork {
 }
 
 
-export interface IUser extends firebase.User{}
+export interface IUser extends firebase.User {
+}

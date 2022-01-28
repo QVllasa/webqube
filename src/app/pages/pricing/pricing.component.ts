@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {columnsKeys, faqs, featureComparison, Tiers} from 'src/@webqube/static/static';
-import {RegisterComponent} from "../../../@webqube/components/dialog/register/register.component";
+import {columnsKeys, faqs, featureComparison} from 'src/@webqube/static/static';
 import {MatDialog} from "@angular/material/dialog";
-import {IndividualRequestComponent} from "../../../@webqube/components/dialog/individual-request/individual-request.component";
+import {
+  IndividualRequestComponent
+} from "../../../@webqube/components/dialog/individual-request/individual-request.component";
 import {RequestComponent} from "../../../@webqube/components/dialog/request/request.component";
 import {ITier} from "../../../@webqube/models/models";
-
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 
 @Component({
@@ -18,12 +19,15 @@ export class PricingComponent implements OnInit {
 
   columnsKeys = columnsKeys
   featureComparison = featureComparison
-  priceCards = Tiers;
+  priceCards: ITier[];
   faqs = faqs
 
   isMonthly: boolean = true;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private afs: AngularFirestore) {
+    this.afs.collection<ITier>('tiers').valueChanges().subscribe(tiers => {
+      this.priceCards = tiers;
+    })
   }
 
   ngOnInit(): void {

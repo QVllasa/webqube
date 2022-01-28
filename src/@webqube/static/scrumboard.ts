@@ -151,79 +151,79 @@ export const scrumboardLabels: ScrumboardLabel[] = [
   }
 ];
 
-export const scrumboard: IScrumboard =
-  {
-    id: '1',
-    label: 'Tech Startup Board',
-    children: [
-      {
-        id: '1',
-        label: 'Geplant',
-        children: [
-          {
-            id: '11',
-            title: 'Fix Issue #332',
-            description: 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.',
-          },
-          {
-            id: '12',
-            title: 'Create new User Profiles',
-          },
-          {
-            id: '13',
-            title: 'Add Dashboard',
-            description: '',
-          },
-          {
-            id: '14',
-            title: 'Improve User Onboarding',
-          },
-          {
-            id: '5',
-            title: 'Create new All-In-One Widget',
-            description: 'This widget has superpowers and can display all the great things you love and want in life.',
-          },
-        ]
-      },
-      {
-        id: '2',
-        label: 'In Bearbeitung',
-        children: [
-          {
-            id: '21',
-            title: 'Create Support Center',
-          },
-          {
-            id: '22',
-            title: 'Add Forgot Password functionality',
-          },
-          {
-            id: '23',
-            title: 'Make America Great Again',
-          },
-          {
-            id: '24',
-            title: 'Create new Design Prototypes',
-          }
-        ]
-      },
-      {
-        id: '3',
-        label: 'Erledigt',
-        children: [
-          {
-            id: '31',
-            title: 'Add new Material Design 2 Icons'
-          },
-          {
-            id: '32',
-            title: 'Improve Dashboard Grid',
-          },
-          {
-            id: '33',
-            title: 'Use Google Fonts',
-          }
-        ]
-      }
-    ]
-  };
+// export const scrumboard: IScrumboard =
+//   {
+//     id: '',
+//     label: '',
+//     list: [
+//       {
+//         id: '1',
+//         label: 'Geplant',
+//         children: [
+//           {
+//             id: '11',
+//             title: 'Fix Issue #332',
+//             description: 'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.',
+//           },
+//           {
+//             id: '12',
+//             title: 'Create new User Profiles',
+//           },
+//           {
+//             id: '13',
+//             title: 'Add Dashboard',
+//             description: '',
+//           },
+//           {
+//             id: '14',
+//             title: 'Improve User Onboarding',
+//           },
+//           {
+//             id: '5',
+//             title: 'Create new All-In-One Widget',
+//             description: 'This widget has superpowers and can display all the great things you love and want in life.',
+//           },
+//         ]
+//       },
+//       {
+//         id: '2',
+//         label: 'In Bearbeitung',
+//         children: [
+//           {
+//             id: '21',
+//             title: 'Create Support Center',
+//           },
+//           {
+//             id: '22',
+//             title: 'Add Forgot Password functionality',
+//           },
+//           {
+//             id: '23',
+//             title: 'Make America Great Again',
+//           },
+//           {
+//             id: '24',
+//             title: 'Create new Design Prototypes',
+//           }
+//         ]
+//       },
+//       {
+//         id: '3',
+//         label: 'Erledigt',
+//         children: [
+//           {
+//             id: '31',
+//             title: 'Add new Material Design 2 Icons'
+//           },
+//           {
+//             id: '32',
+//             title: 'Improve Dashboard Grid',
+//           },
+//           {
+//             id: '33',
+//             title: 'Use Google Fonts',
+//           }
+//         ]
+//       }
+//     ]
+//   };

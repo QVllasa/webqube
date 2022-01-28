@@ -244,38 +244,38 @@ export const featureComparison: IFeature[] = [
   },
 ]
 
-export const Tiers: ITier[] = [
-  {
-    id: '1',
-    monthlyPrice: 79,
-    fixPrice: 899,
-    features: ['Eine Landingpage mit 8 Sections', 'Suchmaschinenoptimiert', 'Analytikfunktionen', '1 Refinements', 'Webhosting'],
-    description: 'Eine starke Landingpage, die gewaltigen Eindruck hinterlässt.',
-    plan: 'Starter',
-    icon: '🛫',
-    mostSelected: false
-  },
-  {
-    id: '2',
-    monthlyPrice: 149,
-    fixPrice: 3899,
-    features: ['15 individuelle Seiten', 'Blog-Funktionen und User-Management', 'Fortgeschrittene Analysen', 'Mit Content Management', '4 Refinements', 'E-Mail Einrichtung'],
-    description: 'Bereit für Marketing Kampagnen',
-    plan: 'Professional',
-    mostSelected: true,
-    icon: '🛫',
-  },
-  {
-    id: '3',
-    monthlyPrice: 349,
-    fixPrice: 7899,
-    features: ['40 individuelle Seiten', 'Schnelle Reaktionszeiten', 'Webhosting', 'E-Mail Einrichtung und Hosting', '6 Refinements'],
-    description: 'Ein Plan der gemeinsam grenzenlos mit deinem Business wächst.',
-    plan: 'Business',
-    mostSelected: false,
-    icon: '🛫',
-  }
-]
+// export const Tiers: ITier[] = [
+//   {
+//     id: '1',
+//     monthlyPrice: 79,
+//     fixPrice: 899,
+//     features: ['Eine Landingpage mit 8 Sections', 'Suchmaschinenoptimiert', 'Analytikfunktionen', '1 Refinements', 'Webhosting'],
+//     description: 'Eine starke Landingpage, die gewaltigen Eindruck hinterlässt.',
+//     plan: 'Starter',
+//     icon: '🛫',
+//     mostSelected: false
+//   },
+//   {
+//     id: '2',
+//     monthlyPrice: 149,
+//     fixPrice: 3899,
+//     features: ['15 individuelle Seiten', 'Blog-Funktionen und User-Management', 'Fortgeschrittene Analysen', 'Mit Content Management', '4 Refinements', 'E-Mail Einrichtung'],
+//     description: 'Bereit für Marketing Kampagnen',
+//     plan: 'Professional',
+//     mostSelected: true,
+//     icon: '🛫',
+//   },
+//   {
+//     id: '3',
+//     monthlyPrice: 349,
+//     fixPrice: 7899,
+//     features: ['40 individuelle Seiten', 'Schnelle Reaktionszeiten', 'Webhosting', 'E-Mail Einrichtung und Hosting', '6 Refinements'],
+//     description: 'Ein Plan der gemeinsam grenzenlos mit deinem Business wächst.',
+//     plan: 'Business',
+//     mostSelected: false,
+//     icon: '🛫',
+//   }
+// ]
 
 export const faqs: IFaq[] = [
   {
@@ -384,42 +384,35 @@ export const projects: IWork[] = [
   },
 ]
 
-export const Milestones: IMilestone[] = [
-  {
-    id:'1',
-    paid: false,
-    order: 1,
-    label: '1. Design und Content',
-    description: 'In dieser Phase haben wir bereits genug ' +
-      'Input von dir erhalten, um uns selbständig an ' +
-      'Designvorschlägen zu machen und uns ' +
-      'deinen Content genauer anzuschauen bzw. zu überarbeiten',
-    state: 'waiting',
-    icon: 'design_services',
-    icon_classes:['bg-teal-50 text-teal-700']
-  },
-  {
-    id:'2',
-    paid: false,
-    order: 2,
-    label: '2. Entwicklung und Konfiguration',
-    description: 'In dieser Phase entwickeln ' +
-      'wir die Konzepte, setzen den Server ' +
-      'auf und lassen dich erstmals deine Webseite online sehen.',
-    state: 'waiting',
-    icon: 'code',
-    icon_classes:['bg-blue-50 text-blue-700']
-  },
-  {
-    id:'3',
-    paid: false,
-    order: 3,
-    label: '3. Überarbeitung, Abschluss und GO-Live',
-    description: 'In dieser Phase machen ' +
-      'wir den Feinschliff und gehen ' +
-      'gemeinsam mit dir Online!',
-    state: 'waiting',
-    icon: 'important_devices',
-    icon_classes:['bg-purple-50 text-purple-700']
-  },
-]
+// export const Milestones: IMilestone[] = [
+//   {
+//     id:'1',
+//     paid: false,
+//     order: 1,
+//     label: '1. Design und Content',
+//     description: 'In dieser Phase haben wir bereits genug Input von dir erhalten, um uns selbständig an Designvorschlägen zu machen und uns deinen Content genauer anzuschauen bzw. zu überarbeiten',
+//     state: 'waiting',
+//     icon: 'design_services',
+//     icon_classes: 'bg-teal-50 text-teal-700'
+//   },
+//   {
+//     id:'2',
+//     paid: false,
+//     order: 2,
+//     label: '2. Entwicklung und Konfiguration',
+//     description: 'In dieser Phase entwickeln wir die Konzepte, setzen den Server auf und lassen dich erstmals deine Webseite online sehen.',
+//     state: 'waiting',
+//     icon: 'code',
+//     icon_classes:'bg-blue-50 text-blue-700'
+//   },
+//   {
+//     id:'3',
+//     paid: false,
+//     order: 3,
+//     label: '3. Überarbeitung, Abschluss und GO-Live',
+//     description: 'In dieser Phase machen wir den Feinschliff und gehen gemeinsam mit dir Online!',
+//     state: 'waiting',
+//     icon: 'important_devices',
+//     icon_classes:'bg-purple-50 text-purple-700'
+//   },
+// ]

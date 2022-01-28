@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {IMilestone, IProject, ITier, IUser} from "../../../../@webqube/models/models";
-import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
+import {Component} from '@angular/core';
+import {IBoard, IMilestone, IProject, ITier, IUser} from "../../../../@webqube/models/models";
+import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {BehaviorSubject, Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Milestones, Tiers} from "../../../../@webqube/static/static";
-import {scrumboard} from "../../../../@webqube/static/scrumboard";
 import {IScrumboard} from "../../../../@webqube/models/scrumboard.interface";
 import {map, take, tap} from 'rxjs/operators';
+import {IScrumboardList} from "../../../../@webqube/models/scrumboard-list.interface";
+import {IScrumboardCard} from "../../../../@webqube/models/scrumboard-card.interface";
+
 
 @Component({
   selector: 'app-projects-details',
@@ -19,34 +20,35 @@ import {map, take, tap} from 'rxjs/operators';
 })
 export class ProjectsDetailsComponent {
 
-  tiers = Tiers.map(obj => ({...obj, selected: false}));
+  tiers: ITier[]; //= Tiers.map(obj => ({...obj, selected: false}));
+  milestones: IMilestone[];
+  board: IBoard;
+  boards: IBoard[];
 
-  baseMilestones = Milestones.map(obj => ({...obj, selected: false}));
-  baseBoard = scrumboard;
-
-  project: Observable<IProject | undefined>;
-  milestones: Observable<IMilestone[] | undefined>;
-  boards: Observable<IScrumboard[] | undefined>;
-  currentProject: IProject;
-  activeMilestone = new BehaviorSubject<IMilestone>(null);
-  activeBoard = new BehaviorSubject<IScrumboard>(null);
+  project: IProject;
+  activeBoard = new BehaviorSubject<IBoard>(null);
 
   user: Observable<IUser | null>;
   private projectDoc: AngularFirestoreDocument<IProject>;
-  private boardDoc: AngularFirestoreDocument<IScrumboard>;
-  private tierDoc: AngularFirestoreDocument<ITier>;
-  private milestoneDoc: AngularFirestoreDocument<IMilestone>;
+  private tiersColl: AngularFirestoreCollection<ITier>;
+  private milestoneColl: AngularFirestoreCollection<IMilestone>;
+  private boardsColl: AngularFirestoreCollection<IScrumboard>;
 
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+
+
   form = new FormGroup({
     domain: new FormControl('', [Validators.required, Validators.pattern(this.urlRegex)]),
     title: new FormControl('', [Validators.required])
   });
+
+
   isLoading: boolean = false;
   isSaving: boolean = false;
   isSavingTier: boolean = false;
   isSelecting: boolean = false;
   selected: boolean = false;
+  id:string;
 
 
   constructor(private afs: AngularFirestore,
@@ -55,22 +57,42 @@ export class ProjectsDetailsComponent {
               private http: HttpClient,
               private auth: AngularFireAuth) {
 
-    let id = this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params['id'];
 
-    this.projectDoc = this.afs.doc<IProject>('projects/' + id);
+    this.projectDoc = this.afs.doc<IProject>('projects/' + this.id);
+    this.milestoneColl = this.afs.collection<IMilestone>('milestones/');
+    this.boardsColl = this.afs.collection<IScrumboard>('boards/', ref => ref.where('projectID', '==', this.id));
+    this.tiersColl = this.afs.collection<ITier>('tiers');
 
-    this.project = this.projectDoc.valueChanges();
-    this.project.subscribe(prj => {
-      console.log("prj",prj)
-
-      this.currentProject = prj;
-      this.form.patchValue({domain: prj.domain, title: prj.title});
-      console.log("form",this.form.value);
+    this.milestoneColl.valueChanges({idField: 'id'}).subscribe(milestones => {
+      this.milestones = milestones;
     })
 
-    this.milestones = this.afs.collection<IMilestone>('milestones',
-      ref => ref.where('projectID', '==', id)).valueChanges({idField: 'id'})
+    this.boardsColl.valueChanges({idField: 'id'})
+      .pipe(
+        map((boards) => {
+          let list: IBoard[] = [];
+          boards.forEach(board => {
+            this.milestones.forEach(milestone => {
+              if (board.milestoneID === milestone.id) {
+                list.push({...board, ...milestone})
+              }
+            })
+          })
+          return list
+        }))
+      .subscribe((boards) => {
+        this.boards = boards;
+      })
 
+    this.tiersColl.valueChanges({idField: 'id'}).subscribe(tiers => {
+      this.tiers = tiers.map(obj => ({...obj, selected: false}));
+    })
+
+    this.projectDoc.valueChanges().subscribe(prj => {
+      this.project = prj;
+      this.form.patchValue({domain: prj.domain, title: prj.title});
+    })
 
     this.user = this.auth.user;
   }
@@ -84,7 +106,7 @@ export class ProjectsDetailsComponent {
           horizontalPosition: 'end',
           panelClass: ['bg-red-500', 'text-white']
         });
-      this.form.patchValue(this.currentProject)
+      this.form.patchValue(this.project)
       return false;
     }
     return true;
@@ -150,26 +172,30 @@ export class ProjectsDetailsComponent {
     return this.tiers.some(obj => obj.selected)
   }
 
-  async onUpdateProject() {
+  async initProject() {
     this.isSavingTier = true;
+    let board: IScrumboard = {
+      milestoneID: '',
+      paid: false,
+      selected: false,
+      state: 'waiting',
+      projectID: this.id,
+    };
 
-    for await (const milestone of this.baseMilestones) {
-      console.log('start')
-      milestone.projectID = this.currentProject.id;
-      await this.afs.collection<IMilestone>('milestones').add(milestone).then(value => {
-        this.baseBoard.milestoneID = value.id;
-        return this.afs.doc<IMilestone>('milestones/' + value.id).update({id: value.id});
-      });
+    let list: IScrumboardList[] = [
+      {label: 'Geplant'}, {label: 'In Bearbeitung'}, {label: 'Erledigt'}]
 
-      this.baseBoard.label = milestone.label
-      await this.afs.collection<IScrumboard>('boards').add(this.baseBoard).then(value => {
-        return this.afs.doc<IScrumboard>('boards/' + value.id).update({id: value.id});
-      });
+
+    for await (const milestone of this.milestones) {
+      board.milestoneID = milestone.id;
+      const boardId = await this.afs.collection('boards').add(board)
+      for await (const item of list) {
+        await this.boardsColl.doc<IScrumboard>(boardId.id).collection('list').add(item)
+      }
     }
 
     let selectedTier = this.tiers.filter(obj => obj.selected)[0]
-    const fsProject = await this.projectDoc.update({tierID: selectedTier.id,});
-    console.log("res", fsProject);
+    await this.projectDoc.update({tierID: selectedTier.id,});
     this.isSavingTier = false;
   }
 
@@ -180,16 +206,12 @@ export class ProjectsDetailsComponent {
     this.projectDoc.update(this.form.value)
   }
 
-  onSelectMilestone(milestone: IMilestone) {
-    // @ts-ignore
-    this.activeMilestone.next(milestone)
-    this.boards = this.afs.collection<IScrumboard>('boards',
-      ref => ref.where('milestoneID', '==', milestone.id)).valueChanges()
+  onSelectBoard(board: IBoard) {
+    this.activeBoard.next(board)
+  }
 
-    this.boards.subscribe(value => {
-      this.activeBoard.next(value[0])
-    })
-
+  isSelectedBoard(board: IBoard) {
+    return this.activeBoard.value === board
   }
 
   sortByOrder(milestones: IMilestone[]): IMilestone[] {
