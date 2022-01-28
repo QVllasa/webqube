@@ -8,11 +8,13 @@ import {ActivatedRoute} from '@angular/router';
 import {IScrumboard} from '../../../../../@webqube/models/scrumboard.interface';
 import {FormControl} from '@angular/forms';
 import {scrumboardUsers} from "../../../../../@webqube/static/scrumboard";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, of} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import * as uuid from 'uuid';
 import {IBoard} from "../../../../../@webqube/models/models";
-import {map, tap} from "rxjs/operators";
+import {map, mergeMap, tap} from "rxjs/operators";
+import firebase from "firebase/compat";
+import QuerySnapshot = firebase.firestore.QuerySnapshot;
 
 
 @Component({
@@ -38,17 +40,20 @@ export class ScrumboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.board.pipe(map((value) => {
+
+    // TODO
+    this.board.subscribe((value) => {
       if (!value) {
-        return value
+        return;
       }
-      return this.afs.doc<IScrumboard>('boards/' + value.id).collection<IScrumboardList>('list')
-        .valueChanges({idField: 'id'})
-        .pipe(map((list)=>{
-          return list
-        }))
-    })).subscribe(val => {
-      console.log("lists: ", val)
+      this.afs
+        .doc<IScrumboard>('boards/' + value.id)
+        .collection<IScrumboardList>('list')
+        .get()
+        .subscribe((snapshot) => {
+          let asd = snapshot.docs.map(doc => doc.data().label)
+          console.log("lists: ",asd)
+        })
     })
 
 
