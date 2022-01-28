@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {IUser} from "../models/models";
-
+import {AngularFireAuth} from "@angular/fire/compat/auth";
 
 
 @Injectable({
@@ -9,6 +9,12 @@ import {IUser} from "../models/models";
 })
 export class UserService {
 
+  user$ = new BehaviorSubject<IUser>(null);
 
-  constructor() { }
+  constructor(
+    private auth: AngularFireAuth,) {
+    this.auth.user.subscribe((user) => {
+      this.user$.next(user);
+    })
+  }
 }

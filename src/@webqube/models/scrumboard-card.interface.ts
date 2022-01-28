@@ -2,6 +2,7 @@ import { ScrumboardAttachment } from './scrumboard-attachment.interface';
 import { ScrumboardComment } from './scrumboard-comment.interface';
 import { ScrumboardUser } from './scrumboard-user.interface';
 import { ScrumboardLabel } from './scrumboard-label.interface';
+import {IScrumboardList} from "./scrumboard-list.interface";
 
 export interface IScrumboardCard {
   id?: string;

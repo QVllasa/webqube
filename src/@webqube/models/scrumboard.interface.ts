@@ -9,5 +9,8 @@ export interface IScrumboard {
   paid: boolean,
   selected: boolean,
   state: 'progressing' | 'pausing' | 'waiting',
-  projectID: IProject['id']
+  projectID: IProject['id'],
+}
+
+export interface IBoard extends IScrumboard, IMilestone {
 }

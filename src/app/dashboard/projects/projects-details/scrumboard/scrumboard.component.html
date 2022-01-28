@@ -1,7 +1,7 @@
-<div *ngIf="board | async as board$" class="mt-16 h-full w-full overflow-hidden" fxLayout="column">
+<div *ngIf="board" class="mt-16 h-full w-full overflow-hidden" fxLayout="column">
 
   <div class="py-8" fxFlex="none" fxLayout="row" fxLayoutAlign="start center">
-    <h1 class="text-2xl font-bold text-gray-700 m-0">{{board$.label}}</h1>
+    <h1 class="text-2xl font-bold text-gray-700 m-0">{{board.label}}</h1>
   </div>
 
   <div class="min-h-0 w-full grid grid-cols-3 overflow-scroll"
@@ -9,14 +9,14 @@
        fxLayout="row"
        fxLayoutAlign="start start"
        fxLayoutGap="24px">
-    <div *ngFor="let list of board$.list"
+    <div *ngFor="let list of board.list"
          class="rounded bg-gray-50 overflow-hidden max-h-full col-span-1 cursor-none"
          fxFlex="none"
          fxLayout="column">
       <div cdkDragHandle class="p-4 cursor-pointer flex justify-between items-center text-gray-600" fxFlex="none">
         <h2 class=" text-base font-semibold m-0 select-none" fxFlex="none">{{ list.label }}</h2>
 
-        <button (click)="addCard(list, board$ )" mat-ripple type="button"
+        <button (click)="addCard(list, board )" mat-ripple type="button"
                 class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none">
           Neu
         </button>
@@ -24,12 +24,12 @@
 
       <div class="flex-auto">
         <div (cdkDropListDropped)="drop($event)"
-             [cdkDropListConnectedTo]="getConnectedList(board$)"
+             [cdkDropListConnectedTo]="getConnectedList(board)"
              [cdkDropListData]="list.cards"
              cdkDropList
              class="px-4 pb-4"
              id="{{ list.id }}">
-          <div (click)="openCard(board$, list, card)"
+          <div (click)="openCard(board, list, card)"
                *ngFor="let card of list.cards"
                [cdkDragData]="card"
                cdkDrag

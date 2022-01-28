@@ -81,8 +81,7 @@ export interface IMilestone {
   icon_classes: string,
 }
 
-export interface IBoard extends IScrumboard, IMilestone {
-}
+
 
 export interface ITask {
   title: string,

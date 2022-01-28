@@ -5,16 +5,15 @@ import {IScrumboardCard} from '../../../../../@webqube/models/scrumboard-card.in
 import {MatDialog} from '@angular/material/dialog';
 import {ScrumboardDialogComponent} from './components/scrumboard-dialog/scrumboard-dialog.component';
 import {ActivatedRoute} from '@angular/router';
-import {IScrumboard} from '../../../../../@webqube/models/scrumboard.interface';
+import {IBoard, IScrumboard} from '../../../../../@webqube/models/scrumboard.interface';
 import {FormControl} from '@angular/forms';
-import {scrumboardUsers} from "../../../../../@webqube/static/scrumboard";
 import {BehaviorSubject, of} from "rxjs";
-import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import * as uuid from 'uuid';
-import {IBoard} from "../../../../../@webqube/models/models";
-import {map, mergeMap, tap} from "rxjs/operators";
+
 import firebase from "firebase/compat";
-import QuerySnapshot = firebase.firestore.QuerySnapshot;
+import {switchMap} from "rxjs/operators";
+import {IProject} from "../../../../../@webqube/models/models";
 
 
 @Component({
@@ -25,9 +24,15 @@ import QuerySnapshot = firebase.firestore.QuerySnapshot;
 export class ScrumboardComponent implements OnInit {
 
 
-  @Input() board: BehaviorSubject<IBoard>;
+  @Input() board$: BehaviorSubject<IBoard>;
 
-  static nextId = 100;
+  board: IBoard;
+
+
+  private listColl: AngularFirestoreCollection<IScrumboardList>;
+
+
+  id: string;
 
 
   addCardCtrl = new FormControl();
@@ -40,22 +45,26 @@ export class ScrumboardComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    // TODO
-    this.board.subscribe((value) => {
-      if (!value) {
-        return;
-      }
-      this.afs
-        .doc<IScrumboard>('boards/' + value.id)
-        .collection<IScrumboardList>('list')
-        .get()
-        .subscribe((snapshot) => {
-          let asd = snapshot.docs.map(doc => doc.data().label)
-          console.log("lists: ",asd)
+    this.id = this.route.snapshot.params['id'];
+    console.log("id", this.id)
+    this.board$
+      .pipe(
+        switchMap((board)=>{
+          if (!board){
+            return of(null);
+          }
+          this.board = board;
+          return this.afs
+            .doc<IProject>('projects/' + this.id)
+            .collection<IScrumboard>('boards')
+            .doc<IScrumboard>(this.board.id)
+            .collection<IScrumboardList>('lists')
+            .valueChanges({idField: 'id'})
         })
-    })
-
+      )
+      .subscribe((value)=>{
+        this.board = {...this.board, list: value}
+      })
 
   }
 
@@ -135,7 +144,7 @@ export class ScrumboardComponent implements OnInit {
   }
 
   update() {
-    this.afs.doc<IScrumboard>('boards/' + this.board.value.id).update(this.board.value)
+    this.afs.doc<IScrumboard>('boards/' + this.board$.value.id).update(this.board$.value)
   }
 
 }

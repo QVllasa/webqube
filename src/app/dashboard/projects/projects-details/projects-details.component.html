@@ -1,8 +1,8 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 
-<div *ngIf="project && milestones" class="bg-white shadow overflow-hidden sm:rounded-lg">
+<div *ngIf="project" class="bg-white shadow overflow-hidden sm:rounded-lg">
 
-  <form [formGroup]="form" *ngIf="(user | async) as user$" class="border-t border-gray-200 px-4 py-5 sm:p-0">
+  <form [formGroup]="form" *ngIf="user" class="border-t border-gray-200 px-4 py-5 sm:p-0">
     <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
       <div>
         <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -28,7 +28,7 @@
           Besitzer
         </dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          {{user$.displayName}}
+          {{user.displayName}}
         </dd>
       </div>
       <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
@@ -102,7 +102,7 @@
             Checked: "border-transparent", Not Checked: "border-gray-300"
             Active: "ring-2 ring-amber-500"
           -->
-          <label *ngFor="let tier of tiers"
+          <label *ngFor="let tier of projectService.tiers"
                  [ngClass]="tier.selected ? 'border-transparent ring-2 ring-amber-500':'border-gray-300'"
                  class="relative bg-white border  rounded-lg shadow-sm p-4 flex cursor-pointer focus:outline-none">
             <input [value]="tier.selected" type="radio" name="project-type" value="Newsletter" class="sr-only"
@@ -196,7 +196,7 @@
 
 
       <div>
-        <vex-scrumboard [board]="activeBoard"></vex-scrumboard>
+        <vex-scrumboard [board$]="activeBoard"></vex-scrumboard>
       </div>
     </div>
   </div>
