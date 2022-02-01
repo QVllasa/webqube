@@ -15,6 +15,7 @@ import firebase from "firebase/compat";
 import {filter, switchMap, take, tap} from "rxjs/operators";
 import {IProject} from "../../../../../@webqube/models/models";
 import {ProjectService} from "../../../../../@webqube/services/project.service";
+import {sortByOrder} from "../../../../../@webqube/helper.functions";
 
 
 @Component({
@@ -43,8 +44,10 @@ export class ScrumboardComponent implements OnInit {
     this.board$.subscribe(board => {
       this.board = board;
     })
+  }
 
-
+  sortByOrder(data: any[]){
+    return sortByOrder(data);
   }
 
   updateCard(board: IBoard, list: IScrumboardList, card: IScrumboardCard) {
@@ -74,6 +77,8 @@ export class ScrumboardComponent implements OnInit {
       this.projectService.updateCard(card).then()
     }
   }
+
+
 
   getConnectedList(board: IBoard) {
     return board.list.map(x => `${x.id}`);

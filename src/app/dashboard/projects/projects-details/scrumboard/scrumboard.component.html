@@ -9,7 +9,7 @@
        fxLayout="row"
        fxLayoutAlign="start start"
        fxLayoutGap="24px">
-    <div *ngFor="let list of board.list"
+    <div *ngFor="let list of sortByOrder(board.list)"
          class="rounded bg-gray-50 overflow-hidden max-h-full col-span-1 cursor-none"
          fxFlex="none"
          fxLayout="column">
