@@ -17,10 +17,9 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {RequestComponent} from "./components/dialog/request/request.component";
 import {AddProjectComponent} from "./components/dialog/add-project/add-project.component";
 import {MatSelectModule} from "@angular/material/select";
-
-
 import { AuthComponent } from './components/dialog/auth/auth.component';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {CustomSpinnerDirective} from "./directives/custom-spinner.directive";
 
 
 @NgModule({
@@ -41,7 +40,9 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     FooterComponent,
     IndividualRequestComponent,
     RegisterComponent,
-    RequestComponent
+    RequestComponent,
+    CustomSpinnerDirective,
+    CustomSpinnerDirective
   ],
   providers: [
     {
@@ -57,7 +58,10 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
     RegisterComponent,
     RequestComponent,
     AddProjectComponent,
-    AuthComponent
+    AuthComponent,
+    CustomSpinnerDirective,
+    CustomSpinnerDirective,
+    CustomSpinnerDirective,
   ]
 })
 export class webqubeModule {

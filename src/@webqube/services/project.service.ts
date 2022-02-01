@@ -175,4 +175,23 @@ export class ProjectService {
     return this.scrumboardCardsColl.doc(card.id).delete();
   }
 
+  getTier(){
+    return this.tiers.find(obj => obj.id === this.project$.value.tierID)
+  }
+
+  async deleteProject(){
+    await this.projectDoc.delete();
+    await this.deleteCollection(this.scrumboardColl);
+    await this.deleteCollection(this.scrumboardListColl);
+    await this.deleteCollection(this.scrumboardCardsColl)
+  }
+
+  async deleteCollection(collection:  AngularFirestoreCollection, ){
+    await collection.ref.get().then(ref => {
+      ref.forEach(doc => {
+        collection.doc(doc.id).delete();
+      })
+    })
+  }
+
 }

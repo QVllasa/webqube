@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {IMilestone, IProject, ITier, IUser} from "../../../../@webqube/models/models";
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {BehaviorSubject, Observable} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
@@ -35,12 +35,14 @@ export class ProjectsDetailsComponent {
   isLoading: boolean = false;
   isSaving: boolean = false;
   isSavingTier: boolean = false;
+  isDeleting:boolean=false;
   isSelecting: boolean = false;
   selected: boolean = false;
 
 
   constructor(private afs: AngularFirestore,
               private route: ActivatedRoute,
+              private router: Router,
               private _snackBar: MatSnackBar,
               private http: HttpClient,
               private auth: AngularFireAuth,
@@ -164,6 +166,18 @@ export class ProjectsDetailsComponent {
 
   sortByOrder(obj: IBoard[]): IBoard[] {
     return obj.sort((a, b) => (a.order < b.order ? -1 : 1))
+  }
+
+  getTier() {
+    return this.projectService.getTier();
+  }
+
+  deleteProject() {
+    this.isDeleting = true;
+    this.projectService.deleteProject().then(() => {
+      this.isDeleting = false;
+      this.router.navigate(['dashboard/projects'])
+    })
   }
 
 
