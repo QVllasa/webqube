@@ -162,8 +162,8 @@ export class ProjectsDetailsComponent {
     return this.activeBoard.value === board
   }
 
-  sortByOrder(milestones: IMilestone[]): IMilestone[] {
-    return milestones.sort((a, b) => (a.order < b.order ? -1 : 1))
+  sortByOrder(obj: IBoard[]): IBoard[] {
+    return obj.sort((a, b) => (a.order < b.order ? -1 : 1))
   }
 
 

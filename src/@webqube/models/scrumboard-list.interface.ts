@@ -6,5 +6,6 @@ export interface IScrumboardList {
   label: string;
   projectID: string,
   scrumboardID?: string,
+  order: number,
   cards?: IScrumboardCard[];
 }

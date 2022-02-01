@@ -76,9 +76,9 @@ export class ProjectService {
     };
 
     let scrumboardLists: IScrumboardList[] = [
-      {label: 'Geplant', projectID: this.id.value},
-      {label: 'In Bearbeitung', projectID: this.id.value},
-      {label: 'Erledigt', projectID: this.id.value}
+      {label: 'Geplant', projectID: this.id.value,  order: 0,},
+      {label: 'In Bearbeitung', projectID: this.id.value, order: 1},
+      {label: 'Erledigt', projectID: this.id.value, order: 2}
     ]
 
     let card: IScrumboardCard = {
