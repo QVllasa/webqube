@@ -47,7 +47,14 @@ export class ProjectsDetailsComponent {
               public projectService: ProjectService,
               public userService: UserService) {
 
+    this.route.params.subscribe((param) => {
+      this.projectService.id.next(param['id'])
+    })
+
     this.projectService.project$.subscribe((project) => {
+      if (!project) {
+        return;
+      }
       this.project = project;
       this.form.patchValue({domain: project.domain, title: project.title});
     })
@@ -136,6 +143,7 @@ export class ProjectsDetailsComponent {
 
   async initProject() {
     this.isSavingTier = true;
+    await this.projectService.initProject()
     this.isSavingTier = false;
   }
 

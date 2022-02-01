@@ -3,10 +3,12 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {IScrumboardCard} from '../../../../../../../@webqube/models/scrumboard-card.interface';
 import {FormArray, FormBuilder, FormControl} from '@angular/forms';
 import {IScrumboardList} from '../../../../../../../@webqube/models/scrumboard-list.interface';
-import {IScrumboard} from '../../../../../../../@webqube/models/scrumboard.interface';
+import {IBoard, IScrumboard} from '../../../../../../../@webqube/models/scrumboard.interface';
 import {ScrumboardAttachment} from '../../../../../../../@webqube/models/scrumboard-attachment.interface';
 import {DateTime} from 'luxon';
 import {ScrumboardComment} from '../../../../../../../@webqube/models/scrumboard-comment.interface';
+import {filter, switchMap, take, tap} from "rxjs/operators";
+import {ProjectService} from "../../../../../../../@webqube/services/project.service";
 
 
 @Component({
@@ -17,15 +19,15 @@ import {ScrumboardComment} from '../../../../../../../@webqube/models/scrumboard
 export class ScrumboardDialogComponent implements OnInit {
 
   form = this.fb.group({
-    title: null,
-    description: null,
-    link: null,
+    title: '',
+    description: '',
+    link: '',
   });
-
 
 
   list: IScrumboardList;
   board: IScrumboard;
+  card: IScrumboardCard;
   action: string;
 
   constructor(private dialogRef: MatDialogRef<ScrumboardDialogComponent>,
@@ -35,32 +37,51 @@ export class ScrumboardDialogComponent implements OnInit {
                 board: IScrumboard;
                 action: string;
               },
-              private fb: FormBuilder) { }
+              private projectService: ProjectService,
+              private fb: FormBuilder) {
+  }
 
   ngOnInit() {
     this.list = this.data.list;
     this.board = this.data.board;
-    const card = this.data.card;
-     this.action = this.data.action;
+    this.action = this.data.action;
 
 
     this.form.patchValue({
-      title: card.title,
-      description: card.description,
-      link: card.link,
+      title: this.data.card.title,
+      description: this.data.card.description,
+      link: this.data.card.link,
     });
+
+    this.form.valueChanges.subscribe(value => {
+      this.card = {
+        link: value.link,
+        description: value.description,
+        projectID: this.board.projectID,
+        scrumboardID: this.board.id,
+        scrumboardListID: this.list.id,
+        title: value.title,
+        id: this.data.card.id
+      }
+    })
 
   }
 
   save() {
-    this.dialogRef.close({data: this.form.value, action: 'add'});
+    this.dialogRef.close(this.card);
   }
 
-  onCancel(){
+  onCancel() {
     this.dialogRef.close();
   }
 
   onDeleteCard() {
-    this.dialogRef.close({data: this.form.value, action: 'remove'});
+    console.log(this.data.card)
+    this.projectService.deleteCard(this.data.card)
+      .then(() => {
+        this.dialogRef.close()
+      })
   }
+
+
 }

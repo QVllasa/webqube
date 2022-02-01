@@ -4,9 +4,9 @@ import {IScrumboardList} from "../models/scrumboard-list.interface";
 import {IScrumboardCard} from "../models/scrumboard-card.interface";
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {ActivatedRoute} from "@angular/router";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from "rxjs";
 import {IMilestone, IProject, ITier, IUser} from "../models/models";
-import {map} from "rxjs/operators";
+import {filter, map, mergeMap, switchMap, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +14,8 @@ import {map} from "rxjs/operators";
 export class ProjectService {
 
   user: Observable<IUser | null>;
-
   tiers: ITier[];
   milestones = new BehaviorSubject<IMilestone[]>(null);
-  board: IBoard;
   boards = new BehaviorSubject<IBoard[]>(null);
 
   public id = new BehaviorSubject<string>(null);
@@ -25,36 +23,51 @@ export class ProjectService {
 
   private projectDoc: AngularFirestoreDocument<IProject>;
   private tiersColl: AngularFirestoreCollection<ITier>;
-  private boardsColl: AngularFirestoreCollection<IScrumboard>;
+  private scrumboardColl: AngularFirestoreCollection<IScrumboard>;
+  private scrumboardListColl: AngularFirestoreCollection<IScrumboardList>;
+  private scrumboardCardsColl: AngularFirestoreCollection<IScrumboardCard>;
   private milestoneColl: AngularFirestoreCollection<IMilestone>;
 
-  constructor(private afs: AngularFirestore, private route: ActivatedRoute) {
-    this.route.params.subscribe((param) => {
-      this.id.next(param['id'])
-    })
+  constructor(private afs: AngularFirestore) {
+    this.id
+      .pipe(
+        filter<string>(Boolean),
+        switchMap((id) => {
+          console.log("current ID ", id)
+          this.projectDoc = this.afs.collection('projects').doc<IProject>(id);
+          this.scrumboardColl = this.afs.collection('boards', ref => ref.where('projectID', '==', id));
+          this.scrumboardListColl = this.afs.collection('lists', ref => ref.where('projectID', '==', id))
+          this.scrumboardCardsColl = this.afs.collection('cards', ref => ref.where('projectID', '==', id))
+          return this.getData();
+        })
+      )
+      .subscribe(
+        (data) => {
 
-    this.projectDoc = this.afs.doc<IProject>('projects/' + this.id);
-    this.boardsColl = this.projectDoc.collection('boards')
-    this.milestoneColl = this.afs.collection<IMilestone>('milestones/');
+          let project: IProject = this.mapProject(data);
+          console.log("project ", project);
+          this.project$.next(project)
+        },
+        (err) => {
+          console.log("err ", err)
+        },
+        () => {
+          console.log('complete')
+        },
+      )
+
+    this.milestoneColl = this.afs.collection<IMilestone>('milestones');
     this.tiersColl = this.afs.collection<ITier>('tiers');
-    this.milestoneColl.valueChanges({idField: 'id'}).subscribe(milestones => {
-      this.milestones.next(milestones)
-    })
-
-
     this.tiersColl.valueChanges({idField: 'id'}).subscribe(tiers => {
       this.tiers = tiers.map(obj => ({...obj, selected: false}));
     })
-
-    this.projectDoc.valueChanges().subscribe(prj => {
-      this.project$.next(prj);
+    this.milestoneColl.valueChanges({idField: 'id'}).subscribe(milestones => {
+      this.milestones.next(milestones)
     })
-
-    this.getBoards();
   }
 
   async initProject() {
-    let board: IScrumboard = {
+    let scrumboard: IScrumboard = {
       milestoneID: '',
       paid: false,
       selected: false,
@@ -62,25 +75,27 @@ export class ProjectService {
       projectID: this.id.value,
     };
 
-    let list: IScrumboardList[] = [
-      {label: 'Geplant'},
-      {label: 'In Bearbeitung'},
-      {label: 'Erledigt'}
+    let scrumboardLists: IScrumboardList[] = [
+      {label: 'Geplant', projectID: this.id.value},
+      {label: 'In Bearbeitung', projectID: this.id.value},
+      {label: 'Erledigt', projectID: this.id.value}
     ]
 
     let card: IScrumboardCard = {
-      title: "Erste Aufgabe"
+      title: "Erste Aufgabe",
+      projectID: this.id.value
     }
 
     for await (const milestone of this.milestones.value) {
-      board.milestoneID = milestone.id;
-      const boardId = await this.boardsColl.add(board)
-      for await (const item of list) {
-        const listID = await this.projectDoc.collection('boards').doc(boardId.id).collection('lists').add(item);
-        await this.projectDoc
-          .collection<IScrumboard>('boards').doc(boardId.id)
-          .collection<IScrumboardList>('lists').doc(listID.id)
-          .collection<IScrumboardCard>('cards').add(card)
+      scrumboard.milestoneID = milestone.id;
+      const scrumboardRef = await this.scrumboardColl.add(scrumboard)
+      for await (const list of scrumboardLists) {
+        const scrumboardListRef = await this.scrumboardListColl.add({...list, scrumboardID: scrumboardRef.id})
+        await this.scrumboardCardsColl.add({
+          ...card,
+          scrumboardID: scrumboardRef.id,
+          scrumboardListID: scrumboardListRef.id
+        })
       }
     }
 
@@ -92,24 +107,72 @@ export class ProjectService {
     return this.projectDoc.update(data)
   }
 
-  getBoards() {
-    return this.boardsColl.valueChanges({idField: 'id'})
-      .pipe(
-        map((boards) => {
-          let list: IBoard[] = [];
-          boards.forEach(board => {
-            this.milestones.value.forEach(milestone => {
-              if (board.milestoneID === milestone.id) {
-                list.push({...milestone, ...board,})
-              }
-            })
-          })
-          return list
-        }))
-      .subscribe((boards) => {
-        this.boards.next(boards);
-        console.log("boards", this.boards)
-      })
+  getData() {
+    return combineLatest([
+      this.getProject(),
+      this.getScrumboards(),
+      this.getScrumboardLists(),
+      this.getScrumboardCards()
+    ])
+  }
+
+  getProject(): Observable<IProject> {
+    return this.projectDoc.valueChanges({idField: 'id'})
+  }
+
+  mapProject(data: [IProject, IBoard[], IScrumboardList[], IScrumboardCard[]]): IProject {
+    let project: IProject = data[0];
+    let boards: IBoard[] = data[1];
+    let lists: IScrumboardList[] = data[2];
+    let cards: IScrumboardCard[] = data[3];
+
+    lists.forEach(list => {
+      list.cards = cards.filter(obj => obj.scrumboardListID === list.id)
+    })
+
+    boards.forEach(board => {
+      board.list = lists.filter(obj => obj.scrumboardID === board.id);
+    })
+
+    project.boards = boards;
+
+    return project
+  }
+
+  getScrumboards(): Observable<IBoard[]> {
+    return this.scrumboardColl.valueChanges({idField: 'id'})
+      .pipe(map((scrumboards) => {
+        let boards: IBoard[] = [];
+        scrumboards.forEach(scrumboard => {
+          let milestone = this.milestones.value.filter(obj => obj.id === scrumboard.milestoneID)[0]
+          boards.push({...milestone, ...scrumboard})
+        })
+        return boards;
+      }))
+  }
+
+
+  getScrumboardLists(): Observable<IScrumboardList[]> {
+    return this.scrumboardListColl
+      .valueChanges({idField: 'id'})
+  }
+
+  getScrumboardCards(): Observable<IScrumboardCard[]> {
+    return this.scrumboardCardsColl
+      .valueChanges({idField: 'id'})
+  }
+
+  createCard(card: IScrumboardCard) {
+    return this.scrumboardCardsColl.add(card);
+  }
+
+  updateCard(card: IScrumboardCard){
+    console.log(card);
+    return this.scrumboardCardsColl.doc(card.id).update(card);
+  }
+
+  deleteCard(card: IScrumboardCard){
+    return this.scrumboardCardsColl.doc(card.id).delete();
   }
 
 }

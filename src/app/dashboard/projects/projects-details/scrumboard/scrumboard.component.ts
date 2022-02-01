@@ -12,8 +12,9 @@ import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat
 import * as uuid from 'uuid';
 
 import firebase from "firebase/compat";
-import {switchMap} from "rxjs/operators";
+import {filter, switchMap, take, tap} from "rxjs/operators";
 import {IProject} from "../../../../../@webqube/models/models";
+import {ProjectService} from "../../../../../@webqube/services/project.service";
 
 
 @Component({
@@ -27,84 +28,41 @@ export class ScrumboardComponent implements OnInit {
   @Input() board$: BehaviorSubject<IBoard>;
 
   board: IBoard;
-
-
-  private listColl: AngularFirestoreCollection<IScrumboardList>;
-
-
   id: string;
-
-
-  addCardCtrl = new FormControl();
-  addListCtrl = new FormControl();
 
 
   constructor(private dialog: MatDialog,
               private afs: AngularFirestore,
+              private projectService: ProjectService,
               private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     console.log("id", this.id)
-    this.board$
+    this.board$.subscribe(board => {
+      this.board = board;
+    })
+
+
+  }
+
+  updateCard(board: IBoard, list: IScrumboardList, card: IScrumboardCard) {
+    console.log('card in update card: ', card)
+    this.cardDialog(card, list, board, 'update')
+      .beforeClosed()
       .pipe(
-        switchMap((board)=>{
-          if (!board){
-            return of(null);
-          }
-          this.board = board;
-          return this.afs
-            .doc<IProject>('projects/' + this.id)
-            .collection<IScrumboard>('boards')
-            .doc<IScrumboard>(this.board.id)
-            .collection<IScrumboardList>('lists')
-            .valueChanges({idField: 'id'})
+        take(1),
+        filter(value => value && (value !== card)),
+        switchMap((value) => {
+          return this.projectService.updateCard(value)
         })
       )
-      .subscribe((value)=>{
-        this.board = {...this.board, list: value}
-      })
-
+      .subscribe();
   }
 
-  openCard(board: IScrumboard, list: IScrumboardList, card: IScrumboardCard) {
-    this.addCardCtrl.setValue(null);
-
-    this.dialog.open(ScrumboardDialogComponent, {
-      data: {card, list, board},
-      width: '400px',
-      maxWidth: '100%',
-      disableClose: true
-    }).beforeClosed()
-      .subscribe((value: { data: IScrumboardCard, action: string }) => {
-        console.log(value)
-        if (!value) {
-          return;
-        }
-        switch (value.action) {
-          case 'add': {
-            const index = list.cards.findIndex(child => child.id === card.id);
-            if (index > -1) {
-              list.cards[index] = value.data;
-            }
-            this.update();
-            break;
-          }
-          case 'remove': {
-            const index = list.cards.findIndex(child => child.id === card.id);
-            if (index > -1) {
-              list.cards.splice(index, 1);
-            }
-            this.update();
-            break;
-          }
-        }
-      });
-  }
 
   drop(event: CdkDragDrop<IScrumboardCard[]>) {
-    console.log(event)
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -112,39 +70,45 @@ export class ScrumboardComponent implements OnInit {
         event.container.data,
         event.previousIndex,
         event.currentIndex);
-      this.update();
+      let card: IScrumboardCard = {...event.item.data, scrumboardListID: event.container.id}
+      this.projectService.updateCard(card).then()
     }
   }
 
-  getConnectedList(board: IScrumboard) {
+  getConnectedList(board: IBoard) {
     return board.list.map(x => `${x.id}`);
   }
 
-  addCard(list: IScrumboardList, board: IScrumboard) {
-    let card: IScrumboardCard = {id: uuid.v4(), title: 'Neue Aufgabe', description: ''}
-    let action = 'add';
-    this.dialog.open(ScrumboardDialogComponent, {
+  createCard(list: IScrumboardList, board: IBoard) {
+    let card: IScrumboardCard = {
+      title: '',
+      description: '',
+      projectID: board.projectID,
+      scrumboardID: board.id,
+      scrumboardListID: list.id,
+      link: '',
+      id: ''
+    }
+
+    this.cardDialog(card, list, board, 'create').afterClosed()
+      .pipe(
+        take(1),
+        filter(value => value && (value !== card)),
+        switchMap((value: IScrumboardCard) => {
+          return of(this.projectService.createCard(value))
+        })
+      )
+      .subscribe();
+  }
+
+  cardDialog(card: IScrumboardCard, list: IScrumboardList, board: IBoard, action: 'create' | 'update' | 'delete') {
+    return this.dialog.open(ScrumboardDialogComponent, {
       data: {card, list, board, action},
       width: '400px',
       maxWidth: '100%',
       disableClose: true
-    }).afterClosed()
-      .subscribe(value => {
-        if (!value) {
-          return;
-        }
-        if (value === card) {
-          console.log("no changes", value);
-        } else {
-          list.cards.push(value);
-          this.update();
-        }
-
-      });
+    })
   }
 
-  update() {
-    this.afs.doc<IScrumboard>('boards/' + this.board$.value.id).update(this.board$.value)
-  }
 
 }

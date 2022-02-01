@@ -1,5 +1,5 @@
 import firebase from "firebase/compat";
-import {IScrumboard} from "./scrumboard.interface";
+import {IBoard, IScrumboard} from "./scrumboard.interface";
 
 export interface IFeature {
   name: string,
@@ -69,7 +69,7 @@ export interface IProject {
   date?: string,
   tierID?: ITier['id'],
   domain: string,
-  boards: IScrumboard['id'][];
+  boards?: IBoard[];
 }
 
 export interface IMilestone {
