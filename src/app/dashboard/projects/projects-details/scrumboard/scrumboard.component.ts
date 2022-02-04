@@ -16,6 +16,8 @@ import {filter, switchMap, take, tap} from "rxjs/operators";
 import {IProject} from "../../../../../@webqube/models/models";
 import {ProjectService} from "../../../../../@webqube/services/project.service";
 import {sortByOrder} from "../../../../../@webqube/helper.functions";
+import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
+import {PayMilstoneComponent} from "../../../../../@webqube/components/dialog/pay-milstone/pay-milstone.component";
 
 
 @Component({
@@ -24,6 +26,7 @@ import {sortByOrder} from "../../../../../@webqube/helper.functions";
   styleUrls: ['./scrumboard.component.scss']
 })
 export class ScrumboardComponent implements OnInit {
+
 
 
   @Input() board$: BehaviorSubject<IBoard>;
@@ -39,6 +42,7 @@ export class ScrumboardComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.id = this.route.snapshot.params['id'];
     console.log("id", this.id)
     this.board$.subscribe(board => {
@@ -46,7 +50,7 @@ export class ScrumboardComponent implements OnInit {
     })
   }
 
-  sortByOrder(data: any[]){
+  sortByOrder(data: any[]) {
     return sortByOrder(data);
   }
 
@@ -77,7 +81,6 @@ export class ScrumboardComponent implements OnInit {
       this.projectService.updateCard(card).then()
     }
   }
-
 
 
   getConnectedList(board: IBoard) {
@@ -116,4 +119,14 @@ export class ScrumboardComponent implements OnInit {
   }
 
 
+
+
+  payMilestone() {
+    this.dialog.open(PayMilstoneComponent,{
+      data:{},
+      width:'auto',
+      maxWidth:'100%',
+      disableClose:false
+    })
+  }
 }

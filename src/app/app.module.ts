@@ -57,6 +57,7 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDividerModule} from "@angular/material/divider";
+import {NgxPayPalModule} from "ngx-paypal";
 
 
 function mode(){
@@ -125,6 +126,7 @@ export function playerFactory() {
     DragDropModule,
     MatSelectModule,
     MatDividerModule,
+    NgxPayPalModule,
   ],
   providers: [...mode(), {provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}],
   bootstrap: [AppComponent]

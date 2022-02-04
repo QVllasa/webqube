@@ -20,6 +20,8 @@ import {MatSelectModule} from "@angular/material/select";
 import { AuthComponent } from './components/dialog/auth/auth.component';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {CustomSpinnerDirective} from "./directives/custom-spinner.directive";
+import { PayMilstoneComponent } from './components/dialog/pay-milstone/pay-milstone.component';
+import {NgxPayPalModule} from "ngx-paypal";
 
 
 @NgModule({
@@ -34,7 +36,8 @@ import {CustomSpinnerDirective} from "./directives/custom-spinner.directive";
     MatSelectModule,
     MatOptionModule,
     FormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgxPayPalModule
   ],
   exports: [
     FooterComponent,
@@ -62,6 +65,7 @@ import {CustomSpinnerDirective} from "./directives/custom-spinner.directive";
     CustomSpinnerDirective,
     CustomSpinnerDirective,
     CustomSpinnerDirective,
+    PayMilstoneComponent,
   ]
 })
 export class webqubeModule {
