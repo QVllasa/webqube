@@ -1,11 +1,8 @@
-import {Component, Inject, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {IMilestone, ITier} from "../../../models/models";
+import {IMilestone} from "../../../models/models";
 import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
-import {BehaviorSubject} from "rxjs";
-import {IBoard, IScrumboard} from "../../../models/scrumboard.interface";
-import {IScrumboardList} from "../../../models/scrumboard-list.interface";
-import {AngularFirestoreCollection} from "@angular/fire/compat/firestore";
+import {IBoard} from "../../../models/scrumboard.interface";
 import {ProjectService} from "../../../services/project.service";
 
 @Component({
@@ -30,8 +27,6 @@ export class PayMilstoneComponent implements OnInit {
     this.projectService.milestones.subscribe(milestones => {
       this.milestones = milestones;
     });
-
-
   }
 
   ngOnInit(): void {
@@ -98,13 +93,5 @@ export class PayMilstoneComponent implements OnInit {
       }
     };
   }
-
-  // getTargetTime(months: number) {
-  //   const date = new Date()
-  //   date.setMonth(date.getMonth() + months)
-  //
-  //   return date.getTime()
-  // }
-
 
 }
