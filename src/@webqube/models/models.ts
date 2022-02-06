@@ -24,7 +24,7 @@ export interface ITier {
   fixPrice: number,
   features: string[],
   description: string,
-  plan: string,
+  label: string,
   mostSelected: boolean,
   icon: string,
   selected: boolean,

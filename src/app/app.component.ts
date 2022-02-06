@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {AngularFireFunctions} from "@angular/fire/compat/functions";
-import {RegisterComponent} from "../@webqube/components/dialog/register/register.component";
+import {RegisterComponent} from "../@webqube/components/dialogs/register/register.component";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({

@@ -175,7 +175,7 @@ export class ProjectService {
     return this.scrumboardCardsColl.doc(card.id).delete();
   }
 
-  getTier(){
+  getTier(): ITier{
     return this.tiers.find(obj => obj.id === this.project$.value.tierID)
   }
 

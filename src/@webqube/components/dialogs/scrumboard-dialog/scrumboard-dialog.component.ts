@@ -1,14 +1,14 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {IScrumboardCard} from '../../../../../../../@webqube/models/scrumboard-card.interface';
+import {IScrumboardCard} from '../../../models/scrumboard-card.interface';
 import {FormArray, FormBuilder, FormControl} from '@angular/forms';
-import {IScrumboardList} from '../../../../../../../@webqube/models/scrumboard-list.interface';
-import {IBoard, IScrumboard} from '../../../../../../../@webqube/models/scrumboard.interface';
-import {ScrumboardAttachment} from '../../../../../../../@webqube/models/scrumboard-attachment.interface';
+import {IScrumboardList} from '../../../models/scrumboard-list.interface';
+import {IBoard, IScrumboard} from '../../../models/scrumboard.interface';
+import {ScrumboardAttachment} from '../../../models/scrumboard-attachment.interface';
 import {DateTime} from 'luxon';
-import {ScrumboardComment} from '../../../../../../../@webqube/models/scrumboard-comment.interface';
+import {ScrumboardComment} from '../../../models/scrumboard-comment.interface';
 import {filter, switchMap, take, tap} from "rxjs/operators";
-import {ProjectService} from "../../../../../../../@webqube/services/project.service";
+import {ProjectService} from "../../../services/project.service";
 
 
 @Component({

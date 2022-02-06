@@ -3,7 +3,7 @@ import {IScrumboardList} from '../../../../../@webqube/models/scrumboard-list.in
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {IScrumboardCard} from '../../../../../@webqube/models/scrumboard-card.interface';
 import {MatDialog} from '@angular/material/dialog';
-import {ScrumboardDialogComponent} from './components/scrumboard-dialog/scrumboard-dialog.component';
+import {ScrumboardDialogComponent} from '../../../../../@webqube/components/dialogs/scrumboard-dialog/scrumboard-dialog.component';
 import {ActivatedRoute} from '@angular/router';
 import {IBoard, IScrumboard} from '../../../../../@webqube/models/scrumboard.interface';
 import {FormControl} from '@angular/forms';
@@ -17,7 +17,7 @@ import {IProject} from "../../../../../@webqube/models/models";
 import {ProjectService} from "../../../../../@webqube/services/project.service";
 import {sortByOrder} from "../../../../../@webqube/helper.functions";
 import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
-import {PayMilstoneComponent} from "../../../../../@webqube/components/dialog/pay-milstone/pay-milstone.component";
+import {PayMilstoneComponent} from "../../../../../@webqube/components/dialogs/pay-milstone/pay-milstone.component";
 
 
 @Component({

@@ -19,7 +19,7 @@ import { ProductsComponent } from './pages/products/products.component';
 import { OurWorkComponent } from './pages/our-work/our-work.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import {NgParticlesModule} from "ng-particles";
-import { RegisterComponent } from '../@webqube/components/dialog/register/register.component';
+import { RegisterComponent } from '../@webqube/components/dialogs/register/register.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {webqubeModule} from "../@webqube/webqube.module";
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -50,7 +50,7 @@ import { ProjectsDetailsComponent } from './dashboard/projects/projects-details/
 import {HttpClientModule} from "@angular/common/http";
 import {
   ScrumboardDialogComponent
-} from "./dashboard/projects/projects-details/scrumboard/components/scrumboard-dialog/scrumboard-dialog.component";
+} from "../@webqube/components/dialogs/scrumboard-dialog/scrumboard-dialog.component";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {ScrumboardComponent} from "./dashboard/projects/projects-details/scrumboard/scrumboard.component";
 import {MatTooltipModule} from "@angular/material/tooltip";

@@ -134,7 +134,7 @@ export class ProjectsDetailsComponent {
       });
   }
 
-  onSelectTier(tier: { features: string[]; mostSelected: boolean; icon: string; description: string; id: string; monthlyPrice: number; fixPrice: number; plan: string; selected: boolean }) {
+  onSelectTier(tier: ITier) {
     this.projectService.tiers.find(obj => obj === tier).selected = !tier.selected;
     this.projectService.tiers.filter(obj => obj !== tier).map(obj => obj.selected = false);
   }
@@ -168,7 +168,7 @@ export class ProjectsDetailsComponent {
     return obj.sort((a, b) => (a.order < b.order ? -1 : 1))
   }
 
-  getTier() {
+  getTier(): ITier {
     return this.projectService.getTier();
   }
 

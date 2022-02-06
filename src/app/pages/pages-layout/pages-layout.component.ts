@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {RegisterComponent} from "../../../@webqube/components/dialog/register/register.component";
+import {RegisterComponent} from "../../../@webqube/components/dialogs/register/register.component";
 import {AngularFireFunctions} from "@angular/fire/compat/functions";
 import {MatDialog} from "@angular/material/dialog";
-import {AuthComponent} from "../../../@webqube/components/dialog/auth/auth.component";
+import {AuthComponent} from "../../../@webqube/components/dialogs/auth/auth.component";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 
 @Component({

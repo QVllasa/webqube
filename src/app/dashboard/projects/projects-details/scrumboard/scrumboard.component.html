@@ -1,22 +1,26 @@
 <div *ngIf="board" class="mt-16 h-full w-full overflow-hidden" fxLayout="column">
 
-  <div class="py-8 flex justify-between items-center" >
+  <div class="py-8 flex justify-between items-center">
     <h2 class="text-2xl font-bold text-gray-700 m-0">{{board.label}}</h2>
-    <button mat-ripple (click)="payMilestone()" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none ">
-    <mat-icon class="material-icons-round mr-3">flag</mat-icon>
+    <button mat-ripple (click)="payMilestone()" type="button"
+            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none ">
+      <mat-icon class="material-icons-round mr-3">flag</mat-icon>
       Freigabe erteilen
     </button>
   </div>
 
-  <div class="min-h-0 w-full grid grid-cols-3 overflow-scroll"
+  <div class="min-h-0 w-full grid grid-cols-3 overflow-scroll relative"
        fxFlex="auto"
        fxLayout="row"
        fxLayoutAlign="start start"
        fxLayoutGap="24px">
-    <div *ngFor="let list of sortByOrder(board.list)"
-         class="rounded bg-gray-50 overflow-hidden max-h-full col-span-1 cursor-none"
+
+    <!--    Columns -->
+    <div *ngFor="let list of sortByOrder(board.list); let i=index"
+         class="relative h-full rounded bg-gray-50 overflow-hidden max-h-full col-span-1 "
          fxFlex="none"
          fxLayout="column">
+
       <div cdkDragHandle class="p-4 cursor-pointer flex justify-between items-center text-gray-600" fxFlex="none">
         <h2 class=" text-base font-semibold m-0 select-none" fxFlex="none">{{ list.label }}</h2>
 
@@ -52,8 +56,11 @@
           </div>
         </div>
       </div>
+      <div *ngIf="i !== 0 && !board.paid"
+           class="absolute w-full h-full bg-gray-300 top-0 left-0 bottom-0 right-0 opacity-50"></div>
 
     </div>
+
 
   </div>
 </div>

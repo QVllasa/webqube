@@ -4,7 +4,7 @@
 
   <form [formGroup]="form" *ngIf="user" class="border-t border-gray-200 px-4 py-5 sm:p-0">
     <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
-      <div>
+      <div class="w-64">
         <h3 class="text-lg leading-6 font-medium text-gray-900">
           <input type="text"
                  formControlName="title"
@@ -14,16 +14,14 @@
                  placeholder="Aufgabentitel">
         </h3>
       </div>
-      <div>
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800">
-                  {{project?.tierID ? getTier().plan : 'Kein Plan ausgewählt'}}
+      <div class="w-64 flex justify-center">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-base font-medium bg-gray-100 text-gray-800">
+          {{project?.tierID ? getTier().label+' Plan' : 'Kein Plan ausgewählt'}}
         </span>
       </div>
-      <button mat-ripple (click)="deleteProject()" >
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800">
-          Löschen
-        </span>
-      </button>
+      <div class=" w-64 flex justify-end">
+        <button   mat-icon-button [matMenuTriggerFor]="menu"><mat-icon class="material-icons-round">more_vert</mat-icon></button>
+      </div>
 
 
     </div>
@@ -57,6 +55,14 @@
             </div>
 
           </div>
+        </dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+         Hosting
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+
         </dd>
       </div>
       <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -117,7 +123,7 @@
             <div class="flex-1 flex">
               <div class="flex flex-col relative h-32">
                 <span id="project-type-0-label" class="block text-left text-sm font-semibold text-gray-800">
-                  {{tier.plan}}
+                  {{tier.label}}
                 </span>
                 <span id="project-type-0-description-0" class="mt-1 text-left flex items-center text-sm text-gray-500">
                   {{tier.description}}
@@ -208,10 +214,15 @@
 </div>
 
 <div *ngIf="isDeleting" class="bg-white shadow overflow-hidden sm:rounded-lg h-96 flex justify-center items-center">
-  <mat-spinner diameter="50" color="#f59e0b" customSpinner ></mat-spinner>
+  <mat-spinner diameter="50" color="#f59e0b" customSpinner></mat-spinner>
 </div>
 
 
-
+<mat-menu xPosition="before" #menu="matMenu">
+  <button (click)="deleteProject()" mat-menu-item>
+    <mat-icon class="material-icons-round">delete</mat-icon>
+    Projekt löschen
+  </button>
+</mat-menu>
 
 

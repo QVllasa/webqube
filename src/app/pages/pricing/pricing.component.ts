@@ -3,8 +3,8 @@ import {columnsKeys, faqs, featureComparison} from 'src/@webqube/static/static';
 import {MatDialog} from "@angular/material/dialog";
 import {
   IndividualRequestComponent
-} from "../../../@webqube/components/dialog/individual-request/individual-request.component";
-import {RequestComponent} from "../../../@webqube/components/dialog/request/request.component";
+} from "../../../@webqube/components/dialogs/individual-request/individual-request.component";
+import {RequestComponent} from "../../../@webqube/components/dialogs/request/request.component";
 import {ITier} from "../../../@webqube/models/models";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 
