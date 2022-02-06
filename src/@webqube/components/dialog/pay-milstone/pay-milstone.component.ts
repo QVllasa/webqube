@@ -1,7 +1,12 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {ITier} from "../../../models/models";
+import {IMilestone, ITier} from "../../../models/models";
 import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
+import {BehaviorSubject} from "rxjs";
+import {IBoard, IScrumboard} from "../../../models/scrumboard.interface";
+import {IScrumboardList} from "../../../models/scrumboard-list.interface";
+import {AngularFirestoreCollection} from "@angular/fire/compat/firestore";
+import {ProjectService} from "../../../services/project.service";
 
 @Component({
   selector: 'app-pay-milstone',
@@ -11,9 +16,22 @@ import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
 export class PayMilstoneComponent implements OnInit {
 
   public payPalConfig ?: IPayPalConfig;
+  board: IBoard;
+  milestones: IMilestone[];
+
+
 
   constructor(public dialogRef: MatDialogRef<PayMilstoneComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,) {
+              private projectService: ProjectService,
+              @Inject(MAT_DIALOG_DATA) public data: IBoard,) {
+
+    this.board = data;
+    console.log(this.board)
+    this.projectService.milestones.subscribe(milestones => {
+      this.milestones = milestones;
+    });
+
+
   }
 
   ngOnInit(): void {
@@ -53,7 +71,7 @@ export class PayMilstoneComponent implements OnInit {
       },
       style: {
         label: 'paypal',
-        layout: 'vertical'
+        layout: 'vertical',
       },
       onApprove: (data, actions) => {
         console.log('onApprove - transaction was approved, but not authorized', data, actions);
@@ -81,13 +99,12 @@ export class PayMilstoneComponent implements OnInit {
     };
   }
 
-  getTargetTime(months: number){
-    const date = new Date()
-    date.setMonth(date.getMonth() + months)
-
-    return date.getTime()
-  }
-
+  // getTargetTime(months: number) {
+  //   const date = new Date()
+  //   date.setMonth(date.getMonth() + months)
+  //
+  //   return date.getTime()
+  // }
 
 
 }

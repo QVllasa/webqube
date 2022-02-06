@@ -28,7 +28,6 @@ import {PayMilstoneComponent} from "../../../../../@webqube/components/dialog/pa
 export class ScrumboardComponent implements OnInit {
 
 
-
   @Input() board$: BehaviorSubject<IBoard>;
 
   board: IBoard;
@@ -119,14 +118,12 @@ export class ScrumboardComponent implements OnInit {
   }
 
 
-
-
   payMilestone() {
-    this.dialog.open(PayMilstoneComponent,{
-      data:{},
-      width:'auto',
-      maxWidth:'100%',
-      disableClose:false
+    this.dialog.open(PayMilstoneComponent, {
+      data: this.board,
+      width: 'auto',
+      maxWidth: '100%',
+      disableClose: false
     })
   }
 }

@@ -22,23 +22,25 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {CustomSpinnerDirective} from "./directives/custom-spinner.directive";
 import { PayMilstoneComponent } from './components/dialog/pay-milstone/pay-milstone.component';
 import {NgxPayPalModule} from "ngx-paypal";
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    ReactiveFormsModule,
-    MatProgressSpinnerModule,
-    MatRippleModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatOptionModule,
-    FormsModule,
-    MatSnackBarModule,
-    NgxPayPalModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        ReactiveFormsModule,
+        MatProgressSpinnerModule,
+        MatRippleModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatOptionModule,
+        FormsModule,
+        MatSnackBarModule,
+        NgxPayPalModule,
+        MatIconModule
+    ],
   exports: [
     FooterComponent,
     IndividualRequestComponent,
