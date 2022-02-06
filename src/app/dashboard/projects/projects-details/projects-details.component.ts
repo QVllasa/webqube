@@ -13,6 +13,8 @@ import {IScrumboardList} from "../../../../@webqube/models/scrumboard-list.inter
 import {IScrumboardCard} from "../../../../@webqube/models/scrumboard-card.interface";
 import {ProjectService} from "../../../../@webqube/services/project.service";
 import {UserService} from "../../../../@webqube/services/user.service";
+import {MatDialog} from "@angular/material/dialog";
+import {DeleteProjectComponent} from "../../../../@webqube/components/dialogs/delete-project/delete-project.component";
 
 
 @Component({
@@ -35,7 +37,7 @@ export class ProjectsDetailsComponent {
   isLoading: boolean = false;
   isSaving: boolean = false;
   isSavingTier: boolean = false;
-  isDeleting:boolean=false;
+  isDeleting: boolean = false;
   isSelecting: boolean = false;
   selected: boolean = false;
 
@@ -43,6 +45,7 @@ export class ProjectsDetailsComponent {
   constructor(private afs: AngularFirestore,
               private route: ActivatedRoute,
               private router: Router,
+              private dialog: MatDialog,
               private _snackBar: MatSnackBar,
               private http: HttpClient,
               private auth: AngularFireAuth,
@@ -173,9 +176,7 @@ export class ProjectsDetailsComponent {
   }
 
   deleteProject() {
-    this.isDeleting = true;
-    this.projectService.deleteProject().then(() => {
-      this.isDeleting = false;
+    this.dialog.open(DeleteProjectComponent, {disableClose: true}).afterClosed().subscribe(() => {
       this.router.navigate(['dashboard/projects'])
     })
   }
