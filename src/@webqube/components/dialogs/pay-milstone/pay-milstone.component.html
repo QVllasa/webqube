@@ -1,20 +1,14 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
-<!-- This example requires Tailwind CSS v2.0+ -->
-
-<div class="-ml-4 -mt-4 mb-8 flex justify-center items-center flex-wrap sm:flex-nowrap">
+<div class="p-4 -ml-4 -mt-4 mb-8 flex justify-center items-center flex-wrap sm:flex-nowrap">
   <div class="ml-4 mt-4 text-center">
     <h3 class="text-2xl leading-6 font-semibold text-gray-900">Meilenstein freigeben</h3>
-    <p class="mt-1 text-sm text-gray-500">Ab hier beginnen wir mit der eigentlichen Umsetzung. <br>
-      Die geplanten Aufgaben verschieben wir nach und nach in die Spalte "In Bearbeitung" und anschließend in
-      "Erledigt".</p>
   </div>
 </div>
-<div class="grid  grid-cols-2 divide-x">
-  <div class="flow-root flex-1  p-8 pl-0">
+<div class="p-4 grid grid-cols-2 divide-x">
+  <div class="flow-root flex-1 p-8 pl-0">
     <ul role="list" class="-mb-8">
-      <li class="h-24" *ngFor="let milestone of milestones; let i = index">
+      <li class="h-24" *ngFor="let milestone of milestones$.value; let i = index">
         <div class="relative ">
-          <span *ngIf="milestones.length-1 !== i" class="absolute top-14 left-4 -ml-px h-full w-0.5 bg-gray-200"
+          <span *ngIf="milestones$.value.length-1 !== i" class="absolute top-14 left-4 -ml-px h-full w-0.5 bg-gray-200"
                 aria-hidden="true"></span>
           <div class="relative flex space-x-3">
             <div class="flex items-center">
@@ -28,10 +22,13 @@
               </span>
             </div>
             <div
-              [ngClass]="milestone.id === board.milestoneID ?  'text-gray-900' : 'text-gray-400'"
+              [ngClass]="milestone.id === board.milestoneID ?  'text-gray-900 font-bold text-lg ' : 'text-gray-400 font-medium text-base'"
               class="min-w-0 flex-1 flex justify-between space-x-4  px-2 py-4 ">
               <div>
-                <p class="text-base font-semibold ">{{milestone.label}}</p>
+                <p>{{milestone.label}}</p>
+              </div>
+              <div>
+                <p>{{this.tier.fixPrice / 3 + '€'}}</p>
               </div>
             </div>
           </div>
@@ -44,5 +41,9 @@
       <ngx-paypal [config]="payPalConfig"></ngx-paypal>
     </div>
   </div>
-
+</div>
+<div class="flex justify-center items-center my-3">
+  <p class="mt-5 text-sm text-gray-500 text-center">Ab hier beginnen wir mit der eigentlichen Umsetzung. <br>
+    Die geplanten Aufgaben verschieben wir nach und nach  in die Spalte "In Bearbeitung" und anschließend in
+    "Erledigt".</p>
 </div>

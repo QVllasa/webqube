@@ -57,12 +57,12 @@
           </div>
         </dd>
       </div>
-      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
+        <dt class="text-sm font-medium text-gray-500 ">
          Hosting
         </dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-
+          <button mat-ripple type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none ">Server hinzufügen</button>
         </dd>
       </div>
       <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -113,7 +113,7 @@
             Checked: "border-transparent", Not Checked: "border-gray-300"
             Active: "ring-2 ring-amber-500"
           -->
-          <label *ngFor="let tier of projectService.tiers"
+          <label *ngFor="let tier of projectService.tiers.value"
                  [ngClass]="tier.selected ? 'border-transparent ring-2 ring-amber-500':'border-gray-300'"
                  class="relative bg-white border  rounded-lg shadow-sm p-4 flex cursor-pointer focus:outline-none">
             <input [value]="tier.selected" type="radio" name="project-type" value="Newsletter" class="sr-only"

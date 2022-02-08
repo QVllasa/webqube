@@ -14,12 +14,12 @@ import {filter, map, mergeMap, switchMap, tap} from "rxjs/operators";
 export class ProjectService {
 
   user: Observable<IUser | null>;
-  tiers: ITier[];
+  tiers = new BehaviorSubject<ITier[]>(null);
   milestones = new BehaviorSubject<IMilestone[]>(null);
   boards = new BehaviorSubject<IBoard[]>(null);
 
   public id = new BehaviorSubject<string>(null);
-  public project$ = new BehaviorSubject<IProject>(null);
+  public project = new BehaviorSubject<IProject>(null);
 
   private projectDoc: AngularFirestoreDocument<IProject>;
   private tiersColl: AngularFirestoreCollection<ITier>;
@@ -46,7 +46,7 @@ export class ProjectService {
 
           let project: IProject = this.mapProject(data);
           console.log("project ", project);
-          this.project$.next(project)
+          this.project.next(project)
         },
         (err) => {
           console.log("err ", err)
@@ -59,7 +59,7 @@ export class ProjectService {
     this.milestoneColl = this.afs.collection<IMilestone>('milestones');
     this.tiersColl = this.afs.collection<ITier>('tiers');
     this.tiersColl.valueChanges({idField: 'id'}).subscribe(tiers => {
-      this.tiers = tiers.map(obj => ({...obj, selected: false}));
+      this.tiers.next(tiers.map(obj => ({...obj, selected: false})));
     })
     this.milestoneColl.valueChanges({idField: 'id'}).subscribe(milestones => {
       this.milestones.next(milestones)
@@ -76,7 +76,7 @@ export class ProjectService {
     };
 
     let scrumboardLists: IScrumboardList[] = [
-      {label: 'Geplant', projectID: this.id.value,  order: 0,},
+      {label: 'Geplant', projectID: this.id.value, order: 0,},
       {label: 'In Bearbeitung', projectID: this.id.value, order: 1},
       {label: 'Erledigt', projectID: this.id.value, order: 2}
     ]
@@ -99,7 +99,7 @@ export class ProjectService {
       }
     }
 
-    let selectedTier = this.tiers.filter(obj => obj.selected)[0]
+    let selectedTier = this.tiers.value.filter(obj => obj.selected)[0]
     await this.projectDoc.update({tierID: selectedTier.id,});
   }
 
@@ -166,27 +166,27 @@ export class ProjectService {
     return this.scrumboardCardsColl.add(card);
   }
 
-  updateCard(card: IScrumboardCard){
+  updateCard(card: IScrumboardCard) {
     console.log(card);
     return this.scrumboardCardsColl.doc(card.id).update(card);
   }
 
-  deleteCard(card: IScrumboardCard){
+  deleteCard(card: IScrumboardCard) {
     return this.scrumboardCardsColl.doc(card.id).delete();
   }
 
-  getTier(): ITier{
-    return this.tiers.find(obj => obj.id === this.project$.value.tierID)
+  getTier(): ITier {
+    return this.tiers.value.find(obj => obj.id === this.project.value.tierID)
   }
 
-  async deleteProject(){
+  async deleteProject() {
     await this.projectDoc.delete();
     await this.deleteCollection(this.scrumboardColl);
     await this.deleteCollection(this.scrumboardListColl);
     await this.deleteCollection(this.scrumboardCardsColl)
   }
 
-  async deleteCollection(collection:  AngularFirestoreCollection, ){
+  async deleteCollection(collection: AngularFirestoreCollection,) {
     await collection.ref.get().then(ref => {
       ref.forEach(doc => {
         collection.doc(doc.id).delete();

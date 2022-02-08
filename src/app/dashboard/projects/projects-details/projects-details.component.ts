@@ -56,12 +56,12 @@ export class ProjectsDetailsComponent {
       this.projectService.id.next(param['id'])
     })
 
-    this.projectService.project$.subscribe((project) => {
+    this.projectService.project.subscribe((project) => {
       if (!project) {
         return;
       }
       this.project = project;
-      this.form.patchValue({domain: project.domain, title: project.title});
+      this.form.patchValue({domain: project.domain ? project.domain : '', title: project.title});
     })
 
     this.userService.user$.subscribe((user) => {
@@ -138,12 +138,12 @@ export class ProjectsDetailsComponent {
   }
 
   onSelectTier(tier: ITier) {
-    this.projectService.tiers.find(obj => obj === tier).selected = !tier.selected;
-    this.projectService.tiers.filter(obj => obj !== tier).map(obj => obj.selected = false);
+    this.projectService.tiers.value.find(obj => obj === tier).selected = !tier.selected;
+    this.projectService.tiers.value.filter(obj => obj !== tier).map(obj => obj.selected = false);
   }
 
   isSelected() {
-    return this.projectService.tiers.some(obj => obj.selected)
+    return this.projectService.tiers.value.some(obj => obj.selected)
   }
 
   async initProject() {
@@ -156,6 +156,7 @@ export class ProjectsDetailsComponent {
     if (!this.isValid('Titel darf nicht leer sein!', 'title')) {
       return;
     }
+
     this.projectService.updateProject(this.form.value)
   }
 
@@ -176,10 +177,10 @@ export class ProjectsDetailsComponent {
   }
 
   deleteProject() {
-    this.dialog.open(DeleteProjectComponent, {disableClose: true}).afterClosed().subscribe(() => {
-      this.router.navigate(['dashboard/projects'])
+    this.dialog.open(DeleteProjectComponent, {disableClose: true}).afterClosed().subscribe((val) => {
+      if (val === 'success') {
+        this.router.navigate(['dashboard/projects'])
+      }
     })
   }
-
-
 }

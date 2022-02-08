@@ -57,6 +57,7 @@
         </div>
       </div>
       <div *ngIf="i !== 0 && !board.paid"
+           [matTooltip]="'Der Meilenstein '+board.label +' muss erst freigeschaltet werden.'"
            class="absolute w-full h-full bg-gray-300 top-0 left-0 bottom-0 right-0 opacity-50"></div>
 
     </div>

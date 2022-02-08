@@ -24,10 +24,16 @@ export class DeleteProjectComponent implements OnInit {
 
   deleteProject() {
     this.isLoading = true;
-    this.projectService.deleteProject().then(() => {
+    try {
+      this.projectService.deleteProject().then(() => {
+        this.isLoading = false;
+        this.dialogRef.close('success');
+      })
+    }catch (e){
       this.isLoading = false;
-      this.dialogRef.close();
-    })
+      console.log(e)
+    }
+
   }
 
 }

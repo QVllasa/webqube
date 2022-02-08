@@ -34,6 +34,8 @@ export class ScrumboardComponent implements OnInit {
   id: string;
 
 
+
+
   constructor(private dialog: MatDialog,
               private afs: AngularFirestore,
               private projectService: ProjectService,
@@ -49,7 +51,7 @@ export class ScrumboardComponent implements OnInit {
     })
   }
 
-  sortByOrder(data: any[]) {
+  sortByOrder(data: any[]): IScrumboardList[] {
     return sortByOrder(data);
   }
 

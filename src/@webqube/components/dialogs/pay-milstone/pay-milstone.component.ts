@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {IMilestone} from "../../../models/models";
+import {IMilestone, ITier} from "../../../models/models";
 import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
 import {IBoard} from "../../../models/scrumboard.interface";
 import {ProjectService} from "../../../services/project.service";
@@ -14,19 +14,17 @@ export class PayMilstoneComponent implements OnInit {
 
   public payPalConfig ?: IPayPalConfig;
   board: IBoard;
-  milestones: IMilestone[];
-
+  milestones$ = this.projectService.milestones;
+  tier: ITier;
+  project$ = this.projectService.project;
+  tiers$ = this.projectService.tiers;
 
 
   constructor(public dialogRef: MatDialogRef<PayMilstoneComponent>,
               private projectService: ProjectService,
               @Inject(MAT_DIALOG_DATA) public data: IBoard,) {
-
     this.board = data;
-    console.log(this.board)
-    this.projectService.milestones.subscribe(milestones => {
-      this.milestones = milestones;
-    });
+    this.tier = this.tiers$.value.find(obj => obj.id === this.project$.value.tierID)
   }
 
   ngOnInit(): void {
@@ -73,16 +71,12 @@ export class PayMilstoneComponent implements OnInit {
         actions.order.get().then(() => {
           console.log('onApprove - you can get full order details inside onApprove: ');
         });
-
       },
       onClientAuthorization: (data) => {
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-
       },
       onCancel: (data, actions) => {
         console.log('OnCancel', data, actions);
-
-
       },
       onError: err => {
         console.log('OnError', err);
