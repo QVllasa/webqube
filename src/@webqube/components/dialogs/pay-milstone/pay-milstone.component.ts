@@ -4,6 +4,7 @@ import {IMilestone, ITier} from "../../../models/models";
 import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
 import {IBoard} from "../../../models/scrumboard.interface";
 import {ProjectService} from "../../../services/project.service";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-pay-milstone',
@@ -34,7 +35,7 @@ export class PayMilstoneComponent implements OnInit {
   private initConfig(): void {
     this.payPalConfig = {
       currency: 'EUR',
-      clientId: 'sb',
+      clientId: environment.paypal.clientID,
       createOrderOnClient: (data) => <ICreateOrderRequest>{
         intent: 'CAPTURE',
         purchase_units: [{
