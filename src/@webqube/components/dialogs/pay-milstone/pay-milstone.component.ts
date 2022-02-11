@@ -5,6 +5,7 @@ import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
 import {IBoard} from "../../../models/scrumboard.interface";
 import {ProjectService} from "../../../services/project.service";
 import {environment} from "../../../../environments/environment";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 @Component({
   selector: 'app-pay-milstone',
@@ -17,18 +18,25 @@ export class PayMilstoneComponent implements OnInit {
   board: IBoard;
   milestones$ = this.projectService.milestones;
   tier: ITier;
+  value: string ;
   project$ = this.projectService.project;
   tiers$ = this.projectService.tiers;
+
+  onError:boolean;
+  onSuccess: boolean = false;
 
 
   constructor(public dialogRef: MatDialogRef<PayMilstoneComponent>,
               private projectService: ProjectService,
+              private afs: AngularFirestore,
               @Inject(MAT_DIALOG_DATA) public data: IBoard,) {
-    this.board = data;
-    this.tier = this.tiers$.value.find(obj => obj.id === this.project$.value.tierID)
+
   }
 
   ngOnInit(): void {
+    this.board = this.data;
+    this.tier = this.tiers$.value.find(obj => obj.id === this.project$.value.tierID)
+    this.value = (this.tier.fixPrice/3).toString();
     this.initConfig();
   }
 
@@ -41,21 +49,21 @@ export class PayMilstoneComponent implements OnInit {
         purchase_units: [{
           amount: {
             currency_code: 'EUR',
-            value: '9.99',
+            value:this.value,
             breakdown: {
               item_total: {
                 currency_code: 'EUR',
-                value: '9.99'
+                value: this.value
               }
             }
           },
           items: [{
-            name: 'Enterprise Subscription',
+            name: 'x '+this.tier.label+' | '+this.board.label,
             quantity: '1',
             category: 'DIGITAL_GOODS',
             unit_amount: {
               currency_code: 'EUR',
-              value: '9.99',
+              value: this.value,
             },
           }]
         }]
@@ -68,9 +76,10 @@ export class PayMilstoneComponent implements OnInit {
         layout: 'vertical',
       },
       onApprove: (data, actions) => {
-        console.log('onApprove - transaction was approved, but not authorized', data, actions);
-        actions.order.get().then(() => {
-          console.log('onApprove - you can get full order details inside onApprove: ');
+        actions.order.get().then((res: any) => {
+          return this.afs.collection('orders').add(res).then(()=>{
+            this.onSuccess = true;
+          })
         });
       },
       onClientAuthorization: (data) => {
@@ -81,7 +90,6 @@ export class PayMilstoneComponent implements OnInit {
       },
       onError: err => {
         console.log('OnError', err);
-
       },
       onClick: (data, actions) => {
         console.log('onClick', data, actions);
