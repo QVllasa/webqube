@@ -17,8 +17,8 @@
               <span class="text-xl">💁</span>
             </div>
             <input formControlName="name" type="text" name="name" id="name"
-                   [ngClass]="f.name.invalid &&  f.name.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-yellow-500 focus:border-yellow-500 border-gray-300'"
-                   class="focus:ring-yellow-500 focus:border-yellow-500 block w-full pl-3 sm:text-sm border-gray-300 rounded-md"
+                   [ngClass]="f.name.invalid &&  f.name.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-amber-500 focus:border-amber-500 border-gray-300'"
+                   class="focus:ring-amber-500 focus:border-amber-500 block w-full pl-3 sm:text-sm border-gray-300 rounded-md"
                    placeholder="Dein Vor- und Nachname">
           </div>
           <p *ngIf="f.name.invalid &&  f.name.touched" class="mt-1 text-xs text-red-600" id="name-error">Bitte gib
@@ -34,7 +34,7 @@
               <span class="text-xl">️✉️</span>
             </div>
             <input formControlName="email" type="text" name="email" id="email"
-                   [ngClass]="f.email.invalid &&  f.email.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-yellow-500 focus:border-yellow-500 border-gray-300'"
+                   [ngClass]="f.email.invalid &&  f.email.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-amber-500 focus:border-amber-500 border-gray-300'"
                    class="block w-full pl-3 sm:text-sm  rounded-md" placeholder="Deine E-Mail">
           </div>
           <p *ngIf="f.email.invalid &&  f.email.touched" class="mt-1 text-xs text-red-600" id="email-error">Keine
@@ -50,7 +50,7 @@
             </div>
             <input formControlName="business" type="text" name="business" id="business"
                    [disabled]="!isLoading"
-                   class="focus:ring-yellow-500 focus:border-yellow-500 block w-full pl-3 sm:text-sm border-gray-300 rounded-md"
+                   class="focus:ring-amber-500 focus:border-amber-500 block w-full pl-3 sm:text-sm border-gray-300 rounded-md"
                    placeholder="Dein Business oder Projekt">
           </div>
         </div>
@@ -62,8 +62,8 @@
               <span class="text-xl">💬</span>
             </div>
             <textarea formControlName="message" type="text" name="message" id="message"
-                   [ngClass]="f.message.invalid &&  f.message.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-yellow-500 focus:border-yellow-500 border-gray-300'"
-                   class="focus:ring-yellow-500 focus:border-yellow-500 block w-full pl-3 sm:text-sm border-gray-300 rounded-md"
+                   [ngClass]="f.message.invalid &&  f.message.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-amber-500 focus:border-amber-500 border-gray-300'"
+                   class="focus:ring-amber-500 focus:border-amber-500 block w-full pl-3 sm:text-sm border-gray-300 rounded-md"
                       placeholder="Deine Anfrage"></textarea>
           </div>
           <p *ngIf="f.message.invalid &&  f.message.touched" class="mt-1 text-xs text-red-600" id="message-error">Bitte gib
@@ -76,13 +76,13 @@
 
             <button mat-ripple type="submit"
                     [disabled]="isLoading"
-                    class="disabled:bg-yellow-700 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                    class="disabled:bg-amber-700 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-600 hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
               <ng-template [ngIf]="!isLoading">Anfragen</ng-template>
               <mat-spinner [diameter]="20" *ngIf="isLoading"></mat-spinner>
             </button>
           </div>
           <div class="text-sm w-full text-center">
-            <a matDialogClose routerLink="/privacy" class="font-medium text-yellow-600 hover:text-yellow-500">
+            <a matDialogClose routerLink="/privacy" class="font-medium text-amber-600 hover:text-amber-500">
               Datenschutz
             </a>
           </div>
@@ -118,7 +118,7 @@
       <button type="button"
               mat-ripple
               matDialogClose
-              class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-yellow-600 text-base font-medium text-white hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 sm:text-sm">
+              class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-amber-600 text-base font-medium text-white hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 sm:text-sm">
         Schließen
       </button>
     </div>

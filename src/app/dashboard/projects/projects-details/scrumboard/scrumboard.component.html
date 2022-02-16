@@ -2,7 +2,7 @@
 
   <div class="py-8 flex justify-between items-center">
     <h2 class="text-2xl font-bold text-gray-700 m-0">{{board.label}}</h2>
-    <button mat-ripple (click)="payMilestone()" type="button"
+    <button *ngIf="!board.paid" mat-ripple (click)="payMilestone()" type="button"
             class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none ">
       <mat-icon class="material-icons-round mr-3">flag</mat-icon>
       Freigabe erteilen

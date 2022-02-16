@@ -11,7 +11,8 @@ export class AppLayoutComponent implements OnInit {
 
   navigationItems = [
     {path: 'projects', label: 'Projekte', badge: ''},
-    {path: 'test', label: 'test', badge: ''},
+    {path: 'faq', label: 'Hilfe', badge: ''},
+    {path: 'pricing', label: 'Preise', badge: ''},
   ]
 
   user:any ;
