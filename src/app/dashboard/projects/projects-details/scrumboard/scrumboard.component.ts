@@ -1,22 +1,18 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {IScrumboardList} from '../../../../../@webqube/models/scrumboard-list.interface';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {IScrumboardCard} from '../../../../../@webqube/models/scrumboard-card.interface';
 import {MatDialog} from '@angular/material/dialog';
-import {ScrumboardDialogComponent} from '../../../../../@webqube/components/dialogs/scrumboard-dialog/scrumboard-dialog.component';
+import {
+  ScrumboardDialogComponent
+} from '../../../../../@webqube/components/dialogs/scrumboard-dialog/scrumboard-dialog.component';
 import {ActivatedRoute} from '@angular/router';
-import {IBoard, IScrumboard} from '../../../../../@webqube/models/scrumboard.interface';
-import {FormControl} from '@angular/forms';
-import {BehaviorSubject, of} from "rxjs";
-import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
-import * as uuid from 'uuid';
-
-import firebase from "firebase/compat";
-import {filter, switchMap, take, tap} from "rxjs/operators";
-import {IProject} from "../../../../../@webqube/models/models";
+import {IBoard} from '../../../../../@webqube/models/scrumboard.interface';
+import {of} from "rxjs";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {filter, map, mergeMap, switchMap, take} from "rxjs/operators";
 import {ProjectService} from "../../../../../@webqube/services/project.service";
 import {sortByOrder} from "../../../../../@webqube/helper.functions";
-import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
 import {PayMilstoneComponent} from "../../../../../@webqube/components/dialogs/pay-milstone/pay-milstone.component";
 
 
@@ -39,12 +35,13 @@ export class ScrumboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.id = this.route.snapshot.params['projectID'];
-    this.boardID = this.route.snapshot.params['boardID'];
-    console.log("boardid", this.boardID)
-    // this.projectService.activeBoard.subscribe(board => {
-    //   this.board = board;
-    // })
+    this.route.params.pipe(
+      mergeMap((params) => {
+        return this.projectService.project.pipe(map(project => {
+          this.board = project.boards.find(obj => obj.id === params['boardID'])
+        }))
+      })
+    ).subscribe();
   }
 
   sortByOrder(data: any[]): IScrumboardList[] {

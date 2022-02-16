@@ -16,7 +16,7 @@ export class ProjectService {
   user: Observable<IUser | null>;
   tiers = new BehaviorSubject<ITier[]>(null);
   milestones = new BehaviorSubject<IMilestone[]>(null);
-  boards = new BehaviorSubject<IBoard[]>(null);
+  // boards = new BehaviorSubject<IBoard[]>(null);
 
   public id = new BehaviorSubject<string>(null);
   public project = new BehaviorSubject<IProject>(null);

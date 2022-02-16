@@ -26,6 +26,7 @@ export class ProjectsDetailsComponent {
 
   user: IUser;
   project: IProject;
+  boardID: string;
 
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   form = new FormGroup({
@@ -53,6 +54,8 @@ export class ProjectsDetailsComponent {
 
     this.route.params.subscribe((param) => {
       this.projectService.id.next(param['projectID'])
+      this.boardID = param['boardID'];
+      console.log("is route param",this.boardID)
     })
 
     this.projectService.project.subscribe((project) => {
@@ -66,14 +69,6 @@ export class ProjectsDetailsComponent {
     this.userService.user$.subscribe((user) => {
       this.user = user;
     })
-
-    //todo use board.id as route param
-
-    // this.projectService.activeBoard.subscribe(board => {
-    //   this.activeBoard = board;
-    // })
-
-
   }
 
   isValid(message: string, control: string): boolean {
@@ -165,12 +160,13 @@ export class ProjectsDetailsComponent {
   }
 
   onSelectBoard(board: IBoard) {
-    this.router.navigate(['',board.id], {relativeTo: this.route})
+    this.router.navigate(['', board.id], {relativeTo: this.route})
   }
 
-  isSelectedBoard(board: IBoard) {
-    return true // return this.projectService.activeBoard.value === board
-  }
+  // isSelectedBoard(board: IBoard) {
+  //   console.log("is selected ",board.id)
+  //   return this.boardID === board.id;
+  // }
 
   sortByOrder(obj: IBoard[]): IBoard[] {
     return obj.sort((a, b) => (a.order < b.order ? -1 : 1))

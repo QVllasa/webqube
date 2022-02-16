@@ -16,11 +16,13 @@
       </div>
       <div class="w-64 flex justify-center">
         <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-base font-medium bg-gray-100 text-gray-800">
-          {{project?.tierID ? getTier().label+' Plan' : 'Kein Plan ausgewählt'}}
+          {{project?.tierID ? getTier().label + ' Plan' : 'Kein Plan ausgewählt'}}
         </span>
       </div>
       <div class=" w-64 flex justify-end">
-        <button   mat-icon-button [matMenuTriggerFor]="menu"><mat-icon class="material-icons-round">more_vert</mat-icon></button>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon class="material-icons-round">more_vert</mat-icon>
+        </button>
       </div>
 
 
@@ -59,11 +61,14 @@
       </div>
       <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">
         <dt class="text-sm font-medium text-gray-500 ">
-         Hosting
+          Hosting
         </dt>
-<!--        TODO add dialog with S, M & L Option for Hosting -->
+        <!--        TODO add dialog with S, M & L Option for Hosting -->
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          <button mat-ripple type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none ">Server hinzufügen</button>
+          <button mat-ripple type="button"
+                  class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none ">
+            Server hinzufügen
+          </button>
         </dd>
       </div>
       <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -71,7 +76,7 @@
           Aktueller Stand
         </dt>
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-<!--          TODO set latest paid milestone/board -->
+          <!--          TODO set latest paid milestone/board -->
           Nicht begonnen
         </dd>
       </div>
@@ -177,10 +182,11 @@
 
       <div class="mt-8">
         <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
-          <div  *ngFor="let board of sortByOrder(project.boards)"
+          <div *ngFor="let board of sortByOrder(project.boards)"
                [routerLink]="[board.id]"
-               [ngClass]="isSelectedBoard(board)? 'border-amber-500 ': 'border-gray-300'"
-               class="border border-2  hover:border-amber-500  rounded-lg  relative group bg-white p-6">
+               #rla="routerLinkActive"
+               [routerLinkActive]="['border-amber-500']"
+               class="border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-6">
             <div>
               <span [ngClass]="board.icon_classes" class="rounded-lg inline-flex p-3  ring-4 ring-white">
                 <mat-icon class="material-icons-round">
@@ -199,7 +205,7 @@
                 {{board.description}}
               </p>
             </div>
-            <span *ngIf="isSelectedBoard(board)" class="pointer-events-none absolute top-6 right-6 text-amber-500"
+            <span *ngIf="rla.isActive" class="pointer-events-none absolute top-6 right-6 text-amber-500"
                   aria-hidden="true">
               <mat-icon class="material-icons-round">check_circle_outlined</mat-icon>
             </span>
@@ -207,8 +213,6 @@
         </div>
         <div *ngIf="isSelecting">is selecting...</div>
       </div>
-
-
       <div>
         <router-outlet></router-outlet>
       </div>
