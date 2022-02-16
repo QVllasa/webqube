@@ -27,13 +27,9 @@ import {PayMilstoneComponent} from "../../../../../@webqube/components/dialogs/p
 })
 export class ScrumboardComponent implements OnInit {
 
-
-  @Input() board$: BehaviorSubject<IBoard>;
-
-  board: IBoard;
+  board: IBoard = null;
+  boardID: string;
   id: string;
-
-
 
 
   constructor(private dialog: MatDialog,
@@ -43,12 +39,12 @@ export class ScrumboardComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.id = this.route.snapshot.params['id'];
-    console.log("id", this.id)
-    this.board$.subscribe(board => {
-      this.board = board;
-    })
+    this.id = this.route.snapshot.params['projectID'];
+    this.boardID = this.route.snapshot.params['boardID'];
+    console.log("boardid", this.boardID)
+    // this.projectService.activeBoard.subscribe(board => {
+    //   this.board = board;
+    // })
   }
 
   sortByOrder(data: any[]): IScrumboardList[] {

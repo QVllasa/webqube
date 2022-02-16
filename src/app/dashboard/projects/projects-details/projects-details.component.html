@@ -177,7 +177,8 @@
 
       <div class="mt-8">
         <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
-          <div (click)="onSelectBoard(board)" *ngFor="let board of sortByOrder(project.boards)"
+          <div  *ngFor="let board of sortByOrder(project.boards)"
+               [routerLink]="[board.id]"
                [ngClass]="isSelectedBoard(board)? 'border-amber-500 ': 'border-gray-300'"
                class="border border-2  hover:border-amber-500  rounded-lg  relative group bg-white p-6">
             <div>
@@ -209,7 +210,7 @@
 
 
       <div>
-        <vex-scrumboard [board$]="activeBoard"></vex-scrumboard>
+        <router-outlet></router-outlet>
       </div>
     </div>
   </div>

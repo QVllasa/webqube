@@ -26,7 +26,6 @@ export class ProjectsDetailsComponent {
 
   user: IUser;
   project: IProject;
-  activeBoard = new BehaviorSubject<IBoard>(null);
 
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   form = new FormGroup({
@@ -53,7 +52,7 @@ export class ProjectsDetailsComponent {
               public userService: UserService) {
 
     this.route.params.subscribe((param) => {
-      this.projectService.id.next(param['id'])
+      this.projectService.id.next(param['projectID'])
     })
 
     this.projectService.project.subscribe((project) => {
@@ -67,6 +66,12 @@ export class ProjectsDetailsComponent {
     this.userService.user$.subscribe((user) => {
       this.user = user;
     })
+
+    //todo use board.id as route param
+
+    // this.projectService.activeBoard.subscribe(board => {
+    //   this.activeBoard = board;
+    // })
 
 
   }
@@ -156,16 +161,15 @@ export class ProjectsDetailsComponent {
     if (!this.isValid('Titel darf nicht leer sein!', 'title')) {
       return;
     }
-
     this.projectService.updateProject(this.form.value)
   }
 
   onSelectBoard(board: IBoard) {
-    this.activeBoard.next(board)
+    this.router.navigate(['',board.id], {relativeTo: this.route})
   }
 
   isSelectedBoard(board: IBoard) {
-    return this.activeBoard.value === board
+    return true // return this.projectService.activeBoard.value === board
   }
 
   sortByOrder(obj: IBoard[]): IBoard[] {

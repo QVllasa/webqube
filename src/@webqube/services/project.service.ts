@@ -20,6 +20,7 @@ export class ProjectService {
 
   public id = new BehaviorSubject<string>(null);
   public project = new BehaviorSubject<IProject>(null);
+  // public activeBoard = new BehaviorSubject<IBoard>(null);
 
   private projectDoc: AngularFirestoreDocument<IProject>;
   private tiersColl: AngularFirestoreCollection<ITier>;
@@ -27,6 +28,7 @@ export class ProjectService {
   private scrumboardListColl: AngularFirestoreCollection<IScrumboardList>;
   private scrumboardCardsColl: AngularFirestoreCollection<IScrumboardCard>;
   private milestoneColl: AngularFirestoreCollection<IMilestone>;
+
 
   constructor(private afs: AngularFirestore) {
     this.id
@@ -105,6 +107,10 @@ export class ProjectService {
 
   updateProject(data: any) {
     return this.projectDoc.update(data)
+  }
+
+  activateBoard(id:string, paid: boolean){
+    return this.scrumboardColl.doc(id).update({paid: paid})
   }
 
   getData() {

@@ -78,7 +78,9 @@ export class PayMilstoneComponent implements OnInit {
       onApprove: (data, actions) => {
         actions.order.get().then((res: any) => {
           return this.afs.collection('orders').add(res).then(()=>{
-            this.onSuccess = true;
+            return this.projectService.activateBoard(this.board.id, true).then(()=>{
+              this.onSuccess = true;
+            })
           })
         });
       },
@@ -95,6 +97,7 @@ export class PayMilstoneComponent implements OnInit {
         console.log('onClick', data, actions);
       }
     };
+
   }
 
 }

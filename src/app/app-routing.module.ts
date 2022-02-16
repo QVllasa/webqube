@@ -16,6 +16,7 @@ import {AccountComponent} from "./dashboard/account/account.component";
 import {AngularFireAuthGuard} from "@angular/fire/compat/auth-guard";
 import {redirectUnauthorizedTo} from "@angular/fire/auth-guard";
 import {ProjectsDetailsComponent} from "./dashboard/projects/projects-details/projects-details.component";
+import {ScrumboardComponent} from "./dashboard/projects/projects-details/scrumboard/scrumboard.component";
 
 const redirectUnauthorizedToHome = () => redirectUnauthorizedTo(['/']);
 
@@ -40,12 +41,18 @@ const routes: Routes = [
     path: 'dashboard',
     component: AppLayoutComponent,
     canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToHome },
+    data: {authGuardPipe: redirectUnauthorizedToHome},
     children: [
-      {path: '', redirectTo: 'projects', pathMatch:'full'},
+      {path: '', redirectTo: 'projects', pathMatch: 'full'},
       {path: 'projects', component: ProjectsComponent, data: {title: 'Meine Projekte'}},
-      {path: 'project/:id', component: ProjectsDetailsComponent, data: {title: 'Meine Projekte'}},
-      {path:'account', component: AccountComponent,  data: {title:'Mein Account'}}
+      {
+        path: 'project/:projectID', component: ProjectsDetailsComponent,
+        data: {title: 'Meine Projekte'},
+        children: [
+          {path: ':boardID', component: ScrumboardComponent}
+        ]
+      },
+      {path: 'account', component: AccountComponent, data: {title: 'Mein Account'}}
     ]
   },
 
@@ -55,7 +62,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     // preloadingStrategy: PreloadAllModules,
-    scrollPositionRestoration: 'enabled',
+    scrollPositionRestoration: 'disabled',
     relativeLinkResolution: 'corrected',
     anchorScrolling: 'enabled'
   })],
