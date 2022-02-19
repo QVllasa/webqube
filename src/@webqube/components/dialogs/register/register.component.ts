@@ -9,6 +9,9 @@ import {AngularFireAuth} from "@angular/fire/compat/auth";
 import firebase from "firebase/compat";
 import FirebaseError = firebase.FirebaseError;
 import {Router} from "@angular/router";
+import {MailService} from "../../../services/mail.service";
+import {UserService} from "../../../services/user.service";
+import {first, take} from "rxjs/operators";
 
 
 @Component({
@@ -35,6 +38,9 @@ export class RegisterComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<RegisterComponent>,
     public auth: AngularFireAuth,
+    private fns: AngularFireFunctions,
+    private mailService: MailService,
+    private userService: UserService,
     private router: Router,
     private afs: AngularFirestore) {
   }
@@ -75,10 +81,15 @@ export class RegisterComponent implements OnInit {
       .then(() => {
         return this.auth.currentUser
       })
-      .then(user => {
-        return user.sendEmailVerification()
+      .then((user) => {
+        console.log("before getemailverificationlink")
+        return this.userService.getEmailVerificationLink(user).pipe(first()).toPromise()
+      })
+      .then((email) => {
+        return this.mailService.notifyNewUser(email)
       })
       .then((res) => {
+        console.log("next getemailverificationlink")
         this.router.navigate(['/dashboard'])
       })
       .catch((err: FirebaseError) => {

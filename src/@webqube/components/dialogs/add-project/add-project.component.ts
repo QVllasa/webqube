@@ -64,7 +64,8 @@ export class AddProjectComponent implements OnInit {
     this.projectCollection.add(this.projectObj).then((res) => {
       return res.id
     }).then(()=>{
-      return this.mailService.onCreateAccount(this.user, this.projectObj)
+      //todo notify on create project
+      return
     })
       .then((emailres)=>{
         console.log("email response", emailres)
