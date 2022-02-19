@@ -41,6 +41,7 @@
     "animate.css": "^4.1.1",
     "dompurify": "2.2.9",
     "firebase": "^9.1.0",
+    "gmail-send": "^1.8.14",
     "lottie-web": "^5.7.14",
     "luxon": "^2.3.0",
     "ng-particles": "^2.18.4",

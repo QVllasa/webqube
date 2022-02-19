@@ -12,7 +12,7 @@ import {AngularFireAuth} from "@angular/fire/compat/auth";
 })
 export class PagesLayoutComponent implements OnInit {
 
-  constructor(private fns: AngularFireFunctions,public dialog: MatDialog, public auth: AngularFireAuth) { }
+  constructor(public dialog: MatDialog, public auth: AngularFireAuth) { }
 
   ngOnInit(): void {
   }

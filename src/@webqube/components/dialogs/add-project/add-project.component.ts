@@ -6,6 +6,7 @@ import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat
 import {IProject, ITier} from "../../../models/models";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import firebase from "firebase/compat";
+import {MailService} from "../../../services/mail.service";
 
 
 @Component({
@@ -33,10 +34,10 @@ export class AddProjectComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddProjectComponent>,
-    private fns: AngularFireFunctions,
     @Inject(MAT_DIALOG_DATA) public data: ITier,
     private auth: AngularFireAuth,
-    private afs: AngularFirestore) {
+    private afs: AngularFirestore,
+    private mailService: MailService) {
   }
 
   ngOnInit(): void {
@@ -63,9 +64,10 @@ export class AddProjectComponent implements OnInit {
     this.projectCollection.add(this.projectObj).then((res) => {
       return res.id
     }).then(()=>{
-      return this.fns.httpsCallable('sendEmail')
+      return this.mailService.onCreateAccount(this.user, this.projectObj)
     })
-      .then(()=>{
+      .then((emailres)=>{
+        console.log("email response", emailres)
         this.isLoading = false;
         this.dialogRef.close()
       })
