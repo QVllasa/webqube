@@ -21,7 +21,7 @@
             Erhöhe deine Reichweite und die Verbundenheit zu deinen Nutzern mit einer Webseite, die deine Nutzer
             lieben, ohne dass du dich darum kümmern musst.
           </p>
-          <div class="animate__animated animate__fadeInUp animate__delay-2s mt-10 sm:mt-12">
+          <div class="animate__animated animate__fadeInUp animate__delay-1s mt-10 sm:mt-12">
             <div class=" grid grid-cols-1 sm:grid-cols-2 gap-4  mt-3 sm:mt-0">
 
               <button *ngIf="auth.user | async as user$; else register" mat-ripple
@@ -31,13 +31,13 @@
               </button>
               <ng-template #register>
                 <button mat-ripple type="button" (click)="openDialog()"
-                        class="block w-full py-3 px-4 rounded-md shadow bg-amber-600 text-white font-medium hover:bg-amber-700 focus:outline-none ">
+                        class="flex items-center justify-center bg-amber-600 hover:bg-amber-700 px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white ">
                   Konstenlos Anmelden
                 </button>
               </ng-template>
 
               <button mat-ripple type="button" routerLink="/pricing"
-                      class="block w-full py-3 px-4 rounded-md shadow bg-gray-500 text-white font-medium hover:bg-gray-600 focus:outline-none ">
+                      class="flex items-center justify-center bg-gray-600 hover:bg-gray-700 px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white">
                 Preise
               </button>
             </div>
@@ -204,10 +204,10 @@
 
 <div class="bg-gradient-to-r from-amber-800 to-amber-700">
   <div class="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:pt-24 lg:px-8">
-    <h2 class="text-3xl font-extrabold text-white tracking-tight">
+    <h2 class="mt-2 text-3xl font-extrabold text-white tracking-tight sm:text-4xl text-center">
       Wie wir arbeiten
     </h2>
-    <p class="mt-4 max-w-3xl text-lg text-amber-50">
+    <p class="mx-auto mt-4  max-w-3xl text-lg text-amber-50 text-center">
       Webqube ist ein umfassender Service, der alle Kernbestandteile einer erfolgreichen Webseite für dich abwickelt.
     </p>
     <div class="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16">
@@ -337,11 +337,9 @@
       <h2 class="text-base font-semibold text-amber-50 tracking-wide uppercase">Agile Arbeitsweise</h2>
       <p class="mt-1 text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-6xl">Du hast die volle
         Kontrolle.</p>
-      <p class="max-w-xl mt-5 mx-auto text-xl text-amber-50">Nach Anmeldung erhältst du Zugang zu unserem Ticketsystem,
-        wo du neue Wünsche und Änderungen eintragen kannst.</p>
+      <p class="max-w-xl mt-5 mx-auto text-xl text-amber-50">Nach Anmeldung erhältst du Zugang zu deinem persönlichen Dashboard,
+        wo du neue Wünsche und Änderungen für alle deine Projekte eintragen kannst.</p>
     </div>
-
-
   </div>
 </div>
 
