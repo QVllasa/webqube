@@ -10,6 +10,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class AccountComponent implements OnInit {
   user: IUser | null;
+  authenticatedUser: IUser;
   isLoading: boolean = false;
   isSuccess: boolean = false;
 
@@ -22,6 +23,7 @@ export class AccountComponent implements OnInit {
 
   constructor(private auth: AngularFireAuth) {
     this.auth.user.subscribe(user => {
+      this.authenticatedUser = user;
       this.userForm.patchValue({
         displayName: user?.displayName,
         // phoneNumber: user?.phoneNumber,
@@ -85,4 +87,7 @@ export class AccountComponent implements OnInit {
     }
   }
 
+  resendEmailVerification() {
+
+  }
 }
