@@ -4,7 +4,7 @@ import {AngularFireFunctions} from "@angular/fire/compat/functions";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {doc, getDoc} from "firebase/firestore";
-import {IClient} from "../../../models/models";
+import {IClient, IUser} from "../../../models/models";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import firebase from "firebase/compat";
 import FirebaseError = firebase.FirebaseError;
@@ -25,6 +25,9 @@ export class RegisterComponent implements OnInit {
   emailExists: boolean;
   isLoading: boolean = false;
   isSuccess: boolean = false;
+
+  user: IUser;
+  emailVerificationLink: string;
 
   registerForm = new FormGroup({
     name: new FormControl({value: '', disabled: this.isLoading}, [Validators.required]),
@@ -82,10 +85,15 @@ export class RegisterComponent implements OnInit {
         return this.auth.currentUser
       })
       .then((user) => {
+        this.user = user;
         return this.userService.getEmailVerificationLink(user.email);
       })
       .then((link) => {
-        return this.mailService.notifyNewUser(link)
+        this.emailVerificationLink = link;
+        return this.mailService.notifyNewUser(this.user)
+      })
+      .then(()=>{
+        return this.mailService.onCreateAccount(this.user,this.emailVerificationLink)
       })
       .then((res) => {
         this.isLoading = false
