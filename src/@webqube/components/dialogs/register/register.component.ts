@@ -50,6 +50,8 @@ export class RegisterComponent implements OnInit {
     this.registerForm.valueChanges.subscribe((data) => {
       this.clientObj = data
     })
+
+
   }
 
   onNoClick(): void {
@@ -71,8 +73,6 @@ export class RegisterComponent implements OnInit {
     this.auth.createUserWithEmailAndPassword(this.clientObj.email, this.clientObj.password)
       .then((res) => {
         console.log(res);
-        this.isLoading = false
-        this.isSuccess = true;
         return res.user?.updateProfile({displayName: this.clientObj.name});
       })
       .then(() => {
@@ -82,14 +82,14 @@ export class RegisterComponent implements OnInit {
         return this.auth.currentUser
       })
       .then((user) => {
-        console.log("before getemailverificationlink")
-        return this.userService.getEmailVerificationLink(user).pipe(first()).toPromise()
+        return this.userService.getEmailVerificationLink(user.email);
       })
-      .then((email) => {
-        return this.mailService.notifyNewUser(email)
+      .then((link) => {
+        return this.mailService.notifyNewUser(link)
       })
       .then((res) => {
-        console.log("next getemailverificationlink")
+        this.isLoading = false
+        this.isSuccess = true;
         this.router.navigate(['/dashboard'])
       })
       .catch((err: FirebaseError) => {

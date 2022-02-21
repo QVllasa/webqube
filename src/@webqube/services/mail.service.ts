@@ -39,14 +39,14 @@ export class MailService {
 
   notifyNewUser(emailVerificationLink: string){
     console.log("emailverification link: ", emailVerificationLink)
-    // const mail: IMail = {
-    //   to: ['admin@webqube.de'],
-    //   message: {
-    //     text: '',
-    //     subject: 'Neuer Nutzer angemeldet! 🥳',
-    //     html: newUserTemplate(user)
-    //   }
-    // }
-    // return this.afs.collection<IMail>('mail').add(mail)
+    const mail: IMail = {
+      to: ['admin@webqube.de'],
+      message: {
+        text: '',
+        subject: 'Neuer Nutzer angemeldet! 🥳',
+        html: newUserTemplate(user)
+      }
+    }
+    return this.afs.collection<IMail>('mail').add(mail)
   }
 }

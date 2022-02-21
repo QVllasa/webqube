@@ -60,11 +60,12 @@ import {MatDividerModule} from "@angular/material/divider";
 import {NgxPayPalModule} from "ngx-paypal";
 
 
-function mode(){
+function mode(): any[]{
   if (environment.production){
     return[];
   }
-  return [{ provide: USE_FUNCTIONS_EMULATOR, useValue: ['localhost', 5001] },
+  return [
+    // { provide: USE_FUNCTIONS_EMULATOR, useValue: ['localhost', 5001] },
     // { provide: USE_FIRESTORE_EMULATOR, useValue: ['localhost', 8080] },
     // {provide: USE_AUTH_EMULATOR, useValue: ['http://localhost:9099']}
   ]
