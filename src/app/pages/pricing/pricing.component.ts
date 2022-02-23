@@ -22,7 +22,7 @@ export class PricingComponent implements OnInit {
   priceCards: ITier[];
   faqs = faqs
 
-  isMonthly: boolean = true;
+
 
   constructor(public dialog: MatDialog, private afs: AngularFirestore) {
     this.afs.collection<ITier>('tiers').valueChanges().subscribe(tiers => {
@@ -33,9 +33,10 @@ export class PricingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  switchPlan() {
-    this.isMonthly = !this.isMonthly;
-  }
+  // switchPlan() {
+  //   this.isMonthly = !this.isMonthly;
+  // }
+  showFeatures: boolean=false;
 
 
   openIndividualRequestDialog(): void {

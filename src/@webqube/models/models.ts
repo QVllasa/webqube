@@ -20,13 +20,13 @@ export interface IFeature {
 
 export interface ITier {
   id: string
-  monthlyPrice: number,
-  fixPrice: number,
+  monthlyPrice?: number,
+  price: number,
   features: string[],
   description: string,
   label: string,
-  mostSelected: boolean,
-  icon: string,
+  mostSelected?: boolean,
+  icon?: string,
   selected: boolean,
 }
 
