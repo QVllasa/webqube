@@ -1,5 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {columnsKeys, faqs, featureComparison} from 'src/@webqube/static/static';
+import {
+  columnsKeys,
+  essentialFeatures,
+  faqs,
+  premiumFeatures,
+  starterFeatures,
+  unlimitedFeatures
+} from 'src/@webqube/static/static';
 import {MatDialog} from "@angular/material/dialog";
 import {
   IndividualRequestComponent
@@ -18,25 +25,44 @@ export class PricingComponent implements OnInit {
 
 
   columnsKeys = columnsKeys
-  featureComparison = featureComparison
+  showFeatures: boolean = false;
+  essentialFeatures = essentialFeatures;
+  starterFeatures = starterFeatures;
+  premiumFeatures = premiumFeatures;
+  unlimitedFeatures = unlimitedFeatures;
+
   priceCards: ITier[];
   faqs = faqs
 
 
-
   constructor(public dialog: MatDialog, private afs: AngularFirestore) {
-    this.afs.collection<ITier>('tiers').valueChanges().subscribe(tiers => {
+
+    this.afs.collection<ITier>('tiers').valueChanges({idField: 'id'}).subscribe(tiers => {
       this.priceCards = tiers;
+
+      // Add Features to each tier
+      this.afs.collection('tiers')
+        .doc(tiers.find(obj => obj.label === 'Starter').id)
+        .update({allFeatures: this.starterFeatures})
+
+      this.afs.collection('tiers')
+        .doc(tiers.find(obj => obj.label === 'Essential').id)
+        .update({allFeatures: this.essentialFeatures})
+
+      this.afs.collection('tiers')
+        .doc(tiers.find(obj => obj.label === 'Premium').id)
+        .update({allFeatures: this.premiumFeatures})
+
+      this.afs.collection('tiers')
+        .doc(tiers.find(obj => obj.label === 'Unlimited').id)
+        .update({allFeatures: this.unlimitedFeatures})
     })
+
   }
 
   ngOnInit(): void {
-  }
 
-  // switchPlan() {
-  //   this.isMonthly = !this.isMonthly;
-  // }
-  showFeatures: boolean=false;
+  }
 
 
   openIndividualRequestDialog(): void {

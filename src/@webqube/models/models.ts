@@ -2,27 +2,16 @@ import firebase from "firebase/compat";
 import {IBoard, IScrumboard} from "./scrumboard.interface";
 
 export interface IFeature {
-  name: string,
-  starterOneTime: boolean,
-  professionalOneTime: boolean,
-  businessOneTime: boolean,
-  starterMonthly: boolean,
-  professionalMonthly: boolean,
-  businessMonthly: boolean,
-  custom: boolean,
-  starterTextOneTime?: string,
-  professionalTextOneTime?: string,
-  businessTextOneTime?: string,
-  starterTextMonthly?: string,
-  professionalTextMonthly?: string,
-  businessTextMonthly?: string
+  value: boolean | string,
+  title: string,
+  order: number,
 }
 
 export interface ITier {
   id: string
-  monthlyPrice?: number,
   price: number,
   features: string[],
+  allFeatures: IFeature[],
   description: string,
   label: string,
   mostSelected?: boolean,
@@ -80,7 +69,6 @@ export interface IMilestone {
   icon: string,
   icon_classes: string,
 }
-
 
 
 export interface ITask {

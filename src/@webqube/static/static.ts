@@ -2,280 +2,431 @@ import {IFaq, IFeature, ITier, IWork, ITeamMember, IMilestone} from "../models/m
 
 export const columnsKeys = ['Feature', 'Starter', 'Professional', 'Business']
 
-export const featureComparison: IFeature[] = [
-  {
-    name: 'Mobile Responsive Design',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: false,
-  },
-  {
-    name: 'Google Analytics',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: false,
-  },
-  {
-    name: 'Domainverwaltung',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: false,
-  },
-  {
-    name: 'E-Mail Hosting und Einrichtung',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: false,
-    starterTextMonthly: 'Inklusive',
-    professionalTextMonthly: 'Inklusive',
-    businessTextMonthly: 'Inklusive',
-    starterTextOneTime: 'Nur Einrichtung',
-    professionalTextOneTime: 'Nur Einrichtung',
-    businessTextOneTime: 'Nur Einrichtung'
-  },
-  {
-    name: 'Content Management',
-    starterOneTime: false,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: false,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: false
-  },
-  {
-    name: 'Support',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: true,
-    starterTextOneTime: '5 Tage Antwortzeit',
-    professionalTextOneTime: '3 Tage Antwortzeit',
-    businessTextOneTime: '1 Tag Antwortzeit ',
-    starterTextMonthly: '5 Tage Antwortzeit',
-    professionalTextMonthly: '3 Tage Antwortzeit',
-    businessTextMonthly: '1 Tag Antwortzeit '
-  },
-  {
-    name: 'Refinements und Überarbeitungen',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: true,
-    starterTextOneTime: '3',
-    professionalTextOneTime: '6',
-    businessTextOneTime: '10',
-    starterTextMonthly: '1',
-    professionalTextMonthly: '4',
-    businessTextMonthly: '6'
-  },
-  {
-    name: 'Zugang zum Ticketsystem',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: false
-  },
-  {
-    name: 'Datenschutzgerecht',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: false,
-  },
-  {
-    name: 'Anzahl Seiten',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: true,
-    starterTextOneTime: '1 Seite 8 Sections',
-    professionalTextOneTime: '15 Seiten',
-    businessTextOneTime: '40 Seiten',
-    starterTextMonthly: '1 Seite 8 Sections',
-    professionalTextMonthly: '15 Seiten',
-    businessTextMonthly: '40 Seiten'
-  },
-  {
-    name: 'Suchmaschinenoptimiert',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: false
-  },
-  {
-    name: 'Webhosting',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: true,
-    starterTextOneTime: '6 Monate inkl.',
-    professionalTextOneTime: '12 Monate inkl.',
-    businessTextOneTime: '18 Monate inkl.',
-    starterTextMonthly: 'Inklusive',
-    professionalTextMonthly: 'Inklusive',
-    businessTextMonthly: 'Inklusive'
-  },
-  {
-    name: 'Sicherheitsupdates',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: false,
 
-  },
-  {
-    name: 'Optionale Regeltermine',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: true,
-    starterTextOneTime: 'bis zu 4 Termin',
-    professionalTextOneTime: 'bis zu 12 Termine',
-    businessTextOneTime: 'Unbegrenzt',
-    starterTextMonthly: '1 Termin',
-    professionalTextMonthly: '4 Termine',
-    businessTextMonthly: 'Unbegrenzt'
-  },
-  {
-    name: 'Cookie-Einstellungen',
-    starterOneTime: false,
-    professionalOneTime: false,
-    businessOneTime: true,
-    starterMonthly: false,
-    professionalMonthly: false,
-    businessMonthly: true,
-    custom: false
-  },
-  {
-    name: 'Cookie-Consent',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: false
-  },
-  {
-    name: 'Designvorschläge',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: true,
-    starterTextOneTime: '3 Designs',
-    professionalTextOneTime: '5 Designs',
-    businessTextOneTime: '5 Designs',
-    starterTextMonthly: '1 Designs',
-    professionalTextMonthly: '2 Designs',
-    businessTextMonthly: '2 Designs'
-  },
-  {
-    name: 'Textüberarbeitung',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: false
-  },
-  {
-    name: 'GO-Live in',
-    starterOneTime: true,
-    professionalOneTime: true,
-    businessOneTime: true,
-    starterMonthly: true,
-    professionalMonthly: true,
-    businessMonthly: true,
-    custom: true,
-    starterTextOneTime: '1 Monat',
-    professionalTextOneTime: '3 Monate',
-    businessTextOneTime: '3 Monate',
-    starterTextMonthly: '1 Monat',
-    professionalTextMonthly: '5 Monate',
-    businessTextMonthly: '6 Monate'
-  },
-]
+//Starter
+export const starterFeatures: IFeature[] =
+ [
+      {
+        title: 'Mobile Responsive Design',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Suchmaschinenoptimiert',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Content-Management-System',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Rücksprachetermine',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Überarbeitungsschleifen',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Impressum',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Datenschutzerklärung',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Datenschutzeinstellungen',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Seitenanzahl',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Sicherheitsupdates',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Content-Analyse',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Projekt-Laufzeit',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'CMS Assets',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Formen',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Eventplanung',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Social Media',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Suchfunktionen',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Mitgliederbereich und Login',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Fortgeschrittene Analytik',
+        value: true,
+        order: 0
+      },
+      {
+        title: 'Live-Chat',
+        value: true,
+        order: 0
+      },
+    ]
 
-// export const Tiers: ITier[] = [
-//   {
-//     id: '1',
-//     monthlyPrice: 79,
-//     fixPrice: 899,
-//     features: ['Eine Landingpage mit 8 Sections', 'Suchmaschinenoptimiert', 'Analytikfunktionen', '1 Refinements', 'Webhosting'],
-//     description: 'Eine starke Landingpage, die gewaltigen Eindruck hinterlässt.',
-//     plan: 'Starter',
-//     icon: '🛫',
-//     mostSelected: false
-//   },
-//   {
-//     id: '2',
-//     monthlyPrice: 149,
-//     fixPrice: 3899,
-//     features: ['15 individuelle Seiten', 'Blog-Funktionen und User-Management', 'Fortgeschrittene Analysen', 'Mit Content Management', '4 Refinements', 'E-Mail Einrichtung'],
-//     description: 'Bereit für Marketing Kampagnen',
-//     plan: 'Professional',
-//     mostSelected: true,
-//     icon: '🛫',
-//   },
-//   {
-//     id: '3',
-//     monthlyPrice: 349,
-//     fixPrice: 7899,
-//     features: ['40 individuelle Seiten', 'Schnelle Reaktionszeiten', 'Webhosting', 'E-Mail Einrichtung und Hosting', '6 Refinements'],
-//     description: 'Ein Plan der gemeinsam grenzenlos mit deinem Business wächst.',
-//     plan: 'Business',
-//     mostSelected: false,
-//     icon: '🛫',
-//   }
-// ]
+//Essential
+export const essentialFeatures: IFeature[] =
+  [
+    {
+      title: 'Mobile Responsive Design',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Suchmaschinenoptimiert',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Content-Management-System',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Rücksprachetermine',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Überarbeitungsschleifen',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Impressum',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Datenschutzerklärung',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Datenschutzeinstellungen',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Seitenanzahl',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Sicherheitsupdates',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Content-Analyse',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Projekt-Laufzeit',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'CMS Assets',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Formen',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Eventplanung',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Social Media',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Suchfunktionen',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Mitgliederbereich und Login',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Fortgeschrittene Analytik',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Live-Chat',
+      value: true,
+      order: 0
+    },
+  ]
+
+//Premium
+export const premiumFeatures: IFeature[] =
+  [
+    {
+      title: 'Mobile Responsive Design',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Suchmaschinenoptimiert',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Content-Management-System',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Rücksprachetermine',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Überarbeitungsschleifen',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Impressum',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Datenschutzerklärung',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Datenschutzeinstellungen',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Seitenanzahl',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Sicherheitsupdates',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Content-Analyse',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Projekt-Laufzeit',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'CMS Assets',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Formen',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Eventplanung',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Social Media',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Suchfunktionen',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Mitgliederbereich und Login',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Fortgeschrittene Analytik',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Live-Chat',
+      value: true,
+      order: 0
+    },
+  ]
+
+//Unlimited
+export const unlimitedFeatures: IFeature[] =
+  [
+    {
+      title: 'Mobile Responsive Design',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Suchmaschinenoptimiert',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Content-Management-System',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Rücksprachetermine',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Überarbeitungsschleifen',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Impressum',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Datenschutzerklärung',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Datenschutzeinstellungen',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Seitenanzahl',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Sicherheitsupdates',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Content-Analyse',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Projekt-Laufzeit',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'CMS Assets',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Formen',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Eventplanung',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Social Media',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Suchfunktionen',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Mitgliederbereich und Login',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Fortgeschrittene Analytik',
+      value: true,
+      order: 0
+    },
+    {
+      title: 'Live-Chat',
+      value: true,
+      order: 0
+    },
+  ]
+
+
+// export const Features = [starterFeatures, essentialFeatures, premiumFeatures, unlimitedFeatures]
+
+
 
 export const faqs: IFaq[] = [
   {
