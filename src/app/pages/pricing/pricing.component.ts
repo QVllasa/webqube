@@ -25,13 +25,15 @@ export class PricingComponent implements OnInit {
 
 
   columnsKeys = columnsKeys
+
   showFeatures: boolean = false;
   essentialFeatures = essentialFeatures;
   starterFeatures = starterFeatures;
   premiumFeatures = premiumFeatures;
   unlimitedFeatures = unlimitedFeatures;
 
-  priceCards: ITier[];
+  priceCards: ITier[] = [];
+  rowKeys: string[] = [];
   faqs = faqs
 
 
@@ -56,6 +58,8 @@ export class PricingComponent implements OnInit {
       this.afs.collection('tiers')
         .doc(tiers.find(obj => obj.label === 'Unlimited').id)
         .update({allFeatures: this.unlimitedFeatures})
+
+    this.rowKeys =  this.priceCards[0].allFeatures.map(obj=>obj.title)
     })
 
   }

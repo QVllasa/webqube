@@ -5,211 +5,191 @@ export const columnsKeys = ['Feature', 'Starter', 'Professional', 'Business']
 
 //Starter
 export const starterFeatures: IFeature[] =
- [
-      {
-        title: 'Mobile Responsive Design',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Suchmaschinenoptimiert',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Content-Management-System',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Rücksprachetermine',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Überarbeitungsschleifen',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Impressum',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Datenschutzerklärung',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Datenschutzeinstellungen',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Seitenanzahl',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Sicherheitsupdates',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Content-Analyse',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Projekt-Laufzeit',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'CMS Assets',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Formen',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Eventplanung',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Social Media',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Suchfunktionen',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Mitgliederbereich und Login',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Fortgeschrittene Analytik',
-        value: true,
-        order: 0
-      },
-      {
-        title: 'Live-Chat',
-        value: true,
-        order: 0
-      },
-    ]
-
-//Essential
-export const essentialFeatures: IFeature[] =
   [
     {
-      title: 'Mobile Responsive Design',
+      title: 'Einfach Analytikfunktion',
       value: true,
       order: 0
     },
     {
       title: 'Suchmaschinenoptimiert',
       value: true,
-      order: 0
+      order: 1
     },
     {
       title: 'Content-Management-System',
       value: true,
-      order: 0
+      order: 6
     },
     {
-      title: 'Rücksprachetermine',
+      title: 'Rücksprachetermine pro Monat',
       value: true,
-      order: 0
+      order: 9
     },
     {
       title: 'Überarbeitungsschleifen',
       value: true,
-      order: 0
+      order: 10
     },
     {
       title: 'Impressum',
       value: true,
-      order: 0
+      order: 2
     },
     {
       title: 'Datenschutzerklärung',
       value: true,
-      order: 0
+      order: 3
     },
     {
       title: 'Datenschutzeinstellungen',
       value: true,
-      order: 0
+      order: 7
     },
     {
       title: 'Seitenanzahl',
       value: true,
-      order: 0
+      order: 11
     },
     {
       title: 'Sicherheitsupdates',
       value: true,
-      order: 0
+      order: 12
     },
     {
       title: 'Content-Analyse',
       value: true,
-      order: 0
+      order: 5
     },
     {
       title: 'Projekt-Laufzeit',
       value: true,
-      order: 0
+      order: 17
+    },
+    {
+      title: 'Zeit bis GO-Live',
+      value: true,
+      order: 18
     },
     {
       title: 'CMS Assets',
       value: true,
-      order: 0
+      order: 13
     },
     {
       title: 'Formen',
       value: true,
-      order: 0
+      order: 14
     },
     {
       title: 'Eventplanung',
       value: true,
-      order: 0
+      order: 16
     },
     {
       title: 'Social Media',
       value: true,
-      order: 0
-    },
-    {
-      title: 'Suchfunktionen',
-      value: true,
-      order: 0
-    },
-    {
-      title: 'Mitgliederbereich und Login',
-      value: true,
-      order: 0
+      order: 4
     },
     {
       title: 'Fortgeschrittene Analytik',
       value: true,
+      order: 8
+    },
+  ]
+
+//Essential
+export const essentialFeatures: IFeature[] =
+  [
+    {
+      title: 'Einfach Analytikfunktion',
+      value: true,
       order: 0
     },
     {
-      title: 'Live-Chat',
+      title: 'Suchmaschinenoptimiert',
       value: true,
-      order: 0
+      order: 1
+    },
+    {
+      title: 'Content-Management-System',
+      value: true,
+      order: 6
+    },
+    {
+      title: 'Rücksprachetermine pro Monat',
+      value: true,
+      order: 9
+    },
+    {
+      title: 'Überarbeitungsschleifen',
+      value: true,
+      order: 10
+    },
+    {
+      title: 'Impressum',
+      value: true,
+      order: 2
+    },
+    {
+      title: 'Datenschutzerklärung',
+      value: true,
+      order: 3
+    },
+    {
+      title: 'Datenschutzeinstellungen',
+      value: true,
+      order: 7
+    },
+    {
+      title: 'Seitenanzahl',
+      value: true,
+      order: 11
+    },
+    {
+      title: 'Sicherheitsupdates',
+      value: true,
+      order: 12
+    },
+    {
+      title: 'Content-Analyse',
+      value: true,
+      order: 5
+    },
+    {
+      title: 'Projekt-Laufzeit',
+      value: true,
+      order: 17
+    },
+    {
+      title: 'Zeit bis GO-Live',
+      value: true,
+      order: 18
+    },
+    {
+      title: 'CMS Assets',
+      value: true,
+      order: 13
+    },
+    {
+      title: 'Formen',
+      value: true,
+      order: 14
+    },
+    {
+      title: 'Eventplanung',
+      value: true,
+      order: 16
+    },
+    {
+      title: 'Social Media',
+      value: true,
+      order: 4
+    },
+    {
+      title: 'Fortgeschrittene Analytik',
+      value: true,
+      order: 8
     },
   ]
 
@@ -217,104 +197,94 @@ export const essentialFeatures: IFeature[] =
 export const premiumFeatures: IFeature[] =
   [
     {
-      title: 'Mobile Responsive Design',
+      title: 'Einfach Analytikfunktion',
       value: true,
       order: 0
     },
     {
       title: 'Suchmaschinenoptimiert',
       value: true,
-      order: 0
+      order: 1
     },
     {
       title: 'Content-Management-System',
       value: true,
-      order: 0
+      order: 6
     },
     {
-      title: 'Rücksprachetermine',
+      title: 'Rücksprachetermine pro Monat',
       value: true,
-      order: 0
+      order: 9
     },
     {
       title: 'Überarbeitungsschleifen',
       value: true,
-      order: 0
+      order: 10
     },
     {
       title: 'Impressum',
       value: true,
-      order: 0
+      order: 2
     },
     {
       title: 'Datenschutzerklärung',
       value: true,
-      order: 0
+      order: 3
     },
     {
       title: 'Datenschutzeinstellungen',
       value: true,
-      order: 0
+      order: 7
     },
     {
       title: 'Seitenanzahl',
       value: true,
-      order: 0
+      order: 11
     },
     {
       title: 'Sicherheitsupdates',
       value: true,
-      order: 0
+      order: 12
     },
     {
       title: 'Content-Analyse',
       value: true,
-      order: 0
+      order: 5
     },
     {
       title: 'Projekt-Laufzeit',
       value: true,
-      order: 0
+      order: 17
+    },
+    {
+      title: 'Zeit bis GO-Live',
+      value: true,
+      order: 18
     },
     {
       title: 'CMS Assets',
       value: true,
-      order: 0
+      order: 13
     },
     {
       title: 'Formen',
       value: true,
-      order: 0
+      order: 14
     },
     {
       title: 'Eventplanung',
       value: true,
-      order: 0
+      order: 16
     },
     {
       title: 'Social Media',
       value: true,
-      order: 0
-    },
-    {
-      title: 'Suchfunktionen',
-      value: true,
-      order: 0
-    },
-    {
-      title: 'Mitgliederbereich und Login',
-      value: true,
-      order: 0
+      order: 4
     },
     {
       title: 'Fortgeschrittene Analytik',
       value: true,
-      order: 0
-    },
-    {
-      title: 'Live-Chat',
-      value: true,
-      order: 0
+      order: 8
     },
   ]
 
@@ -322,110 +292,99 @@ export const premiumFeatures: IFeature[] =
 export const unlimitedFeatures: IFeature[] =
   [
     {
-      title: 'Mobile Responsive Design',
+      title: 'Einfach Analytikfunktion',
       value: true,
       order: 0
     },
     {
       title: 'Suchmaschinenoptimiert',
       value: true,
-      order: 0
+      order: 1
     },
     {
       title: 'Content-Management-System',
       value: true,
-      order: 0
+      order: 6
     },
     {
-      title: 'Rücksprachetermine',
+      title: 'Rücksprachetermine pro Monat',
       value: true,
-      order: 0
+      order: 9
     },
     {
       title: 'Überarbeitungsschleifen',
       value: true,
-      order: 0
+      order: 10
     },
     {
       title: 'Impressum',
       value: true,
-      order: 0
+      order: 2
     },
     {
       title: 'Datenschutzerklärung',
       value: true,
-      order: 0
+      order: 3
     },
     {
       title: 'Datenschutzeinstellungen',
       value: true,
-      order: 0
+      order: 7
     },
     {
       title: 'Seitenanzahl',
       value: true,
-      order: 0
+      order: 11
     },
     {
       title: 'Sicherheitsupdates',
       value: true,
-      order: 0
+      order: 12
     },
     {
       title: 'Content-Analyse',
       value: true,
-      order: 0
+      order: 5
     },
     {
       title: 'Projekt-Laufzeit',
       value: true,
-      order: 0
+      order: 17
+    },
+    {
+      title: 'Zeit bis GO-Live',
+      value: true,
+      order: 18
     },
     {
       title: 'CMS Assets',
       value: true,
-      order: 0
+      order: 13
     },
     {
       title: 'Formen',
       value: true,
-      order: 0
+      order: 14
     },
     {
       title: 'Eventplanung',
       value: true,
-      order: 0
+      order: 16
     },
     {
       title: 'Social Media',
       value: true,
-      order: 0
-    },
-    {
-      title: 'Suchfunktionen',
-      value: true,
-      order: 0
-    },
-    {
-      title: 'Mitgliederbereich und Login',
-      value: true,
-      order: 0
+      order: 4
     },
     {
       title: 'Fortgeschrittene Analytik',
       value: true,
-      order: 0
-    },
-    {
-      title: 'Live-Chat',
-      value: true,
-      order: 0
+      order: 8
     },
   ]
 
 
 // export const Features = [starterFeatures, essentialFeatures, premiumFeatures, unlimitedFeatures]
-
 
 
 export const faqs: IFaq[] = [
