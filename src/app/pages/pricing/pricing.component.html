@@ -795,16 +795,16 @@
 <!--          todo -->
             <tr *ngFor="let row of rows">
               <th scope="row" class="w-1/5 py-3 pr-4 text-left text-sm font-medium text-gray-600">
-                {{row}}
+                {{row.title}}
               </th>
               <td *ngFor="let tier of tiers" class="px-4 relative w-1/5 py-0 text-center">
-<!--                <ng-container *ngIf="getFeatureValue(tier, row) as value" >-->
-<!--                  <span *ngIf="checkType(value)" class="relative w-full h-full py-3">-->
-<!--                    <span class="text-gray-900 text-sm font-medium">{{678}}</span>-->
-<!--                  </span>-->
-<!--                  <span *ngIf="!checkType(value)" class="relative w-full h-full py-3">-->
-<!--                    <span class="text-blue-500 text-sm font-medium">{{123}}</span>-->
-<!--                  </span>-->
+                <ng-container *ngIf="getFeatureValue(tier, row) as value" >
+                  <span *ngIf="checkType(value)" class="relative w-full h-full py-3 bg-amber-500">
+                    <span class="text-gray-900 text-sm font-medium">{{678}}</span>
+                  </span>
+                  <span *ngIf="!checkType(value)" class="relative w-full h-full py-3 bg-green-300">
+                    <span class="text-blue-500 text-sm font-medium">{{123}}</span>
+                  </span>
 <!--                  <span *ngIf="value" class="relative w-full h-full py-3">-->
 
 <!--                    <mat-icon class="material-icons-round text-green-500 h-5 w-5 flex-shrink-0">-->
@@ -822,7 +822,7 @@
 <!--                  <span *ngIf="value" class="relative w-full h-full py-3">-->
 <!--                    <span class="text-gray-900 text-sm font-medium">{{feature.starterTextOneTime}}</span>-->
 <!--                  </span>-->
-<!--                </ng-container>-->
+                </ng-container>
 
               </td>
 

@@ -1,12 +1,14 @@
 import firebase from "firebase/compat";
 import {IBoard, IScrumboard} from "./scrumboard.interface";
 
+export interface IFeatureDetail{
+  value: boolean | string,
+  title: string,
+  order: number,
+}
+
 export interface IFeature {
-  [key: string]: {
-    value: boolean | string,
-    title: string,
-    order: number,
-  }
+  [key: string]: IFeatureDetail
 }
 
 export interface ITier {
@@ -17,6 +19,7 @@ export interface ITier {
   description: string,
   label: string,
   icon?: string,
+  order: number
 }
 
 export interface IFaq {

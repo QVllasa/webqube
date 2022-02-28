@@ -12,9 +12,14 @@ import {
   IndividualRequestComponent
 } from "../../../@webqube/components/dialogs/individual-request/individual-request.component";
 import {RequestComponent} from "../../../@webqube/components/dialogs/request/request.component";
-import {IFeature, IMilestone, ITier} from "../../../@webqube/models/models";
+import {IFeature, IFeatureDetail, IMilestone, ITier} from "../../../@webqube/models/models";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {map, tap} from "rxjs/operators";
 
+interface IRow {
+  title: string,
+  key: string
+}
 
 @Component({
   selector: 'app-pricing',
@@ -33,18 +38,32 @@ export class PricingComponent implements OnInit {
   unlimitedFeatures = unlimitedFeatures;
 
   tiers: ITier[] = [];
-  rows: string[] = [];
+  rows: IRow[] = [];
   faqs = faqs
 
 
   constructor(public dialog: MatDialog, private afs: AngularFirestore) {
 
-    this.afs.collection<ITier>('tiers').valueChanges({idField: 'id'}).subscribe(tiers => {
-      this.tiers = tiers;
-
-
-    })
-
+    this.afs.collection<ITier>('tiers').valueChanges({idField: 'id'})
+      .pipe(
+        //sort
+        map(tiers => {
+          return tiers.sort((a, b) => {
+            return a.order - b.order;
+          });
+        }),
+      //get keys for rows
+        tap(tiers => {
+        this.rows = [];
+        if (tiers[0]) {
+          tiers[0].allFeatures.forEach((obj) => {
+            this.rows.push({title: obj[Object.keys(obj)[0]].title, key: Object.keys(obj)[0]})
+          })
+        }
+      }))
+      .subscribe(tiers => {
+        this.tiers = tiers;
+      })
   }
 
   ngOnInit(): void {
@@ -68,14 +87,14 @@ export class PricingComponent implements OnInit {
     });
   }
 
-  // getFeatureValue(tier: ITier, row: string){
-  //   return tier.allFeatures.find(obj => obj.title === row).value
-  // }
-
-  checkType(value: boolean | string){
-    return typeof value === "boolean"
+  getFeatureValue(tier: ITier, row: IRow): string | boolean {
+    console.log("obj: ", tier.allFeatures.find(obj => Object.keys(obj)[0] === row.key)[row.key].value)
+    return tier.allFeatures.find(obj => Object.keys(obj)[0] === row.key)[row.key].value
   }
 
+  checkType(value: boolean | string) {
+    return typeof value === "boolean"
+  }
 
 
 }

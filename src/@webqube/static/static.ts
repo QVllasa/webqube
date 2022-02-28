@@ -31,14 +31,14 @@ export const starterFeatures: IFeature[] =
     {
       monthlyAppointments: {
         title: 'Rücksprachetermine pro Monat',
-        value: true,
+        value: '1',
         order: 9
       }
     },
     {
       revisions: {
         title: 'Überarbeitungsschleifen',
-        value: true,
+        value: '1',
         order: 10
       }
     },
@@ -66,7 +66,7 @@ export const starterFeatures: IFeature[] =
     {
       pageCount: {
         title: 'Seitenanzahl',
-        value: true,
+        value: '1',
         order: 11
       }
     },
@@ -672,6 +672,7 @@ export const Tiers: ITier[] =
       icon:'✈️',
       label: 'Starter',
       price: 900,
+      order: 0,
     },
     {
       description: 'Ideal für aufstrebende Start-Ups im Wachstum für mehr Reichweite.',
@@ -680,6 +681,7 @@ export const Tiers: ITier[] =
       icon:'✈️',
       label: 'Essentials',
       price: 4800,
+      order: 1
     },
     {
       description: 'Ideal wenn du erstklassigen Content liefern möchtest.',
@@ -688,13 +690,15 @@ export const Tiers: ITier[] =
       icon:'✈️',
       label: 'Premium',
       price: 10000,
+      order: 2
     },
     {
       description: 'Lässt keine Wünsche offen während dein Business wächst.',
       allFeatures: unlimitedFeatures,
       features: ['Unbegrenzte Seitenanzahl', 'Unbegrenzte Anzahl Sections', 'Unbegrenzt viele Überarbeitungsschleifen', 'Content-Management-System','Unbegrenzt viele CMS-Assets'],
       icon:'✈️',
-      label: 'Premium',
+      label: 'Unlimited',
       price: 25000,
+      order: 3
     }
   ]
