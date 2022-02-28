@@ -18,24 +18,24 @@
       <!-- This example requires Tailwind CSS v2.0+ -->
       <div
         class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-4">
-        <div *ngFor="let priceCard of priceCards"
+        <div *ngFor="let tier of tiers"
              class="bg-white border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200">
           <div class="p-6">
-            <h2 class="text-lg leading-6 font-medium text-gray-900">{{priceCard.label}}</h2>
-            <p class="mt-4 text-sm text-gray-500">{{priceCard.description}}</p>
+            <h2 class="text-lg leading-6 font-medium text-gray-900">{{tier.label}}</h2>
+            <p class="mt-4 text-sm text-gray-500">{{tier.description}}</p>
             <p class="mt-8">
-              <span class="text-4xl font-extrabold text-gray-900">{{priceCard.price}}€</span>
+              <span class="text-4xl font-extrabold text-gray-900">{{tier.price}}€</span>
               <span class="text-base font-medium text-gray-500">/Projekt</span>
             </p>
-            <button mat-ripple (click)="openRequestDialog(priceCard)"
+            <button mat-ripple (click)="openRequestDialog(tier)"
                     class="mt-8 block w-full bg-amber-600  rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-amber-700">
-              {{priceCard.label}} kaufen
+              {{tier.label}} kaufen
             </button>
           </div>
           <div class="pt-6 pb-8 px-6">
             <h3 class="text-xs font-medium text-gray-900 tracking-wide uppercase">Was ist enthalten</h3>
             <ul role="list" class="mt-6 space-y-4">
-              <li class="flex space-x-3" *ngFor="let feature of priceCard.features">
+              <li class="flex space-x-3" *ngFor="let feature of tier.features">
                 <mat-icon class="material-icons-round text-green-500 h-5 w-5 flex-shrink-0">
                   done
                 </mat-icon>
@@ -751,10 +751,10 @@
         <div class="-mt-px w-1/4 py-6 pr-4 flex flex-col items-start justify-between">
         </div>
 
-        <div *ngFor="let priceCard of priceCards" aria-hidden="true" class="pr-4 -mt-px pl-4 w-1/4">
+        <div *ngFor="let tier of tiers" aria-hidden="true" class="pr-4 -mt-px pl-4 w-1/4">
           <div class="border-transparent py-6 border-t-2">
-            <p class="text-gray-900 text-sm font-bold">{{priceCard.label}}</p>
-            <p class="mt-2 text-sm text-gray-500">{{priceCard.description}}</p>
+            <p class="text-gray-900 text-sm font-bold">{{tier.label}}</p>
+            <p class="mt-2 text-sm text-gray-500">{{tier.description}}</p>
           </div>
         </div>
       </div>
@@ -785,41 +785,48 @@
             <th scope="col">
               <span class="sr-only">Feature</span>
             </th>
-            <th *ngFor="let column of priceCards" scope="col">
+            <th *ngFor="let column of tiers" scope="col">
               <span  class="sr-only">{{column}}</span>
             </th>
           </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
 
-<!--todo build table -->
-          <ng-container *ngFor="let priceCard of this.priceCards">
-            <tr *ngFor="let feature of priceCard.allFeatures">
+<!--          todo -->
+            <tr *ngFor="let row of rows">
               <th scope="row" class="w-1/5 py-3 pr-4 text-left text-sm font-medium text-gray-600">
-                {{feature.title}}
+                {{row}}
               </th>
-              <td  class="px-4 relative w-1/5 py-0 text-center">
-                <span class="relative w-full h-full py-3">
-                  <span class="text-gray-900 text-sm font-medium">{{feature.value}}</span>
-                </span>
-                <!--                          <span *ngIf="feature.starterOneTime && !feature.custom" class="relative w-full h-full py-3">-->
-                <!--                            &lt;!&ndash; Heroicon name: solid/check &ndash;&gt;-->
-                <!--                            <mat-icon class="material-icons-round text-green-500 h-5 w-5 flex-shrink-0">-->
-                <!--                              done-->
-                <!--                            </mat-icon>-->
-                <!--                            <span class="sr-only">Yes</span>-->
-                <!--                          </span>-->
-                <!--                          <span *ngIf="!feature.starterOneTime" class="relative w-full h-full py-3">-->
-                <!--                            &lt;!&ndash; Heroicon name: solid/x &ndash;&gt;-->
-                <!--                            <mat-icon class="material-icons-round text-gray-500 h-5 w-5 flex-shrink-0">-->
-                <!--                              close-->
-                <!--                            </mat-icon>-->
-                <!--                            <span class="sr-only">No</span>-->
-                <!--                          </span>-->
-                <!--                          <span *ngIf="feature.custom" class="relative w-full h-full py-3">-->
-                <!--                            <span class="text-gray-900 text-sm font-medium">{{feature.starterTextOneTime}}</span>-->
-                <!--                          </span>-->
+              <td *ngFor="let tier of tiers" class="px-4 relative w-1/5 py-0 text-center">
+                <ng-container *ngIf="getFeatureValue(tier, row) as value" >
+                  <span *ngIf="checkType(value)" class="relative w-full h-full py-3">
+                    <span class="text-gray-900 text-sm font-medium">{{678}}</span>
+                  </span>
+                  <span *ngIf="!checkType(value)" class="relative w-full h-full py-3">
+                    <span class="text-blue-500 text-sm font-medium">{{123}}</span>
+                  </span>
+<!--                  <span *ngIf="value" class="relative w-full h-full py-3">-->
+
+<!--                    <mat-icon class="material-icons-round text-green-500 h-5 w-5 flex-shrink-0">-->
+<!--                      done-->
+<!--                    </mat-icon>-->
+<!--                    <span class="sr-only">Yes</span>-->
+<!--                  </span>-->
+<!--                  <span *ngIf="value" class="relative w-full h-full py-3">-->
+<!--                    &lt;!&ndash; Heroicon name: solid/x &ndash;&gt;-->
+<!--                    <mat-icon class="material-icons-round text-gray-500 h-5 w-5 flex-shrink-0">-->
+<!--                      close-->
+<!--                    </mat-icon>-->
+<!--                    <span class="sr-only">No</span>-->
+<!--                  </span>-->
+<!--                  <span *ngIf="value" class="relative w-full h-full py-3">-->
+<!--                    <span class="text-gray-900 text-sm font-medium">{{feature.starterTextOneTime}}</span>-->
+<!--                  </span>-->
+                </ng-container>
+
               </td>
+
+
 
 <!--              <td class="px-4 relative w-1/5 py-0 text-center">-->
 <!--                <span *ngIf="feature.professionalOneTime && !feature.custom" class="relative w-full h-full py-3">-->
@@ -867,9 +874,6 @@
 <!--                </span>-->
 <!--              </td>-->
             </tr>
-          </ng-container>
-
-
 
           </tbody>
         </table>

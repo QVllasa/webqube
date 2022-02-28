@@ -12,7 +12,7 @@ import {
   IndividualRequestComponent
 } from "../../../@webqube/components/dialogs/individual-request/individual-request.component";
 import {RequestComponent} from "../../../@webqube/components/dialogs/request/request.component";
-import {ITier} from "../../../@webqube/models/models";
+import {IFeature, ITier} from "../../../@webqube/models/models";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 
@@ -32,15 +32,15 @@ export class PricingComponent implements OnInit {
   premiumFeatures = premiumFeatures;
   unlimitedFeatures = unlimitedFeatures;
 
-  priceCards: ITier[] = [];
-  rowKeys: string[] = [];
+  tiers: ITier[] = [];
+  rows: string[] = [];
   faqs = faqs
 
 
   constructor(public dialog: MatDialog, private afs: AngularFirestore) {
 
     this.afs.collection<ITier>('tiers').valueChanges({idField: 'id'}).subscribe(tiers => {
-      this.priceCards = tiers;
+      this.tiers = tiers;
 
       // Add Features to each tier
       this.afs.collection('tiers')
@@ -59,7 +59,8 @@ export class PricingComponent implements OnInit {
         .doc(tiers.find(obj => obj.label === 'Unlimited').id)
         .update({allFeatures: this.unlimitedFeatures})
 
-    this.rowKeys =  this.priceCards[0].allFeatures.map(obj=>obj.title)
+      this.rows = this.tiers[0].allFeatures.map(obj => obj.title);
+
     })
 
   }
@@ -77,12 +78,20 @@ export class PricingComponent implements OnInit {
     });
   }
 
-  openRequestDialog(priceCard: ITier): void {
-    const dialogRef = this.dialog.open(RequestComponent, {data: priceCard});
+  openRequestDialog(tier: ITier): void {
+    const dialogRef = this.dialog.open(RequestComponent, {data: tier});
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
+  }
+
+  getFeatureValue(tier: ITier, row: string): string | boolean{
+    return tier.allFeatures.find(obj => obj.title === row).value
+  }
+
+  checkType(value: boolean | string){
+    return typeof value === "boolean"
   }
 
 }
