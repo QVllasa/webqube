@@ -21,6 +21,9 @@ interface IRow {
   key: string
 }
 
+
+//TODO add feature values
+
 @Component({
   selector: 'app-pricing',
   templateUrl: './pricing.component.html',
