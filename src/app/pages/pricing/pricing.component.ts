@@ -12,7 +12,7 @@ import {
   IndividualRequestComponent
 } from "../../../@webqube/components/dialogs/individual-request/individual-request.component";
 import {RequestComponent} from "../../../@webqube/components/dialogs/request/request.component";
-import {IFeature, ITier} from "../../../@webqube/models/models";
+import {IFeature, IMilestone, ITier} from "../../../@webqube/models/models";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 
@@ -42,24 +42,6 @@ export class PricingComponent implements OnInit {
     this.afs.collection<ITier>('tiers').valueChanges({idField: 'id'}).subscribe(tiers => {
       this.tiers = tiers;
 
-      // Add Features to each tier
-      this.afs.collection('tiers')
-        .doc(tiers.find(obj => obj.label === 'Starter').id)
-        .update({allFeatures: this.starterFeatures})
-
-      this.afs.collection('tiers')
-        .doc(tiers.find(obj => obj.label === 'Essential').id)
-        .update({allFeatures: this.essentialFeatures})
-
-      this.afs.collection('tiers')
-        .doc(tiers.find(obj => obj.label === 'Premium').id)
-        .update({allFeatures: this.premiumFeatures})
-
-      this.afs.collection('tiers')
-        .doc(tiers.find(obj => obj.label === 'Unlimited').id)
-        .update({allFeatures: this.unlimitedFeatures})
-
-      this.rows = this.tiers[0].allFeatures.map(obj => obj.title);
 
     })
 
@@ -86,12 +68,14 @@ export class PricingComponent implements OnInit {
     });
   }
 
-  getFeatureValue(tier: ITier, row: string): string | boolean{
-    return tier.allFeatures.find(obj => obj.title === row).value
-  }
+  // getFeatureValue(tier: ITier, row: string){
+  //   return tier.allFeatures.find(obj => obj.title === row).value
+  // }
 
   checkType(value: boolean | string){
     return typeof value === "boolean"
   }
+
+
 
 }

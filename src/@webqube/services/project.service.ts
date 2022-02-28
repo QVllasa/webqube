@@ -7,11 +7,15 @@ import {ActivatedRoute} from "@angular/router";
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from "rxjs";
 import {IMilestone, IProject, ITier, IUser} from "../models/models";
 import {filter, map, mergeMap, switchMap, tap} from "rxjs/operators";
+import {Milestones, Tiers} from "../static/static";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
+
+  staticMilestones = Milestones;
+  staticTiers = Tiers;
 
   user: Observable<IUser | null>;
   tiers = new BehaviorSubject<ITier[]>(null);
@@ -101,7 +105,7 @@ export class ProjectService {
       }
     }
 
-    let selectedTier = this.tiers.value.filter(obj => obj.selected)[0]
+    let selectedTier = this.tiers.value[0]
     await this.projectDoc.update({tierID: selectedTier.id,});
   }
 
@@ -199,5 +203,21 @@ export class ProjectService {
       })
     })
   }
+
+ async initMilestones(){
+    await this.deleteCollection(this.milestoneColl);
+    for await (const milestone of this.staticMilestones){
+      await this.afs.collection<IMilestone>('milestones').add(milestone)
+    }
+  }
+
+  async initTiers(){
+    await this.deleteCollection(this.tiersColl);
+    for await (const tier of this.staticTiers){
+      await this.afs.collection<ITier>('tiers').add(tier)
+    }
+  }
+
+
 
 }

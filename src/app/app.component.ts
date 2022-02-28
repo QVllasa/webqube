@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {AngularFireFunctions} from "@angular/fire/compat/functions";
 import {RegisterComponent} from "../@webqube/components/dialogs/register/register.component";
 import {MatDialog} from "@angular/material/dialog";
+import {ProjectService} from "../@webqube/services/project.service";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,11 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class AppComponent {
   title = 'webqube';
-  constructor() {
+  constructor(private projectSerivce: ProjectService) {
+    this.projectSerivce.initMilestones();
+    this.projectSerivce.initTiers();
   }
+
+
 
 }

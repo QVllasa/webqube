@@ -2,21 +2,21 @@ import firebase from "firebase/compat";
 import {IBoard, IScrumboard} from "./scrumboard.interface";
 
 export interface IFeature {
-  value: boolean | string,
-  title: string,
-  order: number,
+  [key: string]: {
+    value: boolean | string,
+    title: string,
+    order: number,
+  }
 }
 
 export interface ITier {
-  id: string
+  id?: string
   price: number,
   features: string[],
   allFeatures: IFeature[],
   description: string,
   label: string,
-  mostSelected?: boolean,
   icon?: string,
-  selected: boolean,
 }
 
 export interface IFaq {
@@ -59,6 +59,7 @@ export interface IProject {
   tierID?: ITier['id'],
   domain: string,
   boards?: IBoard[];
+  features?: { [key: string]: Object }[]
 }
 
 export interface IMilestone {

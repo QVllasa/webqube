@@ -138,12 +138,12 @@ export class ProjectsDetailsComponent {
   }
 
   onSelectTier(tier: ITier) {
-    this.projectService.tiers.value.find(obj => obj === tier).selected = !tier.selected;
-    this.projectService.tiers.value.filter(obj => obj !== tier).map(obj => obj.selected = false);
+    // this.projectService.tiers.value.find(obj => obj === tier).selected = !tier.selected;
+    // this.projectService.tiers.value.filter(obj => obj !== tier).map(obj => obj.selected = false);
   }
 
-  isSelected() {
-    return this.projectService.tiers.value.some(obj => obj.selected)
+  isSelected(tier: ITier) {
+    return true;
   }
 
   async initProject() {

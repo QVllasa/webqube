@@ -7,94 +7,131 @@ export const columnsKeys = ['Feature', 'Starter', 'Professional', 'Business']
 export const starterFeatures: IFeature[] =
   [
     {
-      title: 'Einfach Analytikfunktion',
-      value: true,
-      order: 0
+      simpleAnalytics: {
+        title: 'Einfach Analytikfunktion',
+        value: true,
+        order: 0
+      },
+    },
+
+    {
+      seo: {
+        title: 'Suchmaschinenoptimiert',
+        value: true,
+        order: 1
+      },
     },
     {
-      title: 'Suchmaschinenoptimiert',
-      value: true,
-      order: 1
+      cms: {
+        title: 'Content-Management-System',
+        value: true,
+        order: 6
+      }
     },
     {
-      title: 'Content-Management-System',
-      value: true,
-      order: 6
+      monthlyAppointments: {
+        title: 'Rücksprachetermine pro Monat',
+        value: true,
+        order: 9
+      }
     },
     {
-      title: 'Rücksprachetermine pro Monat',
-      value: true,
-      order: 9
+      revisions: {
+        title: 'Überarbeitungsschleifen',
+        value: true,
+        order: 10
+      }
     },
     {
-      title: 'Überarbeitungsschleifen',
-      value: true,
-      order: 10
+      imprintPage: {
+        title: 'Impressum',
+        value: true,
+        order: 2
+      }
     },
     {
-      title: 'Impressum',
-      value: true,
-      order: 2
+      privacyPage: {
+        title: 'Datenschutzerklärung',
+        value: true,
+        order: 3
+      }
     },
     {
-      title: 'Datenschutzerklärung',
-      value: true,
-      order: 3
+      privacySettings: {
+        title: 'Datenschutzeinstellungen',
+        value: true,
+        order: 7
+      }
     },
     {
-      title: 'Datenschutzeinstellungen',
-      value: true,
-      order: 7
+      pageCount: {
+        title: 'Seitenanzahl',
+        value: true,
+        order: 11
+      }
     },
     {
-      title: 'Seitenanzahl',
-      value: true,
-      order: 11
+      securityUpdates: {
+        title: 'Sicherheitsupdates',
+        value: true,
+        order: 12
+      }
     },
     {
-      title: 'Sicherheitsupdates',
-      value: true,
-      order: 12
+      contentAnalysis: {
+        title: 'Content-Analyse',
+        value: true,
+        order: 5
+      }
     },
     {
-      title: 'Content-Analyse',
-      value: true,
-      order: 5
+      projectDuration: {
+        title: 'Projekt-Laufzeit',
+        value: true,
+        order: 17
+      }
     },
     {
-      title: 'Projekt-Laufzeit',
-      value: true,
-      order: 17
+      timeToMarket: {
+        title: 'Zeit bis GO-Live',
+        value: true,
+        order: 18
+      }
     },
     {
-      title: 'Zeit bis GO-Live',
-      value: true,
-      order: 18
+      cmsAssets: {
+        title: 'CMS Assets',
+        value: true,
+        order: 13
+      }
     },
     {
-      title: 'CMS Assets',
-      value: true,
-      order: 13
+      forms: {
+        title: 'Formen',
+        value: true,
+        order: 14
+      }
     },
     {
-      title: 'Formen',
-      value: true,
-      order: 14
+      eventPlanning: {
+        title: 'Eventplanung',
+        value: true,
+        order: 16
+      }
     },
     {
-      title: 'Eventplanung',
-      value: true,
-      order: 16
+      socialMedia: {
+        title: 'Social Media',
+        value: true,
+        order: 4
+      }
     },
     {
-      title: 'Social Media',
-      value: true,
-      order: 4
-    },
-    {
-      title: 'Fortgeschrittene Analytik',
-      value: true,
-      order: 8
+      advancedAnalytics: {
+        title: 'Fortgeschrittene Analytik',
+        value: true,
+        order: 8
+      }
     },
   ]
 
@@ -102,94 +139,131 @@ export const starterFeatures: IFeature[] =
 export const essentialFeatures: IFeature[] =
   [
     {
-      title: 'Einfach Analytikfunktion',
-      value: true,
-      order: 0
+      simpleAnalytics: {
+        title: 'Einfach Analytikfunktion',
+        value: true,
+        order: 0
+      },
+    },
+
+    {
+      seo: {
+        title: 'Suchmaschinenoptimiert',
+        value: true,
+        order: 1
+      },
     },
     {
-      title: 'Suchmaschinenoptimiert',
-      value: true,
-      order: 1
+      cms: {
+        title: 'Content-Management-System',
+        value: true,
+        order: 6
+      }
     },
     {
-      title: 'Content-Management-System',
-      value: true,
-      order: 6
+      monthlyAppointments: {
+        title: 'Rücksprachetermine pro Monat',
+        value: true,
+        order: 9
+      }
     },
     {
-      title: 'Rücksprachetermine pro Monat',
-      value: true,
-      order: 9
+      revisions: {
+        title: 'Überarbeitungsschleifen',
+        value: true,
+        order: 10
+      }
     },
     {
-      title: 'Überarbeitungsschleifen',
-      value: true,
-      order: 10
+      imprintPage: {
+        title: 'Impressum',
+        value: true,
+        order: 2
+      }
     },
     {
-      title: 'Impressum',
-      value: true,
-      order: 2
+      privacyPage: {
+        title: 'Datenschutzerklärung',
+        value: true,
+        order: 3
+      }
     },
     {
-      title: 'Datenschutzerklärung',
-      value: true,
-      order: 3
+      privacySettings: {
+        title: 'Datenschutzeinstellungen',
+        value: true,
+        order: 7
+      }
     },
     {
-      title: 'Datenschutzeinstellungen',
-      value: true,
-      order: 7
+      pageCount: {
+        title: 'Seitenanzahl',
+        value: true,
+        order: 11
+      }
     },
     {
-      title: 'Seitenanzahl',
-      value: true,
-      order: 11
+      securityUpdates: {
+        title: 'Sicherheitsupdates',
+        value: true,
+        order: 12
+      }
     },
     {
-      title: 'Sicherheitsupdates',
-      value: true,
-      order: 12
+      contentAnalysis: {
+        title: 'Content-Analyse',
+        value: true,
+        order: 5
+      }
     },
     {
-      title: 'Content-Analyse',
-      value: true,
-      order: 5
+      projectDuration: {
+        title: 'Projekt-Laufzeit',
+        value: true,
+        order: 17
+      }
     },
     {
-      title: 'Projekt-Laufzeit',
-      value: true,
-      order: 17
+      timeToMarket: {
+        title: 'Zeit bis GO-Live',
+        value: true,
+        order: 18
+      }
     },
     {
-      title: 'Zeit bis GO-Live',
-      value: true,
-      order: 18
+      cmsAssets: {
+        title: 'CMS Assets',
+        value: true,
+        order: 13
+      }
     },
     {
-      title: 'CMS Assets',
-      value: true,
-      order: 13
+      forms: {
+        title: 'Formen',
+        value: true,
+        order: 14
+      }
     },
     {
-      title: 'Formen',
-      value: true,
-      order: 14
+      eventPlanning: {
+        title: 'Eventplanung',
+        value: true,
+        order: 16
+      }
     },
     {
-      title: 'Eventplanung',
-      value: true,
-      order: 16
+      socialMedia: {
+        title: 'Social Media',
+        value: true,
+        order: 4
+      }
     },
     {
-      title: 'Social Media',
-      value: true,
-      order: 4
-    },
-    {
-      title: 'Fortgeschrittene Analytik',
-      value: true,
-      order: 8
+      advancedAnalytics: {
+        title: 'Fortgeschrittene Analytik',
+        value: true,
+        order: 8
+      }
     },
   ]
 
@@ -197,94 +271,131 @@ export const essentialFeatures: IFeature[] =
 export const premiumFeatures: IFeature[] =
   [
     {
-      title: 'Einfach Analytikfunktion',
-      value: true,
-      order: 0
+      simpleAnalytics: {
+        title: 'Einfach Analytikfunktion',
+        value: true,
+        order: 0
+      },
+    },
+
+    {
+      seo: {
+        title: 'Suchmaschinenoptimiert',
+        value: true,
+        order: 1
+      },
     },
     {
-      title: 'Suchmaschinenoptimiert',
-      value: true,
-      order: 1
+      cms: {
+        title: 'Content-Management-System',
+        value: true,
+        order: 6
+      }
     },
     {
-      title: 'Content-Management-System',
-      value: true,
-      order: 6
+      monthlyAppointments: {
+        title: 'Rücksprachetermine pro Monat',
+        value: true,
+        order: 9
+      }
     },
     {
-      title: 'Rücksprachetermine pro Monat',
-      value: true,
-      order: 9
+      revisions: {
+        title: 'Überarbeitungsschleifen',
+        value: true,
+        order: 10
+      }
     },
     {
-      title: 'Überarbeitungsschleifen',
-      value: true,
-      order: 10
+      imprintPage: {
+        title: 'Impressum',
+        value: true,
+        order: 2
+      }
     },
     {
-      title: 'Impressum',
-      value: true,
-      order: 2
+      privacyPage: {
+        title: 'Datenschutzerklärung',
+        value: true,
+        order: 3
+      }
     },
     {
-      title: 'Datenschutzerklärung',
-      value: true,
-      order: 3
+      privacySettings: {
+        title: 'Datenschutzeinstellungen',
+        value: true,
+        order: 7
+      }
     },
     {
-      title: 'Datenschutzeinstellungen',
-      value: true,
-      order: 7
+      pageCount: {
+        title: 'Seitenanzahl',
+        value: true,
+        order: 11
+      }
     },
     {
-      title: 'Seitenanzahl',
-      value: true,
-      order: 11
+      securityUpdates: {
+        title: 'Sicherheitsupdates',
+        value: true,
+        order: 12
+      }
     },
     {
-      title: 'Sicherheitsupdates',
-      value: true,
-      order: 12
+      contentAnalysis: {
+        title: 'Content-Analyse',
+        value: true,
+        order: 5
+      }
     },
     {
-      title: 'Content-Analyse',
-      value: true,
-      order: 5
+      projectDuration: {
+        title: 'Projekt-Laufzeit',
+        value: true,
+        order: 17
+      }
     },
     {
-      title: 'Projekt-Laufzeit',
-      value: true,
-      order: 17
+      timeToMarket: {
+        title: 'Zeit bis GO-Live',
+        value: true,
+        order: 18
+      }
     },
     {
-      title: 'Zeit bis GO-Live',
-      value: true,
-      order: 18
+      cmsAssets: {
+        title: 'CMS Assets',
+        value: true,
+        order: 13
+      }
     },
     {
-      title: 'CMS Assets',
-      value: true,
-      order: 13
+      forms: {
+        title: 'Formen',
+        value: true,
+        order: 14
+      }
     },
     {
-      title: 'Formen',
-      value: true,
-      order: 14
+      eventPlanning: {
+        title: 'Eventplanung',
+        value: true,
+        order: 16
+      }
     },
     {
-      title: 'Eventplanung',
-      value: true,
-      order: 16
+      socialMedia: {
+        title: 'Social Media',
+        value: true,
+        order: 4
+      }
     },
     {
-      title: 'Social Media',
-      value: true,
-      order: 4
-    },
-    {
-      title: 'Fortgeschrittene Analytik',
-      value: true,
-      order: 8
+      advancedAnalytics: {
+        title: 'Fortgeschrittene Analytik',
+        value: true,
+        order: 8
+      }
     },
   ]
 
@@ -292,99 +403,133 @@ export const premiumFeatures: IFeature[] =
 export const unlimitedFeatures: IFeature[] =
   [
     {
-      title: 'Einfach Analytikfunktion',
-      value: true,
-      order: 0
+      simpleAnalytics: {
+        title: 'Einfach Analytikfunktion',
+        value: true,
+        order: 0
+      },
+    },
+
+    {
+      seo: {
+        title: 'Suchmaschinenoptimiert',
+        value: true,
+        order: 1
+      },
     },
     {
-      title: 'Suchmaschinenoptimiert',
-      value: true,
-      order: 1
+      cms: {
+        title: 'Content-Management-System',
+        value: true,
+        order: 6
+      }
     },
     {
-      title: 'Content-Management-System',
-      value: true,
-      order: 6
+      monthlyAppointments: {
+        title: 'Rücksprachetermine pro Monat',
+        value: true,
+        order: 9
+      }
     },
     {
-      title: 'Rücksprachetermine pro Monat',
-      value: true,
-      order: 9
+      revisions: {
+        title: 'Überarbeitungsschleifen',
+        value: true,
+        order: 10
+      }
     },
     {
-      title: 'Überarbeitungsschleifen',
-      value: true,
-      order: 10
+      imprintPage: {
+        title: 'Impressum',
+        value: true,
+        order: 2
+      }
     },
     {
-      title: 'Impressum',
-      value: true,
-      order: 2
+      privacyPage: {
+        title: 'Datenschutzerklärung',
+        value: true,
+        order: 3
+      }
     },
     {
-      title: 'Datenschutzerklärung',
-      value: true,
-      order: 3
+      privacySettings: {
+        title: 'Datenschutzeinstellungen',
+        value: true,
+        order: 7
+      }
     },
     {
-      title: 'Datenschutzeinstellungen',
-      value: true,
-      order: 7
+      pageCount: {
+        title: 'Seitenanzahl',
+        value: true,
+        order: 11
+      }
     },
     {
-      title: 'Seitenanzahl',
-      value: true,
-      order: 11
+      securityUpdates: {
+        title: 'Sicherheitsupdates',
+        value: true,
+        order: 12
+      }
     },
     {
-      title: 'Sicherheitsupdates',
-      value: true,
-      order: 12
+      contentAnalysis: {
+        title: 'Content-Analyse',
+        value: true,
+        order: 5
+      }
     },
     {
-      title: 'Content-Analyse',
-      value: true,
-      order: 5
+      projectDuration: {
+        title: 'Projekt-Laufzeit',
+        value: true,
+        order: 17
+      }
     },
     {
-      title: 'Projekt-Laufzeit',
-      value: true,
-      order: 17
+      timeToMarket: {
+        title: 'Zeit bis GO-Live',
+        value: true,
+        order: 18
+      }
     },
     {
-      title: 'Zeit bis GO-Live',
-      value: true,
-      order: 18
+      cmsAssets: {
+        title: 'CMS Assets',
+        value: true,
+        order: 13
+      }
     },
     {
-      title: 'CMS Assets',
-      value: true,
-      order: 13
+      forms: {
+        title: 'Formen',
+        value: true,
+        order: 14
+      }
     },
     {
-      title: 'Formen',
-      value: true,
-      order: 14
+      eventPlanning: {
+        title: 'Eventplanung',
+        value: true,
+        order: 16
+      }
     },
     {
-      title: 'Eventplanung',
-      value: true,
-      order: 16
+      socialMedia: {
+        title: 'Social Media',
+        value: true,
+        order: 4
+      }
     },
     {
-      title: 'Social Media',
-      value: true,
-      order: 4
-    },
-    {
-      title: 'Fortgeschrittene Analytik',
-      value: true,
-      order: 8
+      advancedAnalytics: {
+        title: 'Fortgeschrittene Analytik',
+        value: true,
+        order: 8
+      }
     },
   ]
-
-
-// export const Features = [starterFeatures, essentialFeatures, premiumFeatures, unlimitedFeatures]
 
 
 export const faqs: IFaq[] = [
@@ -494,35 +639,62 @@ export const projects: IWork[] = [
   },
 ]
 
-// export const Milestones: IMilestone[] = [
-//   {
-//     id:'1',
-//     paid: false,
-//     order: 1,
-//     label: '1. Design und Content',
-//     description: 'In dieser Phase haben wir bereits genug Input von dir erhalten, um uns selbständig an Designvorschlägen zu machen und uns deinen Content genauer anzuschauen bzw. zu überarbeiten',
-//     state: 'waiting',
-//     icon: 'design_services',
-//     icon_classes: 'bg-teal-50 text-teal-700'
-//   },
-//   {
-//     id:'2',
-//     paid: false,
-//     order: 2,
-//     label: '2. Entwicklung und Konfiguration',
-//     description: 'In dieser Phase entwickeln wir die Konzepte, setzen den Server auf und lassen dich erstmals deine Webseite online sehen.',
-//     state: 'waiting',
-//     icon: 'code',
-//     icon_classes:'bg-blue-50 text-blue-700'
-//   },
-//   {
-//     id:'3',
-//     paid: false,
-//     order: 3,
-//     label: '3. Überarbeitung, Abschluss und GO-Live',
-//     description: 'In dieser Phase machen wir den Feinschliff und gehen gemeinsam mit dir Online!',
-//     state: 'waiting',
-//     icon: 'important_devices',
-//     icon_classes:'bg-purple-50 text-purple-700'
-//   },
-// ]
+export const Milestones: IMilestone[] = [
+  {
+    order: 1,
+    label: '1. Design und Content',
+    description: 'In dieser Phase haben wir bereits genug Input von dir erhalten, um uns selbständig an Designvorschlägen zu machen und uns deinen Content genauer anzuschauen bzw. zu überarbeiten',
+    icon: 'design_services',
+    icon_classes: 'bg-teal-50 text-teal-700'
+  },
+  {
+    order: 2,
+    label: '2. Entwicklung und Konfiguration',
+    description: 'In dieser Phase entwickeln wir die Konzepte, setzen den Server auf und lassen dich erstmals deine Webseite online sehen.',
+    icon: 'code',
+    icon_classes: 'bg-blue-50 text-blue-700'
+  },
+  {
+    order: 3,
+    label: '3. Überarbeitung, Abschluss und GO-Live',
+    description: 'In dieser Phase machen wir den Feinschliff und gehen gemeinsam mit dir Online!',
+    icon: 'important_devices',
+    icon_classes: 'bg-purple-50 text-purple-700'
+  },
+]
+
+export const Tiers: ITier[] =
+  [
+    {
+      description: 'Eine starke Landingpage, die gewaltigen Eindruck hinterlässt.',
+      allFeatures: starterFeatures,
+      features: ['1 Seite inkl. Design', '7 Sections', '1 Überarbeitungsschleife'],
+      icon:'✈️',
+      label: 'Starter',
+      price: 900,
+    },
+    {
+      description: 'Ideal für aufstrebende Start-Ups im Wachstum für mehr Reichweite.',
+      allFeatures: essentialFeatures,
+      features: ['12 Seiten inkl. Design', 'Je Seite 7 Sections', '3 Überarbeitungsschleifen', 'Content-Management-System','2 CMS-Asset'],
+      icon:'✈️',
+      label: 'Essentials',
+      price: 4800,
+    },
+    {
+      description: 'Ideal wenn du erstklassigen Content liefern möchtest.',
+      allFeatures: premiumFeatures,
+      features: ['40 Seiten inkl. Design', 'Je Seite 7 Sections', '3 Überarbeitungsschleifen', 'Content-Management-System','6 CMS-Assets'],
+      icon:'✈️',
+      label: 'Premium',
+      price: 10000,
+    },
+    {
+      description: 'Lässt keine Wünsche offen während dein Business wächst.',
+      allFeatures: unlimitedFeatures,
+      features: ['Unbegrenzte Seitenanzahl', 'Unbegrenzte Anzahl Sections', 'Unbegrenzt viele Überarbeitungsschleifen', 'Content-Management-System','Unbegrenzt viele CMS-Assets'],
+      icon:'✈️',
+      label: 'Premium',
+      price: 25000,
+    }
+  ]
