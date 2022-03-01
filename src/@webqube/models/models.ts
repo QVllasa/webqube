@@ -22,6 +22,15 @@ export interface ITier {
   order: number
 }
 
+export interface IHosting {
+  id?: string
+  price: number,
+  features: string[],
+  label: string,
+  icon?: string,
+  order: number
+}
+
 export interface IFaq {
   question: string,
   answer: string

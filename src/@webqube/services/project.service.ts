@@ -5,9 +5,9 @@ import {IScrumboardCard} from "../models/scrumboard-card.interface";
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {ActivatedRoute} from "@angular/router";
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from "rxjs";
-import {IMilestone, IProject, ITier, IUser} from "../models/models";
+import {IHosting, IMilestone, IProject, ITier, IUser} from "../models/models";
 import {filter, map, mergeMap, switchMap, tap} from "rxjs/operators";
-import {Milestones, Tiers} from "../static/static";
+import {Hostings, Milestones, Tiers} from "../static/static";
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class ProjectService {
 
   staticMilestones = Milestones;
   staticTiers = Tiers;
+  staticHostings = Hostings;
 
   user: Observable<IUser | null>;
   tiers = new BehaviorSubject<ITier[]>(null);
@@ -28,6 +29,7 @@ export class ProjectService {
 
   private projectDoc: AngularFirestoreDocument<IProject>;
   private tiersColl: AngularFirestoreCollection<ITier>;
+  private hostingsColl: AngularFirestoreCollection<IHosting>;
   private scrumboardColl: AngularFirestoreCollection<IScrumboard>;
   private scrumboardListColl: AngularFirestoreCollection<IScrumboardList>;
   private scrumboardCardsColl: AngularFirestoreCollection<IScrumboardCard>;
@@ -64,6 +66,7 @@ export class ProjectService {
 
     this.milestoneColl = this.afs.collection<IMilestone>('milestones');
     this.tiersColl = this.afs.collection<ITier>('tiers');
+    this.hostingsColl = this.afs.collection<IHosting>('hostings');
     this.tiersColl.valueChanges({idField: 'id'}).subscribe(tiers => {
       this.tiers.next(tiers.map(obj => ({...obj, selected: false})));
     })
@@ -113,7 +116,7 @@ export class ProjectService {
     return this.projectDoc.update(data)
   }
 
-  activateBoard(id:string, paid: boolean){
+  activateBoard(id: string, paid: boolean) {
     return this.scrumboardColl.doc(id).update({paid: paid})
   }
 
@@ -204,20 +207,26 @@ export class ProjectService {
     })
   }
 
- async initMilestones(){
+  async initMilestones() {
     await this.deleteCollection(this.milestoneColl);
-    for await (const milestone of this.staticMilestones){
-      await this.afs.collection<IMilestone>('milestones').add(milestone)
+    for await (const milestone of this.staticMilestones) {
+      await this.milestoneColl.add(milestone)
     }
   }
 
-  async initTiers(){
+  async initTiers() {
     await this.deleteCollection(this.tiersColl);
-    for await (const tier of this.staticTiers){
-      await this.afs.collection<ITier>('tiers').add(tier)
+    for await (const tier of this.staticTiers) {
+      await this.tiersColl.add(tier)
     }
   }
 
+  async initHostings() {
+    await this.deleteCollection(this.hostingsColl);
+    for await (const hosting of this.staticHostings) {
+      await this.hostingsColl.add(hosting)
+    }
+  }
 
 
 }

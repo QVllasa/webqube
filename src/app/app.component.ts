@@ -14,6 +14,7 @@ export class AppComponent {
   constructor(private projectSerivce: ProjectService) {
     this.projectSerivce.initMilestones();
     this.projectSerivce.initTiers();
+    this.projectSerivce.initHostings();
   }
 
 

@@ -12,7 +12,7 @@ import {
   IndividualRequestComponent
 } from "../../../@webqube/components/dialogs/individual-request/individual-request.component";
 import {RequestComponent} from "../../../@webqube/components/dialogs/request/request.component";
-import {ITier} from "../../../@webqube/models/models";
+import {IHosting, ITier} from "../../../@webqube/models/models";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {map, tap} from "rxjs/operators";
 
@@ -39,6 +39,7 @@ export class PricingComponent implements OnInit {
   unlimitedFeatures = unlimitedFeatures;
 
   tiers: ITier[] = [];
+  hostings: IHosting[] = [];
   rows: IRow[] = [];
   faqs = faqs
 
@@ -49,7 +50,7 @@ export class PricingComponent implements OnInit {
       .pipe(
         //sort features
         map(tiers => {
-          for (let tier of tiers){
+          for (let tier of tiers) {
             tier.allFeatures.sort((a, b) => {
               return a[Object.keys(a)[0]].order - b[Object.keys(b)[0]].order;
             })
@@ -73,6 +74,19 @@ export class PricingComponent implements OnInit {
         }))
       .subscribe(tiers => {
         this.tiers = tiers;
+      })
+
+
+    this.afs.collection<IHosting>('hostings').valueChanges({idField: 'id'})
+      .pipe(
+        map(hostings => {
+          return hostings.sort((a, b)=>{
+            return a.order - b.order
+          })
+        })
+      )
+      .subscribe(hostings => {
+        this.hostings = hostings;
       })
   }
 
@@ -98,7 +112,7 @@ export class PricingComponent implements OnInit {
   }
 
   getFeatureValue(tier: ITier, row: IRow): string | boolean {
-   return tier.allFeatures.find(obj => Object.keys(obj)[0] === row.key)[row.key].value;
+    return tier.allFeatures.find(obj => Object.keys(obj)[0] === row.key)[row.key].value;
   }
 
   checkType(value: boolean | string) {

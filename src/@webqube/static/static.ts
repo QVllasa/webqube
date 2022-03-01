@@ -1,4 +1,4 @@
-import {IFaq, IFeature, ITier, IWork, ITeamMember, IMilestone} from "../models/models";
+import {IFaq, IFeature, ITier, IWork, ITeamMember, IMilestone, IHosting} from "../models/models";
 
 export const columnsKeys = ['Feature', 'Starter', 'Professional', 'Business']
 
@@ -667,7 +667,7 @@ export const Tiers: ITier[] =
       description: 'Eine starke Landingpage, die gewaltigen Eindruck hinterlässt.',
       allFeatures: starterFeatures,
       features: ['1 Seite inkl. Design', '7 Sections', '1 Überarbeitungsschleife'],
-      icon:'✈️',
+      icon: '✈️',
       label: 'Starter',
       price: 900,
       order: 0,
@@ -675,8 +675,8 @@ export const Tiers: ITier[] =
     {
       description: 'Ideal für aufstrebende Start-Ups im Wachstum für mehr Reichweite.',
       allFeatures: essentialFeatures,
-      features: ['12 Seiten inkl. Design', 'Je Seite 7 Sections', '3 Überarbeitungsschleifen', 'Content-Management-System','2 CMS-Asset'],
-      icon:'✈️',
+      features: ['12 Seiten inkl. Design', 'Je Seite 7 Sections', '3 Überarbeitungsschleifen', 'Content-Management-System', '2 CMS-Asset'],
+      icon: '✈️',
       label: 'Essentials',
       price: 4800,
       order: 1
@@ -684,8 +684,8 @@ export const Tiers: ITier[] =
     {
       description: 'Ideal wenn du erstklassigen Content liefern möchtest.',
       allFeatures: premiumFeatures,
-      features: ['40 Seiten inkl. Design', 'Je Seite 7 Sections', '3 Überarbeitungsschleifen', 'Content-Management-System','6 CMS-Assets'],
-      icon:'✈️',
+      features: ['40 Seiten inkl. Design', 'Je Seite 7 Sections', '3 Überarbeitungsschleifen', 'Content-Management-System', '6 CMS-Assets'],
+      icon: '✈️',
       label: 'Premium',
       price: 10000,
       order: 2
@@ -693,10 +693,35 @@ export const Tiers: ITier[] =
     {
       description: 'Lässt keine Wünsche offen während dein Business wächst.',
       allFeatures: unlimitedFeatures,
-      features: ['Unbegrenzte Seitenanzahl', 'Unbegrenzte Anzahl Sections', 'Unbegrenzt viele Überarbeitungsschleifen', 'Content-Management-System','Unbegrenzt viele CMS-Assets'],
-      icon:'✈️',
+      features: ['Unbegrenzte Seitenanzahl', 'Unbegrenzte Anzahl Sections', 'Unbegrenzt viele Überarbeitungsschleifen', 'Content-Management-System', 'Unbegrenzt viele CMS-Assets'],
+      icon: '✈️',
       label: 'Unlimited',
       price: 25000,
       order: 3
     }
+  ]
+
+export const Hostings: IHosting[] =
+  [
+    {
+      features: ['1x Wunsch-Domain', '2GB RAM', '40GB SSD Speicher', '2 vCPUs', '20TB Bandbreite'],
+      icon: '✈️',
+      label: 'S-Hosting',
+      price: 15,
+      order: 0,
+    },
+    {
+      features: ['1x Wunsch-Domain', '4GB RAM', '80GB SSD Speicher', '3 vCPUs', '20TB Bandbreite'],
+      icon: '✈️',
+      label: 'M-Hosting',
+      price: 25,
+      order: 1,
+    },
+    {
+      features: ['1x Wunsch-Domain', '8GB RAM', '160GB SSD Speicher', '4 vCPUs', '20TB Bandbreite'],
+      icon: '✈️',
+      label: 'L-Hosting',
+      price: 30,
+      order: 2,
+    },
   ]

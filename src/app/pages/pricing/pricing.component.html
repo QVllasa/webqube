@@ -6,7 +6,7 @@
 
     <div class="relative max-w-2xl mx-auto pt-16 px-4 text-center sm:pt-32 sm:px-6 lg:max-w-7xl lg:px-8">
       <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-6xl">
-        <span class="block lg:inline">Einfache Preise </span>
+        <span class="block lg:inline">Preise pro Webseite</span>
       </h1>
       <p class="mt-4 text-xl text-gray-400">Entscheide selbst welcher Plan zu dir am besten passt. Du kannst jederzeit
         upgraden.</p>
@@ -792,7 +792,6 @@
           </thead>
           <tbody class="divide-y divide-gray-100">
 
-          <!--          todo -->
           <tr *ngFor="let row of rows">
             <th scope="row" class="w-1/5 py-3 pr-4 text-left text-sm font-medium text-gray-600">
               {{row.title}}
@@ -896,19 +895,55 @@
   </section>
 </div>
 
-<div class="bg-gradient-to-t from-amber-50 via-white to-white">
+<div class="">
   <!-- Pricing section with single price and feature list -->
   <div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
     <div class="pb-16 items-center justify-center xl:flex ">
       <div class="text-center">
-        <h1 class="text-6xl font-extrabold sm:text-5xl sm:tracking-tight">
+        <h2 class="text-6xl font-extrabold sm:text-5xl sm:tracking-tight">
           <span class="text-gray-900">Nicht das richtige dabei? </span>
-        </h1>
+        </h2>
         <p class="mt-5 text-xl text-gray-500 ">Gerne erstellen wir dir ein individuelles Angebot.</p>
         <button mat-ripple (click)="openIndividualRequestDialog()"
                 class="mt-8 w-full bg-amber-600 border border-transparent rounded-md py-3 px-5 inline-flex items-center justify-center text-base font-medium text-white hover:bg-amber-700  sm:w-auto">
           Anfragen
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="bg-white">
+  <div class="max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8">
+    <div class="sm:flex sm:flex-col sm:align-center">
+      <h2 class="text-5xl font-extrabold text-gray-900 sm:text-center">Preise für Hosting</h2>
+      <p class="mt-5 text-xl text-gray-500 sm:text-center">Damit deine Webseite auch zu jeder Zeit super schnell von all deinen Kunden und Besuchern erreicht werden kann.</p>
+    </div>
+    <div class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3">
+      <div *ngFor="let hosting of hostings" class="border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200">
+        <div class="p-6">
+          <h2 class="text-lg leading-6 font-medium text-gray-900">{{hosting.label}}</h2>
+          <p class="mt-4 text-sm text-gray-500">All the basics for starting a new business</p>
+          <p class="mt-8">
+            <span class="text-4xl font-extrabold text-gray-900">{{hosting.price}}€</span>
+            <span class="text-base font-medium text-gray-500">/monat</span>
+          </p>
+          <a href="#" class="mt-8 block w-full bg-gray-800 border border-gray-800 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-gray-900">Buy Hobby</a>
+        </div>
+        <div class="pt-6 pb-8 px-6">
+          <h3 class="text-xs font-medium text-gray-900 tracking-wide uppercase">Spezifikation</h3>
+          <ul role="list" class="mt-6 space-y-4">
+            <li *ngFor="let feature of hosting.features" class="flex space-x-3">
+              <!-- Heroicon name: solid/check -->
+              <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-sm text-gray-500">{{feature}}</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
