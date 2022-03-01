@@ -786,94 +786,90 @@
               <span class="sr-only">Feature</span>
             </th>
             <th *ngFor="let column of tiers" scope="col">
-              <span  class="sr-only">{{column}}</span>
+              <span class="sr-only">{{column}}</span>
             </th>
           </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
 
-<!--          todo -->
-            <tr *ngFor="let row of rows">
-              <th scope="row" class="w-1/5 py-3 pr-4 text-left text-sm font-medium text-gray-600">
-                {{row.title}}
-              </th>
-              <td *ngFor="let tier of tiers" class="px-4 relative w-1/5 py-0 text-center">
-                <ng-container *ngIf="getFeatureValue(tier, row) as value" >
-                  <span *ngIf="checkType(value)" class="relative w-full h-full py-3 bg-amber-500">
-                    <span class="text-gray-900 text-sm font-medium">{{678}}</span>
+          <!--          todo -->
+          <tr *ngFor="let row of rows">
+            <th scope="row" class="w-1/5 py-3 pr-4 text-left text-sm font-medium text-gray-600">
+              {{row.title}}
+            </th>
+            <td *ngFor="let tier of tiers" class="px-4 relative w-1/5 py-0 text-center">
+              <ng-template #ref [ngTemplateOutlet]="ref"
+                           let-value="value" [ngTemplateOutletContext]="{ value: getFeatureValue(tier, row) }">
+                <span *ngIf="checkType(value) === 'boolean'" class="relative w-full h-full py-3">
+
+                  <span *ngIf="value" class="text-gray-900 text-sm font-medium">
+                    <mat-icon class="material-icons-round text-amber-500 h-5 w-5 flex-shrink-0">
+                      done
+                    </mat-icon>
                   </span>
-                  <span *ngIf="!checkType(value)" class="relative w-full h-full py-3 bg-green-300">
-                    <span class="text-blue-500 text-sm font-medium">{{123}}</span>
+                  <span *ngIf="!value" class="text-gray-900 text-sm font-medium">
+                    <mat-icon class="material-icons-round text-gray-500 h-5 w-5 flex-shrink-0">
+                      close
+                    </mat-icon>
                   </span>
-<!--                  <span *ngIf="value" class="relative w-full h-full py-3">-->
+                </span>
+                <span *ngIf="checkType(value) === 'string'" class="relative w-full h-full py-3">
+                  <span class="text-gray-500 text-base font-medium">{{value}}</span>
+                </span>
+                <span *ngIf="checkType(value) === 'undefined'" class="relative w-full h-full py-3">
+                  <span class="text-gray-500 text-sm font-medium">{{'undefined'}}</span>
+                </span>
+              </ng-template>
 
-<!--                    <mat-icon class="material-icons-round text-green-500 h-5 w-5 flex-shrink-0">-->
-<!--                      done-->
-<!--                    </mat-icon>-->
-<!--                    <span class="sr-only">Yes</span>-->
-<!--                  </span>-->
-<!--                  <span *ngIf="value" class="relative w-full h-full py-3">-->
-<!--                    &lt;!&ndash; Heroicon name: solid/x &ndash;&gt;-->
-<!--                    <mat-icon class="material-icons-round text-gray-500 h-5 w-5 flex-shrink-0">-->
-<!--                      close-->
-<!--                    </mat-icon>-->
-<!--                    <span class="sr-only">No</span>-->
-<!--                  </span>-->
-<!--                  <span *ngIf="value" class="relative w-full h-full py-3">-->
-<!--                    <span class="text-gray-900 text-sm font-medium">{{feature.starterTextOneTime}}</span>-->
-<!--                  </span>-->
-                </ng-container>
-
-              </td>
+            </td>
 
 
+            <!--              <td class="px-4 relative w-1/5 py-0 text-center">-->
+            <!--                <span *ngIf="feature.professionalOneTime && !feature.custom" class="relative w-full h-full py-3">-->
+            <!--                  &lt;!&ndash; Heroicon name: solid/check &ndash;&gt;-->
+            <!--                  <mat-icon class="material-icons-round text-green-500 h-5 w-5 flex-shrink-0">-->
+            <!--                    done-->
+            <!--                  </mat-icon>-->
+            <!--                  <span class="sr-only">Yes</span>-->
+            <!--                </span>-->
+            <!--                <span *ngIf="!feature.professionalOneTime" class="relative w-full h-full py-3">-->
+            <!--                  &lt;!&ndash; Heroicon name: solid/x &ndash;&gt;-->
+            <!--                  <mat-icon class="material-icons-round text-green-500 h-5 w-5 flex-shrink-0">-->
+            <!--                    close-->
+            <!--                  </mat-icon>-->
+            <!--                  <span class="sr-only">No</span>-->
+            <!--                </span>-->
+            <!--                <span *ngIf="feature.custom" class="relative w-full h-full py-3">-->
+            <!--                  <span class="text-amber-600 text-sm font-medium">{{feature.professionalTextOneTime}}</span>-->
+            <!--                </span>-->
+            <!--              </td>-->
 
-<!--              <td class="px-4 relative w-1/5 py-0 text-center">-->
-<!--                <span *ngIf="feature.professionalOneTime && !feature.custom" class="relative w-full h-full py-3">-->
-<!--                  &lt;!&ndash; Heroicon name: solid/check &ndash;&gt;-->
-<!--                  <mat-icon class="material-icons-round text-green-500 h-5 w-5 flex-shrink-0">-->
-<!--                    done-->
-<!--                  </mat-icon>-->
-<!--                  <span class="sr-only">Yes</span>-->
-<!--                </span>-->
-<!--                <span *ngIf="!feature.professionalOneTime" class="relative w-full h-full py-3">-->
-<!--                  &lt;!&ndash; Heroicon name: solid/x &ndash;&gt;-->
-<!--                  <mat-icon class="material-icons-round text-green-500 h-5 w-5 flex-shrink-0">-->
-<!--                    close-->
-<!--                  </mat-icon>-->
-<!--                  <span class="sr-only">No</span>-->
-<!--                </span>-->
-<!--                <span *ngIf="feature.custom" class="relative w-full h-full py-3">-->
-<!--                  <span class="text-amber-600 text-sm font-medium">{{feature.professionalTextOneTime}}</span>-->
-<!--                </span>-->
-<!--              </td>-->
-
-<!--              <td class="pl-4 relative w-1/5 py-0 text-center">-->
-<!--                <span *ngIf="feature.businessOneTime && !feature.custom" class="relative w-full h-full py-3">-->
-<!--                  &lt;!&ndash; Heroicon name: solid/check &ndash;&gt;-->
-<!--                  <svg class="mx-auto h-5 w-5 text-amber-600" xmlns="http://www.w3.org/2000/svg"-->
-<!--                       viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">-->
-<!--                    <path fill-rule="evenodd"-->
-<!--                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"-->
-<!--                          clip-rule="evenodd"/>-->
-<!--                  </svg>-->
-<!--                  <span class="sr-only">Yes</span>-->
-<!--                </span>-->
-<!--                <span *ngIf="!feature.businessOneTime" class="relative w-full h-full py-3">-->
-<!--                  &lt;!&ndash; Heroicon name: solid/x &ndash;&gt;-->
-<!--                  <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"-->
-<!--                       fill="currentColor" aria-hidden="true">-->
-<!--                    <path fill-rule="evenodd"-->
-<!--                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"-->
-<!--                          clip-rule="evenodd"/>-->
-<!--                  </svg>-->
-<!--                  <span class="sr-only">No</span>-->
-<!--                </span>-->
-<!--                <span *ngIf="feature.custom" class="relative w-full h-full py-3">-->
-<!--                  <span class="text-gray-900 text-sm font-medium">{{feature.businessTextOneTime}}</span>-->
-<!--                </span>-->
-<!--              </td>-->
-            </tr>
+            <!--              <td class="pl-4 relative w-1/5 py-0 text-center">-->
+            <!--                <span *ngIf="feature.businessOneTime && !feature.custom" class="relative w-full h-full py-3">-->
+            <!--                  &lt;!&ndash; Heroicon name: solid/check &ndash;&gt;-->
+            <!--                  <svg class="mx-auto h-5 w-5 text-amber-600" xmlns="http://www.w3.org/2000/svg"-->
+            <!--                       viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">-->
+            <!--                    <path fill-rule="evenodd"-->
+            <!--                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"-->
+            <!--                          clip-rule="evenodd"/>-->
+            <!--                  </svg>-->
+            <!--                  <span class="sr-only">Yes</span>-->
+            <!--                </span>-->
+            <!--                <span *ngIf="!feature.businessOneTime" class="relative w-full h-full py-3">-->
+            <!--                  &lt;!&ndash; Heroicon name: solid/x &ndash;&gt;-->
+            <!--                  <svg class="mx-auto h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"-->
+            <!--                       fill="currentColor" aria-hidden="true">-->
+            <!--                    <path fill-rule="evenodd"-->
+            <!--                          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"-->
+            <!--                          clip-rule="evenodd"/>-->
+            <!--                  </svg>-->
+            <!--                  <span class="sr-only">No</span>-->
+            <!--                </span>-->
+            <!--                <span *ngIf="feature.custom" class="relative w-full h-full py-3">-->
+            <!--                  <span class="text-gray-900 text-sm font-medium">{{feature.businessTextOneTime}}</span>-->
+            <!--                </span>-->
+            <!--              </td>-->
+          </tr>
 
           </tbody>
         </table>

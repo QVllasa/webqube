@@ -13,7 +13,6 @@ export const starterFeatures: IFeature[] =
         order: 0
       },
     },
-
     {
       seo: {
         title: 'Suchmaschinenoptimiert',
@@ -24,7 +23,7 @@ export const starterFeatures: IFeature[] =
     {
       cms: {
         title: 'Content-Management-System',
-        value: true,
+        value: false,
         order: 6
       }
     },
@@ -59,7 +58,7 @@ export const starterFeatures: IFeature[] =
     {
       privacySettings: {
         title: 'Datenschutzeinstellungen',
-        value: true,
+        value: false,
         order: 7
       }
     },
@@ -80,42 +79,42 @@ export const starterFeatures: IFeature[] =
     {
       contentAnalysis: {
         title: 'Content-Analyse',
-        value: true,
+        value: false,
         order: 5
       }
     },
     {
       projectDuration: {
         title: 'Projekt-Laufzeit',
-        value: true,
+        value: 'Unbegrenzt',
         order: 17
       }
     },
     {
       timeToMarket: {
         title: 'Zeit bis GO-Live',
-        value: true,
+        value: '1 Monat',
         order: 18
       }
     },
     {
       cmsAssets: {
         title: 'CMS Assets',
-        value: true,
+        value: '0',
         order: 13
       }
     },
     {
       forms: {
         title: 'Formen',
-        value: true,
+        value: '0',
         order: 14
       }
     },
     {
       eventPlanning: {
         title: 'Eventplanung',
-        value: true,
+        value: '0',
         order: 16
       }
     },
@@ -129,7 +128,7 @@ export const starterFeatures: IFeature[] =
     {
       advancedAnalytics: {
         title: 'Fortgeschrittene Analytik',
-        value: true,
+        value: false,
         order: 8
       }
     },
@@ -163,14 +162,14 @@ export const essentialFeatures: IFeature[] =
     {
       monthlyAppointments: {
         title: 'Rücksprachetermine pro Monat',
-        value: true,
+        value: '2',
         order: 9
       }
     },
     {
       revisions: {
         title: 'Überarbeitungsschleifen',
-        value: true,
+        value: '3',
         order: 10
       }
     },
@@ -191,14 +190,14 @@ export const essentialFeatures: IFeature[] =
     {
       privacySettings: {
         title: 'Datenschutzeinstellungen',
-        value: true,
+        value: false,
         order: 7
       }
     },
     {
       pageCount: {
         title: 'Seitenanzahl',
-        value: true,
+        value: '12',
         order: 11
       }
     },
@@ -219,35 +218,35 @@ export const essentialFeatures: IFeature[] =
     {
       projectDuration: {
         title: 'Projekt-Laufzeit',
-        value: true,
+        value: 'Unbegrenzt',
         order: 17
       }
     },
     {
       timeToMarket: {
         title: 'Zeit bis GO-Live',
-        value: true,
+        value: '3 Monate',
         order: 18
       }
     },
     {
       cmsAssets: {
         title: 'CMS Assets',
-        value: true,
+        value: '2',
         order: 13
       }
     },
     {
       forms: {
         title: 'Formen',
-        value: true,
+        value: '1',
         order: 14
       }
     },
     {
       eventPlanning: {
         title: 'Eventplanung',
-        value: true,
+        value: '0',
         order: 16
       }
     },
@@ -261,7 +260,7 @@ export const essentialFeatures: IFeature[] =
     {
       advancedAnalytics: {
         title: 'Fortgeschrittene Analytik',
-        value: true,
+        value: false,
         order: 8
       }
     },
@@ -295,14 +294,14 @@ export const premiumFeatures: IFeature[] =
     {
       monthlyAppointments: {
         title: 'Rücksprachetermine pro Monat',
-        value: true,
+        value: '4',
         order: 9
       }
     },
     {
       revisions: {
         title: 'Überarbeitungsschleifen',
-        value: true,
+        value: '3',
         order: 10
       }
     },
@@ -330,7 +329,7 @@ export const premiumFeatures: IFeature[] =
     {
       pageCount: {
         title: 'Seitenanzahl',
-        value: true,
+        value: '40',
         order: 11
       }
     },
@@ -351,35 +350,35 @@ export const premiumFeatures: IFeature[] =
     {
       projectDuration: {
         title: 'Projekt-Laufzeit',
-        value: true,
+        value: 'Unbegrenzt',
         order: 17
       }
     },
     {
       timeToMarket: {
         title: 'Zeit bis GO-Live',
-        value: true,
+        value: '6 Monate',
         order: 18
       }
     },
     {
       cmsAssets: {
         title: 'CMS Assets',
-        value: true,
+        value: '6',
         order: 13
       }
     },
     {
       forms: {
         title: 'Formen',
-        value: true,
+        value: '2',
         order: 14
       }
     },
     {
       eventPlanning: {
         title: 'Eventplanung',
-        value: true,
+        value: '0',
         order: 16
       }
     },
@@ -393,7 +392,7 @@ export const premiumFeatures: IFeature[] =
     {
       advancedAnalytics: {
         title: 'Fortgeschrittene Analytik',
-        value: true,
+        value: false,
         order: 8
       }
     },
@@ -409,7 +408,6 @@ export const unlimitedFeatures: IFeature[] =
         order: 0
       },
     },
-
     {
       seo: {
         title: 'Suchmaschinenoptimiert',
@@ -427,14 +425,14 @@ export const unlimitedFeatures: IFeature[] =
     {
       monthlyAppointments: {
         title: 'Rücksprachetermine pro Monat',
-        value: true,
+        value: 'Unbegrenzt',
         order: 9
       }
     },
     {
       revisions: {
         title: 'Überarbeitungsschleifen',
-        value: true,
+        value: 'Unbegrenzt',
         order: 10
       }
     },
@@ -462,7 +460,7 @@ export const unlimitedFeatures: IFeature[] =
     {
       pageCount: {
         title: 'Seitenanzahl',
-        value: true,
+        value: 'Unbegrenzt',
         order: 11
       }
     },
@@ -483,35 +481,35 @@ export const unlimitedFeatures: IFeature[] =
     {
       projectDuration: {
         title: 'Projekt-Laufzeit',
-        value: true,
+        value: '6 Monate',
         order: 17
       }
     },
     {
       timeToMarket: {
         title: 'Zeit bis GO-Live',
-        value: true,
+        value: '6 Monate',
         order: 18
       }
     },
     {
       cmsAssets: {
         title: 'CMS Assets',
-        value: true,
+        value: 'Unbegrenzt',
         order: 13
       }
     },
     {
       forms: {
         title: 'Formen',
-        value: true,
+        value: '5',
         order: 14
       }
     },
     {
       eventPlanning: {
         title: 'Eventplanung',
-        value: true,
+        value: '1',
         order: 16
       }
     },
