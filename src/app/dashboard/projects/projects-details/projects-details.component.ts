@@ -27,6 +27,9 @@ export class ProjectsDetailsComponent {
   user: IUser;
   project: IProject;
   boardID: string;
+  $tiers: BehaviorSubject<ITier[]>;
+  tier: BehaviorSubject<ITier> = new BehaviorSubject<ITier>(null);
+
 
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   form = new FormGroup({
@@ -51,6 +54,8 @@ export class ProjectsDetailsComponent {
               private auth: AngularFireAuth,
               public projectService: ProjectService,
               public userService: UserService) {
+
+    this.$tiers = this.projectService.tiers;
 
     this.route.params.subscribe((param) => {
       this.projectService.id.next(param['projectID'])
@@ -138,17 +143,19 @@ export class ProjectsDetailsComponent {
   }
 
   onSelectTier(tier: ITier) {
-    // this.projectService.tiers.value.find(obj => obj === tier).selected = !tier.selected;
-    // this.projectService.tiers.value.filter(obj => obj !== tier).map(obj => obj.selected = false);
+    this.tier.value === tier ? this.tier.next(null): this.tier.next(tier);
   }
 
   isSelected(tier: ITier) {
-    return true;
+    return this.tier.value === tier;
   }
 
-  async initProject() {
+  async initProject(tier: BehaviorSubject<ITier>) {
+    if (!this.tier.value){
+      return;
+    }
     this.isSavingTier = true;
-    await this.projectService.initProject()
+    await this.projectService.initProject(tier.value)
     this.isSavingTier = false;
   }
 
@@ -163,10 +170,6 @@ export class ProjectsDetailsComponent {
     this.router.navigate(['', board.id], {relativeTo: this.route})
   }
 
-  // isSelectedBoard(board: IBoard) {
-  //   console.log("is selected ",board.id)
-  //   return this.boardID === board.id;
-  // }
 
   sortByOrder(obj: IBoard[]): IBoard[] {
     return obj.sort((a, b) => (a.order < b.order ? -1 : 1))

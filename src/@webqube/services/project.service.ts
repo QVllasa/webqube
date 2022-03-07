@@ -67,7 +67,13 @@ export class ProjectService {
     this.milestoneColl = this.afs.collection<IMilestone>('milestones');
     this.tiersColl = this.afs.collection<ITier>('tiers');
     this.hostingsColl = this.afs.collection<IHosting>('hostings');
-    this.tiersColl.valueChanges({idField: 'id'}).subscribe(tiers => {
+    this.tiersColl.valueChanges({idField: 'id'})
+      .pipe(map(tiers => {
+        return tiers.sort((a, b) => {
+          return a.order - b.order;
+        });
+      }))
+      .subscribe(tiers => {
       this.tiers.next(tiers.map(obj => ({...obj, selected: false})));
     })
     this.milestoneColl.valueChanges({idField: 'id'}).subscribe(milestones => {
@@ -75,7 +81,7 @@ export class ProjectService {
     })
   }
 
-  async initProject() {
+  async initProject(tier: ITier) {
     let scrumboard: IScrumboard = {
       milestoneID: '',
       paid: false,
@@ -108,8 +114,7 @@ export class ProjectService {
       }
     }
 
-    let selectedTier = this.tiers.value[0]
-    await this.projectDoc.update({tierID: selectedTier.id,});
+    await this.projectDoc.update({tierID: tier.id,});
   }
 
   updateProject(data: any) {

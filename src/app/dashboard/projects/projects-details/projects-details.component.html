@@ -115,12 +115,12 @@
       </h2>
       <!-- This example requires Tailwind CSS v2.0+ -->
       <fieldset>
-        <div class="relative mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
+        <div class="relative mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  sm:gap-x-4">
           <!--
             Checked: "border-transparent", Not Checked: "border-gray-300"
             Active: "ring-2 ring-amber-500"
           -->
-          <label *ngFor="let tier of projectService.tiers.value"
+          <label *ngFor="let tier of $tiers | async"
                  [ngClass]="isSelected(tier) ? 'border-transparent ring-2 ring-amber-500':'border-gray-300'"
                  class="relative bg-white border  rounded-lg shadow-sm p-4 flex cursor-pointer focus:outline-none">
             <input [value]="isSelected(tier)" type="radio" name="project-type" value="Newsletter" class="sr-only"
@@ -140,36 +140,19 @@
                 </span>
               </div>
             </div>
-            <!--
-              Not Checked: "invisible"
-
-              Heroicon name: solid/check-circle
-            -->
-            <svg [ngClass]="isSelected(tier) ? '':'invisible'" class="h-5 w-5 text-amber-600"
-                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                 fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clip-rule="evenodd"></path>
-            </svg>
-            <!--
-              Active: "border", Not Active: "border-2"
-              Checked: "border-amber-500", Not Checked: "border-transparent"
-            -->
+            <mat-icon [ngClass]="isSelected(tier) ? '':'invisible'" class="material-icons-round h-5 w-5 text-amber-600">task_alt</mat-icon>
             <div [ngClass]="isSelected(tier) ? 'border border-amber-500':'border-2 border-transparent'"
                  class="absolute -inset-px rounded-lg border-2 pointer-events-none" aria-hidden="true"></div>
           </label>
           <div *ngIf="isSavingTier"
                class="absolute top-0 left-0 right-0 bottom-0 bg-gray-50 opacity-30 rounded-lg"></div>
-<!--          <button [disabled]="isSavingTier" (click)="initProject()" *ngIf="isSelected(tier)"-->
-<!--                  class="col-start-2 col-end-3 mt-6 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700">-->
-<!--            <span *ngIf="!isSavingTier">Weiter</span>-->
-<!--            <mat-spinner customSpinner color="#FEFCFA" *ngIf="isSavingTier" [diameter]="20"></mat-spinner>-->
-<!--          </button>-->
-
-
         </div>
       </fieldset>
+      <button [disabled]="isSavingTier" (click)="initProject(tier)" *ngIf="tier.value"
+              class="w-48 mt-6 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700">
+        <span *ngIf="!isSavingTier">Weiter</span>
+        <mat-spinner customSpinner color="#FEFCFA" *ngIf="isSavingTier" [diameter]="20"></mat-spinner>
+      </button>
     </div>
   </div>
   <div *ngIf="project.tierID" class="bg-white">
