@@ -26,10 +26,9 @@ export class ProjectsDetailsComponent {
 
   user: IUser;
   project: IProject;
-  boardID: string;
   $tiers: BehaviorSubject<ITier[]>;
   tier: BehaviorSubject<ITier> = new BehaviorSubject<ITier>(null);
-  board: BehaviorSubject<IBoard> = new BehaviorSubject<IBoard>(null);
+  $board: BehaviorSubject<IBoard> = new BehaviorSubject<IBoard>(null);
 
 
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
@@ -60,7 +59,6 @@ export class ProjectsDetailsComponent {
 
     this.route.params.subscribe((param) => {
       this.projectService.id.next(param['projectID'])
-      this.boardID = param['boardID'];
     })
 
     this.projectService.project
@@ -70,6 +68,10 @@ export class ProjectsDetailsComponent {
       }
       console.log("project details",project)
       this.project = project;
+      if(project.boards){
+        let selectedBoard = this.project.boards.find(obj => obj.selected === true);
+        this.$board.next(selectedBoard ? selectedBoard : null)
+      }
       this.form.patchValue({domain: project.domain ? project.domain : '', title: project.title});
     })
 
@@ -137,7 +139,8 @@ export class ProjectsDetailsComponent {
 
   saveDomain() {
     this.isSaving = true
-    this.projectService.updateProject({domain: this.form.get('domain')?.value})
+    this.project.domain = this.form.get('domain')?.value
+    this.projectService.updateProject(this.project)
       .then(res => {
         console.log(res);
         this.isSaving = false;
@@ -169,7 +172,10 @@ export class ProjectsDetailsComponent {
   }
 
   onSelectBoard(board: IBoard) {
-    this.router.navigate(['', board.id], {relativeTo: this.route})
+    this.project.boards.map(obj => {
+      obj === board ? obj.selected = true : obj.selected = false;
+    });
+    this.projectService.updateProject(this.project)
   }
 
   sortByOrder(obj: IBoard[]): IBoard[] {

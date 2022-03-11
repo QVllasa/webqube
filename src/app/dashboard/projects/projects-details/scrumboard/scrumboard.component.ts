@@ -8,7 +8,7 @@ import {
 } from '../../../../../@webqube/components/dialogs/scrumboard-dialog/scrumboard-dialog.component';
 import {ActivatedRoute} from '@angular/router';
 import {IBoard, IScrumboard} from '../../../../../@webqube/models/scrumboard.interface';
-import {of} from "rxjs";
+import {BehaviorSubject, of} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {filter, map, mergeMap, switchMap, take} from "rxjs/operators";
 import {ProjectService} from "../../../../../@webqube/services/project.service";
@@ -23,7 +23,7 @@ import {PayMilstoneComponent} from "../../../../../@webqube/components/dialogs/p
 })
 export class ScrumboardComponent implements OnInit {
 
-  @Input() board: IBoard = null;
+  @Input() board: BehaviorSubject<IBoard> = null;
   boardID: string;
   id: string;
 
@@ -47,9 +47,9 @@ export class ScrumboardComponent implements OnInit {
       .pipe(
         take(1),
         filter(value => value && (value !== card)),
-        switchMap((value) => {
-          return this.projectService.updateCard(value)
-        })
+        // switchMap((value) => {
+        //   // return this.projectService.updateCard(value)
+        // })
       )
       .subscribe();
   }
@@ -64,7 +64,7 @@ export class ScrumboardComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
       let card: IScrumboardCard = {...event.item.data, scrumboardListID: event.container.id}
-      this.projectService.updateProject(card).then()
+      // this.projectService.updateProject(card).then()
     }
   }
 
@@ -88,9 +88,9 @@ export class ScrumboardComponent implements OnInit {
       .pipe(
         take(1),
         filter(value => value && (value !== card)),
-        switchMap((value: IScrumboardCard) => {
-          return of(this.projectService.updateProject(value))
-        })
+        // switchMap((value: IScrumboardCard) => {
+        //   return of(this.projectService.updateProject(value))
+        // })
       )
       .subscribe();
   }

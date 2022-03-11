@@ -165,7 +165,7 @@
 
       <div class="mt-8">
         <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
-          <div *ngFor="let board of sortByOrder(project.boards)" class="border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-6">
+          <div [ngClass]="$board.value === board ? 'border-amber-500': ''" (click)="onSelectBoard(board)" *ngFor="let board of sortByOrder(project.boards)" class="border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-6 ">
             <div>
               <span [ngClass]="board.icon_classes" class="rounded-lg inline-flex p-3  ring-4 ring-white">
                 <mat-icon class="material-icons-round">
@@ -193,7 +193,7 @@
         <div *ngIf="isSelecting">is selecting...</div>
       </div>
       <div>
-        <app-scrumboard [board]="board.value" ></app-scrumboard>
+        <app-scrumboard [board]="$board" ></app-scrumboard>
       </div>
     </div>
   </div>

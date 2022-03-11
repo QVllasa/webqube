@@ -77,10 +77,10 @@ export class ScrumboardDialogComponent implements OnInit {
 
   onDeleteCard() {
     console.log(this.data.card)
-    this.projectService.updateProject(this.data.card)
-      .then(() => {
-        this.dialogRef.close()
-      })
+    // this.projectService.updateProject(this.data.card)
+    //   .then(() => {
+    //     this.dialogRef.close()
+    //   })
   }
 
 
