@@ -43,9 +43,6 @@ export class ProjectService {
         switchMap((id) => {
           console.log("current ID ", id)
           this.projectDoc = this.afs.collection('projects').doc<IProject>(id);
-          // this.scrumboardColl = this.afs.collection('boards', ref => ref.where('projectID', '==', id));
-          // this.scrumboardListColl = this.afs.collection('lists', ref => ref.where('projectID', '==', id))
-          // this.scrumboardCardsColl = this.afs.collection('cards', ref => ref.where('projectID', '==', id))
           return this.getProject();
         })
       )
@@ -100,19 +97,6 @@ export class ProjectService {
 
     let boards: IBoard[] =[];
 
-    // for await (const milestone of this.milestones.value) {
-    //   scrumboard.milestoneID = milestone.id;
-    //   const scrumboardRef = await this.scrumboardColl.add(scrumboard)
-    //   for await (const list of scrumboardLists) {
-    //     const scrumboardListRef = await this.scrumboardListColl.add({...list, scrumboardID: scrumboardRef.id})
-    //     await this.scrumboardCardsColl.add({
-    //       ...card,
-    //       scrumboardID: scrumboardRef.id,
-    //       scrumboardListID: scrumboardListRef.id
-    //     })
-    //   }
-    // }
-
     for (const milestone of this.milestones.value){
       let mergedBoard = {...milestone, ...scrumboard};
       boards.push(mergedBoard)
@@ -129,82 +113,17 @@ export class ProjectService {
     return this.scrumboardColl.doc(id).update({paid: paid})
   }
 
-  getData() {
-    return combineLatest([
-      this.getProject(),
-      // this.getScrumboards(),
-      // this.getScrumboardLists(),
-      // this.getScrumboardCards()
-    ])
-  }
 
   getProject(): Observable<IProject> {
     return this.projectDoc.valueChanges({idField: 'id'})
   }
-
-  // mapProject(data: [IProject, IBoard[], IScrumboardList[], IScrumboardCard[]]): IProject {
-  //   let project: IProject = data[0];
-  //   let boards: IBoard[] = data[1];
-  //   let lists: IScrumboardList[] = data[2];
-  //   let cards: IScrumboardCard[] = data[3];
-  //
-  //   lists.forEach(list => {
-  //     list.cards = cards.filter(obj => obj.scrumboardListID === list.id)
-  //   })
-  //
-  //   boards.forEach(board => {
-  //     board.list = lists.filter(obj => obj.scrumboardID === board.id);
-  //   })
-  //
-  //   project.boards = boards;
-  //
-  //   return project
-  // }
-
-  // getScrumboards(): Observable<IBoard[]> {
-  //   return this.scrumboardColl.valueChanges({idField: 'id'})
-  //     .pipe(
-  //       map((scrumboards) => {
-  //       let boards: IBoard[] = [];
-  //
-  //       scrumboards.forEach(scrumboard => {
-  //         let milestone = this.milestones.value.filter(obj => obj.id === scrumboard.milestoneID)[0]
-  //         boards.push({...milestone, ...scrumboard})
-  //       })
-  //       return boards;
-  //     }))
-  // }
-
-
-  // getScrumboardLists(): Observable<IScrumboardList[]> {
-  //   return this.scrumboardListColl
-  //     .valueChanges({idField: 'id'})
-  // }
-
-  // getScrumboardCards(): Observable<IScrumboardCard[]> {
-  //   return this.scrumboardCardsColl
-  //     .valueChanges({idField: 'id'})
-  // }
 
   getTier(): ITier {
     return this.tiers.value.find(obj => obj.id === this.project.value.tierID)
   }
 
   async deleteProject() {
-    console.log("deleting...")
     await this.projectDoc.delete();
-    // await this.deleteCollection(this.scrumboardColl);
-    // await this.deleteCollection(this.scrumboardListColl);
-    // await this.deleteCollection(this.scrumboardCardsColl)
   }
-
-  async deleteCollection(collection: AngularFirestoreCollection,) {
-    await collection.ref.get().then(ref => {
-      ref.forEach(doc => {
-        collection.doc(doc.id).delete();
-      })
-    })
-  }
-
 
 }
