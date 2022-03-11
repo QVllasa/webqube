@@ -67,7 +67,7 @@ function mode(): any[]{
   return [
     { provide: USE_FUNCTIONS_EMULATOR, useValue: ['localhost', 5001] },
     { provide: USE_FIRESTORE_EMULATOR, useValue: ['localhost', 8080] },
-    // {provide: USE_AUTH_EMULATOR, useValue: ['http://localhost:9099']}
+    {provide: USE_AUTH_EMULATOR, useValue: ['http://localhost:9099']}
   ]
 }
 

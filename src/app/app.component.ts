@@ -11,10 +11,7 @@ import {ProjectService} from "../@webqube/services/project.service";
 })
 export class AppComponent {
   title = 'webqube';
-  constructor(private projectSerivce: ProjectService) {
-    this.projectSerivce.initMilestones();
-    this.projectSerivce.initTiers();
-    this.projectSerivce.initHostings();
+  constructor() {
   }
 
 

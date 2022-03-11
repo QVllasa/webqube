@@ -15,19 +15,24 @@
             <div class="relative flex space-x-3">
               <div class="flex items-center">
                 <span class="h-8 w-8 flex items-center justify-center ring-8 ring-white">
-                  <span
-                    [ngClass]="milestone.id === board.milestoneID ?  board.icon_classes : 'bg-gray-100 text-gray-400'"
-                    class="rounded-lg inline-flex p-3  ring-4 ring-white">
+<!--                  <span TODO -->
+<!--                    [ngClass]="milestone.id === board.milestoneID ?  board.icon_classes : 'bg-gray-100 text-gray-400'"-->
+<!--                    class="rounded-lg inline-flex p-3  ring-4 ring-white">-->
+                    <span
+                      class="rounded-lg inline-flex p-3  ring-4 ring-white">
                     <mat-icon class="material-icons-round">
                       {{milestone.icon}}
                     </mat-icon>
                   </span>
                 </span>
               </div>
-              <div
-                [ngClass]="milestone.id === board.milestoneID ?  'text-gray-900 font-bold text-lg ' : 'text-gray-400 font-medium text-base'"
-                class="min-w-0 flex-1 flex justify-between space-x-4  px-2 py-4 ">
-                <div>
+<!--              <div TODO -->
+<!--                [ngClass]="milestone.id === board.milestoneID ?  'text-gray-900 font-bold text-lg ' : 'text-gray-400 font-medium text-base'"-->
+<!--                class="min-w-0 flex-1 flex justify-between space-x-4  px-2 py-4 ">-->
+<!--                <div>-->
+                  <div
+                    class="min-w-0 flex-1 flex justify-between space-x-4  px-2 py-4 ">
+                    <div>
                   <p>{{milestone.label}}</p>
                 </div>
                 <div>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {IScrumboardList} from '../../../../../@webqube/models/scrumboard-list.interface';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {IScrumboardCard} from '../../../../../@webqube/models/scrumboard-card.interface';
@@ -7,7 +7,7 @@ import {
   ScrumboardDialogComponent
 } from '../../../../../@webqube/components/dialogs/scrumboard-dialog/scrumboard-dialog.component';
 import {ActivatedRoute} from '@angular/router';
-import {IBoard} from '../../../../../@webqube/models/scrumboard.interface';
+import {IBoard, IScrumboard} from '../../../../../@webqube/models/scrumboard.interface';
 import {of} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {filter, map, mergeMap, switchMap, take} from "rxjs/operators";
@@ -17,13 +17,13 @@ import {PayMilstoneComponent} from "../../../../../@webqube/components/dialogs/p
 
 
 @Component({
-  selector: 'vex-scrumboard',
+  selector: 'app-scrumboard',
   templateUrl: './scrumboard.component.html',
   styleUrls: ['./scrumboard.component.scss']
 })
 export class ScrumboardComponent implements OnInit {
 
-  board: IBoard = null;
+  @Input() board: IBoard = null;
   boardID: string;
   id: string;
 
@@ -34,21 +34,13 @@ export class ScrumboardComponent implements OnInit {
               private route: ActivatedRoute) {
   }
 
-  ngOnInit() {
-    this.route.params.pipe(
-      mergeMap((params) => {
-        return this.projectService.project.pipe(map(project => {
-          this.board = project.boards.find(obj => obj.id === params['boardID'])
-        }))
-      })
-    ).subscribe();
-  }
+  ngOnInit() {}
 
   sortByOrder(data: any[]): IScrumboardList[] {
     return sortByOrder(data);
   }
 
-  updateCard(board: IBoard, list: IScrumboardList, card: IScrumboardCard) {
+  updateCard(board: IScrumboard, list: IScrumboardList, card: IScrumboardCard) {
     console.log('card in update card: ', card)
     this.cardDialog(card, list, board, 'update')
       .beforeClosed()
@@ -72,16 +64,16 @@ export class ScrumboardComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
       let card: IScrumboardCard = {...event.item.data, scrumboardListID: event.container.id}
-      this.projectService.updateCard(card).then()
+      this.projectService.updateProject(card).then()
     }
   }
 
 
-  getConnectedList(board: IBoard) {
+  getConnectedList(board: IScrumboard) {
     return board.list.map(x => `${x.id}`);
   }
 
-  createCard(list: IScrumboardList, board: IBoard) {
+  createCard(list: IScrumboardList, board: IScrumboard) {
     let card: IScrumboardCard = {
       title: '',
       description: '',
@@ -97,13 +89,13 @@ export class ScrumboardComponent implements OnInit {
         take(1),
         filter(value => value && (value !== card)),
         switchMap((value: IScrumboardCard) => {
-          return of(this.projectService.createCard(value))
+          return of(this.projectService.updateProject(value))
         })
       )
       .subscribe();
   }
 
-  cardDialog(card: IScrumboardCard, list: IScrumboardList, board: IBoard, action: 'create' | 'update' | 'delete') {
+  cardDialog(card: IScrumboardCard, list: IScrumboardList, board: IScrumboard, action: 'create' | 'update' | 'delete') {
     return this.dialog.open(ScrumboardDialogComponent, {
       data: {card, list, board, action},
       width: '400px',

@@ -165,11 +165,7 @@
 
       <div class="mt-8">
         <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
-          <div *ngFor="let board of sortByOrder(project.boards)"
-               [routerLink]="[board.id]"
-               #rla="routerLinkActive"
-               [routerLinkActive]="['border-amber-500']"
-               class="border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-6">
+          <div *ngFor="let board of sortByOrder(project.boards)" class="border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-6">
             <div>
               <span [ngClass]="board.icon_classes" class="rounded-lg inline-flex p-3  ring-4 ring-white">
                 <mat-icon class="material-icons-round">
@@ -188,7 +184,7 @@
                 {{board.description}}
               </p>
             </div>
-            <span *ngIf="rla.isActive" class="pointer-events-none absolute top-6 right-6 text-amber-500"
+            <span class="pointer-events-none absolute top-6 right-6 text-amber-500"
                   aria-hidden="true">
               <mat-icon class="material-icons-round">check_circle_outlined</mat-icon>
             </span>
@@ -197,7 +193,7 @@
         <div *ngIf="isSelecting">is selecting...</div>
       </div>
       <div>
-        <router-outlet></router-outlet>
+        <app-scrumboard [board]="board.value" ></app-scrumboard>
       </div>
     </div>
   </div>

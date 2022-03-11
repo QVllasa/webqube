@@ -29,6 +29,7 @@ export class ProjectsDetailsComponent {
   boardID: string;
   $tiers: BehaviorSubject<ITier[]>;
   tier: BehaviorSubject<ITier> = new BehaviorSubject<ITier>(null);
+  board: BehaviorSubject<IBoard> = new BehaviorSubject<IBoard>(null);
 
 
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
@@ -60,13 +61,14 @@ export class ProjectsDetailsComponent {
     this.route.params.subscribe((param) => {
       this.projectService.id.next(param['projectID'])
       this.boardID = param['boardID'];
-      console.log("is route param",this.boardID)
     })
 
-    this.projectService.project.subscribe((project) => {
+    this.projectService.project
+      .subscribe((project) => {
       if (!project) {
         return;
       }
+      console.log("project details",project)
       this.project = project;
       this.form.patchValue({domain: project.domain ? project.domain : '', title: project.title});
     })
@@ -169,7 +171,6 @@ export class ProjectsDetailsComponent {
   onSelectBoard(board: IBoard) {
     this.router.navigate(['', board.id], {relativeTo: this.route})
   }
-
 
   sortByOrder(obj: IBoard[]): IBoard[] {
     return obj.sort((a, b) => (a.order < b.order ? -1 : 1))
