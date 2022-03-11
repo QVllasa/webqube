@@ -184,7 +184,7 @@
                 {{board.description}}
               </p>
             </div>
-            <span class="pointer-events-none absolute top-6 right-6 text-amber-500"
+            <span *ngIf="$board.value === board" class="pointer-events-none absolute top-6 right-6 text-amber-500"
                   aria-hidden="true">
               <mat-icon class="material-icons-round">check_circle_outlined</mat-icon>
             </span>
