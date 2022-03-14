@@ -1,4 +1,4 @@
-import {IFaq, IFeature, ITier, IWork, ITeamMember, IMilestone, IHosting} from "../models/models";
+import {IFaq, IFeature, IPlan, IWork, ITeamMember, IMilestone, IHosting} from "../models/models";
 
 export const columnsKeys = ['Feature', 'Starter', 'Professional', 'Business']
 
@@ -661,7 +661,7 @@ export const Milestones: IMilestone[] = [
   },
 ]
 
-export const Tiers: ITier[] =
+export const Tiers: IPlan[] =
   [
     {
       description: 'Eine starke Landingpage, die gewaltigen Eindruck hinterlässt.',

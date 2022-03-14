@@ -1,11 +1,13 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {IMilestone, ITier} from "../../../models/models";
+import {IMilestone, IPlan} from "../../../models/models";
 import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
 import {IBoard} from "../../../models/scrumboard.interface";
 import {ProjectService} from "../../../services/project.service";
 import {environment} from "../../../../environments/environment";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {PlanService} from "../../../services/plan.service";
+import {MilestoneService} from "../../../services/milestone.service";
 
 @Component({
   selector: 'app-pay-milstone',
@@ -16,11 +18,11 @@ export class PayMilstoneComponent implements OnInit {
 
   public payPalConfig ?: IPayPalConfig;
   board: IBoard;
-  milestones$ = this.projectService.milestones;
-  tier: ITier;
+  milestones$ = this.milestoneService.milestones;
+  tier: IPlan;
   value: string ;
   project$ = this.projectService.project;
-  tiers$ = this.projectService.tiers;
+  plans$ = this.planService.plans$;
 
   onError:boolean;
   onSuccess: boolean = false;
@@ -28,6 +30,8 @@ export class PayMilstoneComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<PayMilstoneComponent>,
               private projectService: ProjectService,
+              private milestoneService: MilestoneService,
+              private planService: PlanService,
               private afs: AngularFirestore,
               @Inject(MAT_DIALOG_DATA) public data: IBoard,) {
 
@@ -35,7 +39,7 @@ export class PayMilstoneComponent implements OnInit {
 
   ngOnInit(): void {
     this.board = this.data;
-    this.tier = this.tiers$.value.find(obj => obj.id === this.project$.value.tierID)
+    this.tier = this.plans$.value.find(obj => obj.id === this.project$.value.tierID)
     this.value = (this.tier.price/3).toString();
     this.initConfig();
   }
@@ -78,9 +82,9 @@ export class PayMilstoneComponent implements OnInit {
       onApprove: (data, actions) => {
         actions.order.get().then((res: any) => {
           return this.afs.collection('orders').add(res).then(()=>{
-            return this.projectService.activateBoard(this.board.id, true).then(()=>{
-              this.onSuccess = true;
-            })
+            // return this.projectService.activateBoard(this.board.id, true).then(()=>{
+            //   this.onSuccess = true;
+            // })
           })
         });
       },

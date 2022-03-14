@@ -11,7 +11,7 @@ export interface IFeature {
   [key: string]: IFeatureDetail
 }
 
-export interface ITier {
+export interface IPlan {
   id?: string
   price: number,
   features: string[],
@@ -68,7 +68,7 @@ export interface IProject {
   userID: string,
   title: string,
   date?: string,
-  tierID?: ITier['id'],
+  tierID?: IPlan['id'],
   domain: string,
   boards?: IBoard[];
   features?: { [key: string]: Object }[]

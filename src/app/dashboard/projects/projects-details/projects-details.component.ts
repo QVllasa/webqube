@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IMilestone, IProject, ITier, IUser} from "../../../../@webqube/models/models";
+import {IMilestone, IProject, IPlan, IUser} from "../../../../@webqube/models/models";
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {BehaviorSubject, Observable} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -15,6 +15,7 @@ import {ProjectService} from "../../../../@webqube/services/project.service";
 import {UserService} from "../../../../@webqube/services/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteProjectComponent} from "../../../../@webqube/components/dialogs/delete-project/delete-project.component";
+import {PlanService} from "../../../../@webqube/services/plan.service";
 
 
 @Component({
@@ -26,9 +27,9 @@ export class ProjectsDetailsComponent {
 
   user: IUser;
   project: IProject;
-  $tiers: BehaviorSubject<ITier[]>;
-  tier: BehaviorSubject<ITier> = new BehaviorSubject<ITier>(null);
-  $board: BehaviorSubject<IBoard> = new BehaviorSubject<IBoard>(null);
+  plans$: BehaviorSubject<IPlan[]>;
+  plan$: BehaviorSubject<IPlan> = new BehaviorSubject<IPlan>(null);
+  board$: BehaviorSubject<IBoard> = new BehaviorSubject<IBoard>(null);
 
 
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
@@ -53,13 +54,10 @@ export class ProjectsDetailsComponent {
               private http: HttpClient,
               private auth: AngularFireAuth,
               public projectService: ProjectService,
+              private planService: PlanService,
               public userService: UserService) {
 
-    this.$tiers = this.projectService.tiers;
-
-    this.route.params.subscribe((param) => {
-      this.projectService.id.next(param['projectID'])
-    })
+    this.plans$ = this.planService.plans$;
 
     this.projectService.project
       .subscribe((project) => {
@@ -68,10 +66,10 @@ export class ProjectsDetailsComponent {
       }
       console.log("project details",project)
       this.project = project;
-      if(project.boards){
-        let selectedBoard = this.project.boards.find(obj => obj.selected === true);
-        this.$board.next(selectedBoard ? selectedBoard : null)
-      }
+      // if(project.boards){
+      //   let selectedBoard = this.project.boards.find(obj => obj.selected === true);
+      //   this.board$.next(selectedBoard ? selectedBoard : null)
+      // }
       this.form.patchValue({domain: project.domain ? project.domain : '', title: project.title});
     })
 
@@ -147,20 +145,20 @@ export class ProjectsDetailsComponent {
       });
   }
 
-  onSelectTier(tier: ITier) {
-    this.tier.value === tier ? this.tier.next(null): this.tier.next(tier);
+  onSelectTier(tier: IPlan) {
+    this.plan$.value === tier ? this.plan$.next(null): this.plan$.next(tier);
   }
 
-  isSelected(tier: ITier) {
-    return this.tier.value === tier;
+  isSelected(tier: IPlan) {
+    return this.plan$.value === tier;
   }
 
-  async initProject(tier: BehaviorSubject<ITier>) {
-    if (!this.tier.value){
+  async initProject(tier: BehaviorSubject<IPlan>) {
+    if (!this.plan$.value){
       return;
     }
     this.isSavingTier = true;
-    await this.projectService.initProject(tier.value)
+    await this.projectService.initProject(tier.value, this.project.id)
     this.isSavingTier = false;
   }
 
@@ -182,9 +180,9 @@ export class ProjectsDetailsComponent {
     return obj.sort((a, b) => (a.order < b.order ? -1 : 1))
   }
 
-  getTier(): ITier {
-    return this.projectService.getTier();
-  }
+  // getTier(): IPlan {
+    // return this.planService.getPlan();
+  // }
 
   deleteProject() {
     this.dialog.open(DeleteProjectComponent, {disableClose: true}).afterClosed().subscribe((val) => {

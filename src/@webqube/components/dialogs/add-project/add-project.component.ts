@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {AngularFireFunctions} from "@angular/fire/compat/functions";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
-import {IProject, ITier} from "../../../models/models";
+import {IProject, IPlan} from "../../../models/models";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import firebase from "firebase/compat";
 import {MailService} from "../../../services/mail.service";
@@ -17,8 +17,8 @@ import {MailService} from "../../../services/mail.service";
 })
 export class AddProjectComponent implements OnInit {
 
-  tiers:ITier[];
-  selectedTier: ITier;
+  tiers:IPlan[];
+  selectedTier: IPlan;
 
   isLoading: boolean = false;
   isSuccess: boolean = false;
@@ -34,7 +34,7 @@ export class AddProjectComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddProjectComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ITier,
+    @Inject(MAT_DIALOG_DATA) public data: IPlan,
     private auth: AngularFireAuth,
     private afs: AngularFirestore,
     private mailService: MailService) {
@@ -47,7 +47,7 @@ export class AddProjectComponent implements OnInit {
     this.projectForm.valueChanges.subscribe((data) => {
       this.projectObj = {...data, userID: this.user?.uid}
     })
-    this.afs.collection<ITier>('tiers').valueChanges().subscribe(tiers=> {
+    this.afs.collection<IPlan>('tiers').valueChanges().subscribe(tiers=> {
       this.tiers = tiers;
     })
   }

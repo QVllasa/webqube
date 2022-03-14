@@ -12,7 +12,7 @@ import {
   IndividualRequestComponent
 } from "../../../@webqube/components/dialogs/individual-request/individual-request.component";
 import {RequestComponent} from "../../../@webqube/components/dialogs/request/request.component";
-import {IHosting, ITier} from "../../../@webqube/models/models";
+import {IHosting, IPlan} from "../../../@webqube/models/models";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {map, tap} from "rxjs/operators";
 
@@ -38,7 +38,7 @@ export class PricingComponent implements OnInit {
   premiumFeatures = premiumFeatures;
   unlimitedFeatures = unlimitedFeatures;
 
-  tiers: ITier[] = [];
+  tiers: IPlan[] = [];
   hostings: IHosting[] = [];
   rows: IRow[] = [];
   faqs = faqs
@@ -46,7 +46,7 @@ export class PricingComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private afs: AngularFirestore) {
 
-    this.afs.collection<ITier>('tiers').valueChanges({idField: 'id'})
+    this.afs.collection<IPlan>('tiers').valueChanges({idField: 'id'})
       .pipe(
         //sort features
         map(tiers => {
@@ -103,7 +103,7 @@ export class PricingComponent implements OnInit {
     });
   }
 
-  openRequestDialog(tier: ITier): void {
+  openRequestDialog(tier: IPlan): void {
     const dialogRef = this.dialog.open(RequestComponent, {data: tier});
 
     dialogRef.afterClosed().subscribe(result => {
@@ -111,7 +111,7 @@ export class PricingComponent implements OnInit {
     });
   }
 
-  getFeatureValue(tier: ITier, row: IRow): string | boolean {
+  getFeatureValue(tier: IPlan, row: IRow): string | boolean {
     return tier.allFeatures.find(obj => Object.keys(obj)[0] === row.key)[row.key].value;
   }
 

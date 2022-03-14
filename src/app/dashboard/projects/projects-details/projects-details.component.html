@@ -120,7 +120,7 @@
             Checked: "border-transparent", Not Checked: "border-gray-300"
             Active: "ring-2 ring-amber-500"
           -->
-          <label *ngFor="let tier of $tiers | async"
+          <label *ngFor="let tier of plans$ | async"
                  [ngClass]="isSelected(tier) ? 'border-transparent ring-2 ring-amber-500':'border-gray-300'"
                  class="relative bg-white border  rounded-lg shadow-sm p-4 flex cursor-pointer focus:outline-none">
             <input [value]="isSelected(tier)" type="radio" name="project-type" value="Newsletter" class="sr-only"
@@ -148,7 +148,7 @@
                class="absolute top-0 left-0 right-0 bottom-0 bg-gray-50 opacity-30 rounded-lg"></div>
         </div>
       </fieldset>
-      <button [disabled]="isSavingTier" (click)="initProject(tier)" *ngIf="tier.value"
+      <button [disabled]="isSavingTier" (click)="initProject(plan$)" *ngIf="plan$.value"
               class="w-48 mt-6 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700">
         <span *ngIf="!isSavingTier">Weiter</span>
         <mat-spinner customSpinner color="#FEFCFA" *ngIf="isSavingTier" [diameter]="20"></mat-spinner>
@@ -165,7 +165,7 @@
 
       <div class="mt-8">
         <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
-          <div [ngClass]="$board.value === board ? 'border-amber-500': ''" (click)="onSelectBoard(board)" *ngFor="let board of sortByOrder(project.boards)" class="border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-6 ">
+          <div [ngClass]="board$.value === board ? 'border-amber-500': ''" (click)="onSelectBoard(board)" *ngFor="let board of sortByOrder(project.boards)" class="border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-6 ">
             <div>
               <span [ngClass]="board.icon_classes" class="rounded-lg inline-flex p-3  ring-4 ring-white">
                 <mat-icon class="material-icons-round">
@@ -184,7 +184,7 @@
                 {{board.description}}
               </p>
             </div>
-            <span *ngIf="$board.value === board" class="pointer-events-none absolute top-6 right-6 text-amber-500"
+            <span *ngIf="board$.value === board" class="pointer-events-none absolute top-6 right-6 text-amber-500"
                   aria-hidden="true">
               <mat-icon class="material-icons-round">check_circle_outlined</mat-icon>
             </span>
@@ -193,7 +193,7 @@
         <div *ngIf="isSelecting">is selecting...</div>
       </div>
       <div>
-        <app-scrumboard [board]="$board" ></app-scrumboard>
+        <app-scrumboard [board]="board$"></app-scrumboard>
       </div>
     </div>
   </div>

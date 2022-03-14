@@ -4,7 +4,7 @@ import {IScrumboard} from "./scrumboard.interface";
 export interface IScrumboardList {
   id?: string;
   label: string;
-  projectID: string,
+  // projectID: string,
   scrumboardID?: string,
   order: number,
   cards?: IScrumboardCard[];

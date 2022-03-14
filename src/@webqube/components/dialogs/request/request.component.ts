@@ -4,7 +4,7 @@ import {AngularFireFunctions} from "@angular/fire/compat/functions";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {doc, getDoc} from "firebase/firestore";
-import {IClient, ITier} from "../../../models/models";
+import {IClient, IPlan} from "../../../models/models";
 
 
 @Component({
@@ -14,7 +14,7 @@ import {IClient, ITier} from "../../../models/models";
 })
 export class RequestComponent implements OnInit {
 
-  @Input() priceCard: ITier = this.data;
+  @Input() priceCard: IPlan = this.data;
 
   clientCollection: AngularFirestoreCollection<IClient>;
   emailExists: boolean;
@@ -32,7 +32,7 @@ export class RequestComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<RequestComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ITier,
+    @Inject(MAT_DIALOG_DATA) public data: IPlan,
     private afs: AngularFirestore) {
   }
 

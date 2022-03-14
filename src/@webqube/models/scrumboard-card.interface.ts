@@ -7,8 +7,8 @@ import {IScrumboardList} from "./scrumboard-list.interface";
 export interface IScrumboardCard {
   id?: string;
   title: string;
-  projectID:string,
-  scrumboardID?: string,
+  // projectID:string,
+  // scrumboardID?: string,
   scrumboardListID?: string,
   link?: string;
   description?: string;

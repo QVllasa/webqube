@@ -5,121 +5,79 @@ import {IScrumboardCard} from "../models/scrumboard-card.interface";
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {ActivatedRoute} from "@angular/router";
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from "rxjs";
-import {IHosting, IMilestone, IProject, ITier, IUser} from "../models/models";
+import {IHosting, IMilestone, IProject, IPlan, IUser} from "../models/models";
 import {filter, map, mergeMap, switchMap, take, tap} from "rxjs/operators";
 import {Hostings, Milestones, Tiers} from "../static/static";
+import {MilestoneService} from "./milestone.service";
+import {BoardService} from "./board.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
 
-  staticMilestones = Milestones;
-  staticTiers = Tiers;
-  staticHostings = Hostings;
+  // staticMilestones = Milestones;
+  // staticTiers = Tiers;
+  // staticHostings = Hostings;
 
-  user: Observable<IUser | null>;
-  tiers = new BehaviorSubject<ITier[]>(null);
-  milestones = new BehaviorSubject<IMilestone[]>(null);
-  // boards = new BehaviorSubject<IBoard[]>(null);
 
-  public id = new BehaviorSubject<string>(null);
   public project = new BehaviorSubject<IProject>(null);
-  // public activeBoard = new BehaviorSubject<IBoard>(null);
 
   private projectDoc: AngularFirestoreDocument<IProject>;
-  private tiersColl: AngularFirestoreCollection<ITier>;
-  private hostingsColl: AngularFirestoreCollection<IHosting>;
-  private scrumboardColl: AngularFirestoreCollection<IScrumboard>;
-  private scrumboardListColl: AngularFirestoreCollection<IScrumboardList>;
-  private scrumboardCardsColl: AngularFirestoreCollection<IScrumboardCard>;
-  private milestoneColl: AngularFirestoreCollection<IMilestone>;
 
 
-  constructor(private afs: AngularFirestore) {
-    this.id
+  constructor(private afs: AngularFirestore,
+              private milestoneService: MilestoneService,
+              private boardSerivce: BoardService,
+              private route: ActivatedRoute) {
+    this.route.params
       .pipe(
-        filter<string>(Boolean),
-        switchMap((id) => {
-          console.log("current ID ", id)
+        map(params=> {
+          return params['id']
+        }),
+        tap(id => {
+          console.log("params: ", id);
           this.projectDoc = this.afs.collection('projects').doc<IProject>(id);
+        }),
+        switchMap((params) => {
           return this.getProject();
         })
       )
-      .subscribe(
-        (project) => {
-          // let project: IProject = this.mapProject(data);
-          console.log("project ", project);
-          this.project.next(project)
-        })
+      .subscribe(project => {
+        this.project.next(project)
+      })
 
-    this.milestoneColl = this.afs.collection<IMilestone>('milestones');
-    this.tiersColl = this.afs.collection<ITier>('tiers');
-    this.hostingsColl = this.afs.collection<IHosting>('hostings');
-
-
-    this.tiersColl.valueChanges({idField: 'id'})
-      .pipe(take(1), map(tiers => {
-        return tiers.sort((a, b) => {
-          return a.order - b.order;
-        });
-      }))
-      .subscribe(tiers => {
-      this.tiers.next(tiers.map(obj => ({...obj, selected: false})));
-    })
-    this.milestoneColl.valueChanges({idField: 'id'})
-      .pipe(take(1))
-      .subscribe(milestones => {
-      this.milestones.next(milestones)
-    })
   }
 
-  async initProject(tier: ITier) {
+  async initProject(plan: IPlan, id: string) {
 
-    let card: IScrumboardCard = {
-      title: "Erste Aufgabe",
-      projectID: this.id.value
+    const defaultBoard = this.boardSerivce.initBoard(id);
+
+    let boards: IBoard[] = [];
+
+    for await (const milestone of this.milestoneService.milestones.value) {
+      const board = {...defaultBoard['board'], ...milestone}
+      console.log("board ", board)
+      const scrumboardRef = await this.scrumboardColl.add(scrumboard)
+      for await (const list of scrumboardLists) {
+        const scrumboardListRef = await this.scrumboardListColl.add({...list, scrumboardID: scrumboardRef.id})
+        await this.scrumboardCardsColl.add({
+          ...card,
+          scrumboardID: scrumboardRef.id,
+          scrumboardListID: scrumboardListRef.id
+        })
+      }
     }
-
-    let scrumboardLists: IScrumboardList[] = [
-      {label: 'Geplant', projectID: this.id.value, order: 0, cards: [card]},
-      {label: 'In Bearbeitung', projectID: this.id.value, order: 1, cards: [card]},
-      {label: 'Erledigt', projectID: this.id.value, order: 2, cards: [card]}
-    ]
-
-    let scrumboard: IScrumboard = {
-      paid: false,
-      selected: false,
-      state: 'waiting',
-      projectID: this.id.value,
-      list: scrumboardLists
-    };
-
-    let boards: IBoard[] =[];
-
-    for (const milestone of this.milestones.value){
-      let mergedBoard = {...milestone, ...scrumboard};
-      boards.push(mergedBoard)
-    }
-
-    await this.projectDoc.update({tierID: tier.id, boards: boards});
+    // await this.projectDoc.update({tierID: plan.id});
   }
 
   updateProject(data: IProject) {
     return this.projectDoc.update(data)
   }
 
-  activateBoard(id: string, paid: boolean) {
-    return this.scrumboardColl.doc(id).update({paid: paid})
-  }
-
 
   getProject(): Observable<IProject> {
     return this.projectDoc.valueChanges({idField: 'id'})
-  }
-
-  getTier(): ITier {
-    return this.tiers.value.find(obj => obj.id === this.project.value.tierID)
   }
 
   async deleteProject() {

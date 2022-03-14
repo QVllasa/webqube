@@ -40,7 +40,7 @@ export class ScrumboardComponent implements OnInit {
     return sortByOrder(data);
   }
 
-  updateCard(board: IScrumboard, list: IScrumboardList, card: IScrumboardCard) {
+  updateCard(board: IBoard, list: IScrumboardList, card: IScrumboardCard) {
     console.log('card in update card: ', card)
     this.cardDialog(card, list, board, 'update')
       .beforeClosed()
@@ -48,7 +48,7 @@ export class ScrumboardComponent implements OnInit {
         take(1),
         filter(value => value && (value !== card)),
         // switchMap((value) => {
-        //   // return this.projectService.updateCard(value)
+        //   return this.projectService.updateCard(value)
         // })
       )
       .subscribe();
@@ -64,21 +64,19 @@ export class ScrumboardComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
       let card: IScrumboardCard = {...event.item.data, scrumboardListID: event.container.id}
-      // this.projectService.updateProject(card).then()
+      // this.projectService.updateCard(card).then()
     }
   }
 
 
-  getConnectedList(board: IScrumboard) {
+  getConnectedList(board: IBoard) {
     return board.list.map(x => `${x.id}`);
   }
 
-  createCard(list: IScrumboardList, board: IScrumboard) {
+  createCard(list: IScrumboardList, board: IBoard) {
     let card: IScrumboardCard = {
       title: '',
       description: '',
-      projectID: board.projectID,
-      scrumboardID: board.id,
       scrumboardListID: list.id,
       link: '',
       id: ''
@@ -89,13 +87,13 @@ export class ScrumboardComponent implements OnInit {
         take(1),
         filter(value => value && (value !== card)),
         // switchMap((value: IScrumboardCard) => {
-        //   return of(this.projectService.updateProject(value))
+          // return of(this.projectService.createCard(value))
         // })
       )
       .subscribe();
   }
 
-  cardDialog(card: IScrumboardCard, list: IScrumboardList, board: IScrumboard, action: 'create' | 'update' | 'delete') {
+  cardDialog(card: IScrumboardCard, list: IScrumboardList, board: IBoard, action: 'create' | 'update' | 'delete') {
     return this.dialog.open(ScrumboardDialogComponent, {
       data: {card, list, board, action},
       width: '400px',
