@@ -19,6 +19,7 @@ export class BoardService {
     this.route.params.pipe(
       tap(params => {
         const id = params['id'];
+        //TODO add projectID to objects...
         this.boardColl = this.afs.collection('boards', ref => ref.where('projectID', '==', id));
         this.listColl = this.afs.collection('lists', ref => ref.where('projectID', '==', id))
         this.cardColl = this.afs.collection('cards', ref => ref.where('projectID', '==', id))
