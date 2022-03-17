@@ -57,7 +57,7 @@ export class ScrumboardDialogComponent implements OnInit {
       this.card = {
         link: value.link,
         description: value.description,
-        scrumboardListID: this.list.id,
+        listID: this.list.id,
         title: value.title,
         id: this.data.card.id
       }

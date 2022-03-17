@@ -16,7 +16,7 @@
       </div>
       <div class="w-64 flex justify-center">
         <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-base font-medium bg-gray-100 text-gray-800">
-          {{project?.tierID ?  ' Plan' : 'Kein Plan ausgewählt'}}
+          {{project?.planID ?  ' Plan' : 'Kein Plan ausgewählt'}}
         </span>
       </div>
       <div class=" w-64 flex justify-end">
@@ -92,7 +92,7 @@
   </form>
 
   <!-- This example requires Tailwind CSS v2.0+ -->
-  <div *ngIf="!project.tierID" class="bg-white">
+  <div *ngIf="!project.planID" class="bg-white">
     <div class="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
       <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
         <span class="block">Bereit loszulegen?</span>
@@ -155,7 +155,7 @@
       </button>
     </div>
   </div>
-  <div *ngIf="project.tierID" class="bg-white">
+  <div *ngIf="project.planID" class="bg-white">
     <div class="max-w-7xl mx-auto text-center py-8 px-4 sm:px-6 lg:py-16 lg:px-8">
       <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
         <span class="block">Verfolge jeden Fortschritt.</span>

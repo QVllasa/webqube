@@ -39,7 +39,7 @@ export class PayMilstoneComponent implements OnInit {
 
   ngOnInit(): void {
     this.board = this.data;
-    this.tier = this.plans$.value.find(obj => obj.id === this.project$.value.tierID)
+    this.tier = this.plans$.value.find(obj => obj.id === this.project$.value.planID)
     this.value = (this.tier.price/3).toString();
     this.initConfig();
   }

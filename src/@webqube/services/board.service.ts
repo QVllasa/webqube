@@ -3,37 +3,32 @@ import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat
 import {IScrumboard} from "../models/scrumboard.interface";
 import {IScrumboardList} from "../models/scrumboard-list.interface";
 import {IScrumboardCard} from "../models/scrumboard-card.interface";
-import {ActivatedRoute} from "@angular/router";
-import {tap} from "rxjs/operators";
+import {ActivatedRoute, NavigationEnd, Params, Router} from "@angular/router";
+import {filter, first, tap} from "rxjs/operators";
+import {RouteParamsService} from "./route-params.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BoardService {
 
-  private boardColl: AngularFirestoreCollection<IScrumboard>;
-  private listColl: AngularFirestoreCollection<IScrumboardList>;
-  private cardColl: AngularFirestoreCollection<IScrumboardCard>;
+  boardColl: AngularFirestoreCollection<IScrumboard>;
+  listColl: AngularFirestoreCollection<IScrumboardList>;
+  cardColl: AngularFirestoreCollection<IScrumboardCard>;
 
-  constructor(private afs: AngularFirestore, private route: ActivatedRoute) {
-    this.route.params.pipe(
-      tap(params => {
-        const id = params['id'];
-        //TODO add projectID to objects...
-        this.boardColl = this.afs.collection('boards', ref => ref.where('projectID', '==', id));
-        this.listColl = this.afs.collection('lists', ref => ref.where('projectID', '==', id))
-        this.cardColl = this.afs.collection('cards', ref => ref.where('projectID', '==', id))
-      })
-    )
+  constructor(private afs: AngularFirestore, private routeParamsService: RouteParamsService) {
+    this.routeParamsService.routeParamsChange$.subscribe((params: Params) => {
+      this.initCollections(params['projectID'])
+    });
   }
 
-  initBoard(id: string): {card: IScrumboardCard, list: IScrumboardList[], board: IScrumboard} {
+  initBoard(id: string): { card: IScrumboardCard, list: IScrumboardList[], board: IScrumboard } {
     return {
-      card:  {
+      card: {
         title: "Erste Aufgabe",
-        description: 'Some Description'
+        description: 'Some Description',
       },
-      list:  [
+      list: [
         {label: 'Geplant', order: 0},
         {label: 'In Bearbeitung', order: 1},
         {label: 'Erledigt', order: 2}
@@ -45,6 +40,12 @@ export class BoardService {
         projectID: id,
       }
     }
+  }
+
+  initCollections(id: string) {
+    this.boardColl = this.afs.collection('boards', ref => ref.where('projectID', '==', id));
+    this.listColl = this.afs.collection('lists', ref => ref.where('projectID', '==', id))
+    this.cardColl = this.afs.collection('cards', ref => ref.where('projectID', '==', id))
   }
 
   // activateBoard(id: string, paid: boolean) {

@@ -3,13 +3,14 @@ import {IBoard, IScrumboard} from "../models/scrumboard.interface";
 import {IScrumboardList} from "../models/scrumboard-list.interface";
 import {IScrumboardCard} from "../models/scrumboard-card.interface";
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Params, Router} from "@angular/router";
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from "rxjs";
 import {IHosting, IMilestone, IProject, IPlan, IUser} from "../models/models";
-import {filter, map, mergeMap, switchMap, take, tap} from "rxjs/operators";
+import {filter, first, map, mergeMap, switchMap, take, tap} from "rxjs/operators";
 import {Hostings, Milestones, Tiers} from "../static/static";
 import {MilestoneService} from "./milestone.service";
 import {BoardService} from "./board.service";
+import {RouteParamsService} from "./route-params.service";
 
 @Injectable({
   providedIn: 'root'
@@ -29,46 +30,43 @@ export class ProjectService {
   constructor(private afs: AngularFirestore,
               private milestoneService: MilestoneService,
               private boardSerivce: BoardService,
-              private route: ActivatedRoute) {
-    this.route.params
+              private routeParamsService: RouteParamsService) {
+
+    // TODO create project with boards, lists and cards
+    this.routeParamsService.routeParamsChange$
       .pipe(
-        map(params=> {
-          return params['id']
+        map(params => {
+          return params['projectID'];
         }),
         tap(id => {
-          console.log("params: ", id);
           this.projectDoc = this.afs.collection('projects').doc<IProject>(id);
         }),
         switchMap((params) => {
           return this.getProject();
         })
       )
-      .subscribe(project => {
+      .subscribe((project) => {
         this.project.next(project)
-      })
-
+      });
   }
 
   async initProject(plan: IPlan, id: string) {
 
     const defaultBoard = this.boardSerivce.initBoard(id);
 
-    let boards: IBoard[] = [];
-
     for await (const milestone of this.milestoneService.milestones.value) {
-      const board = {...defaultBoard['board'], ...milestone}
+      const board: IBoard = {...defaultBoard['board'], ...milestone}
       console.log("board ", board)
-      const scrumboardRef = await this.scrumboardColl.add(scrumboard)
-      for await (const list of scrumboardLists) {
-        const scrumboardListRef = await this.scrumboardListColl.add({...list, scrumboardID: scrumboardRef.id})
-        await this.scrumboardCardsColl.add({
-          ...card,
-          scrumboardID: scrumboardRef.id,
-          scrumboardListID: scrumboardListRef.id
+      const boardRef = await this.boardSerivce.boardColl.add(board)
+      for await (const list of defaultBoard['list']) {
+        const listRef = await this.boardSerivce.listColl.add({...list, boardID: boardRef.id})
+        await this.boardSerivce.cardColl.add({
+          ...defaultBoard['card'],
+          listID: listRef.id
         })
       }
     }
-    // await this.projectDoc.update({tierID: plan.id});
+    await this.projectDoc.update({planID: plan.id});
   }
 
   updateProject(data: IProject) {

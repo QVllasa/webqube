@@ -9,7 +9,7 @@ export interface IScrumboardCard {
   title: string;
   // projectID:string,
   // scrumboardID?: string,
-  scrumboardListID?: string,
+  listID?: string,
   link?: string;
   description?: string;
   dueDate?: {

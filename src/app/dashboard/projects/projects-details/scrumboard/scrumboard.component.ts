@@ -63,7 +63,7 @@ export class ScrumboardComponent implements OnInit {
         event.container.data,
         event.previousIndex,
         event.currentIndex);
-      let card: IScrumboardCard = {...event.item.data, scrumboardListID: event.container.id}
+      let card: IScrumboardCard = {...event.item.data, listID: event.container.id}
       // this.projectService.updateCard(card).then()
     }
   }
@@ -77,7 +77,7 @@ export class ScrumboardComponent implements OnInit {
     let card: IScrumboardCard = {
       title: '',
       description: '',
-      scrumboardListID: list.id,
+      listID: list.id,
       link: '',
       id: ''
     }

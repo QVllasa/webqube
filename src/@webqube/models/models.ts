@@ -68,7 +68,7 @@ export interface IProject {
   userID: string,
   title: string,
   date?: string,
-  tierID?: IPlan['id'],
+  planID?: IPlan['id'],
   domain: string,
   boards?: IBoard[];
   features?: { [key: string]: Object }[]
