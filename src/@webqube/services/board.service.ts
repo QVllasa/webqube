@@ -56,6 +56,7 @@ export class BoardService {
         selected: false,
         state: 'waiting',
         projectID: id,
+        milestoneID:''
       }
     }
   }

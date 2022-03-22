@@ -131,7 +131,7 @@ export class ScrumboardComponent implements OnInit {
 
   payMilestone() {
     this.dialog.open(PayMilstoneComponent, {
-      data: this.board$,
+      data: this.board$.value,
       width: 'auto',
       maxWidth: '100%',
       disableClose: false

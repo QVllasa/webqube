@@ -55,7 +55,7 @@ export class ProjectService {
     const defaultBoard = this.boardSerivce.initBoard(id);
 
     for await (const milestone of this.milestoneService.milestones.value) {
-      const board: IBoard = {...defaultBoard['board'], ...milestone}
+      const board: IBoard = {...defaultBoard['board'], ...milestone, milestoneID: milestone.id}
       console.log("board ", board)
       const boardRef = await this.boardSerivce.boardColl.add(board)
       for await (const list of defaultBoard['list']) {

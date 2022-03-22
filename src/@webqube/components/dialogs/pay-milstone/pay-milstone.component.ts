@@ -8,6 +8,8 @@ import {environment} from "../../../../environments/environment";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {PlanService} from "../../../services/plan.service";
 import {MilestoneService} from "../../../services/milestone.service";
+import {sortByOrder} from "../../../helper.functions";
+import {BoardService} from "../../../services/board.service";
 
 @Component({
   selector: 'app-pay-milstone',
@@ -19,8 +21,8 @@ export class PayMilstoneComponent implements OnInit {
   public payPalConfig ?: IPayPalConfig;
   board: IBoard;
   milestones$ = this.milestoneService.milestones;
-  tier: IPlan;
-  value: string ;
+  plan: IPlan;
+  value: string;
   project$ = this.projectService.project;
   plans$ = this.planService.plans$;
 
@@ -32,6 +34,7 @@ export class PayMilstoneComponent implements OnInit {
               private projectService: ProjectService,
               private milestoneService: MilestoneService,
               private planService: PlanService,
+              private boardService: BoardService,
               private afs: AngularFirestore,
               @Inject(MAT_DIALOG_DATA) public data: IBoard,) {
 
@@ -39,9 +42,13 @@ export class PayMilstoneComponent implements OnInit {
 
   ngOnInit(): void {
     this.board = this.data;
-    this.tier = this.plans$.value.find(obj => obj.id === this.project$.value.planID)
-    this.value = (this.tier.price/3).toString();
+    this.plan = this.plans$.value.find(obj => obj.id === this.project$.value.planID)
+    this.value = (this.plan.price/3).toString();
     this.initConfig();
+  }
+
+  sortByOrder(milestones: IMilestone[]): IMilestone[]{
+    return sortByOrder(milestones)
   }
 
   private initConfig(): void {
@@ -62,7 +69,7 @@ export class PayMilstoneComponent implements OnInit {
             }
           },
           items: [{
-            name: 'x '+this.tier.label+' | '+this.board.label,
+            name: 'x '+this.plan.label+' | '+this.board.label,
             quantity: '1',
             category: 'DIGITAL_GOODS',
             unit_amount: {
@@ -82,9 +89,10 @@ export class PayMilstoneComponent implements OnInit {
       onApprove: (data, actions) => {
         actions.order.get().then((res: any) => {
           return this.afs.collection('orders').add(res).then(()=>{
-            // return this.projectService.activateBoard(this.board.id, true).then(()=>{
-            //   this.onSuccess = true;
-            // })
+            this.board.paid = true;
+            return this.boardService.updateBoard(this.board).then(()=>{
+              this.onSuccess = true;
+            })
           })
         });
       },
