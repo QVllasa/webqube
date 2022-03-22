@@ -31,6 +31,7 @@ export class ProjectsDetailsComponent {
   plans$: BehaviorSubject<IPlan[]>;
   plan$: BehaviorSubject<IPlan> = new BehaviorSubject<IPlan>(null);
   boards$: BehaviorSubject<IBoard[]> = this.boardService.boards$;
+  lists$: BehaviorSubject<IScrumboardList[]> = new BehaviorSubject<IScrumboardList[]>(null)
   selectedBoard$: BehaviorSubject<IBoard> = new BehaviorSubject<IBoard>(null);
 
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
@@ -78,6 +79,16 @@ export class ProjectsDetailsComponent {
         this.selectedBoard$.next(selectedBoard);
       }))
     ).subscribe()
+
+    this.selectedBoard$
+      .pipe(filter<IBoard>(Boolean),
+        switchMap((board)=>{
+        return this.boardService.getLists(board.id)
+      }))
+      .subscribe((lists)=>{
+        console.log("lists", lists)
+        this.lists$.next(lists)
+      })
 
     this.userService.user$.subscribe((user) => {
       this.user = user;

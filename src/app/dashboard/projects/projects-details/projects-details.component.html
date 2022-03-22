@@ -194,7 +194,7 @@
           <div *ngIf="isSelecting">is selecting...</div>
         </div>
         <div>
-          <app-scrumboard [board]="selectedBoard$"></app-scrumboard>
+          <app-scrumboard [lists$]="lists$" [board$]="selectedBoard$"></app-scrumboard>
         </div>
       </ng-container>
 
