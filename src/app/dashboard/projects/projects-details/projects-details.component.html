@@ -163,39 +163,41 @@
           Anforderungen präzise aufschreiben.</span>
       </h2>
 
-      <div class="mt-8">
-        <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
-<!--          TODO fix sort function -->
-<!--          <div [ngClass]="board$.value === board ? 'border-amber-500': ''" (click)="onSelectBoard(board)" *ngFor="let board of sortByOrder(project.boards)" class="border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-6 ">-->
-<!--            <div>-->
-<!--              <span [ngClass]="board.icon_classes" class="rounded-lg inline-flex p-3  ring-4 ring-white">-->
-<!--                <mat-icon class="material-icons-round">-->
-<!--                  {{board.icon}}-->
-<!--                </mat-icon>-->
-<!--              </span>-->
-<!--            </div>-->
-<!--            <div class="mt-8">-->
-<!--              <h3 class="text-lg font-medium text-left">-->
-<!--                <button class="flex justify-start">-->
-<!--                  <span class="text-left">{{board.label}}</span>-->
-<!--                  <span class="text-left absolute inset-0" aria-hidden="true"></span>-->
-<!--                </button>-->
-<!--              </h3>-->
-<!--              <p class="mt-2 text-sm text-gray-500">-->
-<!--                {{board.description}}-->
-<!--              </p>-->
-<!--            </div>-->
-<!--            <span *ngIf="board$.value === board" class="pointer-events-none absolute top-6 right-6 text-amber-500"-->
-<!--                  aria-hidden="true">-->
-<!--              <mat-icon class="material-icons-round">check_circle_outlined</mat-icon>-->
-<!--            </span>-->
-<!--          </div>-->
+      <ng-container *ngIf="boards$ | async as boards" >
+        <div class="mt-8">
+          <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
+            <div [ngClass]="board.selected ? 'border-amber-500': ''" (click)="onSelectBoard(board, boards)" *ngFor="let board of sortByOrder(boards)" class="border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-6 ">
+              <div>
+                <span [ngClass]="board.icon_classes" class="rounded-lg inline-flex p-3  ring-4 ring-white">
+                  <mat-icon class="material-icons-round">
+                    {{board.icon}}
+                  </mat-icon>
+                </span>
+              </div>
+              <div class="mt-8">
+                <h3 class="text-lg font-medium text-left">
+                  <button class="flex justify-start">
+                    <span class="text-left">{{board.label}}</span>
+                    <span class="text-left absolute inset-0" aria-hidden="true"></span>
+                  </button>
+                </h3>
+                <p class="mt-2 text-sm text-gray-500">
+                  {{board.description}}
+                </p>
+              </div>
+              <span *ngIf="board.selected" class="pointer-events-none absolute top-6 right-6 text-amber-500"
+                    aria-hidden="true">
+                <mat-icon class="material-icons-round">check_circle_outlined</mat-icon>
+              </span>
+            </div>
+          </div>
+          <div *ngIf="isSelecting">is selecting...</div>
         </div>
-        <div *ngIf="isSelecting">is selecting...</div>
-      </div>
-      <div>
-        <app-scrumboard [board]="board$"></app-scrumboard>
-      </div>
+        <div>
+          <app-scrumboard [board]="selectedBoard$"></app-scrumboard>
+        </div>
+      </ng-container>
+
     </div>
   </div>
 </div>

@@ -8,7 +8,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {IBoard, IScrumboard} from "../../../../@webqube/models/scrumboard.interface";
-import {map, switchMap, take, tap} from 'rxjs/operators';
+import {filter, map, switchMap, take, tap} from 'rxjs/operators';
 import {IScrumboardList} from "../../../../@webqube/models/scrumboard-list.interface";
 import {IScrumboardCard} from "../../../../@webqube/models/scrumboard-card.interface";
 import {ProjectService} from "../../../../@webqube/services/project.service";
@@ -16,6 +16,7 @@ import {UserService} from "../../../../@webqube/services/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DeleteProjectComponent} from "../../../../@webqube/components/dialogs/delete-project/delete-project.component";
 import {PlanService} from "../../../../@webqube/services/plan.service";
+import {BoardService} from "../../../../@webqube/services/board.service";
 
 
 @Component({
@@ -29,8 +30,8 @@ export class ProjectsDetailsComponent {
   project: IProject;
   plans$: BehaviorSubject<IPlan[]>;
   plan$: BehaviorSubject<IPlan> = new BehaviorSubject<IPlan>(null);
-  board$: BehaviorSubject<IBoard> = new BehaviorSubject<IBoard>(null);
-
+  boards$: BehaviorSubject<IBoard[]> = this.boardService.boards$;
+  selectedBoard$: BehaviorSubject<IBoard> = new BehaviorSubject<IBoard>(null);
 
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   form = new FormGroup({
@@ -54,6 +55,7 @@ export class ProjectsDetailsComponent {
               private http: HttpClient,
               private auth: AngularFireAuth,
               public projectService: ProjectService,
+              private boardService: BoardService,
               private planService: PlanService,
               public userService: UserService) {
 
@@ -66,12 +68,16 @@ export class ProjectsDetailsComponent {
       }
       console.log("project details",project)
       this.project = project;
-      // if(project.boards){
-      //   let selectedBoard = this.project.boards.find(obj => obj.selected === true);
-      //   this.board$.next(selectedBoard ? selectedBoard : null)
-      // }
       this.form.patchValue({domain: project.domain ? project.domain : '', title: project.title});
     })
+
+    this.boards$.pipe(
+      filter<IBoard[]>(Boolean),
+      tap((boards => {
+       const selectedBoard = boards.find(obj => obj.selected)
+        this.selectedBoard$.next(selectedBoard);
+      }))
+    ).subscribe()
 
     this.userService.user$.subscribe((user) => {
       this.user = user;
@@ -169,11 +175,15 @@ export class ProjectsDetailsComponent {
     this.projectService.updateProject(this.form.value)
   }
 
-  onSelectBoard(board: IBoard) {
-    this.project.boards.map(obj => {
-      obj === board ? obj.selected = true : obj.selected = false;
-    });
-    this.projectService.updateProject(this.project)
+  onSelectBoard(board: IBoard, boards: IBoard[]) {
+    boards.map((item,index)=>{
+      if (item.id === board.id){
+        item.selected = !item.selected;
+      }else{
+        item.selected = false;
+      }
+    })
+    this.boardService.updateBoards(boards).then();
   }
 
   sortByOrder(obj: IBoard[]): IBoard[] {
