@@ -170,12 +170,9 @@ export class ProjectsDetailsComponent {
     return this.plan$.value === tier;
   }
 
-  async initProject(tier: BehaviorSubject<IPlan>) {
-    if (!this.plan$.value){
-      return;
-    }
+  async initProject(plan: IPlan) {
     this.isSavingTier = true;
-    await this.projectService.initProject(tier.value, this.project.id)
+    await this.projectService.initProject(plan, this.project.id)
     this.isSavingTier = false;
   }
 

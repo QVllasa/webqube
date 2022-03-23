@@ -120,39 +120,42 @@
             Checked: "border-transparent", Not Checked: "border-gray-300"
             Active: "ring-2 ring-amber-500"
           -->
-          <label *ngFor="let tier of plans$ | async"
-                 [ngClass]="isSelected(tier) ? 'border-transparent ring-2 ring-amber-500':'border-gray-300'"
+          <label *ngFor="let plan of plans$ | async as plans"
+                 [ngClass]="isSelected(plan) ? 'border-transparent ring-2 ring-amber-500':'border-gray-300'"
                  class="relative bg-white border  rounded-lg shadow-sm p-4 flex cursor-pointer focus:outline-none">
-            <input [value]="isSelected(tier)" type="radio" name="project-type" value="Newsletter" class="sr-only"
-                   (click)="onSelectTier(tier)"
+            <input [value]="isSelected(plan)" type="radio" name="project-type" value="Newsletter" class="sr-only"
+                   (click)="onSelectTier(plan)"
                    aria-labelledby="project-type-0-label"
                    aria-describedby="project-type-0-description-0 project-type-0-description-1">
             <div class="flex-1 flex">
               <div class="flex flex-col relative h-32">
                 <span id="project-type-0-label" class="block text-left text-sm font-semibold text-gray-800">
-                  {{tier.label}}
+                  {{plan.label}}
                 </span>
                 <span id="project-type-0-description-0" class="mt-1 text-left flex items-center text-sm text-gray-500">
-                  {{tier.description}}
+                  {{plan.description}}
                 </span>
                 <span class="absolute bottom-0 text-lg font-semibold text-gray-900">
-                  {{tier.price}}€ /Projekt
+                  {{plan.price}}€ /Projekt
                 </span>
               </div>
             </div>
-            <mat-icon [ngClass]="isSelected(tier) ? '':'invisible'" class="material-icons-round h-5 w-5 text-amber-600">task_alt</mat-icon>
-            <div [ngClass]="isSelected(tier) ? 'border border-amber-500':'border-2 border-transparent'"
+            <mat-icon [ngClass]="isSelected(plan) ? '':'invisible'" class="material-icons-round h-5 w-5 text-amber-600">task_alt</mat-icon>
+            <div [ngClass]="isSelected(plan) ? 'border border-amber-500':'border-2 border-transparent'"
                  class="absolute -inset-px rounded-lg border-2 pointer-events-none" aria-hidden="true"></div>
           </label>
           <div *ngIf="isSavingTier"
                class="absolute top-0 left-0 right-0 bottom-0 bg-gray-50 opacity-30 rounded-lg"></div>
         </div>
       </fieldset>
-      <button [disabled]="isSavingTier" (click)="initProject(plan$)" *ngIf="plan$.value"
-              class="w-48 mt-6 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700">
-        <span *ngIf="!isSavingTier">Weiter</span>
-        <mat-spinner customSpinner color="#FEFCFA" *ngIf="isSavingTier" [diameter]="20"></mat-spinner>
-      </button>
+      <ng-container *ngIf="plan$ | async as plan">
+        <button [disabled]="isSavingTier" (click)="initProject(plan)"
+                class="w-48 mt-6 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700">
+          <span *ngIf="!isSavingTier">Weiter</span>
+          <mat-spinner customSpinner color="#FEFCFA" *ngIf="isSavingTier" [diameter]="20"></mat-spinner>
+        </button>
+      </ng-container>
+
     </div>
   </div>
   <div *ngIf="project.planID" class="bg-white">

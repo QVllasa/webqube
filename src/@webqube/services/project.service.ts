@@ -5,7 +5,7 @@ import {IScrumboardCard} from "../models/scrumboard-card.interface";
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {ActivatedRoute, NavigationEnd, Params, Router} from "@angular/router";
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from "rxjs";
-import {IHosting, IMilestone, IProject, IPlan, IUser} from "../models/models";
+import {IHosting, IMilestone, IProject, IPlan, IUser, IFeature} from "../models/models";
 import {filter, first, map, mergeMap, switchMap, take, tap} from "rxjs/operators";
 import {Hostings, Milestones, Tiers} from "../static/static";
 import {MilestoneService} from "./milestone.service";
@@ -66,7 +66,23 @@ export class ProjectService {
         })
       }
     }
-    await this.projectDoc.update({planID: plan.id});
+
+    const addons = await this.afs.collection<IFeature>('addons').valueChanges().pipe(first()).toPromise()
+    const featureKeys = ['pageCount', 'cms', 'forms', 'cmsAssets', 'eventPlanning', 'privacySettings', 'advancedAnalytics'];
+    let features: IFeature[] = [];
+    plan.allFeatures.forEach((obj, index)=>{
+      featureKeys.forEach((key)=>{
+        if (key in obj){
+          features.push(obj)
+        }
+      })
+    })
+
+    features = [...features, ...addons];
+
+    console.log("features", features)
+
+    await this.projectDoc.update({planID: plan.id, features: features});
   }
 
   updateProject(data: IProject) {
