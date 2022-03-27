@@ -16,7 +16,7 @@
       </div>
       <div class="w-64 flex justify-center">
         <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-base font-medium bg-gray-100 text-gray-800">
-          {{project?.planID ?  ' Plan' : 'Kein Plan ausgewählt'}}
+          {{project?.planID ? ' Plan' : 'Kein Plan ausgewählt'}}
         </span>
       </div>
       <div class=" w-64 flex justify-end">
@@ -140,7 +140,9 @@
                 </span>
               </div>
             </div>
-            <mat-icon [ngClass]="isSelected(plan) ? '':'invisible'" class="material-icons-round h-5 w-5 text-amber-600">task_alt</mat-icon>
+            <mat-icon [ngClass]="isSelected(plan) ? '':'invisible'" class="material-icons-round h-5 w-5 text-amber-600">
+              task_alt
+            </mat-icon>
             <div [ngClass]="isSelected(plan) ? 'border border-amber-500':'border-2 border-transparent'"
                  class="absolute -inset-px rounded-lg border-2 pointer-events-none" aria-hidden="true"></div>
           </label>
@@ -159,17 +161,51 @@
     </div>
   </div>
   <div *ngIf="project.planID" class="bg-white">
-    <div class="max-w-7xl mx-auto text-center py-8 px-4 sm:px-6 lg:py-16 lg:px-8">
-      <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+
+    <!-- This example requires Tailwind CSS v2.0+ -->
+
+
+    <div class="max-w-7xl mx-auto  py-8 px-4 sm:px-6 lg:py-16 lg:px-8">
+
+      <h2 class="text-2xl text-center font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+        <span class="block">Das ist in deinem Projekt enthalten.</span>
+        <span class="block mt-4 text-lg font-medium text-gray-500">Füge individuell Funktionalitäten und Erweiterungen
+          hinzu.</span>
+      </h2>
+
+      <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div *ngFor="let feature of project.features" class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
+          <dt>
+            <div class="absolute bg-amber-500 rounded-md p-3">
+              <!-- Heroicon name: outline/users -->
+              <mat-icon class="material-icons-round h-6 w-6 text-white">{{feature.icon}}</mat-icon>
+            </div>
+            <p class="ml-16 text-sm font-medium text-gray-500 truncate">{{feature.title}}</p>
+          </dt>
+          <dd class="ml-16 pb-6 flex items-baseline sm:pb-7">
+            <p class="text-2xl font-semibold text-gray-900">{{feature.value}}</p>
+            <div class="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">
+              <div class="text-sm">
+                <a href="#" class="font-medium text-amber-600 hover:text-amber-500">Hinzufügen<span class="sr-only">
+                  {{feature.title}}</span></a>
+              </div>
+            </div>
+          </dd>
+        </div>
+      </dl>
+
+      <h2 class="mt-16 text-center text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
         <span class="block">Verfolge jeden Fortschritt.</span>
         <span class="block mt-4 text-lg font-medium text-gray-500">Hier kannst du in jeder Phase deine Wünsche und
           Anforderungen präzise aufschreiben.</span>
       </h2>
 
-      <ng-container *ngIf="boards$ | async as boards" >
+      <ng-container *ngIf="boards$ | async as boards">
         <div class="mt-8">
           <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
-            <div [ngClass]="board.selected ? 'border-amber-500': ''" (click)="onSelectBoard(board, boards)" *ngFor="let board of sortByOrder(boards)" class="border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-6 ">
+            <div [ngClass]="board.selected ? 'border-amber-500': ''" (click)="onSelectBoard(board, boards)"
+                 *ngFor="let board of sortByOrder(boards)"
+                 class="border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-6 ">
               <div>
                 <span [ngClass]="board.icon_classes" class="rounded-lg inline-flex p-3  ring-4 ring-white">
                   <mat-icon class="material-icons-round">

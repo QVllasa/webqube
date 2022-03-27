@@ -70,9 +70,9 @@ export class ProjectService {
     const addons = await this.afs.collection<IFeature>('addons').valueChanges().pipe(first()).toPromise()
     const featureKeys = ['pageCount', 'cms', 'forms', 'cmsAssets', 'eventPlanning', 'privacySettings', 'advancedAnalytics'];
     let features: IFeature[] = [];
-    plan.allFeatures.forEach((obj, index)=>{
-      featureKeys.forEach((key)=>{
-        if (key in obj){
+    plan.allFeatures.forEach((obj, index) => {
+      featureKeys.forEach((key) => {
+        if (key in obj) {
           features.push(obj)
         }
       })
@@ -95,6 +95,15 @@ export class ProjectService {
   }
 
   async deleteProject() {
+    const boards = await this.boardSerivce.boardColl.valueChanges({idField: 'id'}).pipe(first()).toPromise()
+    for await (let board of boards) {
+      await this.boardSerivce.deleteBoards(board.id);
+      const lists = await this.boardSerivce.deleteLists(board.id);
+      for await (let list of lists) {
+        await this.boardSerivce.deleteCard(list.id)
+      }
+
+    }
     await this.projectDoc.delete();
   }
 

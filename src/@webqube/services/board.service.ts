@@ -26,11 +26,8 @@ export class BoardService {
     this.routeParamsService.routeParamsChange$
       .pipe(
         filter<Params>((params) => params['projectID']),
-        tap((params: Params) => {
-          this.initBoardCollections(params['projectID'])
-        }),
         switchMap((params: Params) => {
-          return this.boardColl.valueChanges({idField: 'id'}).pipe(tap(() => console.log("fetching boards")))
+          return this.getBoards(params['projectID']).pipe(tap(() => console.log("fetching boards")))
         })
       )
       .subscribe((boards) => {
@@ -56,24 +53,36 @@ export class BoardService {
         selected: false,
         state: 'waiting',
         projectID: id,
-        milestoneID:''
+        milestoneID: ''
       }
     }
   }
 
-  getLists(id: string): Observable<(IScrumboardList & { id: string })[]> {
-    return this.afs.collection<IScrumboardList>('lists', ref => ref.where('boardID', '==', id)).valueChanges({idField: 'id'})
+  getLists(boardID: string): Observable<(IScrumboardList & { id: string })[]> {
+    return this.afs.collection<IScrumboardList>('lists', ref => ref.where('boardID', '==', boardID)).valueChanges({idField: 'id'})
   }
 
-  getCards(listID: string): Observable<(IScrumboardCard & {id: string})[]> {
-   return  this.afs.collection<IScrumboardCard>('cards', ref => ref.where('listID', '==', listID))
-     .valueChanges({idField: 'id'})
+  getList(id: string) {
+    return this.listColl.doc(id)
   }
 
-  initBoardCollections(id: string) {
-    this.boardColl = this.afs.collection('boards', ref => ref.where('projectID', '==', id));
-    this.listColl = this.afs.collection('lists', ref => ref.where('projectID', '==', id));
-    this.cardColl = this.afs.collection('cards', ref => ref.where('projectID', '==', id));
+  getCards(listID: string): Observable<(IScrumboardCard & { id: string })[]> {
+    return this.afs.collection<IScrumboardCard>('cards', ref => ref.where('listID', '==', listID)).valueChanges({idField: 'id'})
+  }
+
+  getCard(id: string) {
+    return this.afs.collection<IScrumboardCard>('cards').doc(id);
+  }
+
+  getBoard(id: string) {
+    return this.boardColl.doc(id);
+  }
+
+  getBoards(projectID: string) {
+    this.cardColl = this.afs.collection<IScrumboardCard>('cards');
+    this.listColl = this.afs.collection<IScrumboardList>('lists');
+    this.boardColl = this.afs.collection<IBoard>('boards', ref => ref.where('projectID', '==', projectID))
+    return this.boardColl.valueChanges({idField: 'id'});
   }
 
   updateBoard(board: IBoard): Promise<void> {
@@ -89,6 +98,8 @@ export class BoardService {
     return batch.commit();
   }
 
+
+  // TODO change cardscoll and lists coll to getCards and getLists
   updateCard(card: IScrumboardCard): Promise<void> {
     return this.cardColl.doc(card.id).update(card)
   }
@@ -97,8 +108,40 @@ export class BoardService {
     return this.cardColl.add(card)
   }
 
+  async deleteList(id: string): Promise<void> {
+    return await this.getList(id).delete();
+  }
 
-  // activateBoard(id: string, paid: boolean) {
-  //   return this.scrumboardColl.doc(id).update({paid: paid})
-  // }
+  async deleteCard(id: string): Promise<void> {
+    return await this.getCard(id).delete();
+  }
+
+  async deleteBoard(id: string): Promise<void> {
+    return await this.getBoard(id).delete();
+  }
+
+
+  async deleteLists(id: string): Promise<(IScrumboardList & { id: string })[]> {
+    const lists = await this.getLists(id).pipe(first()).toPromise();
+    for await (let list of lists) {
+      await this.deleteList(list.id);
+    }
+    return lists
+  }
+
+  async deleteCards(id: string): Promise<(IScrumboardCard & { id: string })[]> {
+    const cards = await this.getCards(id).pipe(first()).toPromise();
+    for await (let card of cards) {
+      await this.deleteCard(card.id);
+    }
+    return cards;
+  }
+
+  async deleteBoards(id: string): Promise<(IBoard & { id: string })[]> {
+    const boards = await this.getBoards(id).pipe(first()).toPromise();
+    for await(let board of boards) {
+      await this.deleteBoard(board.id);
+    }
+    return boards
+  }
 }

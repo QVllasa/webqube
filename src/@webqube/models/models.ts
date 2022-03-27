@@ -1,10 +1,11 @@
 import firebase from "firebase/compat";
 import {IBoard, IScrumboard} from "./scrumboard.interface";
 
-export interface IFeatureDetail{
+export interface IFeatureDetail {
   value: boolean | string,
   title: string,
   order: number,
+  icon?: string,
 }
 
 export interface IFeature {
@@ -71,7 +72,7 @@ export interface IProject {
   planID?: IPlan['id'],
   domain: string,
   boards?: IBoard[];
-  features?: { [key: string]: Object }[]
+  features?: IFeature []
 }
 
 export interface IMilestone {
