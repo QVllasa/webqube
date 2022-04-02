@@ -3,531 +3,531 @@ import {IFaq, IFeature, IPlan, IWork, ITeamMember, IMilestone, IHosting} from ".
 export const columnsKeys = ['Feature', 'Starter', 'Professional', 'Business']
 
 
-//Starter
-export const starterFeatures: IFeature[] =
-  [
-    {
-      simpleAnalytics: {
-        title: 'Einfach Analytikfunktion',
-        value: true,
-        order: 0
-      },
-    },
-    {
-      seo: {
-        title: 'Suchmaschinenoptimiert',
-        value: true,
-        order: 1
-      },
-    },
-    {
-      cms: {
-        title: 'Content-Management-System',
-        value: false,
-        order: 6
-      }
-    },
-    {
-      monthlyAppointments: {
-        title: 'Rücksprachetermine pro Monat',
-        value: '1',
-        order: 9
-      }
-    },
-    {
-      revisions: {
-        title: 'Überarbeitungsschleifen',
-        value: '1',
-        order: 10
-      }
-    },
-    {
-      imprintPage: {
-        title: 'Impressum',
-        value: true,
-        order: 2
-      }
-    },
-    {
-      privacyPage: {
-        title: 'Datenschutzerklärung',
-        value: true,
-        order: 3
-      }
-    },
-    {
-      privacySettings: {
-        title: 'Datenschutzeinstellungen',
-        value: false,
-        order: 7
-      }
-    },
-    {
-      pageCount: {
-        title: 'Seitenanzahl',
-        value: '1',
-        order: 11
-      }
-    },
-    {
-      securityUpdates: {
-        title: 'Sicherheitsupdates',
-        value: true,
-        order: 12
-      }
-    },
-    {
-      contentAnalysis: {
-        title: 'Content-Analyse',
-        value: false,
-        order: 5
-      }
-    },
-    {
-      projectDuration: {
-        title: 'Projekt-Laufzeit',
-        value: 'Unbegrenzt',
-        order: 17
-      }
-    },
-    {
-      timeToMarket: {
-        title: 'Zeit bis GO-Live',
-        value: '1 Monat',
-        order: 18
-      }
-    },
-    {
-      cmsAssets: {
-        title: 'CMS Assets',
-        value: '0',
-        order: 13
-      }
-    },
-    {
-      forms: {
-        title: 'Formen',
-        value: '0',
-        order: 14
-      }
-    },
-    {
-      eventPlanning: {
-        title: 'Eventplanung',
-        value: '0',
-        order: 16
-      }
-    },
-    {
-      socialMedia: {
-        title: 'Social Media',
-        value: true,
-        order: 4
-      }
-    },
-    {
-      advancedAnalytics: {
-        title: 'Fortgeschrittene Analytik',
-        value: false,
-        order: 8
-      }
-    },
-  ]
-
-//Essential
-export const essentialFeatures: IFeature[] =
-  [
-    {
-      simpleAnalytics: {
-        title: 'Einfach Analytikfunktion',
-        value: true,
-        order: 0
-      },
-    },
-
-    {
-      seo: {
-        title: 'Suchmaschinenoptimiert',
-        value: true,
-        order: 1
-      },
-    },
-    {
-      cms: {
-        title: 'Content-Management-System',
-        value: true,
-        order: 6
-      }
-    },
-    {
-      monthlyAppointments: {
-        title: 'Rücksprachetermine pro Monat',
-        value: '2',
-        order: 9
-      }
-    },
-    {
-      revisions: {
-        title: 'Überarbeitungsschleifen',
-        value: '3',
-        order: 10
-      }
-    },
-    {
-      imprintPage: {
-        title: 'Impressum',
-        value: true,
-        order: 2
-      }
-    },
-    {
-      privacyPage: {
-        title: 'Datenschutzerklärung',
-        value: true,
-        order: 3
-      }
-    },
-    {
-      privacySettings: {
-        title: 'Datenschutzeinstellungen',
-        value: false,
-        order: 7
-      }
-    },
-    {
-      pageCount: {
-        title: 'Seitenanzahl',
-        value: '12',
-        order: 11
-      }
-    },
-    {
-      securityUpdates: {
-        title: 'Sicherheitsupdates',
-        value: true,
-        order: 12
-      }
-    },
-    {
-      contentAnalysis: {
-        title: 'Content-Analyse',
-        value: true,
-        order: 5
-      }
-    },
-    {
-      projectDuration: {
-        title: 'Projekt-Laufzeit',
-        value: 'Unbegrenzt',
-        order: 17
-      }
-    },
-    {
-      timeToMarket: {
-        title: 'Zeit bis GO-Live',
-        value: '3 Monate',
-        order: 18
-      }
-    },
-    {
-      cmsAssets: {
-        title: 'CMS Assets',
-        value: '2',
-        order: 13
-      }
-    },
-    {
-      forms: {
-        title: 'Formen',
-        value: '1',
-        order: 14
-      }
-    },
-    {
-      eventPlanning: {
-        title: 'Eventplanung',
-        value: '0',
-        order: 16
-      }
-    },
-    {
-      socialMedia: {
-        title: 'Social Media',
-        value: true,
-        order: 4
-      }
-    },
-    {
-      advancedAnalytics: {
-        title: 'Fortgeschrittene Analytik',
-        value: false,
-        order: 8
-      }
-    },
-  ]
-
-//Premium
-export const premiumFeatures: IFeature[] =
-  [
-    {
-      simpleAnalytics: {
-        title: 'Einfach Analytikfunktion',
-        value: true,
-        order: 0
-      },
-    },
-
-    {
-      seo: {
-        title: 'Suchmaschinenoptimiert',
-        value: true,
-        order: 1
-      },
-    },
-    {
-      cms: {
-        title: 'Content-Management-System',
-        value: true,
-        order: 6
-      }
-    },
-    {
-      monthlyAppointments: {
-        title: 'Rücksprachetermine pro Monat',
-        value: '4',
-        order: 9
-      }
-    },
-    {
-      revisions: {
-        title: 'Überarbeitungsschleifen',
-        value: '3',
-        order: 10
-      }
-    },
-    {
-      imprintPage: {
-        title: 'Impressum',
-        value: true,
-        order: 2
-      }
-    },
-    {
-      privacyPage: {
-        title: 'Datenschutzerklärung',
-        value: true,
-        order: 3
-      }
-    },
-    {
-      privacySettings: {
-        title: 'Datenschutzeinstellungen',
-        value: true,
-        order: 7
-      }
-    },
-    {
-      pageCount: {
-        title: 'Seitenanzahl',
-        value: '40',
-        order: 11
-      }
-    },
-    {
-      securityUpdates: {
-        title: 'Sicherheitsupdates',
-        value: true,
-        order: 12
-      }
-    },
-    {
-      contentAnalysis: {
-        title: 'Content-Analyse',
-        value: true,
-        order: 5
-      }
-    },
-    {
-      projectDuration: {
-        title: 'Projekt-Laufzeit',
-        value: 'Unbegrenzt',
-        order: 17
-      }
-    },
-    {
-      timeToMarket: {
-        title: 'Zeit bis GO-Live',
-        value: '6 Monate',
-        order: 18
-      }
-    },
-    {
-      cmsAssets: {
-        title: 'CMS Assets',
-        value: '6',
-        order: 13
-      }
-    },
-    {
-      forms: {
-        title: 'Formen',
-        value: '2',
-        order: 14
-      }
-    },
-    {
-      eventPlanning: {
-        title: 'Eventplanung',
-        value: '0',
-        order: 16
-      }
-    },
-    {
-      socialMedia: {
-        title: 'Social Media',
-        value: true,
-        order: 4
-      }
-    },
-    {
-      advancedAnalytics: {
-        title: 'Fortgeschrittene Analytik',
-        value: false,
-        order: 8
-      }
-    },
-  ]
-
-//Unlimited
-export const unlimitedFeatures: IFeature[] =
-  [
-    {
-      simpleAnalytics: {
-        title: 'Einfach Analytikfunktion',
-        value: true,
-        order: 0
-      },
-    },
-    {
-      seo: {
-        title: 'Suchmaschinenoptimiert',
-        value: true,
-        order: 1
-      },
-    },
-    {
-      cms: {
-        title: 'Content-Management-System',
-        value: true,
-        order: 6
-      }
-    },
-    {
-      monthlyAppointments: {
-        title: 'Rücksprachetermine pro Monat',
-        value: 'Unbegrenzt',
-        order: 9
-      }
-    },
-    {
-      revisions: {
-        title: 'Überarbeitungsschleifen',
-        value: 'Unbegrenzt',
-        order: 10
-      }
-    },
-    {
-      imprintPage: {
-        title: 'Impressum',
-        value: true,
-        order: 2
-      }
-    },
-    {
-      privacyPage: {
-        title: 'Datenschutzerklärung',
-        value: true,
-        order: 3
-      }
-    },
-    {
-      privacySettings: {
-        title: 'Datenschutzeinstellungen',
-        value: true,
-        order: 7
-      }
-    },
-    {
-      pageCount: {
-        title: 'Seitenanzahl',
-        value: 'Unbegrenzt',
-        order: 11
-      }
-    },
-    {
-      securityUpdates: {
-        title: 'Sicherheitsupdates',
-        value: true,
-        order: 12
-      }
-    },
-    {
-      contentAnalysis: {
-        title: 'Content-Analyse',
-        value: true,
-        order: 5
-      }
-    },
-    {
-      projectDuration: {
-        title: 'Projekt-Laufzeit',
-        value: '6 Monate',
-        order: 17
-      }
-    },
-    {
-      timeToMarket: {
-        title: 'Zeit bis GO-Live',
-        value: '6 Monate',
-        order: 18
-      }
-    },
-    {
-      cmsAssets: {
-        title: 'CMS Assets',
-        value: 'Unbegrenzt',
-        order: 13
-      }
-    },
-    {
-      forms: {
-        title: 'Formen',
-        value: '5',
-        order: 14
-      }
-    },
-    {
-      eventPlanning: {
-        title: 'Eventplanung',
-        value: '1',
-        order: 16
-      }
-    },
-    {
-      socialMedia: {
-        title: 'Social Media',
-        value: true,
-        order: 4
-      }
-    },
-    {
-      advancedAnalytics: {
-        title: 'Fortgeschrittene Analytik',
-        value: true,
-        order: 8
-      }
-    },
-  ]
+// //Starter
+// export const starterFeatures: IFeature[] =
+//   [
+//     {
+//       simpleAnalytics: {
+//         title: 'Einfach Analytikfunktion',
+//         value: true,
+//         order: 0
+//       },
+//     },
+//     {
+//       seo: {
+//         title: 'Suchmaschinenoptimiert',
+//         value: true,
+//         order: 1
+//       },
+//     },
+//     {
+//       cms: {
+//         title: 'Content-Management-System',
+//         value: false,
+//         order: 6
+//       }
+//     },
+//     {
+//       monthlyAppointments: {
+//         title: 'Rücksprachetermine pro Monat',
+//         value: '1',
+//         order: 9
+//       }
+//     },
+//     {
+//       revisions: {
+//         title: 'Überarbeitungsschleifen',
+//         value: '1',
+//         order: 10
+//       }
+//     },
+//     {
+//       imprintPage: {
+//         title: 'Impressum',
+//         value: true,
+//         order: 2
+//       }
+//     },
+//     {
+//       privacyPage: {
+//         title: 'Datenschutzerklärung',
+//         value: true,
+//         order: 3
+//       }
+//     },
+//     {
+//       privacySettings: {
+//         title: 'Datenschutzeinstellungen',
+//         value: false,
+//         order: 7
+//       }
+//     },
+//     {
+//       pageCount: {
+//         title: 'Seitenanzahl',
+//         value: '1',
+//         order: 11
+//       }
+//     },
+//     {
+//       securityUpdates: {
+//         title: 'Sicherheitsupdates',
+//         value: true,
+//         order: 12
+//       }
+//     },
+//     {
+//       contentAnalysis: {
+//         title: 'Content-Analyse',
+//         value: false,
+//         order: 5
+//       }
+//     },
+//     {
+//       projectDuration: {
+//         title: 'Projekt-Laufzeit',
+//         value: 'Unbegrenzt',
+//         order: 17
+//       }
+//     },
+//     {
+//       timeToMarket: {
+//         title: 'Zeit bis GO-Live',
+//         value: '1 Monat',
+//         order: 18
+//       }
+//     },
+//     {
+//       cmsAssets: {
+//         title: 'CMS Assets',
+//         value: '0',
+//         order: 13
+//       }
+//     },
+//     {
+//       forms: {
+//         title: 'Formen',
+//         value: '0',
+//         order: 14
+//       }
+//     },
+//     {
+//       eventPlanning: {
+//         title: 'Eventplanung',
+//         value: '0',
+//         order: 16
+//       }
+//     },
+//     {
+//       socialMedia: {
+//         title: 'Social Media',
+//         value: true,
+//         order: 4
+//       }
+//     },
+//     {
+//       advancedAnalytics: {
+//         title: 'Fortgeschrittene Analytik',
+//         value: false,
+//         order: 8
+//       }
+//     },
+//   ]
+//
+// //Essential
+// export const essentialFeatures: IFeature[] =
+//   [
+//     {
+//       simpleAnalytics: {
+//         title: 'Einfach Analytikfunktion',
+//         value: true,
+//         order: 0
+//       },
+//     },
+//
+//     {
+//       seo: {
+//         title: 'Suchmaschinenoptimiert',
+//         value: true,
+//         order: 1
+//       },
+//     },
+//     {
+//       cms: {
+//         title: 'Content-Management-System',
+//         value: true,
+//         order: 6
+//       }
+//     },
+//     {
+//       monthlyAppointments: {
+//         title: 'Rücksprachetermine pro Monat',
+//         value: '2',
+//         order: 9
+//       }
+//     },
+//     {
+//       revisions: {
+//         title: 'Überarbeitungsschleifen',
+//         value: '3',
+//         order: 10
+//       }
+//     },
+//     {
+//       imprintPage: {
+//         title: 'Impressum',
+//         value: true,
+//         order: 2
+//       }
+//     },
+//     {
+//       privacyPage: {
+//         title: 'Datenschutzerklärung',
+//         value: true,
+//         order: 3
+//       }
+//     },
+//     {
+//       privacySettings: {
+//         title: 'Datenschutzeinstellungen',
+//         value: false,
+//         order: 7
+//       }
+//     },
+//     {
+//       pageCount: {
+//         title: 'Seitenanzahl',
+//         value: '12',
+//         order: 11
+//       }
+//     },
+//     {
+//       securityUpdates: {
+//         title: 'Sicherheitsupdates',
+//         value: true,
+//         order: 12
+//       }
+//     },
+//     {
+//       contentAnalysis: {
+//         title: 'Content-Analyse',
+//         value: true,
+//         order: 5
+//       }
+//     },
+//     {
+//       projectDuration: {
+//         title: 'Projekt-Laufzeit',
+//         value: 'Unbegrenzt',
+//         order: 17
+//       }
+//     },
+//     {
+//       timeToMarket: {
+//         title: 'Zeit bis GO-Live',
+//         value: '3 Monate',
+//         order: 18
+//       }
+//     },
+//     {
+//       cmsAssets: {
+//         title: 'CMS Assets',
+//         value: '2',
+//         order: 13
+//       }
+//     },
+//     {
+//       forms: {
+//         title: 'Formen',
+//         value: '1',
+//         order: 14
+//       }
+//     },
+//     {
+//       eventPlanning: {
+//         title: 'Eventplanung',
+//         value: '0',
+//         order: 16
+//       }
+//     },
+//     {
+//       socialMedia: {
+//         title: 'Social Media',
+//         value: true,
+//         order: 4
+//       }
+//     },
+//     {
+//       advancedAnalytics: {
+//         title: 'Fortgeschrittene Analytik',
+//         value: false,
+//         order: 8
+//       }
+//     },
+//   ]
+//
+// //Premium
+// export const premiumFeatures: IFeature[] =
+//   [
+//     {
+//       simpleAnalytics: {
+//         title: 'Einfach Analytikfunktion',
+//         value: true,
+//         order: 0
+//       },
+//     },
+//
+//     {
+//       seo: {
+//         title: 'Suchmaschinenoptimiert',
+//         value: true,
+//         order: 1
+//       },
+//     },
+//     {
+//       cms: {
+//         title: 'Content-Management-System',
+//         value: true,
+//         order: 6
+//       }
+//     },
+//     {
+//       monthlyAppointments: {
+//         title: 'Rücksprachetermine pro Monat',
+//         value: '4',
+//         order: 9
+//       }
+//     },
+//     {
+//       revisions: {
+//         title: 'Überarbeitungsschleifen',
+//         value: '3',
+//         order: 10
+//       }
+//     },
+//     {
+//       imprintPage: {
+//         title: 'Impressum',
+//         value: true,
+//         order: 2
+//       }
+//     },
+//     {
+//       privacyPage: {
+//         title: 'Datenschutzerklärung',
+//         value: true,
+//         order: 3
+//       }
+//     },
+//     {
+//       privacySettings: {
+//         title: 'Datenschutzeinstellungen',
+//         value: true,
+//         order: 7
+//       }
+//     },
+//     {
+//       pageCount: {
+//         title: 'Seitenanzahl',
+//         value: '40',
+//         order: 11
+//       }
+//     },
+//     {
+//       securityUpdates: {
+//         title: 'Sicherheitsupdates',
+//         value: true,
+//         order: 12
+//       }
+//     },
+//     {
+//       contentAnalysis: {
+//         title: 'Content-Analyse',
+//         value: true,
+//         order: 5
+//       }
+//     },
+//     {
+//       projectDuration: {
+//         title: 'Projekt-Laufzeit',
+//         value: 'Unbegrenzt',
+//         order: 17
+//       }
+//     },
+//     {
+//       timeToMarket: {
+//         title: 'Zeit bis GO-Live',
+//         value: '6 Monate',
+//         order: 18
+//       }
+//     },
+//     {
+//       cmsAssets: {
+//         title: 'CMS Assets',
+//         value: '6',
+//         order: 13
+//       }
+//     },
+//     {
+//       forms: {
+//         title: 'Formen',
+//         value: '2',
+//         order: 14
+//       }
+//     },
+//     {
+//       eventPlanning: {
+//         title: 'Eventplanung',
+//         value: '0',
+//         order: 16
+//       }
+//     },
+//     {
+//       socialMedia: {
+//         title: 'Social Media',
+//         value: true,
+//         order: 4
+//       }
+//     },
+//     {
+//       advancedAnalytics: {
+//         title: 'Fortgeschrittene Analytik',
+//         value: false,
+//         order: 8
+//       }
+//     },
+//   ]
+//
+// //Unlimited
+// export const unlimitedFeatures: IFeature[] =
+//   [
+//     {
+//       simpleAnalytics: {
+//         title: 'Einfach Analytikfunktion',
+//         value: true,
+//         order: 0
+//       },
+//     },
+//     {
+//       seo: {
+//         title: 'Suchmaschinenoptimiert',
+//         value: true,
+//         order: 1
+//       },
+//     },
+//     {
+//       cms: {
+//         title: 'Content-Management-System',
+//         value: true,
+//         order: 6
+//       }
+//     },
+//     {
+//       monthlyAppointments: {
+//         title: 'Rücksprachetermine pro Monat',
+//         value: 'Unbegrenzt',
+//         order: 9
+//       }
+//     },
+//     {
+//       revisions: {
+//         title: 'Überarbeitungsschleifen',
+//         value: 'Unbegrenzt',
+//         order: 10
+//       }
+//     },
+//     {
+//       imprintPage: {
+//         title: 'Impressum',
+//         value: true,
+//         order: 2
+//       }
+//     },
+//     {
+//       privacyPage: {
+//         title: 'Datenschutzerklärung',
+//         value: true,
+//         order: 3
+//       }
+//     },
+//     {
+//       privacySettings: {
+//         title: 'Datenschutzeinstellungen',
+//         value: true,
+//         order: 7
+//       }
+//     },
+//     {
+//       pageCount: {
+//         title: 'Seitenanzahl',
+//         value: 'Unbegrenzt',
+//         order: 11
+//       }
+//     },
+//     {
+//       securityUpdates: {
+//         title: 'Sicherheitsupdates',
+//         value: true,
+//         order: 12
+//       }
+//     },
+//     {
+//       contentAnalysis: {
+//         title: 'Content-Analyse',
+//         value: true,
+//         order: 5
+//       }
+//     },
+//     {
+//       projectDuration: {
+//         title: 'Projekt-Laufzeit',
+//         value: '6 Monate',
+//         order: 17
+//       }
+//     },
+//     {
+//       timeToMarket: {
+//         title: 'Zeit bis GO-Live',
+//         value: '6 Monate',
+//         order: 18
+//       }
+//     },
+//     {
+//       cmsAssets: {
+//         title: 'CMS Assets',
+//         value: 'Unbegrenzt',
+//         order: 13
+//       }
+//     },
+//     {
+//       forms: {
+//         title: 'Formen',
+//         value: '5',
+//         order: 14
+//       }
+//     },
+//     {
+//       eventPlanning: {
+//         title: 'Eventplanung',
+//         value: '1',
+//         order: 16
+//       }
+//     },
+//     {
+//       socialMedia: {
+//         title: 'Social Media',
+//         value: true,
+//         order: 4
+//       }
+//     },
+//     {
+//       advancedAnalytics: {
+//         title: 'Fortgeschrittene Analytik',
+//         value: true,
+//         order: 8
+//       }
+//     },
+//   ]
 
 
 export const faqs: IFaq[] = [
@@ -661,45 +661,45 @@ export const Milestones: IMilestone[] = [
   },
 ]
 
-export const Tiers: IPlan[] =
-  [
-    {
-      description: 'Eine starke Landingpage, die gewaltigen Eindruck hinterlässt.',
-      allFeatures: starterFeatures,
-      features: ['1 Seite inkl. Design', '7 Sections', '1 Überarbeitungsschleife'],
-      icon: '✈️',
-      label: 'Starter',
-      price: 900,
-      order: 0,
-    },
-    {
-      description: 'Ideal für aufstrebende Start-Ups im Wachstum für mehr Reichweite.',
-      allFeatures: essentialFeatures,
-      features: ['12 Seiten inkl. Design', 'Je Seite 7 Sections', '3 Überarbeitungsschleifen', 'Content-Management-System', '2 CMS-Asset'],
-      icon: '✈️',
-      label: 'Essentials',
-      price: 4800,
-      order: 1
-    },
-    {
-      description: 'Ideal wenn du erstklassigen Content liefern möchtest.',
-      allFeatures: premiumFeatures,
-      features: ['40 Seiten inkl. Design', 'Je Seite 7 Sections', '3 Überarbeitungsschleifen', 'Content-Management-System', '6 CMS-Assets'],
-      icon: '✈️',
-      label: 'Premium',
-      price: 10000,
-      order: 2
-    },
-    {
-      description: 'Lässt keine Wünsche offen während dein Business wächst.',
-      allFeatures: unlimitedFeatures,
-      features: ['Unbegrenzte Seitenanzahl', 'Unbegrenzte Anzahl Sections', 'Unbegrenzt viele Überarbeitungsschleifen', 'Content-Management-System', 'Unbegrenzt viele CMS-Assets'],
-      icon: '✈️',
-      label: 'Unlimited',
-      price: 25000,
-      order: 3
-    }
-  ]
+// export const Tiers: IPlan[] =
+//   [
+//     {
+//       description: 'Eine starke Landingpage, die gewaltigen Eindruck hinterlässt.',
+//       addons: starterFeatures,
+//       shortFeatures: ['1 Seite inkl. Design', '7 Sections', '1 Überarbeitungsschleife'],
+//       icon: '✈️',
+//       label: 'Starter',
+//       price: 900,
+//       order: 0,
+//     },
+//     {
+//       description: 'Ideal für aufstrebende Start-Ups im Wachstum für mehr Reichweite.',
+//       addons: essentialFeatures,
+//       shortFeatures: ['12 Seiten inkl. Design', 'Je Seite 7 Sections', '3 Überarbeitungsschleifen', 'Content-Management-System', '2 CMS-Asset'],
+//       icon: '✈️',
+//       label: 'Essentials',
+//       price: 4800,
+//       order: 1
+//     },
+//     {
+//       description: 'Ideal wenn du erstklassigen Content liefern möchtest.',
+//       addons: premiumFeatures,
+//       shortFeatures: ['40 Seiten inkl. Design', 'Je Seite 7 Sections', '3 Überarbeitungsschleifen', 'Content-Management-System', '6 CMS-Assets'],
+//       icon: '✈️',
+//       label: 'Premium',
+//       price: 10000,
+//       order: 2
+//     },
+//     {
+//       description: 'Lässt keine Wünsche offen während dein Business wächst.',
+//       addons: unlimitedFeatures,
+//       shortFeatures: ['Unbegrenzte Seitenanzahl', 'Unbegrenzte Anzahl Sections', 'Unbegrenzt viele Überarbeitungsschleifen', 'Content-Management-System', 'Unbegrenzt viele CMS-Assets'],
+//       icon: '✈️',
+//       label: 'Unlimited',
+//       price: 25000,
+//       order: 3
+//     }
+//   ]
 
 export const Hostings: IHosting[] =
   [

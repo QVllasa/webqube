@@ -7,6 +7,7 @@ import {IProject, IPlan} from "../../../models/models";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import firebase from "firebase/compat";
 import {MailService} from "../../../services/mail.service";
+import {ProjectService} from "../../../services/project.service";
 
 
 @Component({
@@ -37,6 +38,7 @@ export class AddProjectComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: IPlan,
     private auth: AngularFireAuth,
     private afs: AngularFirestore,
+    private projectService: ProjectService,
     private mailService: MailService) {
   }
 
@@ -58,15 +60,10 @@ export class AddProjectComponent implements OnInit {
       console.log("not valid")
       return;
     }
-    console.log(this.projectObj)
+
 
     this.projectCollection = this.afs.collection<IProject>('projects');
-    this.projectCollection.add(this.projectObj).then((res) => {
-      return res.id
-    }).then(()=>{
-      //todo notify on create project
-      return
-    })
+    this.projectService.createProject(this.projectObj)
       .then((emailres)=>{
         console.log("email response", emailres)
         this.isLoading = false;

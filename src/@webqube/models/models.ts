@@ -3,8 +3,11 @@ import {IBoard, IScrumboard} from "./scrumboard.interface";
 
 export interface IFeatureDetail {
   value: boolean | string,
-  title: string,
-  order: number,
+  title?: string,
+  order?: number,
+  onPricingPage?: boolean,
+  isAddon?: boolean,
+  valueType?: string,
   icon?: string,
 }
 
@@ -15,8 +18,8 @@ export interface IFeature {
 export interface IPlan {
   id?: string
   price: number,
-  features: string[],
-  allFeatures: IFeature[],
+  shortFeatures: string[],
+  features: IFeature,
   description: string,
   label: string,
   icon?: string,
@@ -72,7 +75,8 @@ export interface IProject {
   planID?: IPlan['id'],
   domain: string,
   boards?: IBoard[];
-  features?: IFeature []
+  features?: IFeature [],
+  status: 'deleted' | 'active'
 }
 
 export interface IMilestone {

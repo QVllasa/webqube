@@ -18,24 +18,24 @@
       <!-- This example requires Tailwind CSS v2.0+ -->
       <div
         class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-4">
-        <div *ngFor="let tier of tiers"
+        <div *ngFor="let plan of plans"
              class="bg-white border border-gray-200 rounded-lg shadow-sm divide-y divide-gray-200">
           <div class="p-6">
-            <h2 class="text-lg leading-6 font-medium text-gray-900">{{tier.label}}</h2>
-            <p class="mt-4 text-sm text-gray-500">{{tier.description}}</p>
+            <h2 class="text-lg leading-6 font-medium text-gray-900">{{plan.label}}</h2>
+            <p class="mt-4 text-sm text-gray-500">{{plan.description}}</p>
             <p class="mt-8">
-              <span class="text-4xl font-extrabold text-gray-900">{{tier.price}}€</span>
+              <span class="text-4xl font-extrabold text-gray-900">{{plan.price}}€</span>
               <span class="text-base font-medium text-gray-500">/Projekt</span>
             </p>
-            <button mat-ripple (click)="openRequestDialog(tier)"
+            <button mat-ripple (click)="openRequestDialog(plan)"
                     class="mt-8 block w-full bg-amber-600  rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-amber-700">
-              {{tier.label}} kaufen
+              {{plan.label}} kaufen
             </button>
           </div>
           <div class="pt-6 pb-8 px-6">
             <h3 class="text-xs font-medium text-gray-900 tracking-wide uppercase">Was ist enthalten</h3>
             <ul role="list" class="mt-6 space-y-4">
-              <li class="flex space-x-3" *ngFor="let feature of tier.features">
+              <li class="flex space-x-3" *ngFor="let feature of plan.shortFeatures">
                 <mat-icon class="material-icons-round text-green-500 h-5 w-5 flex-shrink-0">
                   done
                 </mat-icon>
@@ -751,7 +751,7 @@
       </div>
     </section>-->
 
-  <section *ngIf="showFeatures" aria-labelledby="comparison-heading" class="hidden lg:block pb-16">
+  <section *ngIf="showFeatures && rows.length>0" aria-labelledby="comparison-heading" class="hidden lg:block pb-16">
     <h2 id="comparison-heading" class="sr-only">Feature comparison</h2>
 
     <div class="mt-24 max-w-7xl mx-auto px-8">
@@ -760,10 +760,10 @@
         <div class="-mt-px w-1/4 py-6 pr-4 flex flex-col items-start justify-between">
         </div>
 
-        <div *ngFor="let tier of tiers" aria-hidden="true" class="pr-4 -mt-px pl-4 w-1/4">
+        <div *ngFor="let plan of plans" aria-hidden="true" class="pr-4 -mt-px pl-4 w-1/4">
           <div class="border-transparent py-6 border-t-2">
-            <p class="text-gray-900 text-sm font-bold">{{tier.label}}</p>
-            <p class="mt-2 text-sm text-gray-500">{{tier.description}}</p>
+            <p class="text-gray-900 text-sm font-bold">{{plan.label}}</p>
+            <p class="mt-2 text-sm text-gray-500">{{plan.description}}</p>
           </div>
         </div>
       </div>
@@ -794,7 +794,7 @@
             <th scope="col">
               <span class="sr-only">Feature</span>
             </th>
-            <th *ngFor="let column of tiers" scope="col">
+            <th *ngFor="let column of plans" scope="col">
               <span class="sr-only">{{column}}</span>
             </th>
           </tr>
@@ -805,28 +805,28 @@
             <th scope="row" class="w-1/5 py-3 pr-4 text-left text-sm font-medium text-gray-600">
               {{row.title}}
             </th>
-            <td *ngFor="let tier of tiers" class="px-4 relative w-1/5 py-0 text-center">
+            <td *ngFor="let tier of plans" class="px-4 relative w-1/5 py-0 text-center">
               <ng-template #ref [ngTemplateOutlet]="ref"
                            let-value="value" [ngTemplateOutletContext]="{ value: getFeatureValue(tier, row) }">
-                <span *ngIf="checkType(value) === 'boolean'" class="relative w-full h-full py-3">
+                <span *ngIf="value.valueType === 'boolean'" class="relative w-full h-full py-3">
 
-                  <span *ngIf="value" class="text-gray-900 text-sm font-medium">
+                  <span *ngIf="value.value" class="text-gray-900 text-sm font-medium">
                     <mat-icon class="material-icons-round text-amber-500 h-5 w-5 flex-shrink-0">
                       done
                     </mat-icon>
                   </span>
-                  <span *ngIf="!value" class="text-gray-900 text-sm font-medium">
+                  <span *ngIf="!value.value" class="text-gray-900 text-sm font-medium">
                     <mat-icon class="material-icons-round text-gray-500 h-5 w-5 flex-shrink-0">
                       close
                     </mat-icon>
                   </span>
                 </span>
-                <span *ngIf="checkType(value) === 'string'" class="relative w-full h-full py-3">
-                  <span class="text-gray-500 text-base font-medium">{{value}}</span>
+                <span *ngIf="value.valueType === 'number'" class="relative w-full h-full py-3">
+                  <span class="text-gray-500 text-base font-medium">{{value.value}}</span>
                 </span>
-                <span *ngIf="checkType(value) === 'undefined'" class="relative w-full h-full py-3">
-                  <span class="text-gray-500 text-sm font-medium">{{'undefined'}}</span>
-                </span>
+<!--                <span *ngIf="checkType(value) === 'undefined'" class="relative w-full h-full py-3">-->
+<!--                  <span class="text-gray-500 text-sm font-medium">{{'undefined'}}</span>-->
+<!--                </span>-->
               </ng-template>
 
             </td>

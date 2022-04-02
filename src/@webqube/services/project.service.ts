@@ -1,13 +1,9 @@
 import {Injectable} from '@angular/core';
-import {IBoard, IScrumboard} from "../models/scrumboard.interface";
-import {IScrumboardList} from "../models/scrumboard-list.interface";
-import {IScrumboardCard} from "../models/scrumboard-card.interface";
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
-import {ActivatedRoute, NavigationEnd, Params, Router} from "@angular/router";
-import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from "rxjs";
-import {IHosting, IMilestone, IProject, IPlan, IUser, IFeature} from "../models/models";
-import {filter, first, map, mergeMap, switchMap, take, tap} from "rxjs/operators";
-import {Hostings, Milestones, Tiers} from "../static/static";
+import {IBoard} from "../models/scrumboard.interface";
+import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
+import {BehaviorSubject, Observable} from "rxjs";
+import {IFeature, IPlan, IProject} from "../models/models";
+import {first, map, switchMap, tap} from "rxjs/operators";
 import {MilestoneService} from "./milestone.service";
 import {BoardService} from "./board.service";
 import {RouteParamsService} from "./route-params.service";
@@ -67,26 +63,36 @@ export class ProjectService {
       }
     }
 
+    // TODO Fields to take over to addons rather than leave them in plans features
     const addons = await this.afs.collection<IFeature>('addons').valueChanges().pipe(first()).toPromise()
-    const featureKeys = ['pageCount', 'cms', 'forms', 'cmsAssets', 'eventPlanning', 'privacySettings', 'advancedAnalytics'];
+    const featureKeys = ['contentAnalysis','pageCount', 'cms', 'forms', 'cmsAssets', 'eventPlanning', 'privacySettings', 'advancedAnalytics'];
     let features: IFeature[] = [];
-    plan.allFeatures.forEach((obj, index) => {
-      featureKeys.forEach((key) => {
-        if (key in obj) {
-          features.push(obj)
-        }
-      })
-    })
+    // plan.addons.forEach((obj, index) => {
+    //   featureKeys.forEach((key) => {
+    //     if (key in obj) {
+    //       features.push(obj)
+    //     }
+    //   })
+    // })
 
     features = [...features, ...addons];
 
     console.log("features", features)
 
-    await this.projectDoc.update({planID: plan.id, features: features});
+    // await this.projectDoc.update({planID: plan.id, features: features});
   }
 
   updateProject(data: IProject) {
     return this.projectDoc.update(data)
+  }
+
+  createProject(data: IProject){
+    return this.afs.collection('projects').add(data).then((res) => {
+      return res.id
+    }).then(()=>{
+      //todo notify on create project
+      return
+    });
   }
 
 
@@ -95,15 +101,15 @@ export class ProjectService {
   }
 
   async deleteProject() {
-    const boards = await this.boardSerivce.boardColl.valueChanges({idField: 'id'}).pipe(first()).toPromise()
-    for await (let board of boards) {
-      await this.boardSerivce.deleteBoards(board.id);
-      const lists = await this.boardSerivce.deleteLists(board.id);
-      for await (let list of lists) {
-        await this.boardSerivce.deleteCard(list.id)
-      }
-
-    }
+    // const boards = await this.boardSerivce.boardColl.valueChanges({idField: 'id'}).pipe(first()).toPromise()
+    // for await (let board of boards) {
+    //   await this.boardSerivce.deleteBoards(board.id);
+    //   const lists = await this.boardSerivce.deleteLists(board.id);
+    //   for await (let list of lists) {
+    //     await this.boardSerivce.deleteCard(list.id)
+    //   }
+    //
+    // }
     await this.projectDoc.delete();
   }
 

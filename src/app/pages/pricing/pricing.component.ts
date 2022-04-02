@@ -1,20 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {
-  columnsKeys,
-  essentialFeatures,
-  faqs,
-  premiumFeatures,
-  starterFeatures,
-  unlimitedFeatures
-} from 'src/@webqube/static/static';
+import {columnsKeys, faqs} from 'src/@webqube/static/static';
 import {MatDialog} from "@angular/material/dialog";
 import {
   IndividualRequestComponent
 } from "../../../@webqube/components/dialogs/individual-request/individual-request.component";
 import {RequestComponent} from "../../../@webqube/components/dialogs/request/request.component";
-import {IHosting, IPlan} from "../../../@webqube/models/models";
+import {IFeatureDetail, IHosting, IPlan} from "../../../@webqube/models/models";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {map, tap} from "rxjs/operators";
+import {PlanService} from "../../../@webqube/services/plan.service";
 
 interface IRow {
   title: string,
@@ -33,54 +27,39 @@ export class PricingComponent implements OnInit {
   columnsKeys = columnsKeys
 
   showFeatures: boolean = false;
-  essentialFeatures = essentialFeatures;
-  starterFeatures = starterFeatures;
-  premiumFeatures = premiumFeatures;
-  unlimitedFeatures = unlimitedFeatures;
+  // essentialFeatures = essentialFeatures;
+  // starterFeatures = starterFeatures;
+  // premiumFeatures = premiumFeatures;
+  // unlimitedFeatures = unlimitedFeatures;
 
-  tiers: IPlan[] = [];
+  plans: IPlan[] = [];
   hostings: IHosting[] = [];
   rows: IRow[] = [];
   faqs = faqs
 
 
-  constructor(public dialog: MatDialog, private afs: AngularFirestore) {
+  constructor(public dialog: MatDialog, private afs: AngularFirestore, private plansService: PlanService) {
 
-    this.afs.collection<IPlan>('tiers').valueChanges({idField: 'id'})
-      .pipe(
-        //sort features
-        map(tiers => {
-          for (let tier of tiers) {
-            tier.allFeatures.sort((a, b) => {
-              return a[Object.keys(a)[0]].order - b[Object.keys(b)[0]].order;
-            })
-          }
-          return tiers;
-        }),
-        //sort tiers
-        map(tiers => {
-          return tiers.sort((a, b) => {
-            return a.order - b.order;
-          });
-        }),
-        //get keys for rows
-        tap((tiers) => {
-          this.rows = [];
-          if (tiers[0]) {
-            tiers[0].allFeatures.forEach((obj) => {
-              this.rows.push({title: obj[Object.keys(obj)[0]].title, key: Object.keys(obj)[0]})
-            })
-          }
-        }))
-      .subscribe(tiers => {
-        this.tiers = tiers;
+    this.plansService.getPlans()
+      .subscribe(plans => {
+        this.plansService.plans$.next(plans.map(obj => ({...obj, selected: false})));
+        const keys = Object.keys(plans[0].features)
+        this.plans = plans;
+        this.rows = [];
+        keys.forEach(key=>{
+          this.plans.forEach(plan => {
+            if(!this.rows.some(e => e.key === key)){
+              this.rows.push({title: plan.features[key].title, key: key})
+            }
+          })
+        })
       })
 
 
     this.afs.collection<IHosting>('hostings').valueChanges({idField: 'id'})
       .pipe(
         map(hostings => {
-          return hostings.sort((a, b)=>{
+          return hostings.sort((a, b) => {
             return a.order - b.order
           })
         })
@@ -111,8 +90,9 @@ export class PricingComponent implements OnInit {
     });
   }
 
-  getFeatureValue(tier: IPlan, row: IRow): string | boolean {
-    return tier.allFeatures.find(obj => Object.keys(obj)[0] === row.key)[row.key].value;
+  getFeatureValue(plan: IPlan, row: IRow): IFeatureDetail {
+    return plan.features[row.key];
+
   }
 
   checkType(value: boolean | string) {
