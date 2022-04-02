@@ -28,7 +28,7 @@ export class ProjectsDetailsComponent {
 
   user: IUser;
   project: IProject;
-  plans$: BehaviorSubject<IPlan[]>;
+  plans$: Observable<IPlan[]>;
   plan$: BehaviorSubject<IPlan> = new BehaviorSubject<IPlan>(null);
   boards$: BehaviorSubject<IBoard[]> = this.boardService.boards$;
   lists$: BehaviorSubject<IScrumboardList[]> = new BehaviorSubject<IScrumboardList[]>(null)
@@ -60,7 +60,7 @@ export class ProjectsDetailsComponent {
               private planService: PlanService,
               public userService: UserService) {
 
-    this.plans$ = this.planService.plans$;
+    this.plans$ = this.planService.getPlans();
 
     this.projectService.project
       .subscribe((project) => {

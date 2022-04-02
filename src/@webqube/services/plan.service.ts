@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {IFeatures, IPlan} from "../models/models";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {first, map, mergeMap, switchMap, take} from "rxjs/operators";
@@ -16,19 +16,17 @@ export class PlanService {
   constructor(private afs: AngularFirestore) {
     this.plansColl = this.afs.collection<IPlan>('plans');
     this.featuresColl = this.afs.collection<IFeatures>('features');
-
-
   }
 
   getPlan(id: string): IPlan {
     return this.plans$.value.find(obj => obj.id === id)
   }
 
-  getPlans(){
+  getPlans(): Observable<(IPlan & {id: string})[]>{
     return this.plansColl.valueChanges({idField: 'id'})
       .pipe(
         mergeMap((plans)=>{
-          return this.featuresColl.valueChanges({idField: 'id'})
+          return this.featuresColl.valueChanges()
             .pipe(
               map((features)=>{
                 const featuresObject =features[0]
