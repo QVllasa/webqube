@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {IBoard} from "../models/scrumboard.interface";
 import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {BehaviorSubject, Observable} from "rxjs";
-import {IFeature, IPlan, IProject} from "../models/models";
+import {IFeatures, IPlan, IProject} from "../models/models";
 import {first, map, switchMap, tap} from "rxjs/operators";
 import {MilestoneService} from "./milestone.service";
 import {BoardService} from "./board.service";
@@ -63,23 +63,7 @@ export class ProjectService {
       }
     }
 
-    // TODO Fields to take over to addons rather than leave them in plans features
-    const addons = await this.afs.collection<IFeature>('addons').valueChanges().pipe(first()).toPromise()
-    const featureKeys = ['contentAnalysis','pageCount', 'cms', 'forms', 'cmsAssets', 'eventPlanning', 'privacySettings', 'advancedAnalytics'];
-    let features: IFeature[] = [];
-    // plan.addons.forEach((obj, index) => {
-    //   featureKeys.forEach((key) => {
-    //     if (key in obj) {
-    //       features.push(obj)
-    //     }
-    //   })
-    // })
-
-    features = [...features, ...addons];
-
-    console.log("features", features)
-
-    // await this.projectDoc.update({planID: plan.id, features: features});
+    await this.projectDoc.update({planID: plan.id, features: plan.features});
   }
 
   updateProject(data: IProject) {

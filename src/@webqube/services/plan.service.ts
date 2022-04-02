@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from "rxjs";
-import {IFeature, IPlan} from "../models/models";
+import {IFeatures, IPlan} from "../models/models";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {first, map, mergeMap, switchMap, take} from "rxjs/operators";
 
@@ -11,11 +11,11 @@ export class PlanService {
 
   plans$ = new BehaviorSubject<IPlan[]>(null);
   private plansColl: AngularFirestoreCollection<IPlan>;
-  private featuresColl: AngularFirestoreCollection<IFeature>;
+  private featuresColl: AngularFirestoreCollection<IFeatures>;
 
   constructor(private afs: AngularFirestore) {
     this.plansColl = this.afs.collection<IPlan>('plans');
-    this.featuresColl = this.afs.collection<IFeature>('features');
+    this.featuresColl = this.afs.collection<IFeatures>('features');
 
 
   }

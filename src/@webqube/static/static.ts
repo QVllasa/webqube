@@ -1,4 +1,4 @@
-import {IFaq, IFeature, IPlan, IWork, ITeamMember, IMilestone, IHosting} from "../models/models";
+import {IFaq, IFeatures, IPlan, IWork, ITeamMember, IMilestone, IHosting} from "../models/models";
 
 export const columnsKeys = ['Feature', 'Starter', 'Professional', 'Business']
 

@@ -11,7 +11,7 @@ export interface IFeatureDetail {
   icon?: string,
 }
 
-export interface IFeature {
+export interface IFeatures {
   [key: string]: IFeatureDetail
 }
 
@@ -19,7 +19,7 @@ export interface IPlan {
   id?: string
   price: number,
   shortFeatures: string[],
-  features: IFeature,
+  features: IFeatures,
   description: string,
   label: string,
   icon?: string,
@@ -75,7 +75,7 @@ export interface IProject {
   planID?: IPlan['id'],
   domain: string,
   boards?: IBoard[];
-  features?: IFeature [],
+  features?: IFeatures,
   status: 'deleted' | 'active'
 }
 
