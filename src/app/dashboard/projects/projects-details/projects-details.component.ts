@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IMilestone, IProject, IPlan, IUser} from "../../../../@webqube/models/models";
+import {IMilestone, IProject, IPlan, IUser, IFeatureDetail} from "../../../../@webqube/models/models";
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {BehaviorSubject, Observable} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -62,6 +62,7 @@ export class ProjectsDetailsComponent {
 
     this.plans$ = this.planService.getPlans();
 
+    //TODO listen project to firebase project -> currently only local
     this.projectService.project
       .subscribe((project) => {
       if (!project) {
@@ -208,5 +209,24 @@ export class ProjectsDetailsComponent {
         this.router.navigate(['dashboard/projects'])
       }
     })
+  }
+
+  toggle(feature: { key:string, value:IFeatureDetail }) {
+   switch (feature.value.valueType) {
+     case 'boolean':{
+       //TODO add Paypal
+       feature.value.value = !feature.value.value;
+       this.project.features[feature.key] = feature.value;
+       this.projectService.updateProject(this.project).then((res)=>{
+         console.log('update successful', res)
+         this.projectService.project.next(this.project)
+       })
+       break;
+     }
+     case 'number':{
+       console.log('do something')
+     }
+   }
+
   }
 }
