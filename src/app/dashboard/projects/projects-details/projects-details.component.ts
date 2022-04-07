@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {IMilestone, IProject, IPlan, IUser, IFeatureDetail} from "../../../../@webqube/models/models";
+import {IMilestone, IProject, IPlan, IUser, IFeatureDetail, IFeatures} from "../../../../@webqube/models/models";
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {BehaviorSubject, Observable} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -17,6 +17,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {DeleteProjectComponent} from "../../../../@webqube/components/dialogs/delete-project/delete-project.component";
 import {PlanService} from "../../../../@webqube/services/plan.service";
 import {BoardService} from "../../../../@webqube/services/board.service";
+import {KeyValue} from "@angular/common";
+import {Features} from "luxon";
 
 
 @Component({
@@ -65,28 +67,28 @@ export class ProjectsDetailsComponent {
     //TODO listen project to firebase project -> currently only local
     this.projectService.project
       .subscribe((project) => {
-      if (!project) {
-        return;
-      }
-      console.log("project details",project)
-      this.project = project;
-      this.form.patchValue({domain: project.domain ? project.domain : '', title: project.title});
-    })
+        if (!project) {
+          return;
+        }
+        console.log("project details", project)
+        this.project = project;
+        this.form.patchValue({domain: project.domain ? project.domain : '', title: project.title});
+      })
 
     this.boards$.pipe(
       filter<IBoard[]>(Boolean),
       tap((boards => {
-       const selectedBoard = boards.find(obj => obj.selected)
+        const selectedBoard = boards.find(obj => obj.selected)
         this.selectedBoard$.next(selectedBoard);
       }))
     ).subscribe()
 
     this.selectedBoard$
       .pipe(filter<IBoard>(Boolean),
-        switchMap((board)=>{
-        return this.boardService.getLists(board.id)
-      }))
-      .subscribe((lists)=>{
+        switchMap((board) => {
+          return this.boardService.getLists(board.id)
+        }))
+      .subscribe((lists) => {
         console.log("lists", lists)
         this.lists$.next(lists)
       })
@@ -164,7 +166,7 @@ export class ProjectsDetailsComponent {
   }
 
   onSelectTier(tier: IPlan) {
-    this.plan$.value === tier ? this.plan$.next(null): this.plan$.next(tier);
+    this.plan$.value === tier ? this.plan$.next(null) : this.plan$.next(tier);
   }
 
   isSelected(tier: IPlan) {
@@ -185,10 +187,10 @@ export class ProjectsDetailsComponent {
   }
 
   onSelectBoard(board: IBoard, boards: IBoard[]) {
-    boards.map((item,index)=>{
-      if (item.id === board.id){
+    boards.map((item, index) => {
+      if (item.id === board.id) {
         item.selected = !item.selected;
-      }else{
+      } else {
         item.selected = false;
       }
     })
@@ -200,7 +202,7 @@ export class ProjectsDetailsComponent {
   }
 
   // getTier(): IPlan {
-    // return this.planService.getPlan();
+  // return this.planService.getPlan();
   // }
 
   deleteProject() {
@@ -211,22 +213,34 @@ export class ProjectsDetailsComponent {
     })
   }
 
-  toggle(feature: { key:string, value:IFeatureDetail }) {
-   switch (feature.value.valueType) {
-     case 'boolean':{
-       //TODO add Paypal
-       feature.value.value = !feature.value.value;
-       this.project.features[feature.key] = feature.value;
-       this.projectService.updateProject(this.project).then((res)=>{
-         console.log('update successful', res)
-         this.projectService.project.next(this.project)
-       })
-       break;
-     }
-     case 'number':{
-       console.log('do something')
-     }
-   }
+  toggle(feature: {key: string, value: IFeatureDetail}) {
+
+    switch (feature.value.valueType) {
+      case 'boolean': {
+        //TODO add Paypal
+        feature.value.value = true;
+        this.project.features[feature.key] = feature.value;
+        this.projectService.updateProject(this.project).then((res) => {
+          console.log('update successful', res)
+          this.projectService.project.next(this.project)
+        })
+        break;
+      }
+      case 'number': {
+        console.log('do something')
+      }
+    }
 
   }
+
+  get features(): {key: string, value: IFeatureDetail}[] {
+    const keys = Object.keys(this.project.features)
+    let arr: {key: string, value: IFeatureDetail}[]  = []
+    keys.forEach(key => {
+      arr.push({key: key,value:this.project.features[key]})
+    })
+    return arr;
+  }
+
+
 }

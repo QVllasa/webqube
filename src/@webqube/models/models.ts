@@ -2,7 +2,8 @@ import firebase from "firebase/compat";
 import {IBoard, IScrumboard} from "./scrumboard.interface";
 
 export interface IFeatureDetail {
-  value: boolean | string,
+  value: boolean | number,
+  used?: number,
   title?: string,
   order?: number,
   onPricingPage?: boolean,
