@@ -177,14 +177,14 @@
         <ng-container *ngFor="let feature of features">
           <div *ngIf="feature.value.isAddon" class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
             <dt>
-              <div class="absolute bg-amber-500 rounded-md p-3">
+              <div class="absolute text-amber-500 rounded-md p-3 right-6">
                 <!-- Heroicon name: outline/users -->
-                <mat-icon class="material-icons-round transform scale-110 text-white">{{feature.value.icon}}</mat-icon>
+                <mat-icon class="material-icons-round transform scale-125 ">{{feature.value.icon}}</mat-icon>
               </div>
-              <p class="ml-16 text-sm font-medium text-gray-500 truncate">{{feature.value.title}}</p>
+              <p class="text-sm font-medium text-gray-500 truncate">{{feature.value.title}}</p>
             </dt>
             <!--          TODO finish feature grid with modal -->
-            <dd class="ml-16 pb-6 flex items-baseline">
+            <dd class="pb-6 flex items-baseline">
 
               <ng-container *ngIf="feature.value.valueType === 'boolean'">
                 <button  type="button" [ngClass]="feature.value.value ? 'bg-amber-500 ':'bg-gray-200 '" class="mt-2 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none " role="switch" aria-checked="false">

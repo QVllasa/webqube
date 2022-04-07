@@ -18,7 +18,7 @@ export class ProjectService {
   // staticHostings = Hostings;
 
 
-  public project = new BehaviorSubject<IProject>(null);
+  public project$ = new BehaviorSubject<IProject>(null);
 
   private projectDoc: AngularFirestoreDocument<IProject>;
 
@@ -34,15 +34,12 @@ export class ProjectService {
         map(params => {
           return params['projectID'];
         }),
-        tap(id => {
-          this.projectDoc = this.afs.collection('projects').doc<IProject>(id);
-        }),
-        switchMap((params) => {
-          return this.getProject();
+        switchMap((id) => {
+          return this.getProject(id);
         })
       )
       .subscribe((project) => {
-        this.project.next(project)
+        this.project$.next(project)
       });
   }
 
@@ -80,7 +77,8 @@ export class ProjectService {
   }
 
 
-  getProject(): Observable<IProject> {
+  getProject(id: string): Observable<IProject> {
+    this.projectDoc = this.afs.collection('projects').doc<IProject>(id);
     return this.projectDoc.valueChanges({idField: 'id'})
   }
 

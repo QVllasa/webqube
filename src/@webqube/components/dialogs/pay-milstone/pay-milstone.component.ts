@@ -23,7 +23,7 @@ export class PayMilstoneComponent implements OnInit {
   milestones$ = this.milestoneService.milestones;
   plan: IPlan;
   value: string;
-  project$ = this.projectService.project;
+  project$ = this.projectService.project$;
   plans$ = this.planService.plans$;
 
   onError:boolean;

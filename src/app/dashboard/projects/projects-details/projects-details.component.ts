@@ -64,8 +64,7 @@ export class ProjectsDetailsComponent {
 
     this.plans$ = this.planService.getPlans();
 
-    //TODO listen project to firebase project -> currently only local
-    this.projectService.project
+    this.projectService.project$
       .subscribe((project) => {
         if (!project) {
           return;
@@ -222,7 +221,7 @@ export class ProjectsDetailsComponent {
         this.project.features[feature.key] = feature.value;
         this.projectService.updateProject(this.project).then((res) => {
           console.log('update successful', res)
-          this.projectService.project.next(this.project)
+          this.projectService.project$.next(this.project)
         })
         break;
       }
