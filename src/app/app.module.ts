@@ -7,17 +7,17 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
-import {IndexComponent} from "./pages/index/index.component";
+import {IndexComponent} from "./web/index/index.component";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatRippleModule} from "@angular/material/core";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatButtonModule} from "@angular/material/button";
-import { PricingComponent } from './pages/pricing/pricing.component';
-import { ProductsComponent } from './pages/products/products.component';
-import { OurWorkComponent } from './pages/our-work/our-work.component';
-import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { PricingComponent } from './web/pricing/pricing.component';
+import { ProductsComponent } from './web/products/products.component';
+import { OurWorkComponent } from './web/our-work/our-work.component';
+import { AboutUsComponent } from './web/about-us/about-us.component';
 import {NgParticlesModule} from "ng-particles";
 import { RegisterComponent } from '../@webqube/components/dialogs/register/register.component';
 import {MatDialogModule} from "@angular/material/dialog";
@@ -35,29 +35,32 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {process} from "@angular/compiler-cli/ngcc";
-import { WorkDetailsComponent } from './pages/our-work/work-details/work-details.component';
-import { PrivacyComponent } from './pages/privacy/privacy.component';
-import { LegalComponent } from './pages/legal/legal.component';
-import { JobsComponent } from './pages/jobs/jobs.component';
+import { WorkDetailsComponent } from './web/our-work/work-details/work-details.component';
+import { PrivacyComponent } from './web/privacy/privacy.component';
+import { LegalComponent } from './web/legal/legal.component';
+import { JobsComponent } from './web/jobs/jobs.component';
 
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
-import { ProjectsComponent } from './dashboard/projects/projects.component';
-import { PagesLayoutComponent } from './pages/pages-layout/pages-layout.component';
-import { AppLayoutComponent } from './dashboard/app-layout/app-layout.component';
-import { AccountComponent } from './dashboard/account/account.component';
-import { ProjectsDetailsComponent } from './dashboard/projects/projects-details/projects-details.component';
+import { ProjectsComponent } from './app/projects/projects.component';
+import { PagesLayoutComponent } from './web/pages-layout/pages-layout.component';
+import { AppLayoutComponent } from './app/app-layout/app-layout.component';
+import { AccountComponent } from './app/account/account.component';
+import { ProjectsDetailsComponent } from './app/projects/projects-details/projects-details.component';
 import {HttpClientModule} from "@angular/common/http";
 import {
   ScrumboardDialogComponent
 } from "../@webqube/components/dialogs/scrumboard-dialog/scrumboard-dialog.component";
 import {FlexLayoutModule} from "@angular/flex-layout";
-import {ScrumboardComponent} from "./dashboard/projects/projects-details/scrumboard/scrumboard.component";
+import {ScrumboardComponent} from "./app/projects/projects-details/scrumboard/scrumboard.component";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDividerModule} from "@angular/material/divider";
 import {NgxPayPalModule} from "ngx-paypal";
+import { DashboardComponent } from './app/projects/projects-details/dashboard/dashboard.component';
+import { AddonsComponent } from './app/projects/projects-details/addons/addons.component';
+import { HostingComponent } from './app/projects/projects-details/hosting/hosting.component';
 
 
 function mode(): any[]{
@@ -93,7 +96,10 @@ export function playerFactory() {
     AccountComponent,
     ProjectsDetailsComponent,
     ScrumboardDialogComponent,
-    ScrumboardComponent
+    ScrumboardComponent,
+    DashboardComponent,
+    AddonsComponent,
+    HostingComponent
   ],
     imports: [
         BrowserModule,

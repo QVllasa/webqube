@@ -17,13 +17,14 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {RequestComponent} from "./components/dialogs/request/request.component";
 import {AddProjectComponent} from "./components/dialogs/add-project/add-project.component";
 import {MatSelectModule} from "@angular/material/select";
-import { AuthComponent } from './components/dialogs/auth/auth.component';
+import {AuthComponent} from './components/dialogs/auth/auth.component';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {CustomSpinnerDirective} from "./directives/custom-spinner.directive";
-import { PayMilstoneComponent } from './components/dialogs/pay-milstone/pay-milstone.component';
+import {PayMilstoneComponent} from './components/dialogs/pay-milstone/pay-milstone.component';
 import {NgxPayPalModule} from "ngx-paypal";
 import {MatIconModule} from "@angular/material/icon";
-import { DeleteProjectComponent } from './components/dialogs/delete-project/delete-project.component';
+import {DeleteProjectComponent} from './components/dialogs/delete-project/delete-project.component';
+
 
 
 @NgModule({
@@ -42,14 +43,14 @@ import { DeleteProjectComponent } from './components/dialogs/delete-project/dele
         NgxPayPalModule,
         MatIconModule
     ],
-  exports: [
-    FooterComponent,
-    IndividualRequestComponent,
-    RegisterComponent,
-    RequestComponent,
-    CustomSpinnerDirective,
-    CustomSpinnerDirective
-  ],
+    exports: [
+        FooterComponent,
+        IndividualRequestComponent,
+        RegisterComponent,
+        RequestComponent,
+        CustomSpinnerDirective,
+        CustomSpinnerDirective
+    ],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
@@ -70,6 +71,7 @@ import { DeleteProjectComponent } from './components/dialogs/delete-project/dele
     CustomSpinnerDirective,
     PayMilstoneComponent,
     DeleteProjectComponent,
+
   ]
 })
 export class webqubeModule {

@@ -1,22 +1,25 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {IndexComponent} from './pages/index/index.component';
-import {PricingComponent} from "./pages/pricing/pricing.component";
-import {AboutUsComponent} from "./pages/about-us/about-us.component";
-import {ProductsComponent} from "./pages/products/products.component";
-import {OurWorkComponent} from "./pages/our-work/our-work.component";
-import {WorkDetailsComponent} from "./pages/our-work/work-details/work-details.component";
-import {JobsComponent} from "./pages/jobs/jobs.component";
-import {LegalComponent} from "./pages/legal/legal.component";
-import {PrivacyComponent} from "./pages/privacy/privacy.component";
-import {ProjectsComponent} from "./dashboard/projects/projects.component";
-import {PagesLayoutComponent} from "./pages/pages-layout/pages-layout.component";
-import {AppLayoutComponent} from "./dashboard/app-layout/app-layout.component";
-import {AccountComponent} from "./dashboard/account/account.component";
+import {IndexComponent} from './web/index/index.component';
+import {PricingComponent} from "./web/pricing/pricing.component";
+import {AboutUsComponent} from "./web/about-us/about-us.component";
+import {ProductsComponent} from "./web/products/products.component";
+import {OurWorkComponent} from "./web/our-work/our-work.component";
+import {WorkDetailsComponent} from "./web/our-work/work-details/work-details.component";
+import {JobsComponent} from "./web/jobs/jobs.component";
+import {LegalComponent} from "./web/legal/legal.component";
+import {PrivacyComponent} from "./web/privacy/privacy.component";
+import {ProjectsComponent} from "./app/projects/projects.component";
+import {PagesLayoutComponent} from "./web/pages-layout/pages-layout.component";
+import {AppLayoutComponent} from "./app/app-layout/app-layout.component";
+import {AccountComponent} from "./app/account/account.component";
 import {AngularFireAuthGuard} from "@angular/fire/compat/auth-guard";
 import {redirectUnauthorizedTo} from "@angular/fire/auth-guard";
-import {ProjectsDetailsComponent} from "./dashboard/projects/projects-details/projects-details.component";
-import {ScrumboardComponent} from "./dashboard/projects/projects-details/scrumboard/scrumboard.component";
+import {ProjectsDetailsComponent} from "./app/projects/projects-details/projects-details.component";
+import {ScrumboardComponent} from "./app/projects/projects-details/scrumboard/scrumboard.component";
+import {DashboardComponent} from "./app/projects/projects-details/dashboard/dashboard.component";
+import {HostingComponent} from "./app/projects/projects-details/hosting/hosting.component";
+import {AddonsComponent} from "./app/projects/projects-details/addons/addons.component";
 
 const redirectUnauthorizedToHome = () => redirectUnauthorizedTo(['/']);
 
@@ -36,7 +39,6 @@ const routes: Routes = [
       {path: 'privacy', component: PrivacyComponent}
     ]
   },
-
   {
     path: 'dashboard',
     component: AppLayoutComponent,
@@ -49,7 +51,10 @@ const routes: Routes = [
         path: 'project/:projectID', component: ProjectsDetailsComponent,
         data: {title: 'Meine Projekte'},
         children: [
-          {path: ':boardID', component: ScrumboardComponent}
+          {path: 'dashboard', component: DashboardComponent},
+          {path: 'boards', component: ScrumboardComponent},
+          {path: 'hosting', component: HostingComponent},
+          {path: 'addons', component: AddonsComponent}
         ]
       },
       {path: 'account', component: AccountComponent, data: {title: 'Mein Account'}}

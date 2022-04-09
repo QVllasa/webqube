@@ -137,4 +137,22 @@ export class ScrumboardComponent implements OnInit {
       disableClose: false
     })
   }
+
+
+  // onSelectBoard(board: IBoard, boards: IBoard[]) {
+  //   boards.map((item, index) => {
+  //     if (item.id === board.id) {
+  //       item.selected = !item.selected;
+  //     } else {
+  //       item.selected = false;
+  //     }
+  //   })
+  //   this.boardService.updateBoards(boards).then();
+  // }
+
+
+  // sortByOrder(obj: IBoard[]): IBoard[] {
+  //   return obj.sort((a, b) => (a.order < b.order ? -1 : 1))
+  // }
+
 }
