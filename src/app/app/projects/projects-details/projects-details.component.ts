@@ -36,32 +36,27 @@ export class ProjectsDetailsComponent {
 
   navLinks: NavLink[] = [
     {
-      route: '',
+      route: 'dashboard',
       label: 'Dashboard',
       icon: 'dashboard'
     }, {
-      route: '',
-      label: 'Dashboard',
+      route: 'boards',
+      label: 'Fortschritt',
       icon: 'dashboard'
     }, {
-      route: '',
-      label: 'Dashboard',
+      route: 'hosting',
+      label: 'Hosting',
       icon: 'dashboard'
     }, {
-      route: '',
-      label: 'Dashboard',
+      route: 'addons',
+      label: 'Addons',
       icon: 'dashboard'
-    }, {
-      route: '',
-      label: 'Dashboard',
-      icon: 'dashboard'
-    },
+    }
   ]
 
-  user: IUser;
 
-  plans$: Observable<IPlan[]>;
-  plan$: BehaviorSubject<IPlan> = new BehaviorSubject<IPlan>(null);
+
+
   boards$: BehaviorSubject<IBoard[]> = this.boardService.boards$;
   lists$: BehaviorSubject<IScrumboardList[]> = new BehaviorSubject<IScrumboardList[]>(null)
   selectedBoard$: BehaviorSubject<IBoard> = new BehaviorSubject<IBoard>(null);
@@ -69,8 +64,8 @@ export class ProjectsDetailsComponent {
 
 
 
-  isSaving: boolean = false;
-  isSavingTier: boolean = false;
+
+
   isDeleting: boolean = false;
   isSelecting: boolean = false;
   selected: boolean = false;
@@ -78,19 +73,13 @@ export class ProjectsDetailsComponent {
 
   constructor(private afs: AngularFirestore,
               private route: ActivatedRoute,
-              private router: Router,
-              private dialog: MatDialog,
-              private _snackBar: MatSnackBar,
+
+
               private http: HttpClient,
               private auth: AngularFireAuth,
               public projectService: ProjectService,
               private boardService: BoardService,
-              private planService: PlanService,
-              public userService: UserService) {
-
-    this.plans$ = this.planService.getPlans();
-
-
+              private planService: PlanService,) {
 
     this.boards$.pipe(
       filter<IBoard[]>(Boolean),
@@ -110,9 +99,7 @@ export class ProjectsDetailsComponent {
         this.lists$.next(lists)
       })
 
-    this.userService.user$.subscribe((user) => {
-      this.user = user;
-    })
+
   }
 
 

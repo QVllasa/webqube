@@ -3,10 +3,16 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ProjectService} from "../../../../../@webqube/services/project.service";
 import {take, tap} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
-import {IPlan, IProject} from "../../../../../@webqube/models/models";
+import {IPlan, IProject, IUser} from "../../../../../@webqube/models/models";
 import {
   DeleteProjectComponent
 } from "../../../../../@webqube/components/dialogs/delete-project/delete-project.component";
+import {BehaviorSubject, Observable} from "rxjs";
+import {PlanService} from "../../../../../@webqube/services/plan.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {UserService} from "../../../../../@webqube/services/user.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +20,11 @@ import {
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-
+  isSaving: boolean = false;
+  isSavingTier: boolean = false;
+  user: IUser;
+  plans$: Observable<IPlan[]>;
+  plan$: BehaviorSubject<IPlan> = new BehaviorSubject<IPlan>(null);
   project: IProject;
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   form = new FormGroup({
@@ -24,7 +34,13 @@ export class DashboardComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  constructor(private projectService: ProjectService, private http: HttpClient,) {
+  constructor(private projectService: ProjectService,  private router: Router,
+              private dialog: MatDialog, private _snackBar: MatSnackBar,
+              public userService: UserService, private http: HttpClient, private planService: PlanService) {
+    this.plans$ = this.planService.getPlans();
+    this.userService.user$.subscribe((user) => {
+      this.user = user;
+    })
   }
 
   ngOnInit(): void {
