@@ -22,10 +22,11 @@ import {UserService} from "../../../../../@webqube/services/user.service";
 export class DashboardComponent implements OnInit {
   isSaving: boolean = false;
   isSavingTier: boolean = false;
+  isDeleting: boolean = false;
   user: IUser;
   plans$: Observable<IPlan[]>;
   plan$: BehaviorSubject<IPlan> = new BehaviorSubject<IPlan>(null);
-  project: IProject;
+  project$ = new BehaviorSubject<IProject>(null);
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   form = new FormGroup({
     domain: new FormControl('', [Validators.required, Validators.pattern(this.urlRegex)]),
@@ -34,25 +35,27 @@ export class DashboardComponent implements OnInit {
 
   isLoading: boolean = false;
 
-  constructor(private projectService: ProjectService,  private router: Router,
+  constructor(private projectService: ProjectService, private router: Router,
               private dialog: MatDialog, private _snackBar: MatSnackBar,
               public userService: UserService, private http: HttpClient, private planService: PlanService) {
     this.plans$ = this.planService.getPlans();
+
+    this.project$ = this.projectService.project$;
+
+    this.project$.subscribe(project => {
+      if(!project){
+        return;
+      }
+      this.form.patchValue({domain: project.domain ? project.domain : '', title: project.title});
+    })
+
     this.userService.user$.subscribe((user) => {
       this.user = user;
     })
   }
 
   ngOnInit(): void {
-    this.projectService.project$
-      .subscribe((project) => {
-        if (!project) {
-          return;
-        }
-        console.log("project details", project)
-        this.project = project;
-        this.form.patchValue({domain: project.domain ? project.domain : '', title: project.title});
-      })
+
   }
 
   checkDomain() {
@@ -106,7 +109,7 @@ export class DashboardComponent implements OnInit {
           horizontalPosition: 'end',
           panelClass: ['bg-red-500', 'text-white']
         });
-      this.form.patchValue(this.project)
+      this.form.patchValue(this.project$.value)
       return false;
     }
     return true;
@@ -129,8 +132,8 @@ export class DashboardComponent implements OnInit {
 
   saveDomain() {
     this.isSaving = true
-    this.project.domain = this.form.get('domain')?.value
-    this.projectService.updateProject(this.project)
+    this.project$.value.domain = this.form.get('domain')?.value
+    this.projectService.updateProject(this.project$.value)
       .then(res => {
         console.log(res);
         this.isSaving = false;
@@ -147,12 +150,13 @@ export class DashboardComponent implements OnInit {
 
   async initProject(plan: IPlan) {
     this.isSavingTier = true;
-    await this.projectService.initProject(plan, this.project.id)
+
+    await this.projectService.initProject(plan, this.project$.value.id)
     this.isSavingTier = false;
   }
 
-  // getTier(): IPlan {
-  // return this.planService.getPlan();
+  // getPlan(id: string): IPlan|string {
+  // return this.planService.getPlan(id);
   // }
 
 }

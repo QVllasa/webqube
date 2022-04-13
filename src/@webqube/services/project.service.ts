@@ -3,7 +3,7 @@ import {IBoard} from "../models/scrumboard.interface";
 import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
 import {BehaviorSubject, Observable} from "rxjs";
 import {IFeatures, IPlan, IProject} from "../models/models";
-import {first, map, switchMap, tap} from "rxjs/operators";
+import {filter, first, map, switchMap, tap} from "rxjs/operators";
 import {MilestoneService} from "./milestone.service";
 import {BoardService} from "./board.service";
 import {RouteParamsService} from "./route-params.service";
@@ -25,22 +25,9 @@ export class ProjectService {
 
   constructor(private afs: AngularFirestore,
               private milestoneService: MilestoneService,
-              private boardSerivce: BoardService,
-              private routeParamsService: RouteParamsService) {
+              private boardSerivce: BoardService) {
 
-    // TODO create project with boards, lists and cards
-    this.routeParamsService.routeParamsChange$
-      .pipe(
-        map(params => {
-          return params['projectID'];
-        }),
-        switchMap((id) => {
-          return this.getProject(id);
-        })
-      )
-      .subscribe((project) => {
-        this.project$.next(project)
-      });
+
   }
 
   async initProject(plan: IPlan, id: string) {
@@ -67,19 +54,23 @@ export class ProjectService {
     return this.projectDoc.update(data)
   }
 
-  createProject(data: IProject){
+  createProject(data: IProject) {
     return this.afs.collection('projects').add(data).then((res) => {
       return res.id
-    }).then(()=>{
+    }).then(() => {
       //todo notify on create project
       return
     });
   }
 
 
-  getProject(id: string): Observable<IProject> {
-    this.projectDoc = this.afs.collection('projects').doc<IProject>(id);
-    return this.projectDoc.valueChanges({idField: 'id'})
+  getProject(id: string) {
+    this.projectDoc = this.afs.collection<IProject>('projects').doc(id);
+    return this.projectDoc.valueChanges({idField: 'id'}).pipe(
+      tap((project) => {
+        this.project$.next(project)
+      })
+    )
   }
 
   async deleteProject() {

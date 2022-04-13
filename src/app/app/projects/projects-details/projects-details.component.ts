@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {IMilestone, IProject, IPlan, IUser, IFeatureDetail, IFeatures} from "../../../../@webqube/models/models";
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, pipe} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -63,62 +63,44 @@ export class ProjectsDetailsComponent {
 
 
 
-
-
-
-  isDeleting: boolean = false;
   isSelecting: boolean = false;
   selected: boolean = false;
 
 
   constructor(private afs: AngularFirestore,
               private route: ActivatedRoute,
-
-
               private http: HttpClient,
               private auth: AngularFireAuth,
               public projectService: ProjectService,
               private boardService: BoardService,
               private planService: PlanService,) {
 
-    this.boards$.pipe(
-      filter<IBoard[]>(Boolean),
-      tap((boards => {
-        const selectedBoard = boards.find(obj => obj.selected)
-        this.selectedBoard$.next(selectedBoard);
-      }))
-    ).subscribe()
-
-    this.selectedBoard$
-      .pipe(filter<IBoard>(Boolean),
-        switchMap((board) => {
-          return this.boardService.getLists(board.id)
-        }))
-      .subscribe((lists) => {
-        console.log("lists", lists)
-        this.lists$.next(lists)
+    this.route.params.pipe(
+      switchMap((params)=>{
+        console.log('projectID: ', params['projectID'])
+        return this.projectService.getProject(params['projectID'])
       })
+    ).subscribe();
+
+    // this.boards$.pipe(
+    //   filter<IBoard[]>(Boolean),
+    //   tap((boards => {
+    //     const selectedBoard = boards.find(obj => obj.selected)
+    //     this.selectedBoard$.next(selectedBoard);
+    //   }))
+    // ).subscribe()
+    //
+    // this.selectedBoard$
+    //   .pipe(filter<IBoard>(Boolean),
+    //     switchMap((board) => {
+    //       return this.boardService.getLists(board.id)
+    //     }))
+    //   .subscribe((lists) => {
+    //     console.log("lists", lists)
+    //     this.lists$.next(lists)
+    //   })
 
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

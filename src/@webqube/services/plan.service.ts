@@ -18,7 +18,10 @@ export class PlanService {
     this.featuresColl = this.afs.collection<IFeatures>('features');
   }
 
-  getPlan(id: string): IPlan {
+  getPlan(id: string): IPlan|string {
+    if (!this.plans$){
+      return 'Kein Plan gefunden';
+    }
     return this.plans$.value.find(obj => obj.id === id)
   }
 

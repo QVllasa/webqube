@@ -51,6 +51,7 @@ const routes: Routes = [
         path: 'project/:projectID', component: ProjectsDetailsComponent,
         data: {title: 'Meine Projekte'},
         children: [
+          { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
           {path: 'dashboard', component: DashboardComponent},
           {path: 'boards', component: ScrumboardComponent},
           {path: 'hosting', component: HostingComponent},

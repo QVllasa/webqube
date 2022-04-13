@@ -27,7 +27,8 @@ export class BoardService {
       .pipe(
         filter<Params>((params) => params['projectID']),
         switchMap((params: Params) => {
-          return this.getBoards(params['projectID']).pipe(tap(() => console.log("fetching boards")))
+          this.setCollections(params['projectID']);
+          return this.getBoards().pipe(tap(() => console.log("fetching boards")))
         })
       )
       .subscribe((boards) => {
@@ -37,6 +38,7 @@ export class BoardService {
   }
 
   initBoard(id: string): { card: IScrumboardCard, list: IScrumboardList[], board: IScrumboard } {
+    this.setCollections(id);
     return {
       card: {
         title: "Erste Aufgabe",
@@ -78,10 +80,13 @@ export class BoardService {
     return this.boardColl.doc(id);
   }
 
-  getBoards(projectID: string) {
+  setCollections(projectID: string){
     this.cardColl = this.afs.collection<IScrumboardCard>('cards');
     this.listColl = this.afs.collection<IScrumboardList>('lists');
     this.boardColl = this.afs.collection<IBoard>('boards', ref => ref.where('projectID', '==', projectID))
+  }
+
+  getBoards() {
     return this.boardColl.valueChanges({idField: 'id'});
   }
 
@@ -137,8 +142,8 @@ export class BoardService {
     return cards;
   }
 
-  async deleteBoards(id: string): Promise<(IBoard & { id: string })[]> {
-    const boards = await this.getBoards(id).pipe(first()).toPromise();
+  async deleteBoards(): Promise<(IBoard & { id: string })[]> {
+    const boards = await this.getBoards().pipe(first()).toPromise();
     for await(let board of boards) {
       await this.deleteBoard(board.id);
     }
