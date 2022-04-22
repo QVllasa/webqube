@@ -6,7 +6,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {
   ScrumboardDialogComponent
 } from '../../../../../@webqube/components/dialogs/scrumboard-dialog/scrumboard-dialog.component';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 import {IBoard} from '../../../../../@webqube/models/scrumboard.interface';
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
@@ -24,8 +24,8 @@ import {BoardService} from "../../../../../@webqube/services/board.service";
 })
 export class ScrumboardComponent implements OnInit {
 
-  @Input() board$: BehaviorSubject<IBoard> = null;
-  @Input() lists$: BehaviorSubject<IScrumboardList[]> = null;
+  boards$: Observable<IBoard[]> = this.boardService.boards$;
+  // @Input() lists$: BehaviorSubject<IScrumboardList[]> = null;
 
 
   constructor(private dialog: MatDialog,
@@ -33,36 +33,38 @@ export class ScrumboardComponent implements OnInit {
               private projectService: ProjectService,
               private boardService: BoardService,
               private route: ActivatedRoute) {
+
   }
 
   ngOnInit() {
-    this.lists$
-      .pipe(
-        filter<IScrumboardList[]>(Boolean),
-        switchMap((lists) => {
-          const listIDs = lists.map(obj => obj.id);
-          let cardsObs: Observable<(IScrumboardCard & { id: string })[]>[] = [];
-          listIDs.forEach(listID => {
-            cardsObs.push(this.boardService.getCards(listID))
-          })
-          return combineLatest(cardsObs)
-        })
-      )
-      .subscribe(
-        (cards) => {
-          let cardsList: (IScrumboardCard & { id: string; })[] = []
-          cards.forEach((card) => {
-            cardsList = [...cardsList, ...card]
-          })
-          this.lists$.value.forEach((list) => {
-            list.cards = cardsList.filter(obj => obj.listID === list.id)
-          })
-        },
-      )
+    this.boards$ = this.boardService.getBoards()
+    // this.lists$
+    //   .pipe(
+    //     filter<IScrumboardList[]>(Boolean),
+    //     switchMap((lists) => {
+    //       const listIDs = lists.map(obj => obj.id);
+    //       let cardsObs: Observable<(IScrumboardCard & { id: string })[]>[] = [];
+    //       listIDs.forEach(listID => {
+    //         cardsObs.push(this.boardService.getCards(listID))
+    //       })
+    //       return combineLatest(cardsObs)
+    //     })
+    //   )
+    //   .subscribe(
+    //     (cards) => {
+    //       let cardsList: (IScrumboardCard & { id: string; })[] = []
+    //       cards.forEach((card) => {
+    //         cardsList = [...cardsList, ...card]
+    //       })
+    //       this.lists$.value.forEach((list) => {
+    //         list.cards = cardsList.filter(obj => obj.listID === list.id)
+    //       })
+    //     },
+    //   )
 
   }
 
-  sortByOrder(data: IScrumboardList[]): IScrumboardList[] {
+  sortByOrder(data: IBoard[]): IBoard[] {
     return sortByOrder(data);
   }
 
@@ -130,25 +132,25 @@ export class ScrumboardComponent implements OnInit {
 
 
   payMilestone() {
-    this.dialog.open(PayMilstoneComponent, {
-      data: this.board$.value,
-      width: 'auto',
-      maxWidth: '100%',
-      disableClose: false
-    })
+    // this.dialog.open(PayMilstoneComponent, {
+    //   data: this.board$.value,
+    //   width: 'auto',
+    //   maxWidth: '100%',
+    //   disableClose: false
+    // })
   }
 
 
-  // onSelectBoard(board: IBoard, boards: IBoard[]) {
-  //   boards.map((item, index) => {
-  //     if (item.id === board.id) {
-  //       item.selected = !item.selected;
-  //     } else {
-  //       item.selected = false;
-  //     }
-  //   })
-  //   this.boardService.updateBoards(boards).then();
-  // }
+  onSelectBoard(board: IBoard, boards: IBoard[]) {
+    boards.map((item, index) => {
+      if (item.id === board.id) {
+        item.selected = !item.selected;
+      } else {
+        item.selected = false;
+      }
+    })
+    this.boardService.updateBoards(boards).then();
+  }
 
 
   // sortByOrder(obj: IBoard[]): IBoard[] {

@@ -78,6 +78,7 @@ export class ProjectsDetailsComponent {
     this.route.params.pipe(
       switchMap((params)=>{
         console.log('projectID: ', params['projectID'])
+        this.boardService.setCollections(params['projectID'])
         return this.projectService.getProject(params['projectID'])
       })
     ).subscribe();

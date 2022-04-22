@@ -22,19 +22,7 @@ export class BoardService {
   boards$: BehaviorSubject<IBoard[]> = new BehaviorSubject<IBoard[]>(null);
   lists$: BehaviorSubject<IScrumboardList[]> = new BehaviorSubject<IScrumboardList[]>(null);
 
-  constructor(private afs: AngularFirestore, private routeParamsService: RouteParamsService) {
-    this.routeParamsService.routeParamsChange$
-      .pipe(
-        filter<Params>((params) => params['projectID']),
-        switchMap((params: Params) => {
-          this.setCollections(params['projectID']);
-          return this.getBoards().pipe(tap(() => console.log("fetching boards")))
-        })
-      )
-      .subscribe((boards) => {
-        this.boards$.next(boards)
-      });
-
+  constructor(private afs: AngularFirestore) {
   }
 
   initBoard(id: string): { card: IScrumboardCard, list: IScrumboardList[], board: IScrumboard } {
