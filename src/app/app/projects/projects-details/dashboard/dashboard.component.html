@@ -18,7 +18,7 @@
     </div>
     <div class=" w-64 flex justify-end">
       <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon class="material-icons-round">more_vert</mat-icon>
+        <mat-icon class="material-symbols-rounded">more_vert</mat-icon>
       </button>
     </div>
 
@@ -119,7 +119,7 @@
               Checked: "border-transparent", Not Checked: "border-gray-300"
               Active: "ring-2 ring-amber-500"
             -->
-            <label *ngFor="let plan of plans$ | async as plans"
+            <label *ngFor="let plan of plans"
                    [ngClass]="isSelected(plan) ? 'border-transparent ring-2 ring-amber-500':'border-gray-300'"
                    class="relative bg-white border  rounded-lg shadow-sm p-4 flex cursor-pointer focus:outline-none">
               <input [value]="isSelected(plan)" type="radio" name="project-type" value="Newsletter"
@@ -142,7 +142,7 @@
                 </div>
               </div>
               <mat-icon [ngClass]="isSelected(plan) ? '':'invisible'"
-                        class="material-icons-round h-5 w-5 text-amber-600">
+                        class="material-symbols-rounded h-5 w-5 text-amber-600">
                 task_alt
               </mat-icon>
               <div [ngClass]="isSelected(plan) ? 'border border-amber-500':'border-2 border-transparent'"
@@ -171,7 +171,7 @@
 
 <mat-menu xPosition="before" #menu="matMenu">
   <button (click)="deleteProject()" mat-menu-item>
-    <mat-icon class="material-icons-round">delete</mat-icon>
+    <mat-icon class="material-symbols-rounded">delete</mat-icon>
     Projekt löschen
   </button>
 </mat-menu>

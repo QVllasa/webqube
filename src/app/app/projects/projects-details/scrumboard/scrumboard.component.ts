@@ -10,7 +10,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {IBoard} from '../../../../../@webqube/models/scrumboard.interface';
 import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {filter, switchMap, take, takeWhile, tap} from "rxjs/operators";
+import {filter, map, switchMap, take, takeWhile, tap} from "rxjs/operators";
 import {ProjectService} from "../../../../../@webqube/services/project.service";
 import {sortByOrder} from "../../../../../@webqube/helper.functions";
 import {PayMilstoneComponent} from "../../../../../@webqube/components/dialogs/pay-milstone/pay-milstone.component";
@@ -25,7 +25,7 @@ import {BoardService} from "../../../../../@webqube/services/board.service";
 export class ScrumboardComponent implements OnInit {
 
   boards$: Observable<IBoard[]> = this.boardService.boards$;
-  // @Input() lists$: BehaviorSubject<IScrumboardList[]> = null;
+  lists$: BehaviorSubject<IScrumboardList[]> = new BehaviorSubject<IScrumboardList[]>(null);
 
 
   constructor(private dialog: MatDialog,
@@ -38,33 +38,48 @@ export class ScrumboardComponent implements OnInit {
 
   ngOnInit() {
     this.boards$ = this.boardService.getBoards()
-    // this.lists$
-    //   .pipe(
-    //     filter<IScrumboardList[]>(Boolean),
-    //     switchMap((lists) => {
-    //       const listIDs = lists.map(obj => obj.id);
-    //       let cardsObs: Observable<(IScrumboardCard & { id: string })[]>[] = [];
-    //       listIDs.forEach(listID => {
-    //         cardsObs.push(this.boardService.getCards(listID))
-    //       })
-    //       return combineLatest(cardsObs)
-    //     })
-    //   )
-    //   .subscribe(
-    //     (cards) => {
-    //       let cardsList: (IScrumboardCard & { id: string; })[] = []
-    //       cards.forEach((card) => {
-    //         cardsList = [...cardsList, ...card]
-    //       })
-    //       this.lists$.value.forEach((list) => {
-    //         list.cards = cardsList.filter(obj => obj.listID === list.id)
-    //       })
-    //     },
-    //   )
+    this.boards$
+      .pipe(
+        filter<IBoard[]>(Boolean),
+        map(boards => {
+          return boards.find(board => board.selected);
+        }),
+        switchMap((board) => {
+          return this.boardService.getLists(board.id)
+        })
+      ).subscribe((lists) => {
+      console.log("lists", lists)
+      this.lists$.next(lists)
+    })
+
+
+    this.lists$
+      .pipe(
+        filter<IScrumboardList[]>(Boolean),
+        switchMap((lists) => {
+          const listIDs = lists.map(obj => obj.id);
+          let cardsObs: Observable<(IScrumboardCard & { id: string })[]>[] = [];
+          listIDs.forEach(listID => {
+            cardsObs.push(this.boardService.getCards(listID))
+          })
+          return combineLatest(cardsObs)
+        })
+      )
+      .subscribe(
+        (cards) => {
+          let cardsList: (IScrumboardCard & { id: string; })[] = []
+          cards.forEach((card) => {
+            cardsList = [...cardsList, ...card]
+          })
+          this.lists$.value.forEach((list) => {
+            list.cards = cardsList.filter(obj => obj.listID === list.id)
+          })
+        },
+      )
 
   }
 
-  sortByOrder(data: IBoard[]): IBoard[] {
+  sortBoardsByOrder(data: IBoard[]): IBoard[] {
     return sortByOrder(data);
   }
 
@@ -131,13 +146,13 @@ export class ScrumboardComponent implements OnInit {
   }
 
 
-  payMilestone() {
-    // this.dialog.open(PayMilstoneComponent, {
-    //   data: this.board$.value,
-    //   width: 'auto',
-    //   maxWidth: '100%',
-    //   disableClose: false
-    // })
+  payMilestone(board: IBoard) {
+    this.dialog.open(PayMilstoneComponent, {
+      data: board,
+      width: 'auto',
+      maxWidth: '100%',
+      disableClose: false
+    })
   }
 
 
@@ -153,8 +168,11 @@ export class ScrumboardComponent implements OnInit {
   }
 
 
-  // sortByOrder(obj: IBoard[]): IBoard[] {
-  //   return obj.sort((a, b) => (a.order < b.order ? -1 : 1))
-  // }
+  sortListsByOrder(obj: IScrumboardList[]): IScrumboardList[] {
+    return obj.sort((a, b) => (a.order < b.order ? -1 : 1))
+  }
 
+  showHelp() {
+    console.log('asd')
+  }
 }

@@ -1,6 +1,6 @@
 <div>
   <main class="relative -mt-32">
-    <div class="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
+    <div class="mx-auto">
       <div class="bg-white rounded-lg shadow overflow-hidden">
         <div class="min-h-screen divide-y divide-gray-200 lg:grid lg:grid-cols-12 lg:divide-y-0 lg:divide-x">
           <aside class="py-6 lg:col-span-2">
@@ -12,7 +12,7 @@
                  class=" group border-l-4 px-3 py-2 flex items-center text-sm font-medium"
                  aria-current="page">
                 <mat-icon [ngClass]="rla.isActive ? 'text-amber-500 group-hover:text-amber-500': 'text-gray-400 group-hover:text-gray-500'"
-                          class="material-icons-round flex-shrink-0 -ml-1 mr-3 h-6 w-6">{{navLink.icon}}</mat-icon>
+                          class="material-symbols-rounded flex-shrink-0 -ml-1 mr-3 h-6 w-6 ">{{navLink.icon}}</mat-icon>
                 <span class="truncate"> {{navLink.label}} </span>
               </a>
             </nav>
@@ -24,13 +24,10 @@
                 </button>
               </div>
             </div>
-
           </aside>
-          <div class="col-span-10 p-3">
+          <div class="col-span-10 px-4 py-2">
             <router-outlet></router-outlet>
           </div>
-
-
         </div>
       </div>
     </div>
@@ -59,7 +56,7 @@
 <!--      </div>-->
 <!--      <div class=" w-64 flex justify-end">-->
 <!--        <button mat-icon-button [matMenuTriggerFor]="menu">-->
-<!--          <mat-icon class="material-icons-round">more_vert</mat-icon>-->
+<!--          <mat-icon class="material-symbols-rounded">more_vert</mat-icon>-->
 <!--        </button>-->
 <!--      </div>-->
 
@@ -175,7 +172,7 @@
 <!--                  </span>-->
 <!--                </div>-->
 <!--              </div>-->
-<!--              <mat-icon [ngClass]="isSelected(plan) ? '':'invisible'" class="material-icons-round h-5 w-5 text-amber-600">-->
+<!--              <mat-icon [ngClass]="isSelected(plan) ? '':'invisible'" class="material-symbols-rounded h-5 w-5 text-amber-600">-->
 <!--                task_alt-->
 <!--              </mat-icon>-->
 <!--              <div [ngClass]="isSelected(plan) ? 'border border-amber-500':'border-2 border-transparent'"-->
@@ -214,7 +211,7 @@
 <!--              <dt>-->
 <!--                <div class="absolute text-amber-500 rounded-md p-3 right-6">-->
 <!--                  &lt;!&ndash; Heroicon name: outline/users &ndash;&gt;-->
-<!--                  <mat-icon class="material-icons-round transform scale-125 ">{{feature.value.icon}}</mat-icon>-->
+<!--                  <mat-icon class="material-symbols-rounded transform scale-125 ">{{feature.value.icon}}</mat-icon>-->
 <!--                </div>-->
 <!--                <p class="text-sm font-medium text-gray-500 truncate">{{feature.value.title}}</p>-->
 <!--              </dt>-->
@@ -250,11 +247,7 @@
 <!--          </ng-container>-->
 <!--        </dl>-->
 
-<!--        <h2 class="mt-16 text-center text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">-->
-<!--          <span class="block">Verfolge jeden Fortschritt.</span>-->
-<!--          <span class="block mt-4 text-lg font-medium text-gray-500">Hier kannst du in jeder Phase deine Wünsche und-->
-<!--            Anforderungen präzise aufschreiben.</span>-->
-<!--        </h2>-->
+
 
 
 <!--      </div>-->

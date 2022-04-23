@@ -22,7 +22,7 @@
                       class="rounded-lg inline-flex p-3  ">
                       <span
                         class="rounded-lg inline-flex   ">
-                        <mat-icon class="material-icons-round">
+                        <mat-icon class="material-symbols-rounded">
                           {{milestone.icon}}
                         </mat-icon>
                       </span>
@@ -38,7 +38,7 @@
                     <div>
                       <p>{{milestone.label}}</p>
                     </div>
-                    <div>
+                    <div *ngIf="plan">
                       <p>{{this.plan.price / 3 + '€'}}</p>
                     </div>
                   </div>

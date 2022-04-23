@@ -40,20 +40,21 @@ export class PricingComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private afs: AngularFirestore, private plansService: PlanService) {
 
-    this.plansService.getPlans()
-      .subscribe(plans => {
-        this.plansService.plans$.next(plans.map(obj => ({...obj, selected: false})));
-        const keys = Object.keys(plans[0].features)
-        this.plans = plans;
-        this.rows = [];
-        keys.forEach(key=>{
-          this.plans.forEach(plan => {
-            if(!this.rows.some(e => e.key === key)){
-              this.rows.push({title: plan.features[key].title, key: key})
-            }
-          })
+    this.plansService.getPlans().then(plans => {
+      this.plansService.plans$.next(plans.map(obj => ({...obj, selected: false})));
+      const keys = Object.keys(plans[0].features)
+      this.plans = plans;
+      this.rows = [];
+      keys.forEach(key=>{
+        this.plans.forEach(plan => {
+          if(!this.rows.some(e => e.key === key)){
+            this.rows.push({title: plan.features[key].title, key: key})
+          }
         })
       })
+    })
+
+
 
 
     this.afs.collection<IHosting>('hostings').valueChanges({idField: 'id'})

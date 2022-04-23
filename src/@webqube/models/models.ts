@@ -9,6 +9,7 @@ export interface IFeatureDetail {
   onPricingPage?: boolean,
   isAddon?: boolean,
   valueType?: string,
+  price: number,
   icon?: string,
 }
 

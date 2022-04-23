@@ -14,7 +14,6 @@ export class MilestoneService {
 
   constructor(private afs: AngularFirestore) {
     this.milestoneColl = this.afs.collection<IMilestone>('milestones');
-
     this.milestoneColl.valueChanges({idField: 'id'})
       .pipe(take(1))
       .subscribe(milestones => {

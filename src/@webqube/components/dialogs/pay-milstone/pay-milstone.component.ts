@@ -10,6 +10,7 @@ import {PlanService} from "../../../services/plan.service";
 import {MilestoneService} from "../../../services/milestone.service";
 import {sortByOrder} from "../../../helper.functions";
 import {BoardService} from "../../../services/board.service";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Component({
   selector: 'app-pay-milstone',
@@ -24,9 +25,9 @@ export class PayMilstoneComponent implements OnInit {
   plan: IPlan;
   value: string;
   project$ = this.projectService.project$;
-  plans$ = this.planService.plans$;
 
-  onError:boolean;
+
+  onError: boolean;
   onSuccess: boolean = false;
 
 
@@ -40,16 +41,21 @@ export class PayMilstoneComponent implements OnInit {
 
   }
 
+
   ngOnInit(): void {
     this.board = this.data;
-    this.plan = this.plans$.value.find(obj => obj.id === this.project$.value.planID)
-    this.value = (this.plan.price/3).toString();
+    this.planService.getPlan(this.project$.value.planID).then(plan => {
+      this.plan = plan;
+      this.value = (this.plan.price / 3).toString();
+    })
+
     this.initConfig();
   }
 
-  sortByOrder(milestones: IMilestone[]): IMilestone[]{
+  sortByOrder(milestones: IMilestone[]): IMilestone[] {
     return sortByOrder(milestones)
   }
+
 
   private initConfig(): void {
     this.payPalConfig = {
@@ -60,7 +66,7 @@ export class PayMilstoneComponent implements OnInit {
         purchase_units: [{
           amount: {
             currency_code: 'EUR',
-            value:this.value,
+            value: this.value,
             breakdown: {
               item_total: {
                 currency_code: 'EUR',
@@ -69,7 +75,7 @@ export class PayMilstoneComponent implements OnInit {
             }
           },
           items: [{
-            name: 'x '+this.plan.label+' | '+this.board.label,
+            name: 'x ' + this.plan.label + ' | ' + this.board.label,
             quantity: '1',
             category: 'DIGITAL_GOODS',
             unit_amount: {
@@ -88,9 +94,9 @@ export class PayMilstoneComponent implements OnInit {
       },
       onApprove: (data, actions) => {
         actions.order.get().then((res: any) => {
-          return this.afs.collection('orders').add(res).then(()=>{
+          return this.afs.collection('orders').add(res).then(() => {
             this.board.paid = true;
-            return this.boardService.updateBoard(this.board).then(()=>{
+            return this.boardService.updateBoard(this.board).then(() => {
               this.onSuccess = true;
             })
           })

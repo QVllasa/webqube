@@ -42,15 +42,15 @@ export class ProjectsDetailsComponent {
     }, {
       route: 'boards',
       label: 'Fortschritt',
-      icon: 'dashboard'
+      icon: 'inventory'
     }, {
       route: 'hosting',
       label: 'Hosting',
-      icon: 'dashboard'
+      icon: 'cloud'
     }, {
       route: 'addons',
       label: 'Addons',
-      icon: 'dashboard'
+      icon: 'extension'
     }
   ]
 

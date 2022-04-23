@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   isSavingTier: boolean = false;
   isDeleting: boolean = false;
   user: IUser;
-  plans$: Observable<IPlan[]>;
+  plans: IPlan[];
   plan$: BehaviorSubject<IPlan> = new BehaviorSubject<IPlan>(null);
   project$ = new BehaviorSubject<IProject>(null);
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
@@ -38,7 +38,9 @@ export class DashboardComponent implements OnInit {
   constructor(private projectService: ProjectService, private router: Router,
               private dialog: MatDialog, private _snackBar: MatSnackBar,
               public userService: UserService, private http: HttpClient, private planService: PlanService) {
-    this.plans$ = this.planService.getPlans();
+    this.planService.getPlans().then(plans=>{
+      this.plans = plans;
+    });
 
     this.project$ = this.projectService.project$;
 
