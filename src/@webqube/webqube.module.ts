@@ -24,6 +24,7 @@ import {PayMilstoneComponent} from './components/dialogs/pay-milstone/pay-milsto
 import {NgxPayPalModule} from "ngx-paypal";
 import {MatIconModule} from "@angular/material/icon";
 import {DeleteProjectComponent} from './components/dialogs/delete-project/delete-project.component';
+import { AddFeatureComponent } from './components/dialogs/add-feature/add-feature.component';
 
 
 
@@ -71,6 +72,7 @@ import {DeleteProjectComponent} from './components/dialogs/delete-project/delete
     CustomSpinnerDirective,
     PayMilstoneComponent,
     DeleteProjectComponent,
+    AddFeatureComponent,
 
   ]
 })

@@ -1,104 +1,65 @@
-<!--<div *ngIf="project.planID" class="bg-white">-->
-<!--  <div *ngIf="project" class="max-w-7xl mx-auto  py-8 px-4 sm:px-6 lg:py-16 lg:px-8">-->
-<!--    <h2 class="text-2xl text-center font-extrabold tracking-tight text-gray-900 sm:text-4xl">-->
-<!--      <span class="block">Das ist in deinem Projekt enthalten.</span>-->
-<!--      <span class="block mt-4 text-lg font-medium text-gray-500">Füge individuell Funktionalitäten und-->
-<!--        Erweiterungen-->
-<!--        hinzu.</span>-->
-<!--    </h2>-->
-<!--    <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">-->
-<!--      <ng-container *ngFor="let feature of features">-->
-<!--        <div *ngIf="feature.value.isAddon"-->
-<!--             class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">-->
-<!--          <dt>-->
-<!--            <div class="absolute text-amber-500 rounded-md p-3 right-6">-->
-<!--              &lt;!&ndash; Heroicon name: outline/users &ndash;&gt;-->
-<!--              <mat-icon-->
-<!--                class="material-symbols-rounded transform scale-125 ">{{feature.value.icon}}</mat-icon>-->
-<!--            </div>-->
-<!--            <p class="text-sm font-medium text-gray-500 truncate">{{feature.value.title}}</p>-->
-<!--          </dt>-->
-<!--          &lt;!&ndash;          TODO finish feature grid with modal &ndash;&gt;-->
-<!--          <dd class="pb-6 flex items-baseline">-->
-<!--            <ng-container *ngIf="feature.value.valueType === 'boolean'">-->
-<!--              <button type="button" [ngClass]="feature.value.value ? 'bg-amber-500 ':'bg-gray-200 '"-->
-<!--                      class="mt-2 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none "-->
-<!--                      role="switch" aria-checked="false">-->
-<!--                <span class="sr-only">Switch</span>-->
-<!--                &lt;!&ndash; Enabled: "translate-x-5", Not Enabled: "translate-x-0" &ndash;&gt;-->
-<!--                <span aria-hidden="true" [ngClass]="feature.value.value ? 'translate-x-5':'translate-x-0'"-->
-<!--                      class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"></span>-->
-<!--              </button>-->
-<!--            </ng-container>-->
-<!--            <ng-container *ngIf="feature.value.valueType === 'number'">-->
-<!--              <p class="mt-1 text-3xl font-semibold text-gray-900">{{feature.value.used}} </p><span-->
-<!--              class="mx-1 text-xl text-gray-300">/</span>-->
-<!--              <p class="mt-1 text-xl font-semibold text-gray-300">{{feature.value.value}}</p>-->
-<!--            </ng-container>-->
-<!--            &lt;!&ndash;            <p class="text-2xl font-semibold text-gray-900">{{feature.value.value}}</p>&ndash;&gt;-->
-<!--            <div class="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6">-->
-<!--              <div class="text-sm">-->
-<!--                <ng-container *ngIf="feature.value.valueType === 'boolean' && !feature.value.value">-->
-<!--                  <button (click)="toggle(feature)"-->
-<!--                          class="font-medium text-amber-600 hover:text-amber-500">Aktivieren<span-->
-<!--                    class="sr-only">-->
-<!--                    {{feature.value.title}}</span></button>-->
-<!--                </ng-container>-->
-<!--                <ng-container *ngIf="feature.value.valueType === 'number'">-->
-<!--                  <button (click)="toggle(feature)"-->
-<!--                          class="font-medium text-amber-600 hover:text-amber-500">Hinzufügen<span-->
-<!--                    class="sr-only">-->
-<!--                    {{feature.value.title}}</span></button>-->
-<!--                </ng-container>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </dd>-->
-<!--        </div>-->
-<!--      </ng-container>-->
-<!--    </dl>-->
+<div *ngIf="project" class="bg-white">
+  <div *ngIf="project.planID" class="max-w-7xl mx-auto  py-8 px-4 sm:px-6 lg:py-16 lg:px-8">
+    <h2 class="text-2xl text-center font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+      <span class="block">Das ist in deinem Projekt enthalten.</span>
+      <span class="block mt-4 text-lg font-medium text-gray-500">Füge individuell Funktionalitäten und
+        Erweiterungen
+        hinzu.</span>
+    </h2>
+    <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 ">
+      <ng-container *ngFor="let feature of features">
+        <div *ngIf="feature.value.isAddon"
+             class="relative bg-white pt-5 px-4 pb-12 sm:pt-6 sm:px-6 shadow rounded-lg overflow-hidden">
 
-<!--    <h2 class="mt-16 text-center text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">-->
-<!--      <span class="block">Verfolge jeden Fortschritt.</span>-->
-<!--      <span class="block mt-4 text-lg font-medium text-gray-500">Hier kannst du in jeder Phase deine-->
-<!--        Wünsche und-->
-<!--        Anforderungen präzise aufschreiben.</span>-->
-<!--    </h2>-->
+          <dt>
+            <div class="absolute text-white rounded-md p-3 bg-amber-500 h-12 w-12">
+              <!-- Heroicon name: outline/users -->
+              <mat-icon
+                class="material-symbols-rounded">{{feature.value.icon}}</mat-icon>
+            </div>
+            <p class="ml-16 text-sm font-medium text-gray-500 truncate">{{feature.value.title}}</p>
+          </dt>
+          <dd class="ml-16 pb-6 flex items-baseline">
+            <ng-container *ngIf="feature.value.valueType === 'boolean'">
+              <button type="button" [ngClass]="feature.value.value ? 'bg-amber-500 ':'bg-gray-200 '"
+                      class="mt-2 relative inline-flex flex-shrink-0 h-4 w-8 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none "
+                      role="switch" aria-checked="false">
+                <span class="sr-only">Switch</span>
+                <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
+                <span aria-hidden="true" [ngClass]="feature.value.value ? 'translate-x-4':'translate-x-0'"
+                      class="pointer-events-none inline-block h-3 w-3 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200"></span>
+              </button>
+            </ng-container>
+            <ng-container *ngIf="feature.value.valueType === 'number'">
+              <p class="mt-1 text-xl font-semibold text-gray-900">{{feature.value.used}} </p><span
+              class="mx-1 text-lg text-gray-300">/</span>
+              <p class="mt-1 text-lg font-semibold text-gray-300">{{feature.value.value}}</p>
+            </ng-container>
+            <div class="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6 h-12">
+              <div class="text-sm">
+                <ng-container *ngIf="feature.value.valueType === 'boolean' && !feature.value.value">
+                  <button (click)="activateFeature(feature)"
+                          class="font-medium text-amber-600 hover:text-amber-500">Aktivieren<span
+                    class="sr-only">
+                    {{feature.value.title}}</span></button>
+                </ng-container>
+                <ng-container *ngIf="feature.value.valueType === 'number'">
+                  <button (click)="addFeature(feature)"
+                          class="font-medium text-amber-600 hover:text-amber-500">Hinzufügen<span
+                    class="sr-only">
+                    {{feature.value.title}}</span></button>
+                </ng-container>
+              </div>
+            </div>
+          </dd>
+          <div
+            [matTooltip]="'some helper text'"
+            class="absolute top-0 right-1 text-gray-400 hover:text-gray-500 text-right">
+            <mat-icon class="material-symbols-rounded text-base">help</mat-icon>
+          </div>
+        </div>
+      </ng-container>
+    </dl>
 
-<!--    <ng-container *ngIf="boards$ | async as boards">-->
-<!--      <div class="mt-8">-->
-<!--        <div class="text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">-->
-<!--          <div [ngClass]="board.selected ? 'border-amber-500': ''" (click)="onSelectBoard(board, boards)"-->
-<!--               *ngFor="let board of sortByOrder(boards)"-->
-<!--               class="border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-6 ">-->
-<!--            <div>-->
-<!--              <span [ngClass]="board.icon_classes" class="rounded-lg inline-flex p-3  ring-4 ring-white">-->
-<!--                <mat-icon class="material-symbols-rounded">-->
-<!--                  {{board.icon}}-->
-<!--                </mat-icon>-->
-<!--              </span>-->
-<!--            </div>-->
-<!--            <div class="mt-8">-->
-<!--              <h3 class="text-lg font-medium text-left">-->
-<!--                <button class="flex justify-start">-->
-<!--                  <span class="text-left">{{board.label}}</span>-->
-<!--                  <span class="text-left absolute inset-0" aria-hidden="true"></span>-->
-<!--                </button>-->
-<!--              </h3>-->
-<!--              <p class="mt-2 text-sm text-gray-500">-->
-<!--                {{board.description}}-->
-<!--              </p>-->
-<!--            </div>-->
-<!--            <span *ngIf="board.selected" class="pointer-events-none absolute top-6 right-6 text-amber-500"-->
-<!--                  aria-hidden="true">-->
-<!--              <mat-icon class="material-symbols-rounded">check_circle_outlined</mat-icon>-->
-<!--            </span>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div *ngIf="isSelecting">is selecting...</div>-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <app-scrumboard [lists$]="lists$" [board$]="selectedBoard$"></app-scrumboard>-->
-<!--      </div>-->
-<!--    </ng-container>-->
-<!--  </div>-->
-<!--</div>-->
+  </div>
+</div>

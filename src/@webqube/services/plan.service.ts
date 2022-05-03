@@ -51,6 +51,7 @@ export class PlanService {
         mergeMap((plans) => {
           return this.featuresColl.valueChanges()
             .pipe(
+              first(),
               map((features) => {
                 const featuresObject = features[0]
                 let keys = Object.keys(featuresObject);
