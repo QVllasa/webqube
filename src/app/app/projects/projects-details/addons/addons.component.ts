@@ -22,7 +22,7 @@ export class AddonsComponent implements OnInit {
     this.projectService.project$
       .subscribe(project => {
         this.project = project;
-        console.log("asdasd", this.project)
+
       })
   }
 
@@ -71,4 +71,12 @@ export class AddonsComponent implements OnInit {
     })
   }
 
+
+  minusOne(counter: HTMLInputElement) {
+    counter.value = (Number(counter.value) - 1)+'';
+  }
+
+  plusOne(counter: HTMLInputElement) {
+    counter.value =  (Number(counter.value) + 1)+'';
+  }
 }

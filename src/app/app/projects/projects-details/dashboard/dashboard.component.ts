@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ProjectService} from "../../../../../@webqube/services/project.service";
 import {take, tap} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
-import {IPlan, IProject, IUser} from "../../../../../@webqube/models/models";
+import {IFeatureDetail, IPlan, IProject, IUser} from "../../../../../@webqube/models/models";
 import {
   DeleteProjectComponent
 } from "../../../../../@webqube/components/dialogs/delete-project/delete-project.component";
@@ -58,6 +58,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  features(project: IProject): { key: string, value: IFeatureDetail }[] {
+    const keys = Object.keys(project.features)
+    let arr: { key: string, value: IFeatureDetail }[] = []
+    keys.forEach(key => {
+      arr.push({key: key, value: project.features[key]})
+    })
+    return arr;
   }
 
   checkDomain() {
@@ -161,4 +170,7 @@ export class DashboardComponent implements OnInit {
   // return this.planService.getPlan(id);
   // }
 
+  log() {
+    console.log('asdasdsad')
+  }
 }

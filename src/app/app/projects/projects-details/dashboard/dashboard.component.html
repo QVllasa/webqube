@@ -13,7 +13,7 @@
     <div class="w-64 flex justify-center">
       <span
         class="inline-flex items-center px-2.5 py-0.5 rounded-md text-base font-medium bg-gray-100 text-gray-800">
-<!--        {{project.planID ? getPlan(project.planID) : 'Kein Plan ausgewählt'}}-->
+        <!--        {{project.planID ? getPlan(project.planID) : 'Kein Plan ausgewählt'}}-->
       </span>
     </div>
     <div class=" w-64 flex justify-end">
@@ -86,7 +86,26 @@
       </dd>
     </div>
   </dl>
+
+  <div>
+    <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
+      <div *ngFor="let feature of features(project)"
+           class="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+        <dt class="text-sm font-medium text-gray-500 truncate">{{feature.value.title}}</dt>
+        <dd class="flex items-center">
+          <p matTooltip="Verwendet" matTooltipPosition="below"
+             class="mt-1 text-xl font-semibold text-gray-900">{{feature.value.used}} </p><span
+          class="mx-1 text-lg text-gray-300">/</span>
+          <p matTooltip="Verfügbar" matTooltipPosition="below"
+             class="mt-1 text-lg font-semibold text-gray-300">{{feature.value.value}}</p>
+        </dd>
+      </div>
+    </dl>
+  </div>
 </form>
+
+<!-- This example requires Tailwind CSS v2.0+ -->
+
 
 <ng-container *ngIf=" !isDeleting && project$ |async as project">
   <form [formGroup]="form" *ngIf="user" class="divide-y divide-gray-200 lg:col-span-9">
@@ -166,7 +185,6 @@
 
   </form>
 </ng-container>
-
 
 
 <mat-menu xPosition="before" #menu="matMenu">

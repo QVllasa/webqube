@@ -4,6 +4,8 @@ import {IBoard, IScrumboard} from "./scrumboard.interface";
 export interface IFeatureDetail {
   value: boolean | number,
   used?: number,
+  benefits?: string[],
+  description?: string,
   title?: string,
   order?: number,
   onPricingPage?: boolean,

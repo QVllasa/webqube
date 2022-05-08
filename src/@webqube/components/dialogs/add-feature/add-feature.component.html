@@ -2,22 +2,71 @@
   <div *ngIf="!onSuccess">
     <div class="p-4 -ml-4 -mt-4 mb-8 flex justify-center items-center flex-wrap sm:flex-nowrap">
       <div class="ml-4 mt-4 text-center">
-        <h3 class="text-2xl leading-6 font-semibold text-gray-900">Meilenstein freigeben</h3>
+        <h3 class="text-2xl leading-6 font-semibold text-gray-900">Addon kaufen</h3>
+        <p class="mt-5 text-sm text-gray-500 text-center">Erweitere deine Website ganz nach deinen Bedürfnissen.</p>
       </div>
     </div>
-    <div class="p-4 grid grid-rows-2 divide-y">
+    <div class="p-4 grid grid-rows-2 ">
       <div class="flow-root flex-1 ">
+        <!-- This example requires Tailwind CSS v2.0+ -->
+        <fieldset>
+          <legend class="sr-only">Server size</legend>
+          <div class="space-y-4">
+            <!--
+              Checked: "border-transparent", Not Checked: "border-gray-300"
+              Active: "border-indigo-500 ring-2 ring-indigo-500"
+            -->
+            <label class="relative block bg-white border rounded-lg shadow-sm px-6 py-4 cursor-pointer sm:flex sm:justify-between focus:outline-none">
+              <input type="radio" name="server-size" value="Hobby" class="sr-only" aria-labelledby="server-size-0-label" aria-describedby="server-size-0-description-0 server-size-0-description-1">
+              <div class="flex items-center">
+                <div class="text-sm">
+                  <p id="server-size-0-label" class="font-medium text-gray-900">{{feature.title}}</p>
+                  <div id="server-size-0-description-0" class="text-gray-500">
+                    <p class="sm:inline">{{feature.title}}</p>
+                    <span class="hidden sm:inline sm:mx-1" aria-hidden="true">&middot;</span>
+                    <p class="sm:inline">160 GB SSD disk</p>
+                  </div>
+                </div>
+              </div>
+              <div id="server-size-0-description-1" class="mt-2 flex text-sm sm:mt-0 sm:block sm:ml-4 sm:text-right">
+                <div class="font-bold text-gray-900">{{feature.price}} €</div>
+                <div class="ml-1 text-gray-500 sm:ml-0">{{'einmalig'}}</div>
+              </div>
+              <!--
+                Active: "border", Not Active: "border-2"
+                Checked: "border-indigo-500", Not Checked: "border-transparent"
+              -->
+              <div class="absolute -inset-px rounded-lg border-2 pointer-events-none" aria-hidden="true"></div>
+            </label>
+          </div>
+          <div class="pt-6 pb-8 px-6">
+            <h3 class="text-xs font-medium text-gray-900 tracking-wide uppercase">Was du davon hast.</h3>
+            <ul role="list" class="mt-6 space-y-4">
+              <li class="flex space-x-3">
+                <!-- Heroicon name: solid/check -->
+                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-sm text-gray-500">Potenti felis, in cras at at ligula nunc.</span>
+              </li>
+
+              <li class="flex space-x-3">
+                <!-- Heroicon name: solid/check -->
+                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-sm text-gray-500">Orci neque eget pellentesque.</span>
+              </li>
+            </ul>
+          </div>
+        </fieldset>
+
       </div>
       <div class="flex-1 p-8 pr-0  justify-center">
         <div class="flex justify-center">
           <ngx-paypal [config]="payPalConfig"></ngx-paypal>
         </div>
       </div>
-    </div>
-    <div class="flex justify-center items-center my-3">
-      <p class="mt-5 text-sm text-gray-500 text-center">Ab hier beginnen wir mit der eigentlichen Umsetzung. <br>
-        Die geplanten Aufgaben verschieben wir nach und nach in die Spalte "In Bearbeitung" und anschließend in
-        "Erledigt".</p>
     </div>
   </div>
 </ng-container>

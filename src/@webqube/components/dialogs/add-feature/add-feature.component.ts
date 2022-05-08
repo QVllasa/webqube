@@ -15,6 +15,7 @@ export class AddFeatureComponent implements OnInit {
 
   onSuccess: boolean = false;
   quantity: number = 1;
+  feature: IFeatureDetail
   public payPalConfig ?: IPayPalConfig;
 
   constructor(public dialogRef: MatDialogRef<AddFeatureComponent>,
@@ -25,6 +26,7 @@ export class AddFeatureComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("add feature", this.data);
+    this.feature = this.data.value
     this.initConfig();
   }
 
@@ -63,6 +65,7 @@ export class AddFeatureComponent implements OnInit {
         label: 'pay',
         size: 'large',
         layout: 'horizontal',
+        height: 38
       },
       onApprove: (data, actions) => {
         actions.order.get().then((res: any) => {

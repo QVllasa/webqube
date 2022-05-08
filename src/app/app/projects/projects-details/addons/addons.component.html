@@ -1,11 +1,88 @@
 <div *ngIf="project" class="bg-white">
   <div *ngIf="project.planID" class="max-w-7xl mx-auto  py-8 px-4 sm:px-6 lg:py-16 lg:px-8">
     <h2 class="text-2xl text-center font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-      <span class="block">Das ist in deinem Projekt enthalten.</span>
+      <span class="block">Erweiterungen.</span>
       <span class="block mt-4 text-lg font-medium text-gray-500">Füge individuell Funktionalitäten und
         Erweiterungen
         hinzu.</span>
     </h2>
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <fieldset class="mt-5">
+      <legend class="sr-only">Features</legend>
+      <div class="space-y-4">
+        <ng-container *ngFor="let feature of features">
+          <label *ngIf="feature.value.isAddon"
+                 class="relative block bg-white border rounded-lg shadow-sm px-6 py-4 cursor-pointer  focus:outline-none">
+            <div class="sm:flex sm:justify-between">
+              <div class="flex items-center">
+                <div class="absolute z-50 flex justify-center items-center left-0 top-0 text-white rounded-md p-3  h-20 w-20 mr-3">
+                  <ng-container *ngIf="feature.value.valueType === 'boolean'">
+                    <mat-icon class="material-symbols-rounded text-3xl -mt-6" [ngClass]="feature.value.value ? 'text-green-500': 'text-gray-400'" >check_circle</mat-icon>
+                  </ng-container>
+                  <ng-container *ngIf="feature.value.valueType === 'number'">
+                    <p [matTooltip]="'Verfügbar'" class="-mt-4 text-3xl font-semibold text-gray-800">{{feature.value.value}}</p>
+                  </ng-container>
+                </div>
+                <div class="ml-16 text-sm">
+                  <p id="server-size-0-label" class="font-medium text-gray-900">{{feature.value.title}}</p>
+                  <div id="server-size-0-description-0" class="text-gray-500">
+                    <p class="sm:inline">{{feature.value.description}}</p>
+                  </div>
+                </div>
+              </div>
+              <div id="server-size-0-description-1" class="mt-2 flex text-sm sm:mt-0 sm:block sm:ml-4 sm:text-right">
+                <div class="text-sm">
+                  <ng-container *ngIf="feature.value.valueType === 'boolean' && !feature.value.value">
+                    <button (click)="activateFeature(feature)"
+                            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600  focus:outline-none">Aktivieren<span
+                      class="sr-only">
+                      {{feature.value.title}}</span></button>
+                  </ng-container>
+                  <ng-container *ngIf="feature.value.valueType === 'number'">
+                    <div class="flex gap-4" >
+                      <div>
+                        <span class=" relative inline-flex shadow-sm rounded-md">
+                          <button (click)="minusOne(counter)" type="button" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500  focus:z-10 focus:outline-none ">
+                            <span class="sr-only">Previous</span>
+                            <mat-icon class="material-symbols-rounded">remove</mat-icon>
+                          </button>
+                          <input #counter value="1" type="number" min="1" max="12" class="-ml-px relative inline-flex items-center  pl-7 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700  focus:z-10 focus:outline-none ">
+                          <button (click)="plusOne(counter)" type="button" class="-ml-px relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 focus:z-10 focus:outline-none ">
+                            <span class="sr-only">Next</span>
+                            <mat-icon class="material-symbols-rounded">add</mat-icon>
+                          </button>
+                        </span>
+                      </div>
+                      <button (click)="addFeature(feature)"
+                              class=" inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none">Hinzufügen<span
+                        class="sr-only">
+                        {{feature.value.title}}</span></button>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="w-full">
+              <div class="mt-8">
+                <div class="flex items-center">
+                  <h4 class="flex-shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase text-amber-600">
+                    Was du bekommst</h4>
+                  <div class="flex-1 border-t-2 border-gray-200"></div>
+                </div>
+                <ul role="list" class="mt-8 space-y-5 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:gap-y-5">
+                  <li *ngFor="let benefit of feature.value.benefits" class="flex items-start lg:col-span-1">
+                    <div class="flex-shrink-0">
+                      <mat-icon class="text-green-500 material-symbols-rounded">task_alt</mat-icon>
+                    </div>
+                    <p class="ml-3 text-sm text-gray-700">{{benefit}}</p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </label>
+        </ng-container>
+      </div>
+    </fieldset>
     <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 ">
       <ng-container *ngFor="let feature of features">
         <div *ngIf="feature.value.isAddon"
@@ -31,9 +108,7 @@
               </button>
             </ng-container>
             <ng-container *ngIf="feature.value.valueType === 'number'">
-              <p class="mt-1 text-xl font-semibold text-gray-900">{{feature.value.used}} </p><span
-              class="mx-1 text-lg text-gray-300">/</span>
-              <p class="mt-1 text-lg font-semibold text-gray-300">{{feature.value.value}}</p>
+              <p class="mt-1 text-lg font-semibold text-gray-800">{{feature.value.value}}</p>
             </ng-container>
             <div class="absolute bottom-0 inset-x-0 bg-gray-50 px-4 py-4 sm:px-6 h-12">
               <div class="text-sm">
@@ -44,6 +119,7 @@
                     {{feature.value.title}}</span></button>
                 </ng-container>
                 <ng-container *ngIf="feature.value.valueType === 'number'">
+
                   <button (click)="addFeature(feature)"
                           class="font-medium text-amber-600 hover:text-amber-500">Hinzufügen<span
                     class="sr-only">
@@ -60,6 +136,5 @@
         </div>
       </ng-container>
     </dl>
-
   </div>
 </div>
