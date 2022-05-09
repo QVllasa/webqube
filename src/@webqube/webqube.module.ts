@@ -25,6 +25,7 @@ import {NgxPayPalModule} from "ngx-paypal";
 import {MatIconModule} from "@angular/material/icon";
 import {DeleteProjectComponent} from './components/dialogs/delete-project/delete-project.component';
 import { AddFeatureComponent } from './components/dialogs/add-feature/add-feature.component';
+import { AddonListitemComponent } from './components/addon-listitem/addon-listitem.component';
 
 
 
@@ -50,7 +51,8 @@ import { AddFeatureComponent } from './components/dialogs/add-feature/add-featur
         RegisterComponent,
         RequestComponent,
         CustomSpinnerDirective,
-        CustomSpinnerDirective
+        CustomSpinnerDirective,
+        AddonListitemComponent
     ],
   providers: [
     {
@@ -73,6 +75,7 @@ import { AddFeatureComponent } from './components/dialogs/add-feature/add-featur
     PayMilstoneComponent,
     DeleteProjectComponent,
     AddFeatureComponent,
+    AddonListitemComponent,
 
   ]
 })

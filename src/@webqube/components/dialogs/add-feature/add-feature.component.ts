@@ -21,12 +21,12 @@ export class AddFeatureComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddFeatureComponent>,
               private afs: AngularFirestore,
               private boardService: BoardService,
-              @Inject(MAT_DIALOG_DATA) public data: { key: string, value: IFeatureDetail }) {
+              @Inject(MAT_DIALOG_DATA) public data:  IFeatureDetail ) {
   }
 
   ngOnInit(): void {
     console.log("add feature", this.data);
-    this.feature = this.data.value
+    this.feature = this.data
     this.initConfig();
   }
 
@@ -39,21 +39,21 @@ export class AddFeatureComponent implements OnInit {
         purchase_units: [{
           amount: {
             currency_code: 'EUR',
-            value: this.data.value.price + '',
+            value: this.data.price + '',
             breakdown: {
               item_total: {
                 currency_code: 'EUR',
-                value: this.data.value.price + ''
+                value: this.data.price + ''
               }
             }
           },
           items: [{
-            name: 'x ' + this.data.value.title,
+            name: 'x ' + this.data.title,
             quantity: this.quantity+'',
             category: 'DIGITAL_GOODS',
             unit_amount: {
               currency_code: 'EUR',
-              value: this.data.value.price + '',
+              value: this.data.price + '',
             },
           }]
         }]

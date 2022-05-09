@@ -1,0 +1,87 @@
+<div *ngIf="feature.isAddon"
+       class="my-2 relative block bg-white border rounded-lg shadow-sm px-6 py-4  focus:outline-none">
+  <div class="sm:flex sm:justify-between">
+    <div class="flex items-center">
+      <div
+        class="absolute z-50 flex justify-center items-center left-0 top-0 text-white rounded-md p-3  h-20 w-20 mr-3">
+        <div *ngIf="feature.valueType === 'boolean'">
+          <mat-icon class="material-symbols-rounded text-3xl -mt-3"
+                    [ngClass]="feature.value ? 'text-green-500': 'text-gray-400'">check_circle
+          </mat-icon>
+        </div>
+        <div *ngIf="feature.valueType === 'number'">
+          <p class="-mt-2 text-3xl font-semibold text-gray-800">{{feature.value}}</p>
+        </div>
+      </div>
+      <div class="ml-16 text-sm">
+        <p id="server-size-0-label" class="font-medium text-gray-900">{{feature.title}}</p>
+        <div id="server-size-0-description-0" class="text-gray-500">
+          <p class="sm:inline">{{feature.description}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-2 text-sm sm:mt-0  sm:ml-4 sm:text-right">
+        <div class="flex  gap-4">
+          <div *ngIf="feature.valueType === 'number'">
+            <span class="-ml-px relative flex shadow-sm rounded-md">
+              <button type="button"
+                      class="relative flex items-center px-2 py-2 rounded-l-md border border-gray-300  bg-white hover:bg-gray-200  text-sm font-medium text-gray-500  focus:z-10 focus:outline-none ">
+                <span class="sr-only">Previous</span>
+                <mat-icon class="material-symbols-rounded">remove</mat-icon>
+              </button>
+              <input value="1" type="number" min="1" max="12" disabled
+                     class=" relative flex items-center  pl-7 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700  focus:z-10 focus:outline-none ">
+              <button type="button"
+                      class=" relative flex items-center px-2 py-2 rounded-r-md border border-gray-300  bg-white hover:bg-gray-200  text-sm font-medium text-gray-500 focus:z-10 focus:outline-none ">
+                <span class="sr-only">Next</span>
+                <mat-icon class="material-symbols-rounded">add</mat-icon>
+              </button>
+            </span>
+          </div>
+          <div *ngIf="feature.valueType === 'boolean'">
+            <span class="hidden relative inline-flex shadow-sm rounded-md">
+              <button type="button"
+                      class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500  focus:z-10 focus:outline-none ">
+                <span class="sr-only">Previous</span>
+                <mat-icon class="material-symbols-rounded">remove</mat-icon>
+              </button>
+              <input value="1" type="number" min="1" max="12"
+                     class="relative inline-flex items-center  pl-7 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700  focus:z-10 focus:outline-none ">
+              <button type="button"
+                      class=" relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 focus:z-10 focus:outline-none ">
+                <span class="sr-only">Next</span>
+                <mat-icon class="material-symbols-rounded">add</mat-icon>
+              </button>
+            </span>
+          </div>
+          <button (click)="addFeature()"
+                  class="flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none">
+            <span *ngIf="feature.valueType === 'number'">Hinzufügen</span>
+            <span *ngIf="feature.valueType === 'boolean'">Aktivieren</span>
+          </button>
+        </div>
+    </div>
+  </div>
+  <div class="w-full mt-4" (click)="toggle()">
+    <div class="w-full flex justify-center cursor-pointer">
+      <mat-icon *ngIf="!showBenefits" class="material-symbols-rounded">keyboard_arrow_down</mat-icon>
+      <mat-icon *ngIf="showBenefits" class="material-symbols-rounded">keyboard_arrow_up</mat-icon>
+    </div>
+    <div *ngIf="showBenefits">
+      <div class="flex items-center">
+        <h4 class="flex-shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase text-amber-600">
+          Was du bekommst</h4>
+        <div class="flex-1 border-t-2 border-gray-200"></div>
+      </div>
+      <ul role="list" class="mt-8 space-y-5 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:gap-y-5">
+        <li *ngFor="let benefit of feature.benefits" class="flex items-start lg:col-span-1">
+          <div class="flex-shrink-0">
+            <mat-icon class="text-green-500 material-symbols-rounded">task_alt</mat-icon>
+          </div>
+          <p class="ml-3 text-sm text-gray-700">{{benefit}}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+

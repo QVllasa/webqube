@@ -1,13 +1,13 @@
 <ng-container>
   <div *ngIf="!onSuccess">
-    <div class="p-4 -ml-4 -mt-4 mb-8 flex justify-center items-center flex-wrap sm:flex-nowrap">
+    <div class="p-4 -ml-4 -mt-4  flex justify-center items-center flex-wrap sm:flex-nowrap">
       <div class="ml-4 mt-4 text-center">
-        <h3 class="text-2xl leading-6 font-semibold text-gray-900">Addon kaufen</h3>
-        <p class="mt-5 text-sm text-gray-500 text-center">Erweitere deine Website ganz nach deinen Bedürfnissen.</p>
+        <h3 class="text-2xl leading-6 font-semibold text-gray-900">Erweiterung kaufen.</h3>
+<!--        <p class="mt-5 text-sm text-gray-500 text-center">Erweitere deine Website ganz nach deinen Bedürfnissen.</p>-->
       </div>
     </div>
-    <div class="p-4 grid grid-rows-2 ">
-      <div class="flow-root flex-1 ">
+    <div class="p-4 flex flex-col ">
+      <div class="flow">
         <!-- This example requires Tailwind CSS v2.0+ -->
         <fieldset>
           <legend class="sr-only">Server size</legend>
@@ -40,29 +40,18 @@
             </label>
           </div>
           <div class="pt-6 pb-8 px-6">
-            <h3 class="text-xs font-medium text-gray-900 tracking-wide uppercase">Was du davon hast.</h3>
+            <h3 class="  text-xs font-bold text-amber-600 tracking-wide uppercase">Was du davon hast.</h3>
             <ul role="list" class="mt-6 space-y-4">
-              <li class="flex space-x-3">
-                <!-- Heroicon name: solid/check -->
-                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                </svg>
-                <span class="text-sm text-gray-500">Potenti felis, in cras at at ligula nunc.</span>
-              </li>
-
-              <li class="flex space-x-3">
-                <!-- Heroicon name: solid/check -->
-                <svg class="flex-shrink-0 h-5 w-5 text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                </svg>
-                <span class="text-sm text-gray-500">Orci neque eget pellentesque.</span>
+              <li *ngFor="let benefit of feature.benefits" class="flex space-x-3">
+                <mat-icon class="material-symbols-rounded  text-green-500">task_alt</mat-icon>
+                <span class="text-sm text-gray-500">{{benefit}}</span>
               </li>
             </ul>
           </div>
         </fieldset>
 
       </div>
-      <div class="flex-1 p-8 pr-0  justify-center">
+      <div class="flex justify-center">
         <div class="flex justify-center">
           <ngx-paypal [config]="payPalConfig"></ngx-paypal>
         </div>

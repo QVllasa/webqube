@@ -15,14 +15,19 @@ export class AddonsComponent implements OnInit {
 
   project: IProject;
 
-  constructor(private projectService: ProjectService, private planService: PlanService, private dialog: MatDialog,) {
+  features: { key: string, value: IFeatureDetail }[] = [];
+
+
+  constructor(private projectService: ProjectService) {
   }
 
   ngOnInit(): void {
     this.projectService.project$
-      .subscribe(project => {
+      .subscribe((project) => {
         this.project = project;
-
+        if (project){
+          this.features = this.getFeatures(this.project);
+        }
       })
   }
 
@@ -44,39 +49,13 @@ export class AddonsComponent implements OnInit {
     }
   }
 
-  get features(): { key: string, value: IFeatureDetail }[] {
-    const keys = Object.keys(this.project.features)
+  getFeatures(project: IProject): { key: string, value: IFeatureDetail }[] {
+    const keys = Object.keys(project.features)
     let arr: { key: string, value: IFeatureDetail }[] = []
     keys.forEach(key => {
-      arr.push({key: key, value: this.project.features[key]})
+      arr.push({key: key, value: project.features[key]})
     })
     return arr;
   }
 
-  addFeature(feature: { key: string, value: IFeatureDetail }) {
-    this.dialog.open(AddFeatureComponent, {
-      data: feature,
-      width: 'auto',
-      maxWidth: '100%',
-      disableClose: false
-    })
-  }
-
-  activateFeature(feature: { key: string, value: IFeatureDetail }) {
-    this.dialog.open(AddFeatureComponent, {
-      data: feature,
-      width: 'auto',
-      maxWidth: '100%',
-      disableClose: false
-    })
-  }
-
-
-  minusOne(counter: HTMLInputElement) {
-    counter.value = (Number(counter.value) - 1)+'';
-  }
-
-  plusOne(counter: HTMLInputElement) {
-    counter.value =  (Number(counter.value) + 1)+'';
-  }
 }
