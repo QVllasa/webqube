@@ -3,7 +3,7 @@ import {IFeatureDetail} from "../../models/models";
 import {AddFeatureComponent} from "../dialogs/add-feature/add-feature.component";
 import {PlanService} from "../../services/plan.service";
 import {MatDialog} from "@angular/material/dialog";
-
+import {FormControl} from "@angular/forms";
 
 
 @Component({
@@ -13,13 +13,17 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class AddonListitemComponent implements OnInit {
 
-  @Input() feature: IFeatureDetail ;
+  @Input() feature: IFeatureDetail;
   showBenefits: boolean = false;
+  counter = new FormControl()
 
-  constructor(private planService: PlanService, private dialog: MatDialog,) { }
+
+  constructor(private planService: PlanService, private dialog: MatDialog,) {
+  }
 
   ngOnInit(): void {
-
+    this.counter.setValue(1);
+    this.counter.disable();
   }
 
   addFeature() {
@@ -32,8 +36,19 @@ export class AddonListitemComponent implements OnInit {
   }
 
 
-
   toggle() {
     this.showBenefits = !this.showBenefits;
   }
+
+  plus() {
+    this.counter.patchValue(this.counter.value + 1)
+  }
+
+  minus() {
+    if(this.counter.value !== 1){
+      this.counter.patchValue(this.counter.value - 1)
+    }
+  }
+
+
 }
