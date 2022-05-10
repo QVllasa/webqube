@@ -5,6 +5,7 @@ import {PlanService} from "../../../../../@webqube/services/plan.service";
 import {MatDialog} from "@angular/material/dialog";
 import {PayMilstoneComponent} from "../../../../../@webqube/components/dialogs/pay-milstone/pay-milstone.component";
 import {AddFeatureComponent} from "../../../../../@webqube/components/dialogs/add-feature/add-feature.component";
+import {filter} from "rxjs/operators";
 
 @Component({
   selector: 'app-addons',
@@ -15,7 +16,7 @@ export class AddonsComponent implements OnInit {
 
   project: IProject;
 
-  features: { key: string, value: IFeatureDetail }[] = [];
+  features: IFeatureDetail [] = [];
 
 
   constructor(private projectService: ProjectService) {
@@ -23,37 +24,22 @@ export class AddonsComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectService.project$
+      .pipe(filter(project => project !== null))
       .subscribe((project) => {
         this.project = project;
-        if (project){
-          this.features = this.getFeatures(this.project);
-        }
+        this.features = this.getFeatures(project);
       })
   }
 
-  toggle(feature: { key: string, value: IFeatureDetail }) {
-    switch (feature.value.valueType) {
-      case 'boolean': {
-        //TODO add Paypal
-        feature.value.value = true;
-        this.project.features[feature.key] = feature.value;
-        this.projectService.updateProject(this.project).then((res) => {
-          console.log('update successful', res)
-          this.projectService.project$.next(this.project)
-        })
-        break;
-      }
-      case 'number': {
-        console.log('do something')
-      }
-    }
-  }
 
-  getFeatures(project: IProject): { key: string, value: IFeatureDetail }[] {
+  getFeatures(project: IProject): IFeatureDetail[] {
+    if (!project.hasOwnProperty('features')) {
+      return [];
+    }
     const keys = Object.keys(project.features)
-    let arr: { key: string, value: IFeatureDetail }[] = []
+    let arr: IFeatureDetail [] = []
     keys.forEach(key => {
-      arr.push({key: key, value: project.features[key]})
+      arr.push(project.features[key])
     })
     return arr;
   }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ProjectService} from "../../../../../@webqube/services/project.service";
-import {take, tap} from "rxjs/operators";
+import {filter, take, tap} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 import {IFeatureDetail, IPlan, IProject, IUser} from "../../../../../@webqube/models/models";
 import {
@@ -21,33 +21,33 @@ import {UserService} from "../../../../../@webqube/services/user.service";
 })
 export class DashboardComponent implements OnInit {
   isSaving: boolean = false;
-  isSavingTier: boolean = false;
+
   isDeleting: boolean = false;
   user: IUser;
-  plans: IPlan[];
-  plan$: BehaviorSubject<IPlan> = new BehaviorSubject<IPlan>(null);
+
   project$ = new BehaviorSubject<IProject>(null);
+  features: IFeatureDetail[] = [];
   urlRegex = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   form = new FormGroup({
     domain: new FormControl('', [Validators.required, Validators.pattern(this.urlRegex)]),
     title: new FormControl('', [Validators.required])
   });
 
+
+
   isLoading: boolean = false;
 
   constructor(private projectService: ProjectService, private router: Router,
               private dialog: MatDialog, private _snackBar: MatSnackBar,
-              public userService: UserService, private http: HttpClient, private planService: PlanService) {
-    this.planService.getPlans().then(plans=>{
-      this.plans = plans;
-    });
+              public userService: UserService, private http: HttpClient) {
+
 
     this.project$ = this.projectService.project$;
 
-    this.project$.subscribe(project => {
-      if(!project){
-        return;
-      }
+    this.project$
+      .pipe(filter(project => project !== null))
+      .subscribe(project => {
+      this.features = this.getFeatures(project);
       this.form.patchValue({domain: project.domain ? project.domain : '', title: project.title});
     })
 
@@ -60,11 +60,14 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  features(project: IProject): { key: string, value: IFeatureDetail }[] {
+  getFeatures(project: IProject): IFeatureDetail[] {
+    if (!project.hasOwnProperty('features')) {
+      return [];
+    }
     const keys = Object.keys(project.features)
-    let arr: { key: string, value: IFeatureDetail }[] = []
+    let arr: IFeatureDetail [] = []
     keys.forEach(key => {
-      arr.push({key: key, value: project.features[key]})
+      arr.push(project.features[key])
     })
     return arr;
   }
@@ -151,20 +154,11 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  onSelectTier(tier: IPlan) {
-    this.plan$.value === tier ? this.plan$.next(null) : this.plan$.next(tier);
-  }
 
-  isSelected(tier: IPlan) {
-    return this.plan$.value === tier;
-  }
 
-  async initProject(plan: IPlan) {
-    this.isSavingTier = true;
 
-    await this.projectService.initProject(plan, this.project$.value.id)
-    this.isSavingTier = false;
-  }
+
+
 
   // getPlan(id: string): IPlan|string {
   // return this.planService.getPlan(id);

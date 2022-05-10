@@ -1,0 +1,70 @@
+<div class="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+  <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+    <span class="block">{{headline}}</span>
+    <span class="block mt-4 text-lg font-medium text-gray-500">{{subheadline}}</span>
+  </h2>
+  <div *ngIf="bookCall" class="mt-8 flex justify-center items-center">
+    <div class="inline-flex rounded-md shadow">
+      <a href="https://calendly.com/webqube/30min" target="_blank"
+         class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700">
+        Termin buchen
+      </a>
+    </div>
+  </div>
+  <h2 *ngIf="bookCall" class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+    <span class="block mt-8 text-lg font-medium text-gray-500">oder gleich loslegen.
+      <br>
+      Wähle dazu einfach einen Plan aus.
+    </span>
+  </h2>
+  <!-- This example requires Tailwind CSS v2.0+ -->
+  <fieldset>
+    <div
+      class="relative mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3  sm:gap-x-4">
+      <!--
+        Checked: "border-transparent", Not Checked: "border-gray-300"
+        Active: "ring-2 ring-amber-500"
+      -->
+      <label *ngFor="let plan of plans"
+             [ngClass]="isSelected(plan) ? 'border-transparent ring-2 ring-amber-500':'border-gray-300'"
+             class="relative bg-white border  rounded-lg shadow-sm p-4 flex cursor-pointer focus:outline-none">
+        <input [value]="isSelected(plan)" type="radio" name="project-type" value="Newsletter"
+               class="sr-only"
+               (click)="onSelectTier(plan)"
+               aria-labelledby="project-type-0-label"
+               aria-describedby="project-type-0-description-0 project-type-0-description-1">
+        <div class="flex-1 flex">
+          <div class="flex flex-col relative h-32">
+            <span id="project-type-0-label" class="block text-left text-sm font-semibold text-gray-800">
+              {{plan.label}}
+            </span>
+            <span id="project-type-0-description-0"
+                  class="mt-1 text-left flex items-center text-sm text-gray-500">
+              {{plan.description}}
+            </span>
+            <span class="absolute bottom-0 text-lg font-semibold text-gray-900">
+              {{plan.price}}€ /Projekt
+            </span>
+          </div>
+        </div>
+        <mat-icon [ngClass]="isSelected(plan) ? '':'invisible'"
+                  class="material-symbols-rounded h-5 w-5 text-amber-600">
+          task_alt
+        </mat-icon>
+        <div [ngClass]="isSelected(plan) ? 'border border-amber-500':'border-2 border-transparent'"
+             class="absolute -inset-px rounded-lg border-2 pointer-events-none"
+             aria-hidden="true"></div>
+      </label>
+      <div *ngIf="isSavingTier"
+           class="absolute top-0 left-0 right-0 bottom-0 bg-gray-50 opacity-30 rounded-lg"></div>
+    </div>
+  </fieldset>
+  <ng-container *ngIf="plan$ | async as plan">
+    <button [disabled]="isSavingTier" (click)="initProject(plan)"
+            class="w-48 mt-6 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-amber-600 hover:bg-amber-700">
+      <span *ngIf="!isSavingTier">Weiter</span>
+      <mat-spinner customSpinner color="#FEFCFA" *ngIf="isSavingTier" [diameter]="20"></mat-spinner>
+    </button>
+  </ng-container>
+
+</div>

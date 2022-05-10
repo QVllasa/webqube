@@ -26,6 +26,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {DeleteProjectComponent} from './components/dialogs/delete-project/delete-project.component';
 import { AddFeatureComponent } from './components/dialogs/add-feature/add-feature.component';
 import { AddonListitemComponent } from './components/addon-listitem/addon-listitem.component';
+import { SelectPlanComponent } from './components/select-plan/select-plan.component';
 
 
 
@@ -52,7 +53,8 @@ import { AddonListitemComponent } from './components/addon-listitem/addon-listit
         RequestComponent,
         CustomSpinnerDirective,
         CustomSpinnerDirective,
-        AddonListitemComponent
+        AddonListitemComponent,
+        SelectPlanComponent
     ],
   providers: [
     {
@@ -76,6 +78,7 @@ import { AddonListitemComponent } from './components/addon-listitem/addon-listit
     DeleteProjectComponent,
     AddFeatureComponent,
     AddonListitemComponent,
+    SelectPlanComponent,
 
   ]
 })

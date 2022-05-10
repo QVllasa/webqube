@@ -1,5 +1,5 @@
 <div *ngIf="project" class="bg-white">
-  <div *ngIf="project.planID && project.features" class="max-w-7xl mx-auto  py-8 px-4 sm:px-6 lg:py-16 lg:px-8">
+  <div *ngIf="project.planID" class="max-w-7xl mx-auto  py-8 px-4 sm:px-6 lg:py-16 lg:px-8">
     <h2 class="text-2xl text-center font-extrabold tracking-tight text-gray-900 sm:text-4xl">
       <span class="block">Erweiterungen.</span>
       <span class="block mt-4 text-lg font-medium text-gray-500">Füge individuell Funktionalitäten und
@@ -11,7 +11,7 @@
       <legend class="sr-only">Features</legend>
       <div *ngIf="features">
         <div *ngFor="let feature of features">
-          <app-addon-listitem [feature]="feature.value"></app-addon-listitem>
+          <app-addon-listitem [feature]="feature"></app-addon-listitem>
         </div>
       </div>
     </div>
@@ -68,5 +68,12 @@
     <!--        </div>-->
     <!--      </ng-container>-->
     <!--    </dl>-->
+  </div>
+  <div *ngIf="!project.planID">
+    <app-select-plan
+      headline="Plan auswählen."
+      subheadline="Bevor du starten kannst, musst du einen Plan auswählen."
+      [bookCall]="false"
+      [project]="project" ></app-select-plan>
   </div>
 </div>
