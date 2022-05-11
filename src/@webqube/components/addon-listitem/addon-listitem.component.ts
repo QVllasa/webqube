@@ -50,5 +50,4 @@ export class AddonListitemComponent implements OnInit {
     }
   }
 
-
 }

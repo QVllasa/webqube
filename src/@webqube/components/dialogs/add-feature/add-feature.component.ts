@@ -27,6 +27,11 @@ export class AddFeatureComponent implements OnInit {
   ngOnInit(): void {
     console.log("add feature", this.data);
     this.feature = this.data
+
+    if(this.feature.valueType === 'number'){
+      this.quantity = <number>this.feature.value;
+    }
+
     this.initConfig();
   }
 
