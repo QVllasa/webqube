@@ -25,8 +25,11 @@ export class AddFeatureComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("add feature", this.data);
     this.feature = this.data
+
+    if (this.feature.price === 0){
+      this.feature.price = 1;
+    }
 
     if(this.feature.valueType === 'number'){
       this.quantity = <number>this.feature.value;
@@ -44,21 +47,21 @@ export class AddFeatureComponent implements OnInit {
         purchase_units: [{
           amount: {
             currency_code: 'EUR',
-            value: this.data.price + '',
-            breakdown: {
-              item_total: {
-                currency_code: 'EUR',
-                value: this.data.price + ''
-              }
-            }
+            value: this.feature.price + '',
+            // breakdown: {
+            //   item_total: {
+            //     currency_code: 'EUR',
+            //     value: this.feature.price + ''
+            //   }
+            // }
           },
           items: [{
-            name: 'x ' + this.data.title,
+            name: 'x ' + this.feature.title,
             quantity: this.quantity+'',
             category: 'DIGITAL_GOODS',
             unit_amount: {
               currency_code: 'EUR',
-              value: this.data.price + '',
+              value: this.feature.price + '',
             },
           }]
         }]
