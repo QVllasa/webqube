@@ -118,3 +118,9 @@ export interface IWork {
 
 export interface IUser extends firebase.User {
 }
+
+
+export interface IPromo{
+  code: string,
+  discount: number
+}

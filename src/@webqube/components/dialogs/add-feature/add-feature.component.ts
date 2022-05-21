@@ -5,6 +5,7 @@ import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
 import {IFeatureDetail} from "../../../models/models";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {BoardService} from "../../../services/board.service";
+import {PromoService} from "../../../services/promo.service";
 
 @Component({
   selector: 'app-add-feature',
@@ -16,15 +17,17 @@ export class AddFeatureComponent implements OnInit {
   onSuccess: boolean = false;
   quantity: number = 1;
   feature: IFeatureDetail
+  discount: number = 0;
   public payPalConfig ?: IPayPalConfig;
 
   constructor(public dialogRef: MatDialogRef<AddFeatureComponent>,
               private afs: AngularFirestore,
-              private boardService: BoardService,
+              private promoService: PromoService,
               @Inject(MAT_DIALOG_DATA) public data:  IFeatureDetail ) {
   }
 
   ngOnInit(): void {
+
     this.feature = this.data
 
     if (this.feature.price === 0){
@@ -38,6 +41,17 @@ export class AddFeatureComponent implements OnInit {
     this.initConfig();
   }
 
+  checkPromo(input: string){
+    this.promoService.checkPromoCode(input).then((empty) => {
+      if (!empty){
+        this.promoService.fetchPromo(input).then((promo)=>{
+
+        })
+      }
+
+    })
+  }
+
   private initConfig(): void {
     this.payPalConfig = {
       currency: 'EUR',
@@ -47,7 +61,7 @@ export class AddFeatureComponent implements OnInit {
         purchase_units: [{
           amount: {
             currency_code: 'EUR',
-            value: this.feature.price + '',
+            value: this.discount > 0 ?  this.discount*this.feature.price + '' : this.feature.price + '',
             // breakdown: {
             //   item_total: {
             //     currency_code: 'EUR',
@@ -61,7 +75,7 @@ export class AddFeatureComponent implements OnInit {
             category: 'DIGITAL_GOODS',
             unit_amount: {
               currency_code: 'EUR',
-              value: this.feature.price + '',
+              value: this.discount > 0 ?  this.discount*this.feature.price + '' : this.feature.price + '',
             },
           }]
         }]
