@@ -15,9 +15,11 @@ import {PromoService} from "../../../services/promo.service";
 export class AddFeatureComponent implements OnInit {
 
   onSuccess: boolean = false;
-  quantity: number = 1;
+  quantity: string = '1';
+  unitPrice: string;
+  total: string;
   feature: IFeatureDetail
-  discount: number = 0;
+  // discount: number = 0;
   public payPalConfig ?: IPayPalConfig;
 
   constructor(public dialogRef: MatDialogRef<AddFeatureComponent>,
@@ -35,8 +37,14 @@ export class AddFeatureComponent implements OnInit {
     }
 
     if(this.feature.valueType === 'number'){
-      this.quantity = <number>this.feature.value;
+      this.quantity = <number>this.feature.value+'';
+
     }
+
+    this.unitPrice = this.feature.price+'';
+    this.total = (this.feature.price * <number>this.feature.value)+'';
+
+
 
     this.initConfig();
   }
@@ -61,21 +69,22 @@ export class AddFeatureComponent implements OnInit {
         purchase_units: [{
           amount: {
             currency_code: 'EUR',
-            value: this.discount > 0 ?  this.discount*this.feature.price + '' : this.feature.price + '',
-            // breakdown: {
-            //   item_total: {
-            //     currency_code: 'EUR',
-            //     value: this.feature.price + ''
-            //   }
-            // }
+            value: this.total,
+            breakdown: {
+              item_total: {
+                currency_code: 'EUR',
+                value: this.total
+              }
+            }
           },
-          items: [{
+          items: [
+            {
             name: 'x ' + this.feature.title,
-            quantity: this.quantity+'',
+            quantity: this.quantity,
             category: 'DIGITAL_GOODS',
             unit_amount: {
               currency_code: 'EUR',
-              value: this.discount > 0 ?  this.discount*this.feature.price + '' : this.feature.price + '',
+              value: this.unitPrice,
             },
           }]
         }]

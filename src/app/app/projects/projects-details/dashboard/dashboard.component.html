@@ -94,7 +94,7 @@
         <dt class="text-sm font-medium text-gray-500 truncate">{{feature.title}}</dt>
         <dd class="flex items-center">
           <div class="w-10">
-            <ng-container *ngIf="feature.valueType === 'number'">
+            <ng-container *ngIf="feature.valueType === 'number' && feature.value !== -1">
               <div class="flex items-center">
                 <p matTooltip="Verwendet" matTooltipPosition="below"
                    class="mt-1 text-xl font-semibold text-gray-900">{{feature.used}} </p><span
@@ -102,12 +102,24 @@
                 <p matTooltip="Verfügbar" matTooltipPosition="below"
                    class="mt-1 text-lg font-semibold text-gray-300">{{feature.value}}</p>
               </div>
+            </ng-container>
 
+            <ng-container *ngIf="feature.valueType === 'number' && feature.value === -1">
+              <mat-icon class="material-symbols-rounded text-3xl"
+                        [ngClass]="feature.value ? 'text-green-500': 'text-gray-400'">all_inclusive
+              </mat-icon>
             </ng-container>
             <ng-container *ngIf="feature.valueType === 'boolean'">
-              <mat-icon class="material-symbols-rounded text-3xl"
-                        [ngClass]="feature.value ? 'text-green-500': 'text-gray-400'">check_circle
-              </mat-icon>
+              <ng-container *ngIf="feature.value">
+                <mat-icon class="material-symbols-rounded text-3xl text-green-500"
+                          >check_circle
+                </mat-icon>
+              </ng-container>
+              <ng-container *ngIf="!feature.value">
+                <mat-icon class="material-symbols-rounded text-3xl text-gray-400">cancel
+                </mat-icon>
+              </ng-container>
+
             </ng-container>
           </div>
 

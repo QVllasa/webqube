@@ -16,21 +16,20 @@
               Checked: "border-transparent", Not Checked: "border-gray-300"
               Active: "border-indigo-500 ring-2 ring-indigo-500"
             -->
-            <label class="relative block bg-white border rounded-lg shadow-sm px-6 py-4 cursor-pointer sm:flex sm:justify-between focus:outline-none">
-              <input type="radio" name="server-size" value="Hobby" class="sr-only" aria-labelledby="server-size-0-label" aria-describedby="server-size-0-description-0 server-size-0-description-1">
+            <label class="relative block bg-white border rounded-lg shadow-sm px-6 py-4 sm:flex sm:justify-between focus:outline-none">
+              <ng-container *ngIf="feature.valueType === 'number'">
+                <div class="flex items-center mr-3 text-2xl">{{feature.value}}<span>x</span></div>
+              </ng-container>
               <div class="flex items-center">
                 <div class="text-sm">
-                  <p id="server-size-0-label" class="font-medium text-gray-900">{{feature.title}}</p>
-                  <div id="server-size-0-description-0" class="text-gray-500">
-                    <p class="sm:inline">{{feature.title}}</p>
-                    <span class="hidden sm:inline sm:mx-1" aria-hidden="true">&middot;</span>
-                    <p class="sm:inline">160 GB SSD disk</p>
+                  <p id="server-size-0-label" class="font-semibold text-gray-900">{{feature.title}}</p>
+                  <div id="server-size-0-description-0" class="text-gray-500 max-w-md">
+                    <p class="sm:inline">{{feature.description}}</p>
                   </div>
                 </div>
               </div>
               <div id="server-size-0-description-1" class="mt-2 flex text-sm sm:mt-0 sm:block sm:ml-4 sm:text-right">
                 <div class="font-bold text-gray-900">{{feature.price}} €</div>
-                <div class="ml-1 text-gray-500 sm:ml-0">{{'einmalig'}}</div>
               </div>
               <!--
                 Active: "border", Not Active: "border-2"
