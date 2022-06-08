@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {IMilestone, IProject, IPlan, IUser, IFeatureDetail, IFeatures} from "../../../../@webqube/models/models";
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
-import {BehaviorSubject, Observable, pipe} from "rxjs";
+import {BehaviorSubject, Observable, of, pipe} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -55,53 +55,12 @@ export class ProjectsDetailsComponent {
   ]
 
 
-
-
-  boards$: BehaviorSubject<IBoard[]> = this.boardService.boards$;
-  lists$: BehaviorSubject<IScrumboardList[]> = new BehaviorSubject<IScrumboardList[]>(null)
-  selectedBoard$: BehaviorSubject<IBoard> = new BehaviorSubject<IBoard>(null);
-
-
-
-  isSelecting: boolean = false;
-  selected: boolean = false;
-
-
-  constructor(private afs: AngularFirestore,
-              private route: ActivatedRoute,
-              private http: HttpClient,
-              private auth: AngularFireAuth,
-              public projectService: ProjectService,
-              private boardService: BoardService,
-              private planService: PlanService,) {
-
-    this.route.params.pipe(
-      switchMap((params)=>{
-        console.log('projectID: ', params['projectID'])
-        this.boardService.setCollections(params['projectID'])
-        return this.projectService.getProject(params['projectID'])
-      })
-    ).subscribe();
-
-    // this.boards$.pipe(
-    //   filter<IBoard[]>(Boolean),
-    //   tap((boards => {
-    //     const selectedBoard = boards.find(obj => obj.selected)
-    //     this.selectedBoard$.next(selectedBoard);
-    //   }))
-    // ).subscribe()
-    //
-    // this.selectedBoard$
-    //   .pipe(filter<IBoard>(Boolean),
-    //     switchMap((board) => {
-    //       return this.boardService.getLists(board.id)
-    //     }))
-    //   .subscribe((lists) => {
-    //     console.log("lists", lists)
-    //     this.lists$.next(lists)
-    //   })
-
-
+  constructor(
+    public projectService: ProjectService,
+    private route: ActivatedRoute
+  ) {
+    const projectID = this.route.snapshot.params['projectID'];
+    this.projectService.loadProject(projectID)
   }
 
 }

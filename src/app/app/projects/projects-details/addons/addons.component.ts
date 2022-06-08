@@ -6,6 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {PayMilstoneComponent} from "../../../../../@webqube/components/dialogs/pay-milstone/pay-milstone.component";
 import {AddFeatureComponent} from "../../../../../@webqube/components/dialogs/add-feature/add-feature.component";
 import {filter} from "rxjs/operators";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-addons',
@@ -27,21 +28,9 @@ export class AddonsComponent implements OnInit {
       .pipe(filter(project => project !== null))
       .subscribe((project) => {
         this.project = project;
-        this.features = this.getFeatures(project);
+        this.features = this.projectService.getFeatures(project);
       })
   }
 
-
-  getFeatures(project: IProject): IFeatureDetail[] {
-    if (!project.hasOwnProperty('features')) {
-      return [];
-    }
-    const keys = Object.keys(project.features)
-    let arr: IFeatureDetail [] = []
-    keys.forEach(key => {
-      arr.push(project.features[key])
-    })
-    return arr;
-  }
 
 }

@@ -13,6 +13,7 @@ import {IProject} from "../../../models/models";
 export class DeleteProjectComponent implements OnInit {
 
   isLoading = false;
+  project: IProject;
 
   constructor(private projectService: ProjectService, private router: Router,
               public dialogRef: MatDialogRef<DeleteProjectComponent>,
@@ -20,12 +21,13 @@ export class DeleteProjectComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.project = this.data;
   }
 
   deleteProject() {
     this.isLoading = true;
     try {
-      this.projectService.deleteProject(this.data.id).then(() => {
+      this.projectService.deleteProject(this.project.id).then(() => {
         this.isLoading = false;
         this.dialogRef.close('success');
       })

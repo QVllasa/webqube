@@ -10,7 +10,7 @@ import {
 import {BehaviorSubject, Observable} from "rxjs";
 import {PlanService} from "../../../../../@webqube/services/plan.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {UserService} from "../../../../../@webqube/services/user.service";
 
@@ -19,7 +19,7 @@ import {UserService} from "../../../../../@webqube/services/user.service";
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   isSaving: boolean = false;
 
   isDeleting: boolean = false;
@@ -38,15 +38,14 @@ export class DashboardComponent implements OnInit {
 
   constructor(private projectService: ProjectService, private router: Router,
               private dialog: MatDialog, private _snackBar: MatSnackBar,
+              private route: ActivatedRoute,
               public userService: UserService, private http: HttpClient) {
 
-
     this.project$ = this.projectService.project$;
-
     this.project$
       .pipe(filter(project => project !== null))
       .subscribe(project => {
-        this.features = this.getFeatures(project);
+        this.features = this.projectService.getFeatures(project);
         this.form.patchValue({domain: project.domain ? project.domain : '', title: project.title});
       })
 
@@ -55,21 +54,6 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-
-  }
-
-  getFeatures(project: IProject): IFeatureDetail[] {
-    if (!project.hasOwnProperty('features')) {
-      return [];
-    }
-    const keys = Object.keys(project.features)
-    let arr: IFeatureDetail [] = []
-    keys.forEach(key => {
-      arr.push(project.features[key])
-    })
-    return arr;
-  }
 
   checkDomain() {
     this.isLoading = true;
@@ -136,6 +120,9 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteProject() {
+    if(!this.project$.value){
+      return;
+    }
     this.dialog.open(DeleteProjectComponent, {
       data: this.project$.value,
       disableClose: true

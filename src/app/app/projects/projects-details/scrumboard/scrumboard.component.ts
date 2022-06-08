@@ -27,64 +27,65 @@ export class ScrumboardComponent implements OnInit {
 
   boards$: Observable<IBoard[]> = this.boardService.boards$;
   lists$: BehaviorSubject<IScrumboardList[]> = new BehaviorSubject<IScrumboardList[]>(null);
-  project: IProject;
+  project$: BehaviorSubject<IProject>;
 
 
   constructor(private dialog: MatDialog,
               private afs: AngularFirestore,
               private projectService: ProjectService,
               private boardService: BoardService,
-              private route: ActivatedRoute) {
+              ) {
 
   }
 
   ngOnInit() {
     this.boards$ = this.boardService.getBoards()
-    this.projectService.project$
+    this.project$ = this.projectService.project$;
+    this.project$
       .pipe(
+        tap(project=>console.log("project for scrum", project)),
         filter(project => project !== null),
-        switchMap((project)=>{
-          this.project = project;
-          return this.boards$
-            .pipe(
-              filter(boards => boards.length !== 0),
-              map(boards => {
-                return boards.find(board => board.selected);
-              }),
-              switchMap((board) => {
-                return this.boardService.getLists(board.id)
-              })
-            )
-        })
+        // switchMap((project)=>{
+        //   // return this.boards$
+        //   //   .pipe(
+        //   //     filter(boards => boards.length !== 0),
+        //   //     map(boards => {
+        //   //       return boards.find(board => board.selected);
+        //   //     }),
+        //   //     switchMap((board) => {
+        //   //       return this.boardService.getLists(board.id)
+        //   //     })
+        //   //   )
+        // })
       )
       .subscribe((lists) => {
-        this.lists$.next(lists)
+        // this.lists$.next(lists)
       })
 
 
-    this.lists$
-      .pipe(
-        filter<IScrumboardList[]>(Boolean),
-        switchMap((lists) => {
-          const listIDs = lists.map(obj => obj.id);
-          let cardsObs: Observable<(IScrumboardCard & { id: string })[]>[] = [];
-          listIDs.forEach(listID => {
-            cardsObs.push(this.boardService.getCards(listID))
-          })
-          return combineLatest(cardsObs)
-        })
-      )
-      .subscribe(
-        (cards) => {
-          let cardsList: (IScrumboardCard & { id: string; })[] = []
-          cards.forEach((card) => {
-            cardsList = [...cardsList, ...card]
-          })
-          this.lists$.value.forEach((list) => {
-            list.cards = cardsList.filter(obj => obj.listID === list.id)
-          })
-        },
-      )
+    // this.lists$
+    //   .pipe(
+    //     filter<IScrumboardList[]>(Boolean),
+    //     switchMap((lists) => {
+    //       const listIDs = lists.map(obj => obj.id);
+    //       let cardsObs: Observable<(IScrumboardCard & { id: string })[]>[] = [];
+    //       listIDs.forEach(listID => {
+    //         cardsObs.push(this.boardService.getCards(listID))
+    //       })
+    //       return combineLatest(cardsObs)
+    //     })
+    //   )
+    //   .subscribe(
+    //     (cards) => {
+    //       let cardsList: (IScrumboardCard & { id: string; })[] = []
+    //       cards.forEach((card) => {
+    //         cardsList = [...cardsList, ...card]
+    //       })
+    //       this.lists$.value.forEach((list) => {
+    //         list.cards = cardsList.filter(obj => obj.listID === list.id)
+    //       })
+    //     },
+    //   )
 
   }
 

@@ -10,6 +10,6 @@ export class HostingService {
   private hostingsColl: AngularFirestoreCollection<IHosting>;
 
   constructor(private afs: AngularFirestore) {
-    this.hostingsColl = this.afs.collection<IHosting>('hostings');
+    this.hostingsColl = this.afs.collection<IHosting>('STATIC_HOSTINGS');
   }
 }

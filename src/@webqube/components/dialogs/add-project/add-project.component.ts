@@ -14,12 +14,10 @@ import {ProjectService} from "../../../services/project.service";
   selector: 'app-request',
   templateUrl: './add-project.component.html',
   styleUrls: ['./add-project.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddProjectComponent implements OnInit {
 
-  tiers:IPlan[];
-  selectedTier: IPlan;
+  tiers: IPlan[];
 
   isLoading: boolean = false;
   isSuccess: boolean = false;
@@ -38,8 +36,7 @@ export class AddProjectComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: IPlan,
     private auth: AngularFireAuth,
     private afs: AngularFirestore,
-    private projectService: ProjectService,
-    private mailService: MailService) {
+    private projectService: ProjectService) {
   }
 
   ngOnInit(): void {
@@ -49,7 +46,7 @@ export class AddProjectComponent implements OnInit {
     this.projectForm.valueChanges.subscribe((data) => {
       this.projectObj = {...data, userID: this.user?.uid}
     })
-    this.afs.collection<IPlan>('tiers').valueChanges().subscribe(tiers=> {
+    this.afs.collection<IPlan>('tiers').valueChanges().subscribe(tiers => {
       this.tiers = tiers;
     })
   }
@@ -58,17 +55,27 @@ export class AddProjectComponent implements OnInit {
     this.isLoading = true;
     if (!this.projectForm.valid) {
       console.log("not valid")
+      this.isLoading = false;
       return;
     }
 
-
     this.projectCollection = this.afs.collection<IProject>('projects');
-    this.projectService.createProject(this.projectObj)
-      .then((emailres)=>{
-        console.log("email response", emailres)
+    this.projectCollection.ref.where('title', '==', this.projectObj.title).get().then(projectRef => {
+      if (projectRef.empty) {
+        this.projectService.createProject(this.projectObj)
+          .then((emailres) => {
+            console.log("email response", emailres)
+            this.isLoading = false;
+            this.dialogRef.close()
+          })
+        return;
+      } else {
+        this.f.title.setValue('');
+        this.f.title.setErrors({exists: 'Projekt mit diesem Titel existiert bereits.'});
         this.isLoading = false;
-        this.dialogRef.close()
-      })
+        return;
+      }
+    })
   }
 
   get f() {

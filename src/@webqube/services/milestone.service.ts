@@ -13,7 +13,7 @@ export class MilestoneService {
   private milestoneColl: AngularFirestoreCollection<IMilestone>;
 
   constructor(private afs: AngularFirestore) {
-    this.milestoneColl = this.afs.collection<IMilestone>('milestones');
+    this.milestoneColl = this.afs.collection<IMilestone>('STATIC_MILESTONES');
     this.milestoneColl.valueChanges({idField: 'id'})
       .pipe(take(1))
       .subscribe(milestones => {

@@ -18,8 +18,8 @@ export class PlanService {
   plans$: BehaviorSubject<IPlan[]> = new BehaviorSubject<IPlan[]>(null);
 
   constructor(private afs: AngularFirestore) {
-    this.plansColl = this.afs.collection<IPlan>('plans');
-    this.featuresColl = this.afs.collection<IFeatures>('features');
+    this.plansColl = this.afs.collection<IPlan>('STATIC_PLANS');
+    this.featuresColl = this.afs.collection<IFeatures>('STATIC_FEATURES');
   }
 
   getPlan(id: string): Promise<IPlan> {
