@@ -68,7 +68,7 @@ export class DashboardComponent {
           (res: any) => {
             console.log(res);
             if (res.DomainInfo.domainAvailability === 'AVAILABLE') {
-              this._snackBar.open('Verfügbar!️ 😃 ', '',
+              this._snackBar.open('Domain verfügbar und gespeichert!️', '',
                 {
                   duration: 2000,
                   verticalPosition: 'top',
@@ -77,7 +77,7 @@ export class DashboardComponent {
                 });
               this.isLoading = false;
             } else {
-              this._snackBar.open('Nicht verfügbar!️ 😔', '',
+              this._snackBar.open('Domain nicht verfügbar!', '',
                 {
                   duration: 2000,
                   verticalPosition: 'top',
@@ -116,7 +116,15 @@ export class DashboardComponent {
     if (!this.isValid('Titel darf nicht leer sein!', 'title')) {
       return;
     }
-    this.projectService.updateProject(this.form.value)
+    this.projectService.updateProject(this.form.value).then(()=>{
+      this._snackBar.open('Änderung gespeichert!', '',
+        {
+          duration: 2000,
+          verticalPosition: 'top',
+          horizontalPosition: 'end',
+          panelClass: ['bg-green-500', 'text-white']
+        });
+    })
   }
 
   deleteProject() {
