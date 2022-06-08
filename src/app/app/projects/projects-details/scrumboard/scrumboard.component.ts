@@ -15,6 +15,7 @@ import {ProjectService} from "../../../../../@webqube/services/project.service";
 import {sortByOrder} from "../../../../../@webqube/helper.functions";
 import {PayMilstoneComponent} from "../../../../../@webqube/components/dialogs/pay-milstone/pay-milstone.component";
 import {BoardService} from "../../../../../@webqube/services/board.service";
+import {IProject} from "../../../../../@webqube/models/models";
 
 
 @Component({
@@ -26,6 +27,7 @@ export class ScrumboardComponent implements OnInit {
 
   boards$: Observable<IBoard[]> = this.boardService.boards$;
   lists$: BehaviorSubject<IScrumboardList[]> = new BehaviorSubject<IScrumboardList[]>(null);
+  project: IProject;
 
 
   constructor(private dialog: MatDialog,
@@ -38,19 +40,26 @@ export class ScrumboardComponent implements OnInit {
 
   ngOnInit() {
     this.boards$ = this.boardService.getBoards()
-    this.boards$
+    this.projectService.project$
       .pipe(
-        filter<IBoard[]>(Boolean),
-        map(boards => {
-          return boards.find(board => board.selected);
-        }),
-        switchMap((board) => {
-          return this.boardService.getLists(board.id)
+        filter(project => project !== null),
+        switchMap((project)=>{
+          this.project = project;
+          return this.boards$
+            .pipe(
+              filter(boards => boards.length !== 0),
+              map(boards => {
+                return boards.find(board => board.selected);
+              }),
+              switchMap((board) => {
+                return this.boardService.getLists(board.id)
+              })
+            )
         })
-      ).subscribe((lists) => {
-      console.log("lists", lists)
-      this.lists$.next(lists)
-    })
+      )
+      .subscribe((lists) => {
+        this.lists$.next(lists)
+      })
 
 
     this.lists$

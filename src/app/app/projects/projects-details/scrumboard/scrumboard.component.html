@@ -1,116 +1,125 @@
-<h2 class="mt-8 text-center text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-  <span class="block">Verfolge jeden Fortschritt.</span>
-  <span class="block mt-4 text-lg font-medium text-gray-500">Hier kannst du in jeder Phase deine Wünsche und
-    Anforderungen präzise aufschreiben.</span>
-</h2>
-<ng-container *ngIf="boards$ | async as boards">
-  <div class="mt-8">
-    <div class="relative text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
-      <div *ngFor="let board of sortBoardsByOrder(boards)"
-           mat-ripple
-           [ngClass]="board.selected ? 'border-amber-500': ''"
-           class="relative flex justify-items-center border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-3 ">
-        <div class="flex gap-4 " (click)="onSelectBoard(board, boards)">
-          <span [ngClass]="board.icon_classes" class="flex-none rounded-lg inline-flex p-3  ring-4 ring-white">
-            <mat-icon class="material-symbols-rounded">
-              {{board.icon}}
-            </mat-icon>
-          </span>
-          <div class="flex flex-1 justify-start content-center text-base font-medium text-left">
-            <button class="text-left">
-              <span class="">{{board.label}}</span>
-              <span class="text-left absolute inset-0" aria-hidden="true"></span>
-            </button>
+<ng-container *ngIf="project && project.planID">
+  <h2 class="mt-8 text-center text-2xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+    <span class="block">Verfolge jeden Fortschritt.</span>
+    <span class="block mt-4 text-lg font-medium text-gray-500">Hier kannst du in jeder Phase deine Wünsche und
+      Anforderungen präzise aufschreiben.</span>
+  </h2>
+  <ng-container *ngIf="boards$ | async as boards">
+    <div class="mt-8">
+      <div class="relative text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
+        <div *ngFor="let board of sortBoardsByOrder(boards)"
+             mat-ripple
+             [ngClass]="board.selected ? 'border-amber-500': ''"
+             class="relative flex justify-items-center border border-2 border-gray-300 hover:border-amber-500  rounded-lg  relative group bg-white p-3 ">
+          <div class="flex gap-4 " (click)="onSelectBoard(board, boards)">
+            <span [ngClass]="board.icon_classes" class="flex-none rounded-lg inline-flex p-3  ring-4 ring-white">
+              <mat-icon class="material-symbols-rounded">
+                {{board.icon}}
+              </mat-icon>
+            </span>
+            <div class="flex flex-1 justify-start content-center text-base font-medium text-left">
+              <button class="text-left">
+                <span class="">{{board.label}}</span>
+                <span class="text-left absolute inset-0" aria-hidden="true"></span>
+              </button>
+            </div>
           </div>
-        </div>
-        <span *ngIf="board.selected"
-              class="pointer-events-none absolute top-6 right-6 text-amber-500"
-              aria-hidden="true">
-          <mat-icon class="material-symbols-rounded">check_circle_outlined</mat-icon>
-        </span>
-        <div (click)="showHelp()"
-             [matTooltip]="board.description"
-             class="absolute top-0 right-1 text-right text-gray-400 hover:text-gray-500 cursor-pointer">
-          <mat-icon class="material-symbols-rounded text-sm">help</mat-icon>
+          <span *ngIf="board.selected"
+                class="pointer-events-none absolute top-6 right-6 text-amber-500"
+                aria-hidden="true">
+            <mat-icon class="material-symbols-rounded">check_circle_outlined</mat-icon>
+          </span>
+          <div (click)="showHelp()"
+               [matTooltip]="board.description"
+               class="absolute top-0 right-1 text-right text-gray-400 hover:text-gray-500 cursor-pointer">
+            <mat-icon class="material-symbols-rounded text-sm">help</mat-icon>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div>
-    <div *ngIf="boards$ | async as boards" class="mt-16 h-full w-full overflow-hidden" fxLayout="column">
-      <ng-container *ngFor="let board of boards">
-        <ng-container *ngIf="board.selected">
-          <div class="py-8 flex justify-between items-center">
-            <h2 class="text-2xl font-bold text-gray-700 m-0">{{board.label}}</h2>
-            <button *ngIf="!board.paid" mat-ripple (click)="payMilestone(board)" type="button"
-                    class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none ">
-              <mat-icon class="material-symbols-rounded mr-3">flag</mat-icon>
-              Freigabe erteilen
-            </button>
-          </div>
-          <div class="min-h-0 w-full grid grid-cols-3 overflow-scroll relative"
-               fxFlex="auto"
-               fxLayout="row"
-               fxLayoutAlign="start start"
-               fxLayoutGap="24px">
+    <div>
+      <div *ngIf="boards$ | async as boards" class="mt-16 h-full w-full overflow-hidden" fxLayout="column">
+        <ng-container *ngFor="let board of boards">
+          <ng-container *ngIf="board.selected">
+            <div class="py-8 flex justify-between items-center">
+              <h2 class="text-2xl font-bold text-gray-700 m-0">{{board.label}}</h2>
+              <button *ngIf="!board.paid" mat-ripple (click)="payMilestone(board)" type="button"
+                      class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none ">
+                <mat-icon class="material-symbols-rounded mr-3">flag</mat-icon>
+                Freigabe erteilen
+              </button>
+            </div>
+            <div class="min-h-0 w-full grid grid-cols-3 overflow-scroll relative"
+                 fxFlex="auto"
+                 fxLayout="row"
+                 fxLayoutAlign="start start"
+                 fxLayoutGap="24px">
 
-            <!--    Columns -->
-            <ng-container *ngIf="lists$ | async as lists">
-              <div *ngFor="let list of sortListsByOrder(lists); let i=index"
-                   class="relative h-full rounded bg-gray-50 overflow-hidden max-h-full col-span-1 "
-                   fxFlex="none"
-                   fxLayout="column">
+              <!--    Columns -->
+              <ng-container *ngIf="lists$ | async as lists">
+                <div *ngFor="let list of sortListsByOrder(lists); let i=index"
+                     class="relative h-full rounded bg-gray-50 overflow-hidden max-h-full col-span-1 "
+                     fxFlex="none"
+                     fxLayout="column">
 
-                <div cdkDragHandle class="p-4 cursor-pointer flex justify-between items-center text-gray-600"
-                     fxFlex="none">
-                  <h2 class=" text-base font-semibold m-0 select-none" fxFlex="none">{{ list.label }}</h2>
+                  <div cdkDragHandle class="p-4 cursor-pointer flex justify-between items-center text-gray-600"
+                       fxFlex="none">
+                    <h2 class=" text-base font-semibold m-0 select-none" fxFlex="none">{{ list.label }}</h2>
 
-                  <button (click)="createCard(list)" mat-ripple type="button"
-                          class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none">
-                    Neu
-                  </button>
-                </div>
+                    <button (click)="createCard(list)" mat-ripple type="button"
+                            class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-amber-600 hover:bg-amber-700 focus:outline-none">
+                      Neu
+                    </button>
+                  </div>
 
-                <div class="flex-auto">
-                  <div (cdkDropListDropped)="drop($event)"
-                       [cdkDropListConnectedTo]="getConnectedList(lists)"
-                       [cdkDropListData]="list.cards"
-                       cdkDropList
-                       class="px-4 pb-4"
-                       id="{{ list.id }}">
-                    <div (click)="updateCard(board, list, card)"
-                         *ngFor="let card of list.cards"
-                         [cdkDragData]="card"
-                         cdkDrag
-                         class="my-2 bg-white shadow rounded-lg cursor-grab  ">
-                      <div class="p-4 text-left">
-                        <div *ngIf="card.labels?.length > 0" class="mb-2" fxLayout="row" fxLayoutGap="8px">
-                          <div *ngFor="let label of card.labels"
-                               [ngClass]="label.bgClass"
-                               class="label"
-                               fxFlex></div>
+                  <div class="flex-auto">
+                    <div (cdkDropListDropped)="drop($event)"
+                         [cdkDropListConnectedTo]="getConnectedList(lists)"
+                         [cdkDropListData]="list.cards"
+                         cdkDropList
+                         class="px-4 pb-4"
+                         id="{{ list.id }}">
+                      <div (click)="updateCard(board, list, card)"
+                           *ngFor="let card of list.cards"
+                           [cdkDragData]="card"
+                           cdkDrag
+                           class="my-2 bg-white shadow rounded-lg cursor-grab  ">
+                        <div class="p-4 text-left">
+                          <div *ngIf="card.labels?.length > 0" class="mb-2" fxLayout="row" fxLayoutGap="8px">
+                            <div *ngFor="let label of card.labels"
+                                 [ngClass]="label.bgClass"
+                                 class="label"
+                                 fxFlex></div>
+                          </div>
+
+                          <h3 class="font-semibold text-xs">{{ card.title }}</h3>
+
                         </div>
-
-                        <h3 class="font-semibold text-xs">{{ card.title }}</h3>
-
                       </div>
                     </div>
                   </div>
+                  <div *ngIf="i !== 0 && !board.paid"
+                       [matTooltip]="'Der Meilenstein '+board.label +' muss erst freigeschaltet werden.'"
+                       class="absolute w-full h-full bg-gray-300 top-0 left-0 bottom-0 right-0 opacity-50"></div>
+
                 </div>
-                <div *ngIf="i !== 0 && !board.paid"
-                     [matTooltip]="'Der Meilenstein '+board.label +' muss erst freigeschaltet werden.'"
-                     class="absolute w-full h-full bg-gray-300 top-0 left-0 bottom-0 right-0 opacity-50"></div>
-
-              </div>
-            </ng-container>
+              </ng-container>
 
 
-          </div>
+            </div>
+          </ng-container>
+
         </ng-container>
 
-      </ng-container>
-
+      </div>
     </div>
-  </div>
+  </ng-container>
 </ng-container>
+<div *ngIf="!project || !project.planID">
+  <app-select-plan
+    headline="Plan auswählen."
+    subheadline="Bevor du starten kannst, musst du einen Plan auswählen."
+    [bookCall]="false"
+    [project]="project" ></app-select-plan>
+</div>
 

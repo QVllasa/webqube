@@ -1,22 +1,18 @@
 import {Injectable} from '@angular/core';
 import {IBoard} from "../models/scrumboard.interface";
 import {AngularFirestore, AngularFirestoreDocument} from "@angular/fire/compat/firestore";
-import {BehaviorSubject, Observable} from "rxjs";
-import {IFeatures, IPlan, IProject} from "../models/models";
-import {filter, first, map, switchMap, tap} from "rxjs/operators";
+import {BehaviorSubject} from "rxjs";
+import {IPlan, IProject} from "../models/models";
+import {first, tap} from "rxjs/operators";
 import {MilestoneService} from "./milestone.service";
 import {BoardService} from "./board.service";
-import {RouteParamsService} from "./route-params.service";
+import {IScrumboardList} from "../models/scrumboard-list.interface";
+import {IScrumboardCard} from "../models/scrumboard-card.interface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
-
-  // staticMilestones = Milestones;
-  // staticTiers = Tiers;
-  // staticHostings = Hostings;
-
 
   public project$ = new BehaviorSubject<IProject>(null);
 
@@ -30,14 +26,18 @@ export class ProjectService {
 
   }
 
-  async initProject(plan: IPlan, id: string) {
+  async initProject(plan: IPlan, projectID: string) {
 
-    const defaultBoard = this.boardSerivce.initBoard(id);
+    const defaultBoard = this.boardSerivce.createBoard(projectID);
 
     for await (const milestone of this.milestoneService.milestones.value) {
       const board: IBoard = {...defaultBoard['board'], ...milestone, milestoneID: milestone.id}
       console.log("board ", board)
-      const boardRef = await this.boardSerivce.boardColl.add(board)
+      await this.boardSerivce.boardColl.add(board)
+    }
+
+    let boardRefs = await this.boardSerivce.boardColl.valueChanges({idField: 'id'}).pipe(first()).toPromise();
+    for (const boardRef of boardRefs) {
       for await (const list of defaultBoard['list']) {
         const listRef = await this.boardSerivce.listColl.add({...list, boardID: boardRef.id})
         await this.boardSerivce.cardColl.add({
@@ -46,6 +46,7 @@ export class ProjectService {
         })
       }
     }
+
 
     await this.projectDoc.update({planID: plan.id, features: plan.features});
   }
@@ -73,16 +74,21 @@ export class ProjectService {
     )
   }
 
-  async deleteProject() {
-    // const boards = await this.boardSerivce.boardColl.valueChanges({idField: 'id'}).pipe(first()).toPromise()
-    // for await (let board of boards) {
-    //   await this.boardSerivce.deleteBoards(board.id);
-    //   const lists = await this.boardSerivce.deleteLists(board.id);
-    //   for await (let list of lists) {
-    //     await this.boardSerivce.deleteCard(list.id)
-    //   }
-    //
-    // }
+  async deleteProject(projectID: string) {
+    const boards = await this.afs.collection('boards', ref => ref.where('projectID', '==', projectID)).valueChanges({idField: 'id'}).pipe(first()).toPromise()
+    for await (let board of boards) {
+      await this.boardSerivce.deleteBoard(board.id);
+      const lists = await this.afs.collection<IScrumboardList>('lists', ref => ref.where('boardID', '==', board.id)).valueChanges({idField: 'id'}).pipe(first()).toPromise()
+      for await(const list of lists) {
+        await this.boardSerivce.deleteList(list.id);
+        const cards = await this.afs.collection<IScrumboardCard>('cards', ref => ref.where('listID', '==', list.id)).valueChanges({idField: 'id'}).pipe(first()).toPromise()
+        for await (let card of cards) {
+          await this.boardSerivce.deleteCard(card.id)
+        }
+      }
+
+
+    }
     await this.projectDoc.delete();
   }
 

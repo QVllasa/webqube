@@ -34,7 +34,6 @@ export class DashboardComponent implements OnInit {
   });
 
 
-
   isLoading: boolean = false;
 
   constructor(private projectService: ProjectService, private router: Router,
@@ -47,9 +46,9 @@ export class DashboardComponent implements OnInit {
     this.project$
       .pipe(filter(project => project !== null))
       .subscribe(project => {
-      this.features = this.getFeatures(project);
-      this.form.patchValue({domain: project.domain ? project.domain : '', title: project.title});
-    })
+        this.features = this.getFeatures(project);
+        this.form.patchValue({domain: project.domain ? project.domain : '', title: project.title});
+      })
 
     this.userService.user$.subscribe((user) => {
       this.user = user;
@@ -137,7 +136,10 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteProject() {
-    this.dialog.open(DeleteProjectComponent, {disableClose: true}).afterClosed().subscribe((val) => {
+    this.dialog.open(DeleteProjectComponent, {
+      data: this.project$.value,
+      disableClose: true
+    }).afterClosed().subscribe((val) => {
       if (val === 'success') {
         this.router.navigate(['dashboard/projects'])
       }
@@ -153,11 +155,6 @@ export class DashboardComponent implements OnInit {
         this.isSaving = false;
       });
   }
-
-
-
-
-
 
 
   // getPlan(id: string): IPlan|string {

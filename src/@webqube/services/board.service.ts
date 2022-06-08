@@ -25,8 +25,8 @@ export class BoardService {
   constructor(private afs: AngularFirestore) {
   }
 
-  initBoard(id: string): { card: IScrumboardCard, list: IScrumboardList[], board: IScrumboard } {
-    this.setCollections(id);
+  createBoard(projectID: string): { card: IScrumboardCard, list: IScrumboardList[], board: IScrumboard } {
+    this.setCollections(projectID);
     return {
       card: {
         title: "Erste Aufgabe",
@@ -42,7 +42,7 @@ export class BoardService {
         paid: false,
         selected: false,
         state: 'waiting',
-        projectID: id,
+        projectID: projectID,
         milestoneID: ''
       }
     }
@@ -61,7 +61,7 @@ export class BoardService {
   }
 
   getCard(id: string) {
-    return this.afs.collection<IScrumboardCard>('cards').doc(id);
+    return this.cardColl.doc(id);
   }
 
   getBoard(id: string) {
@@ -114,27 +114,4 @@ export class BoardService {
   }
 
 
-  async deleteLists(id: string): Promise<(IScrumboardList & { id: string })[]> {
-    const lists = await this.getLists(id).pipe(first()).toPromise();
-    for await (let list of lists) {
-      await this.deleteList(list.id);
-    }
-    return lists
-  }
-
-  async deleteCards(id: string): Promise<(IScrumboardCard & { id: string })[]> {
-    const cards = await this.getCards(id).pipe(first()).toPromise();
-    for await (let card of cards) {
-      await this.deleteCard(card.id);
-    }
-    return cards;
-  }
-
-  async deleteBoards(): Promise<(IBoard & { id: string })[]> {
-    const boards = await this.getBoards().pipe(first()).toPromise();
-    for await(let board of boards) {
-      await this.deleteBoard(board.id);
-    }
-    return boards
-  }
 }
