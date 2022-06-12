@@ -7,8 +7,9 @@ import {IBoard, IScrumboard} from '../../../models/scrumboard.interface';
 import {ScrumboardAttachment} from '../../../models/scrumboard-attachment.interface';
 import {DateTime} from 'luxon';
 import {ScrumboardComment} from '../../../models/scrumboard-comment.interface';
-import {filter, switchMap, take, tap} from "rxjs/operators";
+import {filter, first, switchMap, take, tap} from "rxjs/operators";
 import {ProjectService} from "../../../services/project.service";
+import {BoardService} from "../../../services/board.service";
 
 
 @Component({
@@ -30,6 +31,8 @@ export class ScrumboardDialogComponent implements OnInit {
   card: IScrumboardCard;
   action: string;
 
+  isLoading: boolean = false;
+
   constructor(private dialogRef: MatDialogRef<ScrumboardDialogComponent>,
               @Inject(MAT_DIALOG_DATA) private data: {
                 card: IScrumboardCard;
@@ -38,6 +41,7 @@ export class ScrumboardDialogComponent implements OnInit {
                 action: string;
               },
               private projectService: ProjectService,
+              private boardService: BoardService,
               private fb: FormBuilder) {
   }
 
@@ -46,6 +50,8 @@ export class ScrumboardDialogComponent implements OnInit {
     this.board = this.data.board;
     this.action = this.data.action;
 
+    //initial
+    this.card = this.data.card;
 
     this.form.patchValue({
       title: this.data.card.title,
@@ -53,6 +59,8 @@ export class ScrumboardDialogComponent implements OnInit {
       link: this.data.card.link,
     });
 
+
+    //on update
     this.form.valueChanges.subscribe(value => {
       this.card = {
         link: value.link,
@@ -66,11 +74,38 @@ export class ScrumboardDialogComponent implements OnInit {
   }
 
   save() {
-    this.dialogRef.close(this.card);
+    switch (this.action) {
+      case 'update': {
+        if (this.data.card === this.card){
+          this.dialogRef.close('unchanged');
+          return;
+        }
+        this.isLoading = true;
+        this.boardService.updateCard(this.card).then(()=>{
+          setTimeout(()=>{
+            this.isLoading = false;
+            this.dialogRef.close('success');
+          },200)
+        })
+        break;
+      }
+      case 'create':{
+        if (this.form.invalid){
+          return;
+        }
+        this.boardService.createCard(this.card).then(()=>{
+          setTimeout(()=>{
+            this.isLoading = false;
+            this.dialogRef.close('success');
+          },200)
+        })
+        break;
+      }
+    }
   }
 
   onCancel() {
-    this.dialogRef.close();
+    this.dialogRef.close('aborted');
   }
 
   onDeleteCard() {

@@ -3,10 +3,8 @@ import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat
 import {IBoard, IScrumboard} from "../models/scrumboard.interface";
 import {IScrumboardList} from "../models/scrumboard-list.interface";
 import {IScrumboardCard} from "../models/scrumboard-card.interface";
-import {ActivatedRoute, NavigationEnd, Params, Router} from "@angular/router";
-import {filter, first, switchMap, take, tap} from "rxjs/operators";
-import {RouteParamsService} from "./route-params.service";
-import {BehaviorSubject, Observable} from "rxjs";
+import {filter, first} from "rxjs/operators";
+import {BehaviorSubject} from "rxjs";
 import firebase from "firebase/compat";
 import DocumentReference = firebase.firestore.DocumentReference;
 
@@ -19,8 +17,10 @@ export class BoardService {
   listColl: AngularFirestoreCollection<IScrumboardList>;
   cardColl: AngularFirestoreCollection<IScrumboardCard>;
 
-  boards$: BehaviorSubject<IBoard[]> = new BehaviorSubject<IBoard[]>(null);
+  boards$: BehaviorSubject<(IBoard & { id: string; })[]> = new BehaviorSubject<(IBoard & { id: string })[]>(null);
+  selectedBoard$: BehaviorSubject<(IBoard & { id: string; })> = new BehaviorSubject<(IBoard & { id: string })>(null);
   lists$: BehaviorSubject<IScrumboardList[]> = new BehaviorSubject<IScrumboardList[]>(null);
+
 
   constructor(private afs: AngularFirestore) {
   }
@@ -48,16 +48,26 @@ export class BoardService {
     }
   }
 
-  getLists(boardID: string): Observable<(IScrumboardList & { id: string })[]> {
-    return this.afs.collection<IScrumboardList>('lists', ref => ref.where('boardID', '==', boardID)).valueChanges({idField: 'id'})
+  async loadLists(boardID: string) {
+    const lists = await this.afs.collection<IScrumboardList>('lists', ref => ref.where('boardID', '==', boardID))
+      .valueChanges({idField: 'id'})
+      .pipe(first())
+      .toPromise();
+    for await (const list of lists) {
+      list.cards = await this.loadCards(list.id);
+    }
+    this.lists$.next(lists);
   }
 
   getList(id: string) {
     return this.listColl.doc(id)
   }
 
-  getCards(listID: string): Observable<(IScrumboardCard & { id: string })[]> {
-    return this.afs.collection<IScrumboardCard>('cards', ref => ref.where('listID', '==', listID)).valueChanges({idField: 'id'})
+  async loadCards(listID: string): Promise<(IScrumboardCard & { id: string })[]> {
+    return await this.afs.collection<IScrumboardCard>('cards', ref => ref.where('listID', '==', listID))
+      .valueChanges({idField: 'id'})
+      .pipe(first())
+      .toPromise();
   }
 
   getCard(id: string) {
@@ -68,15 +78,22 @@ export class BoardService {
     return this.boardColl.doc(id);
   }
 
-  setCollections(projectID: string){
+  setCollections(projectID: string) {
     this.cardColl = this.afs.collection<IScrumboardCard>('cards');
     this.listColl = this.afs.collection<IScrumboardList>('lists');
     this.boardColl = this.afs.collection<IBoard>('boards', ref => ref.where('projectID', '==', projectID))
   }
 
-  getBoards() {
-    return this.boardColl.valueChanges({idField: 'id'});
+  async loadBoards() {
+    const boards = await this.boardColl.valueChanges({idField: 'id'})
+      .pipe(filter(boards => boards.length !== 0), first(),)
+      .toPromise();
+    const selectedBoard = boards.find(obj => obj.selected);
+    this.selectedBoard$.next(selectedBoard);
+    await this.loadLists(selectedBoard.id)
+    this.boards$.next(boards);
   }
+
 
   updateBoard(board: IBoard): Promise<void> {
     return this.boardColl.doc(board.id).update(board)
@@ -92,7 +109,7 @@ export class BoardService {
   }
 
 
-  // TODO change cardscoll and lists coll to getCards and getLists
+
   updateCard(card: IScrumboardCard): Promise<void> {
     return this.cardColl.doc(card.id).update(card)
   }

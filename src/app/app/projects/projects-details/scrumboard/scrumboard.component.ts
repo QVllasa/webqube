@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {IScrumboardList} from '../../../../../@webqube/models/scrumboard-list.interface';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {IScrumboardCard} from '../../../../../@webqube/models/scrumboard-card.interface';
@@ -7,15 +7,16 @@ import {
   ScrumboardDialogComponent
 } from '../../../../../@webqube/components/dialogs/scrumboard-dialog/scrumboard-dialog.component';
 import {ActivatedRoute, Params} from '@angular/router';
-import {IBoard} from '../../../../../@webqube/models/scrumboard.interface';
-import {BehaviorSubject, combineLatest, forkJoin, Observable, of} from "rxjs";
+import {IBoard, IScrumboard} from '../../../../../@webqube/models/scrumboard.interface';
+import {BehaviorSubject, combineLatest, forkJoin, Observable, of, Subscription} from "rxjs";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {filter, map, switchMap, take, takeWhile, tap} from "rxjs/operators";
+import {filter, first, map, switchMap, take, takeWhile, tap} from "rxjs/operators";
 import {ProjectService} from "../../../../../@webqube/services/project.service";
 import {sortByOrder} from "../../../../../@webqube/helper.functions";
 import {PayMilstoneComponent} from "../../../../../@webqube/components/dialogs/pay-milstone/pay-milstone.component";
 import {BoardService} from "../../../../../@webqube/services/board.service";
 import {IProject} from "../../../../../@webqube/models/models";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 
 @Component({
@@ -23,70 +24,40 @@ import {IProject} from "../../../../../@webqube/models/models";
   templateUrl: './scrumboard.component.html',
   styleUrls: ['./scrumboard.component.scss']
 })
-export class ScrumboardComponent implements OnInit {
+export class ScrumboardComponent implements OnInit, OnDestroy {
 
-  boards$: Observable<IBoard[]> = this.boardService.boards$;
-  lists$: BehaviorSubject<IScrumboardList[]> = new BehaviorSubject<IScrumboardList[]>(null);
+  boards$: BehaviorSubject<(IBoard & { id: string; })[]>;
+  selectedBoard: IScrumboard;
+  lists$: BehaviorSubject<IScrumboardList[]>;
   project$: BehaviorSubject<IProject>;
 
 
+  isLoading: boolean = false;
+
+
   constructor(private dialog: MatDialog,
+              private _snackBar: MatSnackBar,
               private afs: AngularFirestore,
               private projectService: ProjectService,
+              private route: ActivatedRoute,
               private boardService: BoardService,
-              ) {
+  ) {
 
   }
 
   ngOnInit() {
-    this.boards$ = this.boardService.getBoards()
     this.project$ = this.projectService.project$;
-    this.project$
-      .pipe(
-        tap(project=>console.log("project for scrum", project)),
-        filter(project => project !== null),
-        // switchMap((project)=>{
-        //   // return this.boards$
-        //   //   .pipe(
-        //   //     filter(boards => boards.length !== 0),
-        //   //     map(boards => {
-        //   //       return boards.find(board => board.selected);
-        //   //     }),
-        //   //     switchMap((board) => {
-        //   //       return this.boardService.getLists(board.id)
-        //   //     })
-        //   //   )
-        // })
-      )
-      .subscribe((lists) => {
-        // this.lists$.next(lists)
-      })
+    this.boards$ = this.boardService.boards$;
+    this.lists$ = this.boardService.lists$;
+    this.boardService.selectedBoard$.subscribe(selectedBoard => {
+      this.selectedBoard = selectedBoard;
+    })
 
 
-    // this.lists$
-    //   .pipe(
-    //     filter<IScrumboardList[]>(Boolean),
-    //     switchMap((lists) => {
-    //       const listIDs = lists.map(obj => obj.id);
-    //       let cardsObs: Observable<(IScrumboardCard & { id: string })[]>[] = [];
-    //       listIDs.forEach(listID => {
-    //         cardsObs.push(this.boardService.getCards(listID))
-    //       })
-    //       return combineLatest(cardsObs)
-    //     })
-    //   )
-    //   .subscribe(
-    //     (cards) => {
-    //       let cardsList: (IScrumboardCard & { id: string; })[] = []
-    //       cards.forEach((card) => {
-    //         cardsList = [...cardsList, ...card]
-    //       })
-    //       this.lists$.value.forEach((list) => {
-    //         list.cards = cardsList.filter(obj => obj.listID === list.id)
-    //       })
-    //     },
-    //   )
-
+    this.isLoading = true;
+    this.boardService.loadBoards().then(() => {
+      this.isLoading = false;
+    })
   }
 
   sortBoardsByOrder(data: IBoard[]): IBoard[] {
@@ -98,13 +69,23 @@ export class ScrumboardComponent implements OnInit {
     this.cardDialog(card, list, 'update')
       .beforeClosed()
       .pipe(
-        take(1),
-        filter(value => value && (value !== card)),
-        switchMap((value) => {
-          return this.boardService.updateCard(value)
-        })
+        first(),
       )
-      .subscribe();
+      .toPromise()
+      .then((value) => {
+        if (value === 'success') {
+          this._snackBar.open('Aufgabe aktualisiert.', '',
+            {
+              duration: 2000,
+              verticalPosition: 'top',
+              horizontalPosition: 'end',
+              panelClass: ['bg-green-500', 'text-white']
+            });
+          return this.boardService.loadLists(this.selectedBoard.id)
+        } else {
+          return value;
+        }
+      }).then()
   }
 
 
@@ -126,6 +107,8 @@ export class ScrumboardComponent implements OnInit {
     return list.map(x => `${x.id}`);
   }
 
+
+  //TODO as Promise
   createCard(list: IScrumboardList) {
     let card: IScrumboardCard = {
       title: '',
@@ -136,17 +119,26 @@ export class ScrumboardComponent implements OnInit {
     }
 
     this.cardDialog(card, list, 'create').afterClosed()
-      .pipe(
-        take(1),
-        filter(value => value && (value !== card)),
-        switchMap((value: IScrumboardCard) => {
-          return of(this.boardService.createCard(value))
-        })
-      )
-      .subscribe();
+      .pipe(first())
+      .toPromise()
+      .then((value) => {
+        if (value === 'success') {
+          this._snackBar.open('Aufgabe erstellt.', '',
+            {
+              duration: 2000,
+              verticalPosition: 'top',
+              horizontalPosition: 'end',
+              panelClass: ['bg-green-500', 'text-white']
+            });
+          return this.boardService.loadLists(this.selectedBoard.id)
+        } else {
+          return value;
+        }
+      })
+
   }
 
-  cardDialog(card: IScrumboardCard, list: IScrumboardList, action: 'create' | 'update' | 'delete') {
+  cardDialog(card: IScrumboardCard, list: IScrumboardList, action: 'create' | 'update') {
     return this.dialog.open(ScrumboardDialogComponent, {
       data: {card, list, action},
       width: '400px',
@@ -174,7 +166,13 @@ export class ScrumboardComponent implements OnInit {
         item.selected = false;
       }
     })
-    this.boardService.updateBoards(boards).then();
+
+    this.boardService.updateBoards(boards).then(() => {
+      this.isLoading = true;
+      return this.boardService.loadBoards()
+    }).then(() => {
+      this.isLoading = false;
+    });
   }
 
 
@@ -185,4 +183,10 @@ export class ScrumboardComponent implements OnInit {
   showHelp() {
     console.log('asd')
   }
+
+
+  ngOnDestroy() {
+
+  }
+
 }
