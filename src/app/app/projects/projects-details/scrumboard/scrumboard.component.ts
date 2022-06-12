@@ -54,9 +54,16 @@ export class ScrumboardComponent implements OnInit, OnDestroy {
     })
 
 
+    this.lists$.subscribe(lists=>{
+      console.log("lists:", lists)
+    })
+
     this.isLoading = true;
     this.boardService.loadBoards().then(() => {
-      this.isLoading = false;
+      setTimeout(()=>{
+        this.isLoading = false;
+      }, 800)
+
     })
   }
 
@@ -82,7 +89,17 @@ export class ScrumboardComponent implements OnInit, OnDestroy {
               panelClass: ['bg-green-500', 'text-white']
             });
           return this.boardService.loadLists(this.selectedBoard.id)
-        } else {
+        } else if(value === 'deleted'){
+          this._snackBar.open('Aufgabe erfolgreich gelöscht.', '',
+            {
+              duration: 2000,
+              verticalPosition: 'top',
+              horizontalPosition: 'end',
+              panelClass: ['bg-green-500', 'text-white']
+            });
+          return this.boardService.loadLists(this.selectedBoard.id)
+        }
+        else {
           return value;
         }
       }).then()
@@ -171,7 +188,10 @@ export class ScrumboardComponent implements OnInit, OnDestroy {
       this.isLoading = true;
       return this.boardService.loadBoards()
     }).then(() => {
-      this.isLoading = false;
+      setTimeout(()=>{
+        this.isLoading = false;
+      }, 400)
+
     });
   }
 

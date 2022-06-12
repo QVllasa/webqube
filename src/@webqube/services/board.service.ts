@@ -86,10 +86,19 @@ export class BoardService {
 
   async loadBoards() {
     const boards = await this.boardColl.valueChanges({idField: 'id'})
-      .pipe(filter(boards => boards.length !== 0), first(),)
+      .pipe(filter(boards => boards.length === 3), first())
       .toPromise();
-    const selectedBoard = boards.find(obj => obj.selected);
-    this.selectedBoard$.next(selectedBoard);
+    let selectedBoard = boards.find(obj => obj.selected);
+    console.log("loaded boards", boards)
+    if (!selectedBoard) {
+      console.log("not selected loaded boards", boards)
+      console.log("no board selected")
+      selectedBoard = boards.find(obj => obj.order === 1)
+      selectedBoard.selected = true;
+      this.selectedBoard$.next(selectedBoard);
+    }else {
+      this.selectedBoard$.next(selectedBoard);
+    }
     await this.loadLists(selectedBoard.id)
     this.boards$.next(boards);
   }
@@ -107,7 +116,6 @@ export class BoardService {
     })
     return batch.commit();
   }
-
 
 
   updateCard(card: IScrumboardCard): Promise<void> {

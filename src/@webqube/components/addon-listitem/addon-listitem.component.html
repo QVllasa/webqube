@@ -5,9 +5,13 @@
       <div
         class="absolute z-50 flex justify-center items-center left-0 top-0 text-white rounded-md p-3  h-20 w-20 mr-3">
         <div *ngIf="feature.valueType === 'boolean'">
-          <mat-icon class="material-symbols-rounded text-3xl -mt-3"
-                    [ngClass]="feature.value ? 'text-green-500': 'text-gray-400'">check_circle
+          <mat-icon class="material-symbols-rounded text-3xl -mt-3 text-green-500"
+                    *ngIf="feature.value">check_circle
           </mat-icon>
+          <mat-icon class="material-symbols-rounded text-3xl -mt-3 text-gray-400"
+                    *ngIf="!feature.value">cancel
+          </mat-icon>
+
         </div>
         <div *ngIf="feature.valueType === 'number'">
           <p class="-mt-2 text-3xl font-semibold text-gray-700">{{feature.value}}</p>

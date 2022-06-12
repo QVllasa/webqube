@@ -51,13 +51,12 @@ export class ProjectService {
     const defaultBoard = this.boardService.createBoard(projectID);
 
     for await (const milestone of this.milestoneService.milestones.value) {
-      const board: IBoard = {...defaultBoard['board'], ...milestone, milestoneID: milestone.id}
-      console.log("board ", board)
+      let board: IBoard = {...defaultBoard['board'], ...milestone, milestoneID: milestone.id}
       await this.boardService.boardColl.add(board)
     }
 
     let boardRefs = await this.boardService.boardColl.valueChanges({idField: 'id'}).pipe(first()).toPromise();
-    for (const boardRef of boardRefs) {
+    for await(const boardRef of boardRefs) {
       for await (const list of defaultBoard['list']) {
         const listRef = await this.boardService.listColl.add({...list, boardID: boardRef.id})
         await this.boardService.cardColl.add({
@@ -69,6 +68,7 @@ export class ProjectService {
 
 
     await this.projectDoc.update({planID: plan.id, features: plan.features});
+    await this.boardService.loadBoards();
   }
 
   updateProject(data: IProject) {
