@@ -8,22 +8,16 @@
     </h2>
       <ng-container *ngIf=" (boards$ | async) as boards">
         <div class="mt-8">
-          <div class="relative text-left rounded-lg sm:grid sm:grid-cols-3 gap-4">
-            <div *ngFor="let board of sortBoardsByOrder(boards)"
-                 mat-ripple
-                 [ngClass]="board.selected ? 'bg-amber-100 text-amber-700 ': 'hover:text-gray-700 hover:bg-gray-50'"
-                 class="text-gray-500  px-3 py-2 font-medium text-sm rounded-md">
-              <div class="flex gap-4 cursor-pointer " (click)="onSelectBoard(board, boards)">
-                <div class="flex flex-1 justify-start content-center font-medium text-sm  px-3 py-2">
-                  <span class="">{{board.label}}</span>
-                </div>
-              </div>
-              <div (click)="showHelp()"
-                   [matTooltip]="board.description"
-                   class="absolute top-0 right-1 text-right text-gray-400 hover:text-gray-500 cursor-pointer">
-                <mat-icon class="material-symbols-rounded text-sm">help</mat-icon>
-              </div>
-            </div>
+          <div class="hidden sm:block">
+              <nav class="-mb-px flex space-x-8 justify-center" aria-label="Tabs">
+                <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
+                <button *ngFor="let board of sortBoardsByOrder(boards)"
+                        (click)="onSelectBoard(board, boards)"
+                   [ngClass]="board.selected ? 'bg-amber-100 text-amber-700 ': 'hover:bg-gray-50'"
+                   class="relative text-gray-500  px-3 py-2 font-medium text-sm rounded-md">
+                  <span>{{board.label}}</span>
+                </button>
+              </nav>
           </div>
         </div>
         <div>

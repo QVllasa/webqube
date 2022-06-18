@@ -54,9 +54,9 @@ export class AuthComponent implements OnInit {
         this._snackBar.open('Willkommen zurück! 🙋‍♂️.', '',
           {
             duration: 2000,
-            verticalPosition: 'bottom',
+            verticalPosition: 'top',
             horizontalPosition: 'end',
-            panelClass: ['bg-blue-500','text-white']});
+            panelClass: ['bg-green-500','text-white']});
         this.dialogRef.close()
       })
       .catch((err: FirebaseError) => {
