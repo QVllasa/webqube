@@ -60,7 +60,7 @@ export class AddProjectComponent implements OnInit {
     }
 
     this.projectCollection = this.afs.collection<IProject>('projects');
-    this.projectCollection.ref.where('title', '==', this.projectObj.title).get().then(projectRef => {
+    this.projectCollection.ref.where('userID','==', this.user.uid).where('title', '==', this.projectObj.title).get().then(projectRef => {
       if (projectRef.empty) {
         this.projectService.createProject(this.projectObj)
           .then((emailres) => {
