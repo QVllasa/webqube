@@ -41,6 +41,7 @@
     "@tailwindcss/typography": "^0.5.0",
     "@tinkoff/ng-dompurify": "3.0.0",
     "animate.css": "^4.1.1",
+    "daisyui": "^2.15.4",
     "dompurify": "2.2.9",
     "firebase": "^9.1.0",
     "gmail-send": "^1.8.14",

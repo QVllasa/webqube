@@ -85,48 +85,109 @@
         -
       </dd>
     </div>
+    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+      <dt class="text-sm font-medium text-gray-500">
+        Im Projekt enthalten
+      </dt>
+      <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+        <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <ng-container  *ngFor="let feature of features, let i = index">
+            <div *ngIf="i < 2"
+                 class="flex flex-row-reverse gap-4 justify-end items-center px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+              <dt class="text-sm font-medium text-gray-500 truncate">{{feature.title}}</dt>
+              <dd class="flex items-center">
+                <div class="w-10">
+                  <ng-container *ngIf="feature.valueType === 'number' && feature.value !== -1">
+                    <div class="flex items-center">
+                      <p matTooltip="Verwendet" matTooltipPosition="below"
+                         class="mt-1 text-xl font-semibold text-gray-900">{{feature.used}} </p><span
+                      class="mx-1 text-lg text-gray-300">/</span>
+                      <p matTooltip="Verfügbar" matTooltipPosition="below"
+                         class="mt-1 text-lg font-semibold text-gray-300">{{feature.value}}</p>
+                    </div>
+                  </ng-container>
+
+                  <ng-container *ngIf="feature.valueType === 'number' && feature.value === -1">
+                    <mat-icon class="material-symbols-rounded text-3xl"
+                              [ngClass]="feature.value ? 'text-green-500': 'text-gray-400'">all_inclusive
+                    </mat-icon>
+                  </ng-container>
+                  <ng-container *ngIf="feature.valueType === 'boolean'">
+                    <ng-container *ngIf="feature.value">
+                      <mat-icon class="material-symbols-rounded text-3xl text-green-500"
+                      >check_circle
+                      </mat-icon>
+                    </ng-container>
+                    <ng-container *ngIf="!feature.value">
+                      <mat-icon class="material-symbols-rounded text-3xl text-gray-400">cancel
+                      </mat-icon>
+                    </ng-container>
+
+                  </ng-container>
+                </div>
+
+
+              </dd>
+            </div>
+            <div *ngIf="i >= 2 && showFeatures"
+                 class="flex flex-row-reverse gap-4 justify-end items-center px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
+              <dt class="text-sm font-medium text-gray-500 truncate">{{feature.title}}</dt>
+              <dd class="flex items-center">
+                <div class="w-10">
+                  <ng-container *ngIf="feature.valueType === 'number' && feature.value !== -1">
+                    <div class="flex items-center">
+                      <p matTooltip="Verwendet" matTooltipPosition="below"
+                         class="mt-1 text-xl font-semibold text-gray-900">{{feature.used}} </p><span
+                      class="mx-1 text-lg text-gray-300">/</span>
+                      <p matTooltip="Verfügbar" matTooltipPosition="below"
+                         class="mt-1 text-lg font-semibold text-gray-300">{{feature.value}}</p>
+                    </div>
+                  </ng-container>
+
+                  <ng-container *ngIf="feature.valueType === 'number' && feature.value === -1">
+                    <mat-icon class="material-symbols-rounded text-3xl"
+                              [ngClass]="feature.value ? 'text-green-500': 'text-gray-400'">all_inclusive
+                    </mat-icon>
+                  </ng-container>
+                  <ng-container *ngIf="feature.valueType === 'boolean'">
+                    <ng-container *ngIf="feature.value">
+                      <mat-icon class="material-symbols-rounded text-3xl text-green-500"
+                      >check_circle
+                      </mat-icon>
+                    </ng-container>
+                    <ng-container *ngIf="!feature.value">
+                      <mat-icon class="material-symbols-rounded text-3xl text-gray-400">cancel
+                      </mat-icon>
+                    </ng-container>
+
+                  </ng-container>
+                </div>
+
+
+              </dd>
+            </div>
+          </ng-container>
+          <button class="col-span-full flex justify-center items-center " (click)="toggleFeatures()">
+            <mat-icon *ngIf="!showFeatures" class="material-symbols-rounded">keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="showFeatures" class="material-symbols-rounded">keyboard_arrow_up</mat-icon>
+          </button>
+
+
+        </dl>
+      </dd>
+    </div>
+    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+      <dt class="text-sm font-medium text-gray-500">
+        Design
+      </dt>
+      <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+        -
+      </dd>
+    </div>
   </dl>
 
   <div>
-    <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3">
-      <div *ngFor="let feature of features"
-           class="flex flex-row-reverse gap-4 justify-end items-center px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
-        <dt class="text-sm font-medium text-gray-500 truncate">{{feature.title}}</dt>
-        <dd class="flex items-center">
-          <div class="w-10">
-            <ng-container *ngIf="feature.valueType === 'number' && feature.value !== -1">
-              <div class="flex items-center">
-                <p matTooltip="Verwendet" matTooltipPosition="below"
-                   class="mt-1 text-xl font-semibold text-gray-900">{{feature.used}} </p><span
-                class="mx-1 text-lg text-gray-300">/</span>
-                <p matTooltip="Verfügbar" matTooltipPosition="below"
-                   class="mt-1 text-lg font-semibold text-gray-300">{{feature.value}}</p>
-              </div>
-            </ng-container>
 
-            <ng-container *ngIf="feature.valueType === 'number' && feature.value === -1">
-              <mat-icon class="material-symbols-rounded text-3xl"
-                        [ngClass]="feature.value ? 'text-green-500': 'text-gray-400'">all_inclusive
-              </mat-icon>
-            </ng-container>
-            <ng-container *ngIf="feature.valueType === 'boolean'">
-              <ng-container *ngIf="feature.value">
-                <mat-icon class="material-symbols-rounded text-3xl text-green-500"
-                          >check_circle
-                </mat-icon>
-              </ng-container>
-              <ng-container *ngIf="!feature.value">
-                <mat-icon class="material-symbols-rounded text-3xl text-gray-400">cancel
-                </mat-icon>
-              </ng-container>
-
-            </ng-container>
-          </div>
-
-
-        </dd>
-      </div>
-    </dl>
   </div>
 </form>
 
@@ -137,9 +198,9 @@
   <form [formGroup]="form" *ngIf="user" class="divide-y divide-gray-200 lg:col-span-9">
     <div *ngIf="!project.planID" class="bg-white">
       <app-select-plan
-        subheadline="Besprich mit uns in einem Call dein Projekt."
-        headline="Bereit loszulegen?"
-        [bookCall]="true"
+        subheadline="Du zahlst erst nach Freigabe eines Meilensteins."
+        headline="Wähle ein Paket aus."
+        [bookCall]="false"
         [project]="project"></app-select-plan>
     </div>
 

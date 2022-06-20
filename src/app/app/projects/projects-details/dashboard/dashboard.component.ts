@@ -23,6 +23,7 @@ export class DashboardComponent {
   isSaving: boolean = false;
 
   isDeleting: boolean = false;
+  showFeatures: boolean;
   user: IUser;
 
   project$ = new BehaviorSubject<IProject>(null);
@@ -156,7 +157,12 @@ export class DashboardComponent {
   // return this.planService.getPlan(id);
   // }
 
+
   log() {
     console.log('asdasdsad')
+  }
+
+  toggleFeatures() {
+    this.showFeatures = !this.showFeatures;
   }
 }

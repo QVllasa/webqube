@@ -24,5 +24,10 @@ module.exports = {
       'selection',
     ],
   },
-  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography'), require('@tailwindcss/aspect-ratio'), require("tailwindcss-selection-variant")],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/aspect-ratio'),
+    require("daisyui"),
+    require("tailwindcss-selection-variant")],
 };

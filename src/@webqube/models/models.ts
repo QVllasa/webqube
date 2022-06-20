@@ -28,6 +28,7 @@ export interface IPlan {
   label: string,
   icon?: string,
   order: number
+  published: boolean
 }
 
 export interface IHosting {
