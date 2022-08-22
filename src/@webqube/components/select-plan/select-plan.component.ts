@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IPlan, IProject} from "../../models/models";
+import {IFeatureDetail, IPlan, IProject} from "../../models/models";
 import {BehaviorSubject} from "rxjs";
 import {PlanService} from "../../services/plan.service";
 import {ProjectService} from "../../services/project.service";

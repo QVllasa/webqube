@@ -8,3 +8,10 @@ export const getEmailVerificationLink = functions.https.onCall((data: string, co
   return fb.auth().generateEmailVerificationLink(data);
 })
 
+
+//TODO deploy new stack in portainer after project created
+export const createApp;
+
+//TODO create repo
+export const createRepo;
+

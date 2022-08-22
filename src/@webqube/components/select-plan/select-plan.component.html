@@ -74,5 +74,22 @@
     </div>
   </fieldset>
 
+  <div *ngIf="plan$ |async as plan ">
+    <div class="flex items-center mt-4">
+      <h4 class="flex-shrink-0 pr-4 bg-white text-sm tracking-wider font-semibold uppercase text-amber-600">
+        Das ist im Paket enthalten</h4>
+      <div class="flex-1 border-t-2 border-gray-200"></div>
+    </div>
+    <ul role="list" class="mt-8 space-y-5 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:gap-y-5">
+      <li *ngFor="let benefit of plan.shortFeatures" class="flex items-start lg:col-span-1">
+        <div class="flex-shrink-0">
+          <mat-icon class="text-green-500 material-symbols-rounded">task_alt</mat-icon>
+        </div>
+        <p class="ml-3 text-sm text-gray-700">{{benefit}}</p>
+      </li>
+    </ul>
+    <button routerLink="/pricing" class="mt-4 btn btn-link text-base text-amber-600 hover:text-amber-600 normal-case font-medium pl-0"><span>Alle Features anzeigen</span></button>
+  </div>
+
 
 </div>
