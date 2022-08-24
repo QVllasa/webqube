@@ -45,7 +45,7 @@
           <div class="mt-1 flex rounded-md shadow-sm">
             <span
               class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
-              http://
+              https://
             </span>
             <input formControlName="domain" type="text" name="domain" id="domain"
                    (focusout)="checkDomain()"
@@ -54,6 +54,24 @@
           </div>
 
         </div>
+      </dd>
+    </div>
+    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+      <dt class="text-sm font-medium text-gray-500">
+        Vorschau Frontend
+      </dt>
+      <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+        <!--          TODO set latest paid milestone/board -->
+        <a href="{{project.previewFrontend}}">{{project.previewFrontend}}</a>
+      </dd>
+    </div>
+    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+      <dt class="text-sm font-medium text-gray-500">
+        Vorschau Backend (CMS)
+      </dt>
+      <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+        <!--          TODO set latest paid milestone/board -->
+        <a href="{{project.previewBackend}}">{{project.previewBackend}}</a>
       </dd>
     </div>
     <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center">

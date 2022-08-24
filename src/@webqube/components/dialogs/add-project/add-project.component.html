@@ -1,4 +1,8 @@
 <ng-template [ngIf]="!isSuccess">
+  <div *ngIf="!isLoading" class="flex justify-end items-center">
+    <mat-icon (click)="closeDialog()" class="material-symbols-rounded text-3xl -mt-3">close
+    </mat-icon>
+  </div>
   <div class="relative sm:mx-auto sm:w-full sm:max-w-md">
     <h2 class="mt-6 text-left text-lg font-extrabold text-gray-800">
       {{projectObj?.title ? projectObj.title : 'Neues Projekt'}}
@@ -17,8 +21,9 @@
               <span class="text-xl">✍️</span>
             </div>
             <input formControlName="title" type="text" name="title" id="title"
+                   [disabled]="isLoading"
                    [ngClass]="f.title.invalid &&  f.title.touched ? 'border-red-300 text-red-900  focus:outline-none focus:ring-red-500 focus:border-red-500' : 'focus:ring-amber-500 focus:border-amber-500 border-gray-300'"
-                   class="focus:ring-amber-500 focus:border-amber-500 block w-full pl-3 sm:text-sm border-gray-300 rounded-md"
+                   class="disabled:opacity-70 focus:ring-amber-500 focus:border-amber-500 block w-full pl-3 sm:text-sm border-gray-300 rounded-md"
                    placeholder="Dein Projekttitel">
           </div>
           <p *ngIf="f.title.invalid &&  f.title.touched && !f.title.hasError('exists')" class="mt-1 text-xs text-red-600" id="name-error">Bitte gib

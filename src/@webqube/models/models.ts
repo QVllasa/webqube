@@ -79,6 +79,8 @@ export interface IProject {
   date?: string,
   planID?: IPlan['id'],
   domain: string,
+  previewFrontend:string,
+  previewBackend:string,
   boards?: IBoard[];
   features?: IFeatures,
   status: 'deleted' | 'active'
