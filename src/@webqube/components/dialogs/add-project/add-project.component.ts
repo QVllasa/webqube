@@ -64,19 +64,26 @@ export class AddProjectComponent implements OnInit {
 
     const authenticatePortainer = this.fns.httpsCallable('authenticatePortainer')
     const createApp = this.fns.httpsCallable('createApp')
+    const createRepo = this.fns.httpsCallable('createRepo')
     let name: string;
+    let repoUrl: string;
 
     this.projectCollection = this.afs.collection<IProject>('projects');
     this.projectCollection.ref.where('userID', '==', this.user.uid).where('title', '==', this.projectObj.title).get().then(projectRef => {
       if (projectRef.empty) {
-        authenticatePortainer({}).pipe(first()).toPromise()
+        name = this.projectObj.title.replace(/\s/g, "-") + this.user.uid.substring(0, 5);
+        createRepo({name: 'webqube-'+name}).pipe(first()).toPromise()
+          .then((res) => {
+            repoUrl = res.html_url;
+            return authenticatePortainer({}).pipe(first()).toPromise()
+          })
           .then((res: { jwt: string }) => {
-            name = this.projectObj.title.replace(/\s/g, "-") + this.user.uid.substring(0, 5);
             name = name.toLowerCase();
             return createApp(
               {
                 name: name,
-                jwt: res.jwt
+                jwt: res.jwt,
+                repo: repoUrl
               }).pipe(first()).toPromise()
           })
           .then((res) => {
@@ -85,11 +92,11 @@ export class AddProjectComponent implements OnInit {
             this.projectObj.previewBackend = data.url
             return this.projectService.createProject(this.projectObj)
           })
-        .then((emailres) => {
-          console.log("email response", emailres)
-          this.isLoading = false;
-          this.dialogRef.close()
-        })
+          .then((emailres) => {
+            console.log("email response", emailres)
+            this.isLoading = false;
+            this.dialogRef.close()
+          })
         return;
       } else {
         this.f.title.setValue('');
@@ -104,7 +111,7 @@ export class AddProjectComponent implements OnInit {
     return this.projectForm.controls;
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialogRef.close();
   }
 

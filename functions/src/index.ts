@@ -18,10 +18,10 @@ export const authenticatePortainer = functions.https.onCall(() => {
   return axios.post(url, authData).then(res => {
     console.log("res: ", res.data)
     return res.data;
-  })
+  }).catch((err)=>{console.log(JSON.stringify(err))});
 })
 
-export const createApp = functions.https.onCall((data: { name: string, jwt: string }, context) => {
+export const createApp = functions.https.onCall((data: { name: string, jwt: string, repo: string }, context) => {
   const url = 'https://portainer.webqube.de/api/stacks?type=2&method=repository&endpointId=2';
   const portainerObject = {
     composeFile: "docker-compose.prod.yaml",
@@ -44,13 +44,13 @@ export const createApp = functions.https.onCall((data: { name: string, jwt: stri
       {name: "NODE_ENV", value: "development"},
       {name: "ROOT_URL", value: "webqube.de"},
       {name: "DATABASE_CLIENT", value: "postgres"},
-      {name: "SUBDOMAIN", value: data.name},
+      {name: "SUBDOMAIN", value: 'backend-'+data.name},
     ],
     fromAppTemplate: false,
-    name: 'app' + data.name,
+    name: 'app-' + data.name,
     repositoryAuthentication: false,
     repositoryReferenceName: "refs/heads/main",
-    repositoryURL: "https://github.com/QVllasa/webqube-starter"
+    repositoryURL: data.repo
   }
   return axios.post(
     url,
@@ -58,11 +58,26 @@ export const createApp = functions.https.onCall((data: { name: string, jwt: stri
     {headers: {Authorization: `Bearer ${data.jwt}`}}).then(res => {
     console.log("res: ", res.data)
     return res.data;
-  })
+  }).catch((err)=>{console.log(JSON.stringify(err))});
 });
 
-// //TODO create repo
-// export const createRepo = functions.https.onCall((data: string, context) => {
-//   return fb.auth().generateEmailVerificationLink(data);
-// });
+
+export const createRepo = functions.https.onCall((data: { name: string }, context) => {
+  const url = 'https://api.github.com/repos/qvllasa/webqube-starter-template/generate';
+  const repoObject = {
+    owner: "qvllasa",
+    name: data.name,
+    description: "This is your first repository",
+    include_all_branches: true,
+    private: false
+  }
+  return axios.post(
+    url,
+    repoObject,
+    {headers: {Authorization: `token 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`}}).then(res => {
+    console.log("res: ", res.data)
+    return res.data;
+  }).catch((err)=>{console.log(JSON.stringify(err))});
+});
+
 
