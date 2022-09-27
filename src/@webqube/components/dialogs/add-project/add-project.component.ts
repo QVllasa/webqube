@@ -74,6 +74,7 @@ export class AddProjectComponent implements OnInit {
         name = this.projectObj.title.replace(/\s/g, "-") + this.user.uid.substring(0, 5);
         createRepo({name: 'webqube-'+name}).pipe(first()).toPromise()
           .then((res) => {
+            // TODO html_url not found
             repoUrl = res.html_url;
             return authenticatePortainer({}).pipe(first()).toPromise()
           })
@@ -87,7 +88,7 @@ export class AddProjectComponent implements OnInit {
               }).pipe(first()).toPromise()
           })
           .then((res) => {
-            const data = {url: 'https://' + name + '.webqube.de'};
+            const data = {url: 'https://backend-' + name + '.webqube.de'};
             console.log("res after create app", {...res, ...data});
             this.projectObj.previewBackend = data.url
             return this.projectService.createProject(this.projectObj)
